@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html >
+<html>
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <script src="js/jquery-2.1.1.min.js"></script>
 
-    <!--text translation-->    
+    <!--text translation-->
     <link href="text-widget/text-translator.css" rel="stylesheet" />
     <script src="text-widget/text-translator.js"></script>
     <script id="translatetext-template" type="text/html">
@@ -56,30 +56,30 @@
     <script src="js/angular.min.js"></script>
     <script src="js/angular-route.min.js"></script>
     <script src="js/angular-filter.js"></script>
-  
+
     <script src="js/myTranslatorApp.js"></script>
     <script src="js/myPageCtrl.js"></script>
 
     <title>Presidency Translator</title>
 </head>
-<body ng-app ="myTranslatorApp">
-    <div class="page-wrap" >
+<body ng-app="myTranslatorApp">
+    <div class="page-wrap">
         <div ng-controller="myPageCtrl" ng-message>
             <header class="greySection" id="topFirst">
                 <div class="restricted">
                     <a class="logo left" href="#/"> Translate 2015</a>
-                    
+
                     <form novalidate class="right" ng-show="isActive('www') || isActive('website')" ng-submit="">
                         <input type="text"
                                id="url"
-                               ng-keyup="$event.keyCode == 13 && website.loadUrl();"
+                               ng-keyup="$scope.apply; $event.keyCode == 13 && website.loadUrl(); "
                                placeholder="Enter Address"
                                ng-model="website.url"
                                ng-disabled="website.status=='translating'"
                                required focus-on="website.focus" />
                         <button ng-click="updateWebsite()" ng-show="website.status=='initial' ||website.status=='loading' || website.status=='loaded'">Translate</button>
                         <button ng-click="website.untranslate()" ng-show="website.status=='translating'">Cancel</button>
-                        <button ng-click="website.untranslate()" ng-show="website.status=='translated'">Restore original</button>                        
+                        <button ng-click="website.untranslate()" ng-show="website.status=='translated'">Restore original</button>
                         <div class="LanguageSelect">
                             <div id="source" class="language">
                                 From <span>{{controls.activeSystem.SourceLanguage.Name.Text}}</span>
@@ -98,10 +98,10 @@
                                 <ul ng-class="{multiple :results.length==0}">
                                     <li ng-click="controls.activeSystem=system;" ng-repeat="system in controls.systems| unique: 'TargetLanguage.Name.Text'" ng-show="system.SourceLanguage.Code==controls.activeSystemSource.SourceLanguage.Code">
                                         <a href="">{{system.TargetLanguage.Name.Text}}</a>
-                                    </li>                                  
+                                    </li>
                                 </ul>
                             </div>
-                        </div>                      
+                        </div>
                     </form>
 
                     <nav class="right" ng-class="{compact: isActive('www') || isActive('website') }">
@@ -117,37 +117,61 @@
                     </nav>
                 </div>
             </header>
+
             <div class="greyLine">
-                <div class="restricted" ng-show="website.active">
+                <div ng-show="website.status=='loading'">
+                    <center>Loading website ...</center>
                 </div>
             </div>
+
             <div class="restricted" id="mainLayout">
                 <div id="inject"></div>
                 <div id="standardView">
                     <div ng-view></div>
                 </div>
+
+                <div ng-show="isActive('www')">
+                    <div class="bigText">
+                        <div class="cursor blinker"></div>
+                        <input type="text"
+                               placeholder="Type here web address"
+                               ng-keyup="$event.keyCode == 13 && updateWebsite()"
+                               ng-model="website.url" hide-blink=".cursor.blinker">
+                    </div>
+                    <div>
+                        <p>Read latest news in English from the most popular latvian news portals:</p>
+                        <ul>
+                            <li ng-repeat="sample in website.samples">
+                                <a href="" ng-click="website.url=sample.url; updateWebsite();">{{sample.url}}</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
             </div>
-            <div ng-show="isActive('website')" id="websiteFrameContainer">
+
+            <div ng-show="isActive('website') && website.status!='initial'" id="websiteFrameContainer">
+
                 <iframe id="websiteFrame" name="websiteFrame" src="about:blank" frameborder="0"></iframe>
             </div>
-        </div>                
+        </div>
     </div>
     <footer class="site-footer restricted">
         <div class="promoBox">
             What is MT?<br />
-            <a href ="#/hugo" class="stressed">See MT for dummies</a>
-            </div>
+            <a href="#/hugo" class="stressed">See MT for dummies</a>
+        </div>
         <div class="promoBox">
-            On the go? <br/>
+            On the go? <br />
             <a href="#/mobileApp" class="stressed">Get our mobile app</a>
         </div>
         <div class="promoBox">
             Want to find more?<br />
             <a class="stressed" href="#/about">Read about this project</a>
-        </div>               
+        </div>
         <p class="copyright left clear">2015 Developed by <a class="red" target="_blank" href="http://www.tilde.com/mt">Tilde</a></p>
         <p class="copyright right hugo">Powered by <a class="red" href="https://www.hugo.lv" target="_blank">Hugo</a> Latvian eGov MT</p>
-    </footer>        
+    </footer>
 </body>
 </html>
 

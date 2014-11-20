@@ -2,7 +2,6 @@
 * {
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
     margin: 0;
-    padding:0;
 }
 
 
@@ -260,6 +259,7 @@ nav.compact>a{
     max-width:700px;
      margin: auto;
 }
+
 .bigText input{
    
    color: #c6cacf;
@@ -271,19 +271,26 @@ nav.compact>a{
     box-shadow: none;
     font-size: 47px;
 }
-
- .cursor {
-    background-color: #244b9f;
+.bigText input:focus{
+    color:#374357;
+    padding-left:27px;
+}
+@-moz-keyframes blinker{0%{opacity:1}50%{opacity:0}100%{opacity:1}}@-webkit-keyframes blinker{0%{opacity:1}50%{opacity:0}100%{opacity:1}}@keyframes blinker{0%{opacity:1}50%{opacity:0}100%{opacity:1}}
+ .cursor {   
     width: 3px;
     height: 4em;
     margin: 0 .5em 0 0;
     position: relative;
     top: 14px;
-    float: left;
-   /* -moz-animation: blinker 1s steps(1,start) infinite;
-    -webkit-animation: blinker 1s steps(1,start) infinite;
-    animation: blinker 1s steps(1,start) infinite;*/
+    float: left;   
 }
+
+ .blinker{
+    background-color: #244b9f;
+    -moz-animation: blinker 1s steps(1,start) infinite;
+    -webkit-animation: blinker 1s steps(1,start) infinite;
+    animation: blinker 1s steps(1,start) infinite
+ }
 
 /*TRanslation widget overload*/
 .translateContainerHeader

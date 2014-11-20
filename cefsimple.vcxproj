@@ -450,6 +450,7 @@
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="cefTLapp\cefTLapp.exe.manifest" />
+    <Manifest Include="cefTLapp\compatibility.manifest" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="cefTLapp\cefTLapp.rc" />

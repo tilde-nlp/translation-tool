@@ -429,6 +429,9 @@
     <Manifest Include="cefTLapp\cefTLapp.exe.manifest">
       <Filter>cefTLapp</Filter>
     </Manifest>
+    <Manifest Include="cefTLapp\compatibility.manifest">
+      <Filter>cefTLapp</Filter>
+    </Manifest>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="cefTLapp\cefTLapp.rc">

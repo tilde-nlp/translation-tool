@@ -1,0 +1,518 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{8e4331d8-b274-46df-9b98-9f411919837e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\base">
+      <UniqueIdentifier>{9370667a-d6f8-458f-8b8f-b9d2287c963d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\base\internal">
+      <UniqueIdentifier>{180d190b-2619-4157-891f-b3c67f06284a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\internal">
+      <UniqueIdentifier>{c1a394cb-f57f-49b8-8066-1a9985044467}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\wrapper">
+      <UniqueIdentifier>{3d898c5f-f69d-4bd2-84fc-5d75834c5780}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefTLapp">
+      <UniqueIdentifier>{87a95ae0-5c3c-4c28-a0e7-1d6dea6a511b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefTLapp\res">
+      <UniqueIdentifier>{a0e72b07-2d09-4b86-8153-6a0f7a89fa33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefTLapp\res\css">
+      <UniqueIdentifier>{28319c0e-52c8-4208-be34-36788d3e73b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefTLapp\res\img">
+      <UniqueIdentifier>{f9974839-bc9b-4f96-884b-1cd1bf6ea7fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefTLapp\res\js">
+      <UniqueIdentifier>{6ce9040c-98c2-44e6-8408-5c85341d2fdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefTLapp\res\templates">
+      <UniqueIdentifier>{98bd4c79-204c-4a90-9e69-a6615c47fccd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefTLapp\res\text-widget">
+      <UniqueIdentifier>{bc01ac99-aa0a-4751-aa11-d587df8bb978}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cefTLapp\res\text-widget\img">
+      <UniqueIdentifier>{4eb46322-56ea-4243-b800-1241122cd9c9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\cef_base.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_pack_resources.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_pack_strings.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_runnable.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_version.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_app.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_auth_callback.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_browser.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_browser_process_handler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_callback.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_client.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_command_line.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_context_menu_handler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_cookie.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_dialog_handler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_display_handler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_dom.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_download_handler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_download_item.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_drag_data.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_drag_handler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_focus_handler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_frame.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_geolocation.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_geolocation_handler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_jsdialog_handler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_keyboard_handler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_life_span_handler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_load_handler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_menu_model.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_origin_whitelist.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_path_util.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_print_handler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_print_settings.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_process_message.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_process_util.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_render_handler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_render_process_handler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_request.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_request_context.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_request_context_handler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_request_handler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_resource_bundle_handler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_resource_handler.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_response.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_scheme.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_stream.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_string_visitor.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_task.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_trace.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_url.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_urlrequest.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_v8.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_values.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_web_plugin.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_xml_reader.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_zip_reader.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\cef_sandbox_win.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_atomic_ref_count.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_atomicops.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_basictypes.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_bind.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_bind_helpers.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_build.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_callback.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_callback_forward.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_callback_helpers.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_callback_list.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_cancelable_callback.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_lock.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_logging.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_macros.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_move.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_platform_thread.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_ref_counted.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_scoped_ptr.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_string16.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_template_util.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_thread_checker.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_thread_collision_warner.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_trace_event.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_tuple.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\cef_weak_ptr.h">
+      <Filter>include\base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\internal\cef_bind_internal.h">
+      <Filter>include\base\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\internal\cef_callback_internal.h">
+      <Filter>include\base\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\internal\cef_lock_impl.h">
+      <Filter>include\base\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\internal\cef_raw_scoped_refptr_mismatch_checker.h">
+      <Filter>include\base\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\internal\cef_thread_checker_impl.h">
+      <Filter>include\base\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\internal\cef_atomicops_x86_msvc.h">
+      <Filter>include\base\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\base\internal\cef_bind_internal_win.h">
+      <Filter>include\base\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\internal\cef_export.h">
+      <Filter>include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\internal\cef_logging_internal.h">
+      <Filter>include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\internal\cef_ptr.h">
+      <Filter>include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\internal\cef_string.h">
+      <Filter>include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\internal\cef_string_list.h">
+      <Filter>include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\internal\cef_string_map.h">
+      <Filter>include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\internal\cef_string_multimap.h">
+      <Filter>include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\internal\cef_string_types.h">
+      <Filter>include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\internal\cef_string_wrappers.h">
+      <Filter>include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\internal\cef_thread_internal.h">
+      <Filter>include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\internal\cef_time.h">
+      <Filter>include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\internal\cef_trace_event_internal.h">
+      <Filter>include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\internal\cef_types.h">
+      <Filter>include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\internal\cef_types_wrappers.h">
+      <Filter>include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\internal\cef_types_win.h">
+      <Filter>include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\internal\cef_win.h">
+      <Filter>include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\wrapper\cef_byte_read_handler.h">
+      <Filter>include\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="include\wrapper\cef_closure_task.h">
+      <Filter>include\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="include\wrapper\cef_helpers.h">
+      <Filter>include\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="include\wrapper\cef_message_router.h">
+      <Filter>include\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="include\wrapper\cef_stream_resource_handler.h">
+      <Filter>include\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="include\wrapper\cef_xml_object.h">
+      <Filter>include\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="include\wrapper\cef_zip_archive.h">
+      <Filter>include\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="cefTLapp\resource.h">
+      <Filter>cefTLapp</Filter>
+    </ClInclude>
+    <ClInclude Include="cefTLapp\TLapp_app.h">
+      <Filter>cefTLapp</Filter>
+    </ClInclude>
+    <ClInclude Include="cefTLapp\TLapp_handler.h">
+      <Filter>cefTLapp</Filter>
+    </ClInclude>
+    <ClInclude Include="cefTLapp\resource_util.h">
+      <Filter>cefTLapp</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="cefTLapp\cefTLapp_win.cpp">
+      <Filter>cefTLapp</Filter>
+    </ClCompile>
+    <ClCompile Include="cefTLapp\TLapp_app.cpp">
+      <Filter>cefTLapp</Filter>
+    </ClCompile>
+    <ClCompile Include="cefTLapp\TLapp_handler.cpp">
+      <Filter>cefTLapp</Filter>
+    </ClCompile>
+    <ClCompile Include="cefTLapp\TLapp_handler_win.cpp">
+      <Filter>cefTLapp</Filter>
+    </ClCompile>
+    <ClCompile Include="cefTLapp\resource_util_win.cpp">
+      <Filter>cefTLapp</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="cefTLapp\res\small.ico">
+      <Filter>cefTLapp\res</Filter>
+    </Image>
+    <Image Include="cefTLapp\res\cefTLapp.ico">
+      <Filter>cefTLapp\res</Filter>
+    </Image>
+    <Image Include="cefTLapp\res\img\arrow.png">
+      <Filter>cefTLapp\res\img</Filter>
+    </Image>
+    <Image Include="cefTLapp\res\img\hugo.png">
+      <Filter>cefTLapp\res\img</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="cefTLapp\cefTLapp.exe.manifest">
+      <Filter>cefTLapp</Filter>
+    </Manifest>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="cefTLapp\cefTLapp.rc">
+      <Filter>cefTLapp</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cefTLapp\res\index.html">
+      <Filter>cefTLapp\res</Filter>
+    </None>
+    <None Include="cefTLapp\res\css\index.css">
+      <Filter>cefTLapp\res\css</Filter>
+    </None>
+    <None Include="cefTLapp\res\img\doc_letsmt.svg">
+      <Filter>cefTLapp\res\img</Filter>
+    </None>
+    <None Include="cefTLapp\res\img\doc_letsmt-active.svg">
+      <Filter>cefTLapp\res\img</Filter>
+    </None>
+    <None Include="cefTLapp\res\img\text_letsmt.svg">
+      <Filter>cefTLapp\res\img</Filter>
+    </None>
+    <None Include="cefTLapp\res\img\text_letsmt-active.svg">
+      <Filter>cefTLapp\res\img</Filter>
+    </None>
+    <None Include="cefTLapp\res\img\tilde_EU2015_logofull.svg">
+      <Filter>cefTLapp\res\img</Filter>
+    </None>
+    <None Include="cefTLapp\res\img\tilde_EU2015_logoshort.svg">
+      <Filter>cefTLapp\res\img</Filter>
+    </None>
+    <None Include="cefTLapp\res\img\web_letsmt.svg">
+      <Filter>cefTLapp\res\img</Filter>
+    </None>
+    <None Include="cefTLapp\res\img\web_letsmt-active.svg">
+      <Filter>cefTLapp\res\img</Filter>
+    </None>
+    <None Include="cefTLapp\res\js\angular.min.js">
+      <Filter>cefTLapp\res\js</Filter>
+    </None>
+    <None Include="cefTLapp\res\js\angular-route.min.js">
+      <Filter>cefTLapp\res\js</Filter>
+    </None>
+    <None Include="cefTLapp\res\js\myPageCtrl.js">
+      <Filter>cefTLapp\res\js</Filter>
+    </None>
+    <None Include="cefTLapp\res\js\myTranslatorApp.js">
+      <Filter>cefTLapp\res\js</Filter>
+    </None>
+    <None Include="cefTLapp\res\templates\about.html">
+      <Filter>cefTLapp\res\templates</Filter>
+    </None>
+    <None Include="cefTLapp\res\templates\hugo.html">
+      <Filter>cefTLapp\res\templates</Filter>
+    </None>
+    <None Include="cefTLapp\res\templates\mobileApplications.html">
+      <Filter>cefTLapp\res\templates</Filter>
+    </None>
+    <None Include="cefTLapp\res\templates\translate-document.html">
+      <Filter>cefTLapp\res\templates</Filter>
+    </None>
+    <None Include="cefTLapp\res\templates\translate-text.html">
+      <Filter>cefTLapp\res\templates</Filter>
+    </None>
+    <None Include="cefTLapp\res\templates\translate-website.html">
+      <Filter>cefTLapp\res\templates</Filter>
+    </None>
+    <None Include="cefTLapp\res\js\angular-filter.js">
+      <Filter>cefTLapp\res\js</Filter>
+    </None>
+    <None Include="cefTLapp\res\js\jquery-2.1.1.min.js">
+      <Filter>cefTLapp\res\js</Filter>
+    </None>
+    <None Include="cefTLapp\res\text-widget\text-translator.css">
+      <Filter>cefTLapp\res\text-widget</Filter>
+    </None>
+    <None Include="cefTLapp\res\text-widget\text-translator.js">
+      <Filter>cefTLapp\res\text-widget</Filter>
+    </None>
+    <None Include="cefTLapp\res\text-widget\img\cross.svg">
+      <Filter>cefTLapp\res\text-widget\img</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="cefclient.gyp" />
+  </ItemGroup>
+</Project>

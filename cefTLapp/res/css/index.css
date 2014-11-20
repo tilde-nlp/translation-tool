@@ -1,0 +1,354 @@
+
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+    margin: 0;
+    padding:0;
+}
+
+
+html, body {
+  height: 100%; 
+ 
+}
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;          /* prevent copy paste, to allow, change 'none' to 'text' */
+    font-size:16px;
+    height:100%;
+    margin:0px;
+    padding:0px;
+    width:100%;
+  color:#374357;
+    font-family: Segoe UI,Arial,Helvetica,sans-serif;
+}
+a{
+    text-decoration:none;
+   color:#374357;
+}
+a:hover{
+    text-decoration:none;
+}
+
+h1 {
+    font-size:1.5rem;
+    font-weight:normal;
+    margin:0px;
+    overflow:visible;
+    padding:0px;
+    text-align:center;
+}
+
+form input[type=text]{
+    border-radius: 4px;
+    padding: 6px;   
+    border-style:solid;
+    width:300px;
+}
+
+form button{
+    border-radius: 2px;
+    padding: 4px 8px;
+    margin-top:4px;
+    background-color:#35a8df;
+    border-color:#35a8df;
+    border-style:solid;
+    cursor:pointer;
+    color:#374357;    
+}
+
+.event {
+    border-radius:4px;
+    -webkit-border-radius:4px;
+    color:#FFFFFF;
+    font-size:0.7rem;
+    margin:0px 30px;
+    padding:2px 0px;
+}
+
+.event.listening {
+    background-color:#333333;
+    display:block;
+}
+
+.event.received {
+    background-color:#4B946A;
+    display:none;
+}
+
+@keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+@-webkit-keyframes fade {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+ 
+.blink {
+    animation:fade 3000ms infinite;
+    -webkit-animation:fade 3000ms infinite;
+}
+
+/*layout*/
+
+.greySection{
+    background-color:#374357;  
+    clear: both;
+}
+    #topFirst.greySection
+    {
+        padding:10px 0; 
+        font-size:0.75rem;
+        height:40px;
+    }
+    .greyLine{
+        height:40px;
+        border-bottom:#c6cacf 1px solid;
+    }
+
+.restricted{
+    max-width:1200px;
+    min-width:200px;
+    margin:0 auto;
+    padding:0 5%;
+}
+.left{
+    float:left;
+}
+.right{
+    float:right;
+}
+.clear{
+    clear:both;
+}
+
+.logo
+{
+    background-image:url("../img/tilde_EU2015_logoshort.svg");
+    background-repeat:no-repeat;
+    height:25px;  
+    display:block;      
+    padding: 5px 0 0 0;
+    width:240px;
+    font-size:0rem;    
+    background-size: 235px;
+
+}
+
+.logo a:hover{
+    text-decoration:none;
+}
+
+
+nav{
+    vertical-align:middle;   
+
+}
+nav a{
+    color:#c6cacf;
+    text-decoration:none;     
+    height:34px;   
+    vertical-align:middle; 
+    display:table-cell; 
+    background-repeat:no-repeat; 
+    background-position: 5px center;   
+    padding: 0px 10px;      
+}
+
+nav a:hover{
+    background-color:#273141;
+}
+
+nav a:hover, nav a.active{
+    color:white;   
+}
+#topFirst form
+{margin-left:20px;
+
+}
+#topFirst form input[type=text]{
+ margin-top: 4px;
+}
+#topFirst form button {
+margin-left:5px;
+}
+
+.hidden{
+    display:none;
+}
+#websiteFrameContainer
+{
+    position:fixed; 
+    top:50px;  
+    bottom:0px;
+    right:0;
+    left:0;
+}
+#websiteFrame {
+    width:100%;
+    height:100%;
+}
+
+.textMenuItem:hover, .textMenuItem.active{ background-image: url("../img/text_letsmt-active.svg");}
+.documentMenuItem:hover, .documentMenuItem.active{background-image: url("../img/doc_letsmt-active.svg");}
+.websiteMenuItem:hover, .websiteMenuItem.active{background-image: url("../img/web_letsmt-active.svg");}
+a.textMenuItem{background-image: url("../img/text_letsmt.svg");  padding-left: 45px;}
+a.documentMenuItem{ background-image: url("../img/doc_letsmt.svg");  padding-left: 40px;}
+a.websiteMenuItem{ background-image: url("../img/web_letsmt.svg");   padding-left: 50px;}
+
+nav.compact>a{
+    width:50px;
+    padding:0px;
+    font-size:1px;
+    font-size:0rem;
+  background-position:center;
+}
+
+/*sticky footer*/
+.page-wrap {
+  min-height: 100%;
+  margin-bottom: -150px; 
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+.site-footer, .page-wrap:after {
+  height: 150px; 
+}
+
+/*site footer*/
+.site-footer .copyright {  
+    margin-top:60px;
+    color:#c6cacf; 
+    font-size:0.75rem;
+}
+.hugo{
+    background-image:url("../img/hugo.png");
+    background-repeat:no-repeat;
+    background-position:left center;  
+    padding-left:20px;
+}
+.red{
+    color:#e4332a;
+    font-weight:bold;
+}
+.promoBox
+{
+    float:left;
+    border-left:solid 1px #c6cacf;
+    padding:2px 20px; 
+    width:25%;
+    line-height:150%;
+}
+.promoBox a{
+    font-weight:bold;
+}
+.stressed {
+    background-image: url("../img/arrow.png");
+    background-repeat: no-repeat;
+    background-position: right center;
+    padding-right: 20px;
+}
+
+
+.bigText{
+    max-width:700px;
+     margin: auto;
+}
+.bigText input{
+   
+   color: #c6cacf;
+    height: 90px;
+    padding: 10px 16px;
+    font-size: 3rem;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    font-size: 47px;
+}
+
+ .cursor {
+    background-color: #244b9f;
+    width: 3px;
+    height: 4em;
+    margin: 0 .5em 0 0;
+    position: relative;
+    top: 14px;
+    float: left;
+   /* -moz-animation: blinker 1s steps(1,start) infinite;
+    -webkit-animation: blinker 1s steps(1,start) infinite;
+    animation: blinker 1s steps(1,start) infinite;*/
+}
+
+/*TRanslation widget overload*/
+.translateContainerHeader
+{
+    position:relative!important;
+    top:-40px;
+}
+.layoutRow:first-child{
+    position:absolute;
+    display:inline;
+    height:1px;  
+}
+
+.LanguageSelect
+{
+    color:#c6cacf;  
+    margin-left:10px;  
+    width:250px;
+}
+
+.LanguageSelect, form button
+{
+  float:right;
+}
+
+div.language{
+    display:block;
+    float:left;
+    margin:10px;
+}
+.language ul{
+    display:none;
+    position:absolute;
+    z-index: 9999;
+    height: auto;
+    padding: 0;
+    padding-left: 10px;
+    margin: 0px 0 0 0px;
+    border-radius: 2px;
+    background-color: #BF1A37;
+    background-position: top center;
+    background-repeat: no-repeat;
+    width: 100px;
+    border:solid 1px #BF1A37;
+    border-radius:4px;
+    cursor:pointer;
+}
+
+.language li {
+    background-color:white;    
+    padding:3px;
+    margin:0;
+    list-style:none;
+}
+
+.language li a{
+    padding:0 3px;
+    color:#374357;
+}
+.language li a:hover{
+    background-color:#c6cacf;
+}
+
+.language>span{
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}

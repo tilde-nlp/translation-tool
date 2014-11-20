@@ -1,0 +1,116 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Binary
+//
+
+IDS_MAIN_HTML					BINARY	"res\\index.html"
+IDS_CSS_INDEX					BINARY	"res\\css\\index.css"
+
+IDS_IMG_ARROW					BINARY	"res\\img\\arrow.png"
+IDS_IMG_DOC_LETSMT				BINARY	"res\\img\\doc_letsmt.svg"
+IDS_IMG_DOC_LETSMT_ACTIVE		BINARY	"res\\img\\doc_letsmt-active.svg"
+IDS_IMG_HUGO					BINARY	"res\\img\\hugo.png"
+IDS_IMG_TEXT_LETSMT				BINARY	"res\\img\\text_letsmt.svg"
+IDS_IMG_TEXT_LETSMT_ACTIVE		BINARY	"res\\img\\text_letsmt-active.svg"
+IDS_IMG_TILDE_EU2015_LOGOFULL	BINARY	"res\\img\\tilde_EU2015_logofull.svg"
+IDS_IMG_TILDE_EU2015_LOGOSHORT	BINARY	"res\\img\\tilde_EU2015_logoshort.svg"
+IDS_IMG_WEB_LETSMT				BINARY	"res\\img\\web_letsmt.svg"
+IDS_IMG_WEB_LETSMT_ACTIVE		BINARY	"res\\img\\web_letsmt-active.svg"
+
+IDS_JS_ANGULAR_MIN_JS			BINARY	"res\\js\\angular.min.js"
+IDS_JS_ANGULAR_ROUTE_MIN_JS		BINARY	"res\\js\\angular-route.min.js"
+IDS_JS_ANGULAR_FILTER_MIN_JS	BINARY	"res\\js\\angular-filter.js"
+IDS_JQUERY_MIN_JS				BINARY	"res\\js\\jquery-2.1.1.min.js"
+IDS_JS_MYPAGECTRL_JS			BINARY	"res\\js\\myPageCtrl.js"
+IDS_JS_MYTRANSLATORAPP_JS		BINARY	"res\\js\\myTranslatorApp.js"
+
+IDS_TEMPLATES_ABOUT_HTML		BINARY	"res\\templates\\about.html"
+IDS_TEMPLATES_HUGO_HTML			BINARY	"res\\templates\\hugo.html"
+IDS_TEMPLATES_MOBILEAPP_HTML	BINARY	"res\\templates\\mobileApplications.html"
+IDS_TEMPLATES_TRANSL_DOC_HTML	BINARY	"res\\templates\\translate-document.html"
+IDS_TEMPLATES_TRANSL_TEXT_HTML	BINARY	"res\\templates\\translate-text.html"
+IDS_TEMPLATES_TRANSL_WEB_HTML	BINARY	"res\\templates\\translate-website.html"
+
+IDS_TEXT_WIDGET_IMG_CROSS		BINARY	"res\\text-widget\\img\\cross.svg"
+IDS_TEXT_WIDGET_WIDGET_CSS		BINARY	"res\\text-widget\\text-translator.css"
+IDS_TEXT_WIDGET_CORE_JS			BINARY	"res\\text-widget\\text-translator.js"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_CEFTLAPP            ICON                    "res\cefTLapp.ico"
+IDI_SMALL               ICON                    "res\small.ico"
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

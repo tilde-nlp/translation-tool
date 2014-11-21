@@ -202,7 +202,7 @@ void TLappHandler::OnBeforeContextMenu(
 	CefRefPtr<CefContextMenuParams> params,
 	CefRefPtr<CefMenuModel> model)
 {
-	return; //ja neko negrib mainît
+	//return; //ja neko negrib mainît
 	if (params->IsEditable() || params->GetSelectionText() != L"")
 	{
 

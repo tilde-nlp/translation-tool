@@ -90,7 +90,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 #endif
 	//custom settings
 	settings.log_severity = LOGSEVERITY_VERBOSE;
-	// settings.pack_loading_disabled = true;
+	//settings.pack_loading_disabled = true;
 
 	// Initialize CEF.
 	CefInitialize(main_args, settings, app.get(), sandbox_info);
@@ -139,7 +139,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) {
 }
 //
 //  FUNCTION: MyRegisterClass()
-//
 //  PURPOSE: Registers the window class.
 //
 //  COMMENTS:
@@ -152,9 +151,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) {
 //
 ATOM MyRegisterClass(HINSTANCE hInstance) {
 	WNDCLASSEX wcex;
-
 	wcex.cbSize = sizeof(WNDCLASSEX);
-
 	wcex.style = CS_HREDRAW | CS_VREDRAW;
 	wcex.lpfnWndProc = WndProc;
 	wcex.cbClsExtra = 0;
@@ -162,59 +159,43 @@ ATOM MyRegisterClass(HINSTANCE hInstance) {
 	wcex.hInstance = hInstance;
 	wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_CEFTLAPP));
 	wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+	wcex.hbrBackground = 0;// (HBRUSH)(COLOR_WINDOW + 1);
 	wcex.lpszMenuName = NULL;
 	wcex.lpszClassName = szWindowClass;
 	wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
 	return RegisterClassEx(&wcex);
 }
+
 //
 //  FUNCTION: WndProc(HWND, UINT, WPARAM, LPARAM)
-//
 //  PURPOSE:  Processes messages for the main window.
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
 	LPARAM lParam) {
-	//static HWND backWnd = NULL, forwardWnd = NULL, reloadWnd = NULL,
-	//	stopWnd = NULL, editWnd = NULL;
-	static WNDPROC editWndOldProc = NULL;
-	PAINTSTRUCT ps;
-	HDC hdc;
 
-	//if (hWnd == editWnd) {
-	//	// Callback for the edit window		
-	//	return (LRESULT)CallWindowProc(editWndOldProc, hWnd, message, wParam,
-	//		lParam);
-	//}	
-	//else {
-	// Callback for the main window
+	PAINTSTRUCT ps;
 	switch (message) {
 	case WM_CREATE: {
 		// Create the single static handler class instance
-		// TLappHandler implements browser-level callbacks.
 		g_handler = new TLappHandler();
-		// Specify CEF browser settings here.
 		CefBrowserSettings browser_settings;
 		CefWindowInfo info;
 		RECT rect;
-		int x = 0;
 		GetClientRect(hWnd, &rect);
 		info.SetAsChild(hWnd, rect);
 		// Create the first browser window.
-		CefBrowserHost::CreateBrowser(info, g_handler.get(), "http://tlapp/",
-			browser_settings, NULL);		
+		//CefBrowserHost::CreateBrowserSync(info, g_handler.get(), "http://tlapp/", browser_settings, NULL);
+		CefBrowserHost::CreateBrowser(info, g_handler.get(), "http://tlapp/", browser_settings, NULL);
 		return 0;
 	}
-
 	case WM_PAINT:
-		hdc = BeginPaint(hWnd, &ps);
+		BeginPaint(hWnd, &ps);
 		EndPaint(hWnd, &ps);
 		return 0;
 	case WM_GETMINMAXINFO:
 	{
 		m_nDpi = ::GetScreenDPI();
-		//LPMINMAXINFO p_info = (LPMINMAXINFO)lParam;		
 		((MINMAXINFO *)lParam)->ptMinTrackSize.x = DpiAdjustInt(915);
 		((MINMAXINFO *)lParam)->ptMinTrackSize.y = DpiAdjustInt(720);
 		return 0;
@@ -225,10 +206,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
 			break;
 
 		// For off-screen browsers when the frame window is minimized set the
-		// browser as hidden to reduce resource usage.			
-
+		// browser as hidden to reduce resource usage.	
 		if (g_handler->GetBrowser()) {
-			// Retrieve the window handle (parent window with off-screen rendering).
 			CefWindowHandle hwnd =
 				g_handler->GetBrowser()->GetHost()->GetWindowHandle();
 			if (hwnd) {
@@ -242,18 +221,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
 					// Resize the window to match the new frame size.
 					RECT rect;
 					GetClientRect(hWnd, &rect);
-					::SetWindowPos(hwnd, HWND_TOP, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, SWP_NOZORDER);
+					HDWP hdwp = BeginDeferWindowPos(1);
+					hdwp = DeferWindowPos(hdwp, hwnd, 0, rect.left, rect.top,
+					rect.right - rect.left, rect.bottom - rect.top, SWP_NOZORDER);
+					EndDeferWindowPos(hdwp);
+					//::SetWindowPos(hwnd, HWND_TOP, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, SWP_NOZORDER);
 				}
 			}
 		}
 	} break;
-
 	case WM_MOVING:
 	case WM_MOVE:
 		if (g_handler.get() && g_handler->GetBrowser())
 			g_handler->GetBrowser()->GetHost()->NotifyMoveOrResizeStarted();
 		return 0;
-
 	case WM_ERASEBKGND:
 		if (g_handler.get() && g_handler->GetBrowser()) {
 			CefWindowHandle hwnd =
@@ -265,23 +246,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
 			}
 		}
 		break;
-
-	case WM_ENTERMENULOOP:
-		if (!wParam) {
-			// Entering the menu loop for the application menu.
-			CefSetOSModalLoop(true);
-		}
-		break;
-
-	case WM_EXITMENULOOP:
-		if (!wParam) {
-			// Exiting the menu loop for the application menu.
-			CefSetOSModalLoop(false);
-		}
-		break;
-
-	case WM_CLOSE:	
-		
+	case WM_CLOSE:
 		if (g_handler.get() && !g_handler->IsClosing()) {
 			CefRefPtr<CefBrowser> browser = g_handler->GetBrowser();
 			if (browser.get()) {
@@ -289,14 +254,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
 				// will result in a call to ClientHandler::DoClose() if the
 				// JavaScript 'onbeforeunload' event handler allows it.
 				browser->GetHost()->CloseBrowser(false);
-
 				// Cancel the close.
 				return 0;
 			}
 		}
 		// Allow the close.
 		break;
-
 	case WM_DESTROY:
 		// Quitting CEF is handled in ClientHandler::OnBeforeClose().
 		return 0;

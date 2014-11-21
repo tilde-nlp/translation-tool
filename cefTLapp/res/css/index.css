@@ -182,10 +182,11 @@ margin-left:5px;
 #websiteFrameContainer
 {
     position:fixed; 
-    top:50px;  
+    top:60px;  
     bottom:0px;
     right:0;
     left:0;
+    background-color:white;
 }
 #websiteFrame {
     width:100%;

@@ -1,4 +1,11 @@
 ﻿app.controller("myPageCtrl", function ($scope, $location) {
+    try {
+        console.log("Location: " + document.location);
+        console.log("Domain: " + document.domain);
+    }
+    catch (err) {
+        console.log(err.message);
+    }
 
     $scope.isActive = function (viewLocation) {
         var active = ("/" + viewLocation === $location.path());
@@ -9,6 +16,7 @@
     $scope.controls = {};
     $scope.website.base = "http://letsmt-logic.tilde.lv/en";
     $scope.website.url = '';
+    $scope.website.errorMsg = '';
     $scope.website.freeze = false;
     $scope.website.status = 'initial';
     $scope.website.focus = false;
@@ -49,8 +57,8 @@
     }
 
     $scope.website.changeSystem = function () {
-        console.log("Es: change system to " + $scope.controls.activeSystem.id);
-        jQuery("#websiteFrame")[0].contentWindow.postMessage({ "message": "changeSystem", "systemId": $scope.controls.activeSystem.id },
+        console.log("Es: change system to " + $scope.controls.activeSystem.ID);
+        jQuery("#websiteFrame")[0].contentWindow.postMessage({ "message": "changeSystem", "systemId": $scope.controls.activeSystem.ID },
           "*");
     }
 
@@ -85,7 +93,8 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams) {
     $scope.website.status = 'initial';
     $scope.controls.systems = $widget.settings._systems; /*language controls $widget.settings._systems*/
     $scope.controls.activeSystem = {};
-    $scope.controls.activeSystem = $scope.controls.activeSystemSource = $scope.controls.systems[0];
+    $scope.controls.activeSystem = $scope.controls.systems[0];
+    $scope.controls.activeSystemSource = $scope.controls.activeSystem;
     $scope.controls.updated = function () {
         jQuery("#websiteFrame")[0].contentWindow.postMessage(
                    { "method": "changeSystem", "systemId": $scope.controls.activeSystem.id },
@@ -115,34 +124,32 @@ app.directive('ngMessage', function ($window) {
                             console.log(event.data.url);
                             break;
                         case "startedLoading":
-                            scope.website.freeze = true;
                             scope.website.status = 'loading';
                             break;
                         case "stoppedLoading":
-                            scope.website.freeze = false;
-                            //scope.website.status = 'loaded';
                             break;
                         case "systemChanged":
                             console.log("Tu: " + event.data.systemId);
                             break;
                         case "translationStarted":
-                            scope.website.freeze = true;
                             scope.website.status = 'translating';
                             break;
                         case "translationStopped":
                             scope.website.status = 'loaded';
-                            scope.website.freeze = false;
                             break;
                         case "translated":
                             scope.website.status = 'translated';
-                            scope.website.freeze = false;
                             break;
                         case "untranslated":
                             scope.website.status = 'loaded';
-                            scope.website.freeze = false;
                             break;
                         case "ready":
                             scope.initWebsite();
+                            break;
+                        case "error":
+                            console.log("Tu: Error - " + event.data.description);
+                            scope.website.errorMsg = event.data.description;
+                            scope.website.status = 'error';
                             break;
                         default:
                     }

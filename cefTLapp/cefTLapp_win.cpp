@@ -196,8 +196,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
 	case WM_GETMINMAXINFO:
 	{
 		m_nDpi = ::GetScreenDPI();
-		((MINMAXINFO *)lParam)->ptMinTrackSize.x = DpiAdjustInt(915);
-		((MINMAXINFO *)lParam)->ptMinTrackSize.y = DpiAdjustInt(720);
+		((MINMAXINFO *)lParam)->ptMinTrackSize.x = DpiAdjustInt(1200);
+		((MINMAXINFO *)lParam)->ptMinTrackSize.y = DpiAdjustInt(580);
 		return 0;
 
 	}

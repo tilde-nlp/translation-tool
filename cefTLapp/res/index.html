@@ -122,6 +122,9 @@
                 <div ng-show="website.status=='loading'">
                     <center>Loading website ...</center>
                 </div>
+                <div ng-show="website.status=='error'">
+                    <center>{website.errorMsg}</center>
+                </div>
             </div>
 
             <div class="restricted" id="mainLayout">
@@ -159,7 +162,7 @@
     <footer class="site-footer restricted">
         <div class="promoBox">
             What is MT?<br />
-            <a href="#/hugo" class="stressed">See MT for dummies</a>
+            <a href="#/hugo" class="stressed">MT in a nutshell</a>
         </div>
         <div class="promoBox">
             On the go? <br />
@@ -171,7 +174,7 @@
         </div>
         <p class="copyright left clear">2015 Developed by <a class="red" target="_blank" href="http://www.tilde.com/mt">Tilde</a></p>
         <p class="copyright right hugo">Powered by <a class="red" href="https://www.hugo.lv" target="_blank">Hugo</a> Latvian eGov MT</p>
-    </footer>
+    </footer>        
 </body>
 </html>
 

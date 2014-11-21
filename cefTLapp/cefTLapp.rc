@@ -77,7 +77,7 @@ IDI_SMALL               ICON                    "res\small.ico"
 
 STRINGTABLE
 BEGIN
-IDS_APP_TITLE           "cefclient"
+IDS_APP_TITLE           "Translator 2015"
 IDC_CEFCLIENT           "CEFCLIENT"
 END
 

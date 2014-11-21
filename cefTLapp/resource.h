@@ -9,6 +9,8 @@
 #define BINARY                          256
 #define IDI_CEFTLAPP					100
 #define IDI_SMALL						101
+#define IDS_APP_TITLE					110
+#define IDC_CEFCLIENT					111
 
 #define IDS_MAIN_HTML					1000
 #define IDS_CSS_INDEX					1001

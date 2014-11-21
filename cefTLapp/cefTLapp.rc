@@ -70,6 +70,17 @@ IDS_TEXT_WIDGET_CORE_JS			BINARY	"res\\text-widget\\text-translator.js"
 IDI_CEFTLAPP            ICON                    "res\cefTLapp.ico"
 IDI_SMALL               ICON                    "res\small.ico"
 
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+IDS_APP_TITLE           "cefclient"
+IDC_CEFCLIENT           "CEFCLIENT"
+END
+
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////

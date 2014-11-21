@@ -16,4 +16,5 @@ void TLappHandler::OnTitleChange(CefRefPtr<CefBrowser> browser,
 
   CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();
   SetWindowText(hwnd, std::wstring(title).c_str());
+  
 }

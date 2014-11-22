@@ -1,7 +1,7 @@
 use warnings;
 use strict;
 
-my $dirToDelete = "C:\\builds\\6\\Letsmt!\\PT2015\\sources\\";
+my $dirToDelete = "C:\\builds\\6\\LetsMT!\\Translator2015\\Sources\\";
 open (FIN, "<:encoding(UTF8)", $ARGV[0]);
 open (FOUT, ">:encoding(UTF8)", $ARGV[1]);
 

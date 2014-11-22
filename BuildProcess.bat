@@ -10,7 +10,7 @@ set ISPath2013="c:\program files\installshield\2013 SP1 SAB\system\"
 path %path%;Precious\Mail;
 mkdir out
 cd out
-mkdir release
+mkdir Release_setup
 cd..
 XCOPY "..\binaries"  "out\Release_setup" /E /P
 

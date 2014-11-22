@@ -1921,19 +1921,19 @@ Next </td><td>0</td><td/></row>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
-		<row><td>cef.pak</td><td>AllOtherFiles</td><td>cef.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release\cef.pak</td><td>1</td><td/></row>
-		<row><td>cef_100_percent.pak</td><td>AllOtherFiles</td><td>CEF_10~1.PAK|cef_100_percent.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release\cef_100_percent.pak</td><td>1</td><td/></row>
-		<row><td>cef_200_percent.pak</td><td>AllOtherFiles</td><td>CEF_20~1.PAK|cef_200_percent.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release\cef_200_percent.pak</td><td>1</td><td/></row>
-		<row><td>ceftlapp.exe</td><td>cefTLapp.exe</td><td>cefTLapp.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release\cefTLapp.exe</td><td>1</td><td/></row>
-		<row><td>d3dcompiler_43.dll</td><td>d3dcompiler_43.dll</td><td>D3DCOM~1.DLL|d3dcompiler_43.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release\d3dcompiler_43.dll</td><td>1</td><td/></row>
-		<row><td>d3dcompiler_46.dll</td><td>d3dcompiler_46.dll</td><td>D3DCOM~1.DLL|d3dcompiler_46.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release\d3dcompiler_46.dll</td><td>1</td><td/></row>
-		<row><td>en_us.pak</td><td>AllOtherFiles1</td><td>en-US.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release\locales\en-US.pak</td><td>1</td><td/></row>
-		<row><td>ffmpegsumo.dll</td><td>ffmpegsumo.dll</td><td>FFMPEG~1.DLL|ffmpegsumo.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release\ffmpegsumo.dll</td><td>1</td><td/></row>
-		<row><td>icudtl.dat</td><td>AllOtherFiles</td><td>icudtl.dat</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release\icudtl.dat</td><td>1</td><td/></row>
-		<row><td>libcef.dll</td><td>libcef.dll</td><td>libcef.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release\libcef.dll</td><td>1</td><td/></row>
-		<row><td>libegl.dll</td><td>libEGL.dll</td><td>libEGL.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release\libEGL.dll</td><td>1</td><td/></row>
-		<row><td>libglesv2.dll</td><td>libGLESv2.dll</td><td>LIBGLE~1.DLL|libGLESv2.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release\libGLESv2.dll</td><td>1</td><td/></row>
-		<row><td>pdf.dll</td><td>pdf.dll</td><td>pdf.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release\pdf.dll</td><td>1</td><td/></row>
+		<row><td>cef.pak</td><td>AllOtherFiles</td><td>cef.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\cef.pak</td><td>1</td><td/></row>
+		<row><td>cef_100_percent.pak</td><td>AllOtherFiles</td><td>CEF_10~1.PAK|cef_100_percent.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\cef_100_percent.pak</td><td>1</td><td/></row>
+		<row><td>cef_200_percent.pak</td><td>AllOtherFiles</td><td>CEF_20~1.PAK|cef_200_percent.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\cef_200_percent.pak</td><td>1</td><td/></row>
+		<row><td>ceftlapp.exe</td><td>cefTLapp.exe</td><td>cefTLapp.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\cefTLapp.exe</td><td>1</td><td/></row>
+		<row><td>d3dcompiler_43.dll</td><td>d3dcompiler_43.dll</td><td>D3DCOM~1.DLL|d3dcompiler_43.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\d3dcompiler_43.dll</td><td>1</td><td/></row>
+		<row><td>d3dcompiler_46.dll</td><td>d3dcompiler_46.dll</td><td>D3DCOM~1.DLL|d3dcompiler_46.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\d3dcompiler_46.dll</td><td>1</td><td/></row>
+		<row><td>en_us.pak</td><td>AllOtherFiles1</td><td>en-US.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\locales\en-US.pak</td><td>1</td><td/></row>
+		<row><td>ffmpegsumo.dll</td><td>ffmpegsumo.dll</td><td>FFMPEG~1.DLL|ffmpegsumo.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\ffmpegsumo.dll</td><td>1</td><td/></row>
+		<row><td>icudtl.dat</td><td>AllOtherFiles</td><td>icudtl.dat</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\icudtl.dat</td><td>1</td><td/></row>
+		<row><td>libcef.dll</td><td>libcef.dll</td><td>libcef.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\libcef.dll</td><td>1</td><td/></row>
+		<row><td>libegl.dll</td><td>libEGL.dll</td><td>libEGL.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\libEGL.dll</td><td>1</td><td/></row>
+		<row><td>libglesv2.dll</td><td>libGLESv2.dll</td><td>LIBGLE~1.DLL|libGLESv2.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\libGLESv2.dll</td><td>1</td><td/></row>
+		<row><td>pdf.dll</td><td>pdf.dll</td><td>pdf.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\pdf.dll</td><td>1</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">

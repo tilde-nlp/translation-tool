@@ -398,9 +398,6 @@
     <ClCompile Include="cefTLapp\cefTLapp_win.cpp">
       <Filter>cefTLapp</Filter>
     </ClCompile>
-    <ClCompile Include="cefTLapp\TLapp_app.cpp">
-      <Filter>cefTLapp</Filter>
-    </ClCompile>
     <ClCompile Include="cefTLapp\TLapp_handler.cpp">
       <Filter>cefTLapp</Filter>
     </ClCompile>

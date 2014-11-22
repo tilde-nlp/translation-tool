@@ -23,54 +23,6 @@ namespace {
 
 const char chTLappOrigin[] = "http://tlapp/";
 
-bool ParseTlAppUrl(const std::string& url,
-	std::string* file_name,
-	std::string* mime_type) {
-	// Retrieve the path component.
-	CefURLParts parts;
-	CefParseURL(url, parts);
-	std::string file = CefString(&parts.path);
-	if (file.size() < 2)
-		return false;
-
-	// Remove the leading slash.
-	file = file.substr(1);
-
-	// Verify that the file name is valid.
-	for (size_t i = 0; i < file.size(); ++i) {
-		const char c = file[i];
-		if (!isalpha(c) && !isdigit(c) && c != '_' && c != '.')
-			return false;
-	}
-
-	// Determine the mime type based on the file extension, if any.
-	size_t pos = file.rfind(".");
-	if (pos != std::string::npos) {
-		std::string ext = file.substr(pos + 1);
-		if (ext == "html")
-			*mime_type = "text/html";
-		else if (ext == "png")
-			*mime_type = "image/png";
-		else if (ext == "svg")
-			*mime_type = "image/svg+xml";
-		else if (ext == "js")
-			*mime_type = "text/javascript";
-		else if (ext == "css")
-			*mime_type = "text/css";
-		else
-			return false;
-	}
-	else {
-		// Default to an html extension if none is specified.
-		*mime_type = "text/html";
-		file += ".html";
-	}
-
-	*file_name = file;
-	return true;
-}
-
-
 TLappHandler::TLappHandler()
 	: is_closing_(false) {
 	DCHECK(!g_instance);
@@ -206,13 +158,13 @@ void TLappHandler::OnBeforeContextMenu(
 	if (params->IsEditable() || params->GetSelectionText() != L"")
 	{
 
-		/*model->Remove(MENU_ID_REDO);
+		model->Remove(MENU_ID_REDO);
 		model->SetLabel(MENU_ID_UNDO, L"Undo");
 		model->SetLabel(MENU_ID_CUT, L"Cut");
 		model->SetLabel(MENU_ID_COPY, L"Copy");
 		model->SetLabel(MENU_ID_PASTE, L"Paste");
 		model->SetLabel(MENU_ID_DELETE, L"Delete");
-		model->SetLabel(MENU_ID_SELECT_ALL, L"Select All");*/
+		model->SetLabel(MENU_ID_SELECT_ALL, L"Select All");
 	}
 	else
 		model->Clear();

@@ -13,9 +13,9 @@
 // to the CMake command-line to disable use of the sandbox.
 // Uncomment this line to manually enable sandbox support.
 // #define CEF_USE_SANDBOX 1
-HINSTANCE hInst;   // current instance
-TCHAR szTitle[256];  // The title bar text
-TCHAR szWindowClass[256];  // the main window class name
+HINSTANCE hInst;				// current instance
+TCHAR szTitle[256];				// The title bar text
+TCHAR szWindowClass[256];		// the main window class name
 ATOM MyRegisterClass(HINSTANCE hInstance);
 BOOL InitInstance(HINSTANCE, int);
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -69,13 +69,8 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 	// Provide CEF with command-line arguments.
 	CefMainArgs main_args(hInstance);
 
-	// TLApp implements application-level callbacks. It will create the first
-	// browser instance in OnContextInitialized() after CEF has initialized.
 	CefRefPtr<TLapp> app(new TLapp);
 
-	// CEF applications have multiple sub-processes (render, plugin, GPU, etc)
-	// that share the same executable. This function checks the command-line and,
-	// if this is a sub-process, executes the appropriate logic.
 	int exit_code = CefExecuteProcess(main_args, app.get(), sandbox_info);
 	if (exit_code >= 0) {
 		// The sub-process has completed so return here.
@@ -89,8 +84,9 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 	settings.no_sandbox = true;
 #endif
 	//custom settings
-	settings.log_severity = LOGSEVERITY_VERBOSE;
-	//settings.pack_loading_disabled = true;
+	settings.log_severity = LOGSEVERITY_DISABLE;
+	//settings.log_severity = LOGSEVERITY_VERBOSE;
+	//settings.pack_loading_disabled = 1;
 
 	// Initialize CEF.
 	CefInitialize(main_args, settings, app.get(), sandbox_info);
@@ -110,13 +106,11 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 
 	return 0;
 }
+
 //
 //   FUNCTION: InitInstance(HINSTANCE, int)
-//
 //   PURPOSE: Saves instance handle and creates main window
-//
 //   COMMENTS:
-//
 //        In this function, we save the instance handle in a global variable and
 //        create and display the main program window.
 //
@@ -140,7 +134,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) {
 //
 //  FUNCTION: MyRegisterClass()
 //  PURPOSE: Registers the window class.
-//
 //  COMMENTS:
 //
 //    This function and its usage are only necessary if you want this code
@@ -177,15 +170,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
 	PAINTSTRUCT ps;
 	switch (message) {
 	case WM_CREATE: {
-		// Create the single static handler class instance
 		g_handler = new TLappHandler();
 		CefBrowserSettings browser_settings;
 		CefWindowInfo info;
 		RECT rect;
 		GetClientRect(hWnd, &rect);
 		info.SetAsChild(hWnd, rect);
-		// Create the first browser window.
-		//CefBrowserHost::CreateBrowserSync(info, g_handler.get(), "http://tlapp/", browser_settings, NULL);
+
 		CefBrowserHost::CreateBrowser(info, g_handler.get(), "http://tlapp/", browser_settings, NULL);
 		return 0;
 	}
@@ -199,7 +190,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
 		((MINMAXINFO *)lParam)->ptMinTrackSize.x = DpiAdjustInt(1200);
 		((MINMAXINFO *)lParam)->ptMinTrackSize.y = DpiAdjustInt(580);
 		return 0;
-
 	}
 	case WM_SIZE: {
 		if (!g_handler.get())
@@ -221,11 +211,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
 					// Resize the window to match the new frame size.
 					RECT rect;
 					GetClientRect(hWnd, &rect);
-					HDWP hdwp = BeginDeferWindowPos(1);
-					hdwp = DeferWindowPos(hdwp, hwnd, 0, rect.left, rect.top,
-					rect.right - rect.left, rect.bottom - rect.top, SWP_NOZORDER);
-					EndDeferWindowPos(hdwp);
-					//::SetWindowPos(hwnd, HWND_TOP, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, SWP_NOZORDER);
+					::SetWindowPos(hwnd, HWND_TOP, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, SWP_NOZORDER);
 				}
 			}
 		}
@@ -240,8 +226,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
 			CefWindowHandle hwnd =
 				g_handler->GetBrowser()->GetHost()->GetWindowHandle();
 			if (hwnd) {
-				// Dont erase the background if the browser window has been loaded
-				// (this avoids flashing)
 				return 0;
 			}
 		}
@@ -266,5 +250,4 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
 	}
 
 	return DefWindowProc(hWnd, message, wParam, lParam);
-	//}
 }

@@ -19,7 +19,7 @@ attrib -R /S
 dir *.dll /s /b /x >files1.txt
 dir *.exe /s /b /x >>files1.txt
 generateSigner.pl files1.txt sign_Translator2015_files.bat
-del files1.txt
+rem del files1.txt
 
 echo Jâparaksta Translator 2015 setup faili. > SignMM.txt
 echo Parakstîðanas fails: "E:\6\LetsMT!\Translator2015\Sources\sign_Translator2015_files.bat" >> SignMM.txt

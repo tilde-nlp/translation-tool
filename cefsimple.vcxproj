@@ -619,6 +619,7 @@
     <ResourceCompile Include="cefTLapp\cefTLapp.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\Users\andis.lagzdins\Downloads\d41d8cd98f00b204e9800998ecf8427e.ico" />
     <Image Include="cefTLapp\res\cefTLapp.ico" />
     <Image Include="cefTLapp\res\img\arrow.png" />
     <Image Include="cefTLapp\res\img\hugo.png" />

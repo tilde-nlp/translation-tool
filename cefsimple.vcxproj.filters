@@ -421,6 +421,9 @@
     <Image Include="cefTLapp\res\img\hugo.png">
       <Filter>cefTLapp\res\img</Filter>
     </Image>
+    <Image Include="..\..\..\..\Users\andis.lagzdins\Downloads\d41d8cd98f00b204e9800998ecf8427e.ico">
+      <Filter>cefTLapp</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="cefTLapp\cefTLapp.exe.manifest">

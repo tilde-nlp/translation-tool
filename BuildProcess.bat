@@ -35,10 +35,10 @@ SET /a COUNT=1
 :END1
 
 
-COPY %BuildProject% "D.ism"
-echo building D comp
+rem COPY %BuildProject% "D.ism"
+echo building %BuildProject% comp
 RMDIR "%temp%\COMP" /S
-%ISPath2013%isCmdBld.exe  -p "D.ism"  -b "%temp%\COMP" -o "\\projekti\valsis\ValSis\Builds\ISM\Merge Modules"   -e Y -x -y  %ProductVersion%
+%ISPath2013%isCmdBld.exe  -p %BuildProject%  -b "%temp%\COMP" -o "\\projekti\valsis\ValSis\Builds\ISM\Merge Modules"   -e Y -x -y  %ProductVersion%
 
 XCOPY "%temp%\COMP\PT\A.1\DiskImages"  "out\Release_setup" /E
 REM CD Release\DISK1

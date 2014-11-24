@@ -14,5 +14,5 @@ set file="out\Release_setup\DISK1\Translator2015.exe"
  chktrust %file% >>"%logfile%"
  
  
-copy %logfile% sign.log
+copy %logfile% Release_sign.log
 del %logfile%

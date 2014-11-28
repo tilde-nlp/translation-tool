@@ -1067,7 +1067,8 @@ Dim itemverb
 
 For each itemverb in objFolderItem.verbs
 	If Replace(itemverb.name, "&amp;", "") = "Pin to Taskbar" Then itemverb.DoIt
-	If Replace(itemverb.name, "&amp;", "") = "Piespraust uzdevumjoslai" Then itemverb.DoIt
+  If Replace(itemverb.name, "&amp;", "") = "Pin to taskbar" Then itemverb.DoIt
+  If Replace(itemverb.name, "&amp;", "") = "Piespraust uzdevumjoslai" Then itemverb.DoIt
 Next </td><td>0</td><td/></row>
 		<row><td>SetARPINSTALLLOCATION</td><td>51</td><td>ARPINSTALLLOCATION</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%SystemRoot]\Profiles\All Users</td><td/><td/></row>
@@ -1104,6 +1105,7 @@ Dim itemverb
 
 For each itemverb in objFolderItem.verbs
 	If Replace(itemverb.name, "&amp;", "") = "Unpin from Taskbar" Then itemverb.DoIt
+  If Replace(itemverb.name, "&amp;", "") = "Unpin from taskbar" Then itemverb.DoIt
 	If Replace(itemverb.name, "&amp;", "") = "Atspraust no uzdevumjoslas" Then itemverb.DoIt
 Next </td><td>0</td><td/></row>
 		<row><td>setAllUsersProfile2K</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%ALLUSERSPROFILE]</td><td/><td/></row>

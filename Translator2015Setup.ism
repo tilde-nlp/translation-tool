@@ -2494,7 +2494,7 @@ Next </td><td>0</td><td/></row>
 		<col def="S255">DotNetBuildConfiguration</col>
 		<col def="S255">MsiCommandLine</col>
 		<col def="I4">ISSetupPrerequisiteLocation</col>
-		<row><td>A.1</td><td>PT</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>1</td><td>1033</td><td>2</td><td>1</td><td>Intel</td><td/><td>1033</td><td>0</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>42018829</td><td/><td/><td>/L*v "%WINDIR%\temp\Presidency Translator Setup.log" /norestart</td><td/></row>
+		<row><td>A.1</td><td>PT</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>1</td><td>1033</td><td>2</td><td>1</td><td>Intel</td><td/><td>1033</td><td>0</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>42051597</td><td/><td/><td>/L*v "%WINDIR%\temp\Presidency Translator Setup.log" /norestart</td><td/></row>
 	</table>
 
 	<table name="ISReleaseASPublishInfo">

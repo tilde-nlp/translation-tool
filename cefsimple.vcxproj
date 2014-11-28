@@ -115,6 +115,7 @@
     <OutDir>out\$(Configuration)\</OutDir>
     <LinkIncremental>false</LinkIncremental>
     <EmbedManifest>true</EmbedManifest>
+    <TargetName>Translator2015</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IntDir>$(OutDir)obj\$(ProjectName)\</IntDir>
@@ -319,14 +320,14 @@
       <ImportLibrary>$(OutDir)lib\$(TargetName).lib</ImportLibrary>
       <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
       <OptimizeReferences>true</OptimizeReferences>
-      <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
+      <OutputFile>$(OutDir)Translator2015.exe</OutputFile>
       <Profile>true</Profile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <ClCompile>
       <AdditionalIncludeDirectories>$(OutDir)obj\global_intermediate;..\..\..\third_party\wtl\include;.;C:\Program Files (x86)\Windows Kits\8.0\Include\shared;C:\Program Files (x86)\Windows Kits\8.0\Include\um;C:\Program Files (x86)\Windows Kits\8.0\Include\winrt;$(VSInstallDir)\VC\atlmfc\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>/MP /we4389 /d2Zi+ /Zc:inline /Oy- %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/MP /we4389 /d2Zi+  /Oy- %(AdditionalOptions)</AdditionalOptions>
       <BufferSecurityCheck>true</BufferSecurityCheck>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4127;4351;4355;4503;4611;4100;4121;4189;4244;4481;4505;4510;4512;4610;4702;%(DisableSpecificWarnings)</DisableSpecificWarnings>

@@ -285,7 +285,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_setup|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>$(OutDir)obj\global_intermediate;..\..\..\third_party\wtl\include;.;C:\Program Files (x86)\Windows Kits\8.0\Include\shared;C:\Program Files (x86)\Windows Kits\8.0\Include\um;C:\Program Files (x86)\Windows Kits\8.0\Include\winrt;$(VSInstallDir)\VC\atlmfc\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>/MP /we4389 /d2Zi+ /Zc:inline /Oy- %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/MP /we4389 /d2Zi+  /Oy- %(AdditionalOptions)</AdditionalOptions>
       <BufferSecurityCheck>true</BufferSecurityCheck>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4127;4351;4355;4503;4611;4100;4121;4189;4244;4481;4505;4510;4512;4610;4702;%(DisableSpecificWarnings)</DisableSpecificWarnings>

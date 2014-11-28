@@ -1039,7 +1039,7 @@
 szInstallDir = Session.Property("INSTALLDIR") 
 
 dim strlPath
-strlPath = szInstallDir &amp; "\cefTLapp.exe"
+strlPath = szInstallDir &amp; "\Translator2015.exe"
 
 
 
@@ -1076,7 +1076,7 @@ Next </td><td>0</td><td/></row>
 szInstallDir = Session.Property("INSTALLDIR") 
 
 dim strlPath
-strlPath = szInstallDir &amp; "\cefTLapp.exe"
+strlPath = szInstallDir &amp; "\Translator2015.exe"
 
 
 

@@ -19,7 +19,7 @@ while (my $ex = <FIN>){
 	$ex=~s/\Q$dirToDelete\E//i;	
 	my $name = $ex;
 	$name=~s/.*?\\([^\\]+?)\.(?:exe|dll)$/$1/;
-	if ($ex =~/(?:cefTLapp.exe)/i){
+	if ($ex =~/(?:2015.exe)/i){
 		print FOUT "\nset descr=\"$name\"\n";
 		print FOUT "set file=\"$ex\"\n";
 		print FOUT "chktrust %file% -q\n";

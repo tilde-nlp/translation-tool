@@ -3860,6 +3860,7 @@ Next </td><td>0</td><td/></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>Translator 2015 Setup completed successfully.</td><td>0</td><td/><td>-1247645588</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Translator 2015</td><td>0</td><td/><td>-442366102</td></row>
 		<row><td>ID_STRING5</td><td>1033</td><td>Translator 2015</td><td>0</td><td/><td>-442349397</td></row>
+		<row><td>ID_STRING6</td><td>1033</td><td>Translator 2015</td><td>0</td><td/><td>-442341076</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-224316768</td></row>
 	</table>
 
@@ -3968,8 +3969,8 @@ Next </td><td>0</td><td/></row>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;ISProjectFolder&gt;\cefTLapp\res\cefTLapp.ico</td><td>0</td></row>
-		<row><td>Translator2015.exe_1EC4CF76DE3942819A6AAFA9D86ABE0D.exe</td><td/><td>&lt;PATH_TO_RES_FILES&gt;\cefTLapp.ico</td><td>0</td></row>
-		<row><td>cefTLapp.exe_B1347865B375429B9BC87F9EA054A99F.exe</td><td/><td>&lt;PATH_TO_RES_FILES&gt;\cefTLapp.ico</td><td>0</td></row>
+		<row><td>Translator2015.exe_29603B18454D4E52BD27BBB1D96E3FDD.exe</td><td/><td>&lt;ISProjectFolder&gt;\out\Release_setup\Translator2015.exe</td><td>0</td></row>
+		<row><td>Translator2015.exe_31B097FBFFE6454E804855D1CAE1EB3C.exe</td><td/><td>&lt;ISProjectFolder&gt;\out\Release_setup\Translator2015.exe</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -4631,8 +4632,8 @@ QQAuADEAAQBQAFQA
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>Translator2015.exe</td><td>ProgramMenuFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>Translator2015.exe</td><td>[INSTALLDIR]Translator2015.exe</td><td/><td/><td/><td>cefTLapp.exe_B1347865B375429B9BC87F9EA054A99F.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>Translator2015.exe1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>Translator2015.exe</td><td>[INSTALLDIR]Translator2015.exe</td><td/><td/><td/><td>Translator2015.exe_1EC4CF76DE3942819A6AAFA9D86ABE0D.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>Translator2015.exe</td><td>ProgramMenuFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>Translator2015.exe</td><td>[INSTALLDIR]Translator2015.exe</td><td/><td/><td/><td>Translator2015.exe_31B097FBFFE6454E804855D1CAE1EB3C.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>Translator2015.exe1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>Translator2015.exe</td><td>[INSTALLDIR]Translator2015.exe</td><td/><td/><td/><td>Translator2015.exe_29603B18454D4E52BD27BBB1D96E3FDD.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

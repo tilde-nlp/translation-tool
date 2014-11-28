@@ -340,16 +340,19 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
-		<row><td>AllOtherFiles</td><td>{204A8B3D-BA79-4F16-B74C-A5BA75538ED1}</td><td>INSTALLDIR</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>AllOtherFiles1</td><td>{2114324C-9F5E-42BA-BFDE-791743A6A516}</td><td>LOCALES</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>cefTLapp.exe</td><td>{E150D1D5-3A3A-44DA-8318-EB206036DDE8}</td><td>INSTALLDIR</td><td>8</td><td/><td>ceftlapp.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>d3dcompiler_43.dll</td><td>{3EA85121-AF37-4893-8B50-97DF7E8734DD}</td><td>INSTALLDIR</td><td>8</td><td/><td>d3dcompiler_43.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>d3dcompiler_46.dll</td><td>{4D3BB028-9535-4874-B537-928B4CCE10EF}</td><td>INSTALLDIR</td><td>8</td><td/><td>d3dcompiler_46.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ffmpegsumo.dll</td><td>{992C3861-2527-41C4-AF7C-DADDD8446E4C}</td><td>INSTALLDIR</td><td>8</td><td/><td>ffmpegsumo.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>libEGL.dll</td><td>{E2D705D6-DCAB-4CF7-9CA0-44DA2719A56B}</td><td>INSTALLDIR</td><td>8</td><td/><td>libegl.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>libGLESv2.dll</td><td>{67B6A820-4719-4810-93CE-7196F9F296DF}</td><td>INSTALLDIR</td><td>8</td><td/><td>libglesv2.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>libcef.dll</td><td>{EA94F7DD-132D-48DD-B4AD-F2464D3C9590}</td><td>INSTALLDIR</td><td>8</td><td/><td>libcef.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>pdf.dll</td><td>{0FCCB413-3D99-4D77-8143-195D0EB80C12}</td><td>INSTALLDIR</td><td>8</td><td/><td>pdf.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>AllOtherFiles1</td><td>{2114324C-9F5E-42BA-BFDE-791743A6A516}</td><td>LOCALES</td><td>8</td><td/><td>en_us.pak</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Translator2015.exe</td><td>{037EF42B-0501-4888-B002-71AD766BE7C0}</td><td>INSTALLDIR</td><td>8</td><td/><td>translator2015.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>cef_100_pak</td><td>{D6A02E45-161E-455E-BEC6-DE3DB8D48CAA}</td><td>INSTALLDIR</td><td>8</td><td/><td>cef_100_percent.pak1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>cef_200_pak</td><td>{FA695B2D-68E9-4A9A-AD9D-3D5CFF6439DD}</td><td>INSTALLDIR</td><td>8</td><td/><td>cef_200_percent.pak1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>cef_pak</td><td>{204A8B3D-BA79-4F16-B74C-A5BA75538ED1}</td><td>INSTALLDIR</td><td>8</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>d3dcompiler_43.dll</td><td>{84A133B0-3E78-4E4F-8CA3-93647F258C31}</td><td>INSTALLDIR</td><td>8</td><td/><td>d3dcompiler_43.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>d3dcompiler_46.dll</td><td>{D39DA946-62B2-4196-AAF5-88F699872A2B}</td><td>INSTALLDIR</td><td>8</td><td/><td>d3dcompiler_46.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ffmpegsumo.dll</td><td>{62B36068-A73D-4DF0-A2DA-2AEB9C2BDA4A}</td><td>INSTALLDIR</td><td>8</td><td/><td>ffmpegsumo.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>icudtl</td><td>{8C3B4CA5-B3C3-4A11-A01D-0A31BF9B207C}</td><td>INSTALLDIR</td><td>8</td><td/><td>icudtl.dat</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>libEGL.dll</td><td>{54923DD4-9EB3-4379-BBEB-47A43FD3A6EF}</td><td>INSTALLDIR</td><td>8</td><td/><td>libegl.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>libGLESv2.dll</td><td>{7F9A9E13-AC1D-4ED8-A81E-2C5D310E16AF}</td><td>INSTALLDIR</td><td>8</td><td/><td>libglesv2.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>libcef.dll</td><td>{5338DA31-6F74-498F-9499-DB9FF0573BDF}</td><td>INSTALLDIR</td><td>8</td><td/><td>libcef.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>pdf.dll</td><td>{29A61FD0-79F8-415C-B846-111597ABB48A}</td><td>INSTALLDIR</td><td>8</td><td/><td>pdf.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -920,7 +923,7 @@
 		<row><td>LicenseAgreement</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>ISPrintButton</td><td>DoAction</td><td>ISPrint</td><td>1</td><td>0</td></row>
 		<row><td>LicenseAgreement</td><td>Next</td><td>NewDialog</td><td>CustomerInformation</td><td>AgreeToLicense = "Yes"</td><td>0</td></row>
-		<row><td>MaintenanceType</td><td>Back</td><td>NewDialog</td><td>MaintenanceWelcome</td><td>1</td><td>0</td></row>
+		<row><td>MaintenanceType</td><td>Back</td><td>NewDialog</td><td>MaintenanceWelcome</td><td>1</td><td>1</td></row>
 		<row><td>MaintenanceType</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>0</td></row>
 		<row><td>MaintenanceType</td><td>Next</td><td>NewDialog</td><td>CustomSetup</td><td>_IsMaintenance = "Change"</td><td>12</td></row>
 		<row><td>MaintenanceType</td><td>Next</td><td>NewDialog</td><td>ReadyToInstall</td><td>_IsMaintenance = "Reinstall"</td><td>13</td></row>
@@ -1897,12 +1900,15 @@ Next </td><td>0</td><td/></row>
 	<table name="FeatureComponents">
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
-		<row><td>InstallAlways</td><td>AllOtherFiles</td></row>
 		<row><td>InstallAlways</td><td>AllOtherFiles1</td></row>
-		<row><td>InstallAlways</td><td>cefTLapp.exe</td></row>
+		<row><td>InstallAlways</td><td>Translator2015.exe</td></row>
+		<row><td>InstallAlways</td><td>cef_100_pak</td></row>
+		<row><td>InstallAlways</td><td>cef_200_pak</td></row>
+		<row><td>InstallAlways</td><td>cef_pak</td></row>
 		<row><td>InstallAlways</td><td>d3dcompiler_43.dll</td></row>
 		<row><td>InstallAlways</td><td>d3dcompiler_46.dll</td></row>
 		<row><td>InstallAlways</td><td>ffmpegsumo.dll</td></row>
+		<row><td>InstallAlways</td><td>icudtl</td></row>
 		<row><td>InstallAlways</td><td>libEGL.dll</td></row>
 		<row><td>InstallAlways</td><td>libGLESv2.dll</td></row>
 		<row><td>InstallAlways</td><td>libcef.dll</td></row>
@@ -1921,19 +1927,19 @@ Next </td><td>0</td><td/></row>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
-		<row><td>cef.pak</td><td>AllOtherFiles</td><td>cef.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\cef.pak</td><td>1</td><td/></row>
-		<row><td>cef_100_percent.pak</td><td>AllOtherFiles</td><td>CEF_10~1.PAK|cef_100_percent.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\cef_100_percent.pak</td><td>1</td><td/></row>
-		<row><td>cef_200_percent.pak</td><td>AllOtherFiles</td><td>CEF_20~1.PAK|cef_200_percent.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\cef_200_percent.pak</td><td>1</td><td/></row>
-		<row><td>ceftlapp.exe</td><td>cefTLapp.exe</td><td>cefTLapp.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\cefTLapp.exe</td><td>1</td><td/></row>
-		<row><td>d3dcompiler_43.dll</td><td>d3dcompiler_43.dll</td><td>D3DCOM~1.DLL|d3dcompiler_43.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\d3dcompiler_43.dll</td><td>1</td><td/></row>
-		<row><td>d3dcompiler_46.dll</td><td>d3dcompiler_46.dll</td><td>D3DCOM~1.DLL|d3dcompiler_46.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\d3dcompiler_46.dll</td><td>1</td><td/></row>
-		<row><td>en_us.pak</td><td>AllOtherFiles1</td><td>en-US.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\locales\en-US.pak</td><td>1</td><td/></row>
-		<row><td>ffmpegsumo.dll</td><td>ffmpegsumo.dll</td><td>FFMPEG~1.DLL|ffmpegsumo.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\ffmpegsumo.dll</td><td>1</td><td/></row>
-		<row><td>icudtl.dat</td><td>AllOtherFiles</td><td>icudtl.dat</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\icudtl.dat</td><td>1</td><td/></row>
-		<row><td>libcef.dll</td><td>libcef.dll</td><td>libcef.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\libcef.dll</td><td>1</td><td/></row>
-		<row><td>libegl.dll</td><td>libEGL.dll</td><td>libEGL.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\libEGL.dll</td><td>1</td><td/></row>
-		<row><td>libglesv2.dll</td><td>libGLESv2.dll</td><td>LIBGLE~1.DLL|libGLESv2.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\libGLESv2.dll</td><td>1</td><td/></row>
-		<row><td>pdf.dll</td><td>pdf.dll</td><td>pdf.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\pdf.dll</td><td>1</td><td/></row>
+		<row><td>cef.pak</td><td>cef_pak</td><td>cef.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_SETUP_FILES&gt;\cef.pak</td><td>1</td><td/></row>
+		<row><td>cef_100_percent.pak1</td><td>cef_100_pak</td><td>CEF_10~1.PAK|cef_100_percent.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_SETUP_FILES&gt;\cef_100_percent.pak</td><td>1</td><td/></row>
+		<row><td>cef_200_percent.pak1</td><td>cef_200_pak</td><td>CEF_20~1.PAK|cef_200_percent.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_SETUP_FILES&gt;\cef_200_percent.pak</td><td>1</td><td/></row>
+		<row><td>d3dcompiler_43.dll</td><td>d3dcompiler_43.dll</td><td>D3DCOM~1.DLL|d3dcompiler_43.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_SETUP_FILES&gt;\d3dcompiler_43.dll</td><td>1</td><td/></row>
+		<row><td>d3dcompiler_46.dll</td><td>d3dcompiler_46.dll</td><td>D3DCOM~1.DLL|d3dcompiler_46.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_SETUP_FILES&gt;\d3dcompiler_46.dll</td><td>1</td><td/></row>
+		<row><td>en_us.pak</td><td>AllOtherFiles1</td><td>en-US.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_SETUP_FILES&gt;\locales\en-US.pak</td><td>1</td><td/></row>
+		<row><td>ffmpegsumo.dll</td><td>ffmpegsumo.dll</td><td>FFMPEG~1.DLL|ffmpegsumo.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_SETUP_FILES&gt;\ffmpegsumo.dll</td><td>1</td><td/></row>
+		<row><td>icudtl.dat</td><td>icudtl</td><td>icudtl.dat</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_SETUP_FILES&gt;\icudtl.dat</td><td>1</td><td/></row>
+		<row><td>libcef.dll</td><td>libcef.dll</td><td>libcef.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_SETUP_FILES&gt;\libcef.dll</td><td>1</td><td/></row>
+		<row><td>libegl.dll</td><td>libEGL.dll</td><td>libEGL.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_SETUP_FILES&gt;\libEGL.dll</td><td>1</td><td/></row>
+		<row><td>libglesv2.dll</td><td>libGLESv2.dll</td><td>LIBGLE~1.DLL|libGLESv2.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_SETUP_FILES&gt;\libGLESv2.dll</td><td>1</td><td/></row>
+		<row><td>pdf.dll</td><td>pdf.dll</td><td>pdf.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_SETUP_FILES&gt;\pdf.dll</td><td>1</td><td/></row>
+		<row><td>translator2015.exe</td><td>Translator2015.exe</td><td>TRANSL~1.EXE|Translator2015.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;PATH_TO_RELEASE_SETUP_FILES&gt;\Translator2015.exe</td><td>1</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -2081,16 +2087,19 @@ Next </td><td>0</td><td/></row>
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
-		<row><td>AllOtherFiles</td><td/><td/><td>_849DE5F6_02D9_4697_9410_406D8590C048_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>AllOtherFiles1</td><td/><td/><td>_68D45D17_11FC_4334_84E9_C52C8807326D_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>cefTLapp.exe</td><td/><td/><td>_96F9C9C7_AD5A_4505_91F5_86D652832391_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>d3dcompiler_43.dll</td><td/><td/><td>_197666D5_D3E7_4935_8EB4_7E91E8A99388_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>d3dcompiler_46.dll</td><td/><td/><td>_D9141FA0_1A21_4058_BE90_78613FEA917E_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>ffmpegsumo.dll</td><td/><td/><td>_98C63EF2_DB76_4032_A889_18694AE8ADCE_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>libEGL.dll</td><td/><td/><td>_F3A7BD17_CBA9_4F65_8EFA_EA43ADB6D5D1_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>libGLESv2.dll</td><td/><td/><td>_C31CC5C9_A98E_41AF_A3D7_FC873A076A27_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>libcef.dll</td><td/><td/><td>_02AAB719_F103_4D5B_8A6D_EF052DEDF437_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>pdf.dll</td><td/><td/><td>_B2FF87D9_09D5_49D7_B2A0_BADC3271928B_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>Translator2015.exe</td><td/><td/><td>_4E7B14DC_72AF_42A7_B38A_A751A9AE6E13_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>cef_100_pak</td><td/><td/><td>_607408DE_A833_43DC_A7EE_CE06F5EBF0C5_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>cef_200_pak</td><td/><td/><td>_6B0AD0F1_E6CB_4B6B_8F29_C12BD75052CF_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>cef_pak</td><td/><td/><td>_849DE5F6_02D9_4697_9410_406D8590C048_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>d3dcompiler_43.dll</td><td/><td/><td>_8D4BDD0F_A0B0_457B_A182_AA114F0EE5DE_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>d3dcompiler_46.dll</td><td/><td/><td>_DCE27C03_3251_44DE_86AB_576204C86C8A_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ffmpegsumo.dll</td><td/><td/><td>_C4DDE5B3_23E7_455E_85D0_BE9D2D728B6C_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>icudtl</td><td/><td/><td>_D3A57240_F7E2_4A07_8768_90708C797684_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>libEGL.dll</td><td/><td/><td>_C756A20B_E8D1_4E4A_983C_1D9E41BD289A_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>libGLESv2.dll</td><td/><td/><td>_7FC2B5DC_A0CA_42CA_82AD_D90E8DFF81F1_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>libcef.dll</td><td/><td/><td>_9F1B8E26_5CCD_400A_A58F_5E8C8CA9E2AC_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>pdf.dll</td><td/><td/><td>_D07E24FD_A21F_4A59_BC47_94A4F412CB49_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -2419,6 +2428,8 @@ Next </td><td>0</td><td/></row>
 		<row><td>ISProductFolder</td><td/><td/><td>1</td></row>
 		<row><td>ISProjectDataFolder</td><td/><td/><td>1</td></row>
 		<row><td>ISProjectFolder</td><td/><td/><td>1</td></row>
+		<row><td>PATH_TO_RELEASE_SETUP_FILES</td><td>D:\PresidencyTranslator\out\Release_setup</td><td/><td>2</td></row>
+		<row><td>PATH_TO_RES_FILES</td><td>D:\PresidencyTranslator\cefTLapp\res</td><td/><td>2</td></row>
 		<row><td>ProgramFilesFolder</td><td/><td/><td>1</td></row>
 		<row><td>SystemFolder</td><td/><td/><td>1</td></row>
 		<row><td>WindowsFolder</td><td/><td/><td>1</td></row>
@@ -2745,7 +2756,7 @@ Next </td><td>0</td><td/></row>
 		<row><td>COMPANY_NAME</td><td>1033</td><td>Tilde SIA</td><td>0</td><td/><td>-845014735</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>-224316768</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>-224316768</td></row>
-		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>The operating system is not adequate for running [ProductName].</td><td>0</td><td/><td>-224316768</td></row>
+		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_OS</td><td>1033</td><td>Your system doesn't meet the requirements to run [ProductName].</td><td>0</td><td/><td>-442323190</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-224316768</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-224316768</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_SCREEN</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-224316768</td></row>
@@ -3847,6 +3858,8 @@ Next </td><td>0</td><td/></row>
 		<row><td>ID_STRING1</td><td>1033</td><td>http://www.tilde.com</td><td>0</td><td/><td>-1247669813</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>LAUNCH~1.EXE|Launch cefTLapp.exe</td><td>0</td><td/><td>-1247649269</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>Translator 2015 Setup completed successfully.</td><td>0</td><td/><td>-1247645588</td></row>
+		<row><td>ID_STRING4</td><td>1033</td><td>Translator 2015</td><td>0</td><td/><td>-442366102</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>Translator 2015</td><td>0</td><td/><td>-442349397</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-224316768</td></row>
 	</table>
 
@@ -3955,7 +3968,8 @@ Next </td><td>0</td><td/></row>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;ISProjectFolder&gt;\cefTLapp\res\cefTLapp.ico</td><td>0</td></row>
-		<row><td>cefTLapp.exe_E8FF0D427B654802B20A1D2B54D21D8E.exe</td><td/><td>&lt;ISProjectFolder&gt;\cefTLapp\res\cefTLapp.ico</td><td>0</td></row>
+		<row><td>Translator2015.exe_1EC4CF76DE3942819A6AAFA9D86ABE0D.exe</td><td/><td>&lt;PATH_TO_RES_FILES&gt;\cefTLapp.ico</td><td>0</td></row>
+		<row><td>cefTLapp.exe_B1347865B375429B9BC87F9EA054A99F.exe</td><td/><td>&lt;PATH_TO_RES_FILES&gt;\cefTLapp.ico</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -4472,7 +4486,7 @@ QQAuADEAAQBQAFQA
 		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;INSTALLDIR</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
 		<row><td>UpgradeCode</td><td>{8CB3E327-9563-49D1-AF37-DB8B0C83D0CD}</td><td/></row>
-		<row><td>_IsMaintenance</td><td>Change</td><td/></row>
+		<row><td>_IsMaintenance</td><td>Reinstall</td><td/></row>
 		<row><td>_IsSetupTypeMin</td><td>Typical</td><td/></row>
 	</table>
 
@@ -4532,8 +4546,6 @@ QQAuADEAAQBQAFQA
 		<col def="L255">FileName</col>
 		<col def="s72">DirProperty</col>
 		<col def="i2">InstallMode</col>
-		<row><td>FileKey1</td><td>cefTLapp.exe</td><td/><td>siatil_1_sia_tilde</td><td>2</td></row>
-		<row><td>FileKey2</td><td>cefTLapp.exe</td><td/><td>presid_1_presidency_translator</td><td>2</td></row>
 	</table>
 
 	<table name="RemoveIniFile">
@@ -4619,7 +4631,8 @@ QQAuADEAAQBQAFQA
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>cefTLapp.exe</td><td>ProgramMenuFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>cefTLapp.exe</td><td>InstallAlways</td><td/><td/><td/><td>cefTLapp.exe_E8FF0D427B654802B20A1D2B54D21D8E.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>Translator2015.exe</td><td>ProgramMenuFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>Translator2015.exe</td><td>[INSTALLDIR]Translator2015.exe</td><td/><td/><td/><td>cefTLapp.exe_B1347865B375429B9BC87F9EA054A99F.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>Translator2015.exe1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>Translator2015.exe</td><td>[INSTALLDIR]Translator2015.exe</td><td/><td/><td/><td>Translator2015.exe_1EC4CF76DE3942819A6AAFA9D86ABE0D.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

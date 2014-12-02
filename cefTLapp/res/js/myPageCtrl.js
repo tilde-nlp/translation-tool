@@ -14,13 +14,13 @@
 
     $scope.website = {};
     $scope.controls = {};
-    $scope.website.base = "http://letsmt-logic.tilde.lv/en";
+    $scope.website.base = "https://hugo.lv/en"
     $scope.website.url = '';
     $scope.website.errorMsg = '';
     $scope.website.freeze = false;
     $scope.website.status = 'initial';
     $scope.website.focus = false;
-    $scope.website.frame = jQuery("#websiteFrame")[0].contentWindow;
+   // $scope.website.frame = jQuery("#websiteFrame")[0].contentWindow;
     $scope.website.samples = listOfWebsites();
     $scope.updateWebsite = function () {
         if ($scope.isActive('website') || $scope.website.status != 'initial') {
@@ -30,6 +30,15 @@
             window.open($scope.website.base + "/Translate/WebsiteEmbedded?embeddedStyle=noUI", "websiteFrame");
             $scope.website.frame = jQuery("#websiteFrame")[0].contentWindow;
         }
+    };
+
+    $scope.website.initLanguages = function () {
+        //callback from text translation widget - loaded            
+        $scope.website.status = 'ready';     
+        $scope.controls.systems = $widget.settings._systems; /*language controls $widget.settings._systems*/
+        $scope.controls.activeSystem = {};
+        $scope.controls.activeSystem = $scope.controls.systems[0];
+        $scope.controls.activeSystemSource = $scope.controls.activeSystem;          
     };
 
     $scope.initWebsite = function () {
@@ -69,46 +78,79 @@
     }
 
     /*end of language controls*/
-    initEvents();
+    initEvents();  
 });
 
 app.controller('TranslateCtrl', function ($scope, $routeParams) {
     $scope.website.status = 'initial';
     $scope.website.url = '';
-    var widget = new Tilde.TranslatorWidget('#widget', {
+    $('#fileWidget').empty();
+    initTextWidget($scope);    
+});
+
+function initTextWidget($scope)
+{   
+    var textWidget = new Tilde.TranslatorWidget('#textWidget', {
         _language: 'en',
+        _systemListUrl: 'https://hugo.lv/ws/Service.svc/json/GetSystemList',
+        _clientId: 'u-bfcaf986-8147-4901-a131-f0d618a7354b',
         _templateId: 'translatetext-template',
-        _appId: "presidencyMT",
+        _appId: "web",      
+        _landingView: true,
+        _getFilteredSystems: true,
         _onWidgetLoaded: function () {
-            //console.log('_onWidgetLoaded()');
+            $scope.website.initLanguages();
         },
         _onSystemChanged: function (id) {
             //console.log('_onSystemChanged(' + id + ')');
         },
-        _replaceContainer: true
+        _replaceContainer: false
+    });
+}
+
+app.controller('DocumentCtrl', function ($scope, $routeParams) {
+    $scope.website.status = 'initial';
+    $scope.website.url = '';
+   
+    $('#textWidget').empty();
+ 
+    var fileWidget = new Tilde.TranslatorWidget('#fileWidget', {
+        _language: 'en',
+        _systemListUrl: 'https://hugo.lv/ws/Service.svc/json/GetSystemList',
+        _uploadUrl: 'https://hugo.lv/ws/Files/Upload',
+        _deleteUrl: 'https://hugo.lv/ws/Files/Delete',
+        _downloadUrl: 'https://hugo.lv/Files/Download',
+        _translateUrl: 'https://hugo.lv/ws/Files/StartTranslation',
+        _previewUrl: 'https://hugo.lv/ws/Files/GetDocumentPreview',
+        _checkStatusUrl: 'https://hugo.lv/ws/Files/GetStatus',
+        _clientId: 'u-bfcaf986-8147-4901-a131-f0d618a7354b',
+        _templateId: 'translatefile-template',
+        _appId: "web",
+        _landingView: true,
+        _getFilteredSystems: true,
+        _allowedFileTypes: [{ ext: "docx", mime: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }],
+        _onWidgetLoaded: function () {
+            $scope.website.initLanguages();
+        },
+        _onSystemChanged: function (id) {
+            //console.log('_onSystemChanged(' + id + ')');
+        },
+        _replaceContainer: false
     });
 });
 
-app.controller('websiteTranslatorCtrl', function ($scope, $routeParams) {
+
+app.controller('websiteTranslatorCtrl', function ($scope, $routeParams) {  
     $scope.website.status = 'initial';
-    $scope.controls.systems = $widget.settings._systems; /*language controls $widget.settings._systems*/
-    $scope.controls.activeSystem = {};
-    $scope.controls.activeSystem = $scope.controls.systems[0];
-    $scope.controls.activeSystemSource = $scope.controls.activeSystem;
     $scope.controls.updated = function () {
         jQuery("#websiteFrame")[0].contentWindow.postMessage(
                    { "method": "changeSystem", "systemId": $scope.controls.activeSystem.id },
-                     $scope.website.base);
-        console.log($scope.controls.activeSystem.id);
+                     $scope.website.base);        
     };
-    $scope.controls.activeSystem = {};
-    $scope.controls.activeSystem = $scope.controls.activeSystemSource = $scope.controls.systems[0];
-    $scope.controls.updated = function () {
-        jQuery("#websiteFrame")[0].contentWindow.postMessage(
-                   { "method": "changeSystem", "systemId": $scope.controls.activeSystem.id },
-                     $scope.website.base);
-        console.log($scope.controls.activeSystem.id);
-    };
+});
+
+app.controller('homeCtrl', function ($scope, $routeParams) {
+    initTextWidget($scope);
 });
 
 app.directive('ngMessage', function ($window) {
@@ -194,11 +236,12 @@ app.directive('hideBlink', function () {
 
 function listOfWebsites() {
     return [
-        { "url": "www.delfi.lv" },
-        { "url": "www.tvnet.lv" },
-        { "url": "www.diena.lv" },
-        { "url": "www.lsm.lv" },
-        { "url": "www.apollo.lv" }
+        { "url": "www.letonika.lv", "title": "Letonika.lv", "description": "Online encyclopedia" },
+        { "url": "www.lsm.lv", "title": "LSM.lv", "description": "Public news service" },
+        { "url": "www.diena.lv", "title": "Diena", "description": "Daily newspaper" },   
+        { "url": "www.db.lv", "title": "db.lv", "description": "Business news" },
+        { "url": "www.delfi.lv", "title": "Delfi", "description": "News site" },
+        { "url": "www.tvnet.lv", "title": "TVNET ", "description": "News site" }     
     ];
 }
 

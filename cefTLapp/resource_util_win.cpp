@@ -42,16 +42,17 @@ namespace {
 			{ "http://tlapp/index.html", IDS_MAIN_HTML, "text/html" },
 			{ "http://tlapp/css/index.css", IDS_CSS_INDEX, "text/css" },
 			//images
-			{ "http://tlapp/img/arrow.png", IDS_IMG_ARROW, "image/png" },
+			{ "http://tlapp/img/arrowWhite.png", IDS_IMG_ARROW, "image/png" },
+			{ "http://tlapp/img/arrowWhiteDown.png", IDS_IMG_ARROW_DOWN, "image/png" },		
+			{ "http://tlapp/img/hugo.png", IDS_IMG_HUGO, "image/png" },
+			{ "http://tlapp/img/landing.png", IDS_IMG_LANDING, "image/png" },	
 			{ "http://tlapp/img/doc_letsmt.svg", IDS_IMG_DOC_LETSMT, "image/svg+xml" },
 			{ "http://tlapp/img/doc_letsmt-active.svg", IDS_IMG_DOC_LETSMT_ACTIVE, "image/svg+xml" },
-			{ "http://tlapp/img/hugo.png", IDS_IMG_HUGO, "image/png" },
 			{ "http://tlapp/img/text_letsmt.svg", IDS_IMG_TEXT_LETSMT, "image/svg+xml" },
-			{ "http://tlapp/img/text_letsmt-active.svg", IDS_IMG_TEXT_LETSMT_ACTIVE, "image/svg+xml" },
-			{ "http://tlapp/img/tilde_EU2015_logofull.svg", IDS_IMG_TILDE_EU2015_LOGOFULL, "image/svg+xml" },
-			{ "http://tlapp/img/tilde_EU2015_logoshort.svg", IDS_IMG_TILDE_EU2015_LOGOSHORT, "image/svg+xml" },
+			{ "http://tlapp/img/text_letsmt-active.svg", IDS_IMG_TEXT_LETSMT_ACTIVE, "image/svg+xml" },	
 			{ "http://tlapp/img/web_letsmt.svg", IDS_IMG_WEB_LETSMT, "image/svg+xml" },
 			{ "http://tlapp/img/web_letsmt-active.svg", IDS_IMG_WEB_LETSMT_ACTIVE, "image/svg+xml" },
+			{ "http://tlapp/img/logo_large.svg", IDS_IMG_LOGO, "image/svg+xml" },
 			//js
 			{ "http://tlapp/js/angular.min.js", IDS_JS_ANGULAR_MIN_JS, "text/javascript" },
 			{ "http://tlapp/js/angular-route.min.js", IDS_JS_ANGULAR_ROUTE_MIN_JS, "text/javascript" },
@@ -61,15 +62,14 @@ namespace {
 			{ "http://tlapp/js/myTranslatorApp.js", IDS_JS_MYTRANSLATORAPP_JS, "text/javascript" },
 			//templates
 			{ "http://tlapp/templates/about.html", IDS_TEMPLATES_ABOUT_HTML, "text/html" },
-			{ "http://tlapp/templates/hugo.html", IDS_TEMPLATES_HUGO_HTML, "text/html" },
+			{ "http://tlapp/templates/home.html", IDS_TEMPLATES_HOME_HTML, "text/html" },
 			{ "http://tlapp/templates/mobileApplications.html", IDS_TEMPLATES_MOBILEAPP_HTML, "text/html" },
 			{ "http://tlapp/templates/translate-document.html", IDS_TEMPLATES_TRANSL_DOC_HTML, "text/html" },
 			{ "http://tlapp/templates/translate-text.html", IDS_TEMPLATES_TRANSL_TEXT_HTML, "text/html" },
 			{ "http://tlapp/templates/translate-website.html", IDS_TEMPLATES_TRANSL_WEB_HTML, "text/html" },
-			//text widget resources
-			{ "http://tlapp/text-widget/img/cross.svg", IDS_TEXT_WIDGET_IMG_CROSS, "image/svg+xml" },
-			{ "http://tlapp/text-widget/text-translator.css", IDS_TEXT_WIDGET_WIDGET_CSS, "text/css" },
-			{ "http://tlapp/text-widget/text-translator.js", IDS_TEXT_WIDGET_CORE_JS, "text/javascript" }
+			//text widget resources			
+			{ "http://tlapp/text-widget/translator.css", IDS_TEXT_WIDGET_WIDGET_CSS, "text/css" },
+			{ "http://tlapp/text-widget/translator.js", IDS_TEXT_WIDGET_CORE_JS, "text/javascript" }
 		};
 
 		for (int i = 0; i < sizeof(resource_map) / sizeof(_resource_map); ++i)

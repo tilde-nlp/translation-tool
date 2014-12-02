@@ -8,9 +8,9 @@ app.config(['$routeProvider',
             templateUrl: 'templates/about.html',
             controller: 'myPageCtrl'
         })
-          .when('/hugo', {
-              templateUrl: 'templates/hugo.html',
-              controller: 'myPageCtrl'
+          .when('/home', {
+              templateUrl: 'templates/home.html',
+              controller: 'homeCtrl'
           })
           .when('/mobileApp', {
               templateUrl: 'templates/mobileApplications.html',
@@ -30,10 +30,10 @@ app.config(['$routeProvider',
            })           
            .when('/document', {
                templateUrl: 'templates/translate-document.html',
-               controller: 'myPageCtrl'
+               controller: 'DocumentCtrl'
            })         
         .otherwise({
-            redirectTo: '/text'
+            redirectTo: '/home'
         });
   }
 ]);

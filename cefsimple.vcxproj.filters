@@ -37,9 +37,6 @@
     <Filter Include="cefTLapp\res\text-widget">
       <UniqueIdentifier>{bc01ac99-aa0a-4751-aa11-d587df8bb978}</UniqueIdentifier>
     </Filter>
-    <Filter Include="cefTLapp\res\text-widget\img">
-      <UniqueIdentifier>{4eb46322-56ea-4243-b800-1241122cd9c9}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\cef_base.h">
@@ -415,14 +412,20 @@
     <Image Include="cefTLapp\res\cefTLapp.ico">
       <Filter>cefTLapp\res</Filter>
     </Image>
-    <Image Include="cefTLapp\res\img\arrow.png">
-      <Filter>cefTLapp\res\img</Filter>
-    </Image>
     <Image Include="cefTLapp\res\img\hugo.png">
       <Filter>cefTLapp\res\img</Filter>
     </Image>
     <Image Include="..\..\..\..\Users\andis.lagzdins\Downloads\d41d8cd98f00b204e9800998ecf8427e.ico">
       <Filter>cefTLapp</Filter>
+    </Image>
+    <Image Include="cefTLapp\res\img\arrowWhite.png">
+      <Filter>cefTLapp\res\img</Filter>
+    </Image>
+    <Image Include="cefTLapp\res\img\arrowWhiteDown.png">
+      <Filter>cefTLapp\res\img</Filter>
+    </Image>
+    <Image Include="cefTLapp\res\img\landing.png">
+      <Filter>cefTLapp\res\img</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
@@ -457,12 +460,6 @@
     <None Include="cefTLapp\res\img\text_letsmt-active.svg">
       <Filter>cefTLapp\res\img</Filter>
     </None>
-    <None Include="cefTLapp\res\img\tilde_EU2015_logofull.svg">
-      <Filter>cefTLapp\res\img</Filter>
-    </None>
-    <None Include="cefTLapp\res\img\tilde_EU2015_logoshort.svg">
-      <Filter>cefTLapp\res\img</Filter>
-    </None>
     <None Include="cefTLapp\res\img\web_letsmt.svg">
       <Filter>cefTLapp\res\img</Filter>
     </None>
@@ -484,9 +481,6 @@
     <None Include="cefTLapp\res\templates\about.html">
       <Filter>cefTLapp\res\templates</Filter>
     </None>
-    <None Include="cefTLapp\res\templates\hugo.html">
-      <Filter>cefTLapp\res\templates</Filter>
-    </None>
     <None Include="cefTLapp\res\templates\mobileApplications.html">
       <Filter>cefTLapp\res\templates</Filter>
     </None>
@@ -505,14 +499,17 @@
     <None Include="cefTLapp\res\js\jquery-2.1.1.min.js">
       <Filter>cefTLapp\res\js</Filter>
     </None>
-    <None Include="cefTLapp\res\text-widget\text-translator.css">
+    <None Include="cefTLapp\res\img\logo_large.svg">
+      <Filter>cefTLapp\res\img</Filter>
+    </None>
+    <None Include="cefTLapp\res\templates\home.html">
+      <Filter>cefTLapp\res\templates</Filter>
+    </None>
+    <None Include="cefTLapp\res\text-widget\translator.css">
       <Filter>cefTLapp\res\text-widget</Filter>
     </None>
-    <None Include="cefTLapp\res\text-widget\text-translator.js">
+    <None Include="cefTLapp\res\text-widget\translator.js">
       <Filter>cefTLapp\res\text-widget</Filter>
-    </None>
-    <None Include="cefTLapp\res\text-widget\img\cross.svg">
-      <Filter>cefTLapp\res\text-widget\img</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

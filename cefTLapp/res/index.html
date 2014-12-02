@@ -7,16 +7,20 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+
+
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <script src="js/jquery-2.1.1.min.js"></script>
 
     <!--text translation-->
-    <link href="text-widget/text-translator.css" rel="stylesheet" />
-    <script src="text-widget/text-translator.js"></script>
+    <link href="text-widget/translator.css" rel="stylesheet" />
+    <script src="text-widget/translator.js"></script>
+
+    <!-- TEMPLATE -->
     <script id="translatetext-template" type="text/html">
-        <div class="layoutRow">
+        <div class="layoutRow text">
             <div class="layoutCell translateContainerHeader">
-                <div class="translateSourceSystemContainer">
+                <div class="translateHeaderLeft">
                     <div class="translateLanguageContainer">
                         <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
                         <select class="translateSourceLang"></select>
@@ -25,22 +29,29 @@
                         <div data-text="targetSystem" class="translateTargetSystemLabel"></div>
                         <select class="translateTargetLang"></select>
                     </div>
+                    <a data-text="translateButton" class="translateButton hide"></a>
                 </div>
-                <a data-text="translateButton" class="translateButton"></a>
-                <div class="translateDomainContainer hide">
-                    <div data-text="systemDomain" class="translateDomainLabel"></div>
-                    <select class="translateDomain"></select>
+                <div class="translateHeaderRight">
+                    <div class="translateDomainContainer hide">
+                        <div data-text="systemDomain" class="translateDomainLabel"></div>
+                        <select class="translateDomain"></select>
+                    </div>
+                    <div class="translateProgress hide">
+                        <div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>
+                    </div>
+                    <div class="translateResultClear hide">
+                        <div data-text="clearTranslation" class="clearText"></div>
+                        <div class="clearLink"></div>
+                    </div>
                 </div>
-                <div class="translateProgress hide">
-                    <div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>
-                </div>
+                <div class="headerLine"></div>
             </div>
         </div>
-        <div class="layoutRow">
-            <div id="widget" class="layoutCell translateContainerBody mainContent">
+        <div class="layoutRow text">
+            <div class="layoutCell translateContainerBody mainContent">
                 <div class="translateContainerLeft borderBoxSizing">
+                    <div class="fakeCursor blink hide"></div>
                     <div class="translateTextSourceContainer borderBoxSizing">
-                        <div data-title="clearTranslation" class="translateResultClear hide"></div>
                         <div class="backGroundSource borderBoxSizing"></div>
                         <textarea rows="10" cols="2" maxlength="10000" id="sourceText" class="translateTextSource borderBoxSizing"></textarea>
                         <div data-text="sourceTextTooltip" class="translateTextTempSourceContainer translateTextTemp borderBoxSizing"></div>
@@ -48,6 +59,62 @@
                 </div>
                 <div class="translateContainerRight borderBoxSizing">
                     <div data-text="targetTextTooltip" class="translateTextResult borderBoxSizing"></div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="translatefile-template" type="text/html">
+        <div class="layoutRow file">
+            <div class="layoutCell translateContainerHeader">
+                <div class="translateHeaderLeft">
+                    <div class="translateLanguageContainer">
+                        <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
+                        <select class="translateSourceLang"></select>
+                        <select class="translateSystem hide"></select>
+                        <a data-text="sourceSystemReverse" class="translateSystemReverse hide"></a>
+                        <div data-text="targetSystem" class="translateTargetSystemLabel"></div>
+                        <select class="translateTargetLang"></select>
+                    </div>
+                    <a data-text="translateButton" class="translateButton hide"></a>
+                </div>
+                <div class="translateHeaderRight">
+                    <a data-text="docDownload" class="buttonDownDoc hide"></a>
+                    <a data-text="docCancel" class="buttonCancelDoc hide"></a>
+                    <div class="translateDomainContainer hide">
+                        <div data-text="systemDomain" class="translateDomainLabel"></div>
+                        <select class="translateDomain"></select>
+                    </div>
+                    <div class="translateProgress hide">
+                        <div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>
+                    </div>
+                    <div class="infoMessageBox error hide"></div>
+                    <div class="docTranslateContent"><div class="transFileMeta hide"></div></div>
+                    <div data-text="docAppleLimited" class="uploadNotSupported error hide"></div>
+                    <a data-title="docUploadNewDoc" class="docUploadNewDoc hide"></a>
+                    <div class="uploadedDocumentName hide"></div>
+                </div>
+                <div class="headerLine"></div>
+            </div>
+        </div>
+        <div class="layoutRow file">
+            <div class="layoutCell translateContainerBody mainContent">
+                <div class="translateContainerLeft borderBoxSizing">
+                    <a data-text="docUpload" class="docUploadNewDocument hide"></a>
+                    <div id="docUploadFile" class="borderBoxSizing"></div>
+                    <div id="docSourcePreview" class="hide"></div>
+                </div>
+                <div class="translateContainerRight borderBoxSizing">
+                    <div data-text="docTempTarget" class="docTempTarget"></div>
+                    <div class="translateResult hide">
+                        <div id="translProgress" class="starting">
+                            <div class="progressImage">
+                                <div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>
+                            </div>
+                            <div id="transItem" class="transItem">
+                                <span data-text="docStarting" class="percent"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -62,119 +129,105 @@
 
     <title>Presidency Translator</title>
 </head>
-<body ng-app="myTranslatorApp">
-    <div class="page-wrap">
-        <div ng-controller="myPageCtrl" ng-message>
-            <header class="greySection" id="topFirst">
-                <div class="restricted">
-                    <a class="logo left" href="#/"> Translate 2015</a>
+<body ng-app="myTranslatorApp" ng-controller="myPageCtrl" ng-message>
 
-                    <form novalidate class="right" ng-show="isActive('www') || isActive('website')" ng-submit="">
-                        <input type="text"
-                               id="url"
-                               ng-keyup="$scope.apply; $event.keyCode == 13 && website.loadUrl(); "
-                               placeholder="Enter Address"
-                               ng-model="website.url"
-                               ng-disabled="website.status=='translating'"
-                               required focus-on="website.focus" />
-                        <button ng-click="updateWebsite()" ng-show="website.status=='initial' ||website.status=='loading' || website.status=='loaded'">Translate</button>
-                        <button ng-click="website.untranslate()" ng-show="website.status=='translating'">Cancel</button>
-                        <button ng-click="website.untranslate()" ng-show="website.status=='translated'">Restore original</button>
-                        <div class="LanguageSelect">
-                            <div id="source" class="language">
-                                From <span>{{controls.activeSystem.SourceLanguage.Name.Text}}</span>
-                                <ul ng-class="{multiple :results.length==0}">
-                                    <li ng-model="controls.activeSystemSource"
-                                        ng-click="controls.activeSystemSource=system; controls.activeSystem=system;"
-                                        ng-repeat="system in controls.systems | unique: 'SourceLanguage.Name.Text' ">
-                                        <a href="">
-                                            {{system.SourceLanguage.Name.Text}}
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div id="target" class="language">
-                                to <span>{{controls.activeSystem.TargetLanguage.Name.Text}}</span>
-                                <ul ng-class="{multiple :results.length==0}">
-                                    <li ng-click="controls.activeSystem=system;" ng-repeat="system in controls.systems| unique: 'TargetLanguage.Name.Text'" ng-show="system.SourceLanguage.Code==controls.activeSystemSource.SourceLanguage.Code">
-                                        <a href="">{{system.TargetLanguage.Name.Text}}</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </form>
+    <div class="vertical" id="header">
+        <a href="#/home">
+            <div id="logoSection">
 
-                    <nav class="right" ng-class="{compact: isActive('www') || isActive('website') }">
-                        <a class="textMenuItem" ng-class="{ active: isActive('text') }" href="#/text" title="Translate text">
-                            Text
-                        </a>
-                        <a class="documentMenuItem" ng-class="{ active: isActive('document') }" href="#/document" title="Translate document">
-                            Documents
-                        </a>
-                        <a class="websiteMenuItem" href="#/www" ng-class="{ active: isActive('website') || isActive('www')  }" title="Translate website">
-                            Website
-                        </a>
-                    </nav>
-                </div>
-            </header>
-
-            <div class="greyLine">
-                <div ng-show="website.status=='loading'">
-                    <center>Loading website ...</center>
-                </div>
-                <div ng-show="website.status=='error'">
-                    <center>{website.errorMsg}</center>
-                </div>
             </div>
+        </a>
 
-            <div class="restricted" id="mainLayout">
-                <div id="inject"></div>
-                <div id="standardView">
-                    <div ng-view></div>
-                </div>
+        <nav>
+            <a class="textMenuItem" ng-class="{ active: isActive('text') }" href="#/text" title="Translate text">
+                Text
+            </a>
+            <a class="documentMenuItem" ng-class="{ active: isActive('document') }" href="#/document" title="Translate document">
+                Documents
+            </a>
+            <a class="websiteMenuItem" href="#/www" ng-class="{ active: isActive('website') || isActive('www')  }" title="Translate website">
+                Website
+            </a>
+        </nav>
 
-                <div ng-show="isActive('www')">
-                    <div class="bigText">
-                        <div class="cursor blinker"></div>
-                        <input type="text"
-                               placeholder="Type here web address"
-                               ng-keyup="$event.keyCode == 13 && updateWebsite()"
-                               ng-model="website.url" hide-blink=".cursor.blinker">
-                    </div>
-                    <div>
-                        <p>Read latest news in English from the most popular latvian news portals:</p>
-                        <ul>
-                            <li ng-repeat="sample in website.samples">
-                                <a href="" ng-click="website.url=sample.url; updateWebsite();">{{sample.url}}</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-
-            <div ng-show="isActive('website') && website.status!='initial'" id="websiteFrameContainer">
-
-                <iframe id="websiteFrame" name="websiteFrame" src="about:blank" frameborder="0"></iframe>
-            </div>
+        <div id="promoSection">
+            <a href="#/about">About Translate 2015</a>
+            <a href="#/mobileApp">Get the Mobile App</a>
+        </div>
+        <div class="footer">
+            <p class="hugo">Powered by <a class="red" href="https://www.hugo.lv" target="_blank">Hugo</a> Latvian eGov MT</p>
         </div>
     </div>
-    <footer class="site-footer restricted">
-        <div class="promoBox">
-            What is MT?<br />
-            <a href="#/hugo" class="stressed">MT in a nutshell</a>
+
+    <div class="vertical" id="container">
+        <form novalidate class="right" ng-show="isActive('www') || isActive('website')" ng-submit="">
+            <div class="LanguageSelect">
+                <div id="source" class="language">
+                    From <span>{{controls.activeSystem.SourceLanguage.Name.Text}}</span>
+                    <ul ng-class="{multiple :results.length==0}">
+                        <li ng-model="controls.activeSystemSource"
+                            ng-click="controls.activeSystemSource=system; controls.activeSystem=system;"
+                            ng-repeat="system in controls.systems | unique: 'SourceLanguage.Name.Text' ">
+                            <a href="">
+                                {{system.SourceLanguage.Name.Text}}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div id="target" class="language">
+                    to <span>{{controls.activeSystem.TargetLanguage.Name.Text}}</span>
+                    <ul ng-class="{multiple :results.length==0}">
+                        <li ng-click="controls.activeSystem=system;" ng-repeat="system in controls.systems| unique: 'TargetLanguage.Name.Text'" ng-show="system.SourceLanguage.Code==controls.activeSystemSource.SourceLanguage.Code">
+                            <a href="">{{system.TargetLanguage.Name.Text}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="address">
+                Address
+                <input type="text"
+                       id="url"
+                       ng-keyup="$scope.apply; $event.keyCode == 13 && updateWebsite(); "
+                       placeholder="Enter Address"
+                       ng-model="website.url"
+                       ng-disabled="website.status=='translating'"
+                       required focus-on="website.focus" />
+                <button ng-click="updateWebsite()" ng-show="website.status=='initial' ||website.status=='loading' || website.status=='loaded'">Translate</button>
+                <button ng-click="website.untranslate()" ng-show="website.status=='translating'">Cancel</button>
+                <button ng-click="website.untranslate()" ng-show="website.status=='translated'">Restore original</button>
+
+            </div>
+        </form>
+
+        <div ng-hide="isActive('website') || isActive('www')" ng-view></div>
+
+        <div ng-show="isActive('www')" style="clear:both;" class="restricted">
+            <div class="bigText">
+                <div class="cursor blinker"></div>
+                <input type="text"
+                       placeholder="Type web address here"
+                       ng-keyup="$event.keyCode == 13 && updateWebsite()"
+                       ng-model="website.url" hide-blink=".cursor.blinker">
+            </div>
+            <div id="websiteLinks">
+                <div>Links to Latvian media and information resources:</div>
+                <ul>
+                    <li ng-repeat="sample in website.samples">
+                        <a href="" ng-click="website.url=sample.url; updateWebsite();">{{sample.title}}</a>
+                        <span>{{sample.description}}</span>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="promoBox">
-            On the go? <br />
-            <a href="#/mobileApp" class="stressed">Get our mobile app</a>
+
+        <div ng-show="isActive('website') && website.status!='initial'" id="websiteFrameContainer">
+            <iframe id="websiteFrame" name="websiteFrame" src="about:blank" frameborder="0"></iframe>
         </div>
-        <div class="promoBox">
-            Want to find more?<br />
-            <a class="stressed" href="#/about">Read about this project</a>
-        </div>
-        <p class="copyright left clear">2015 Developed by <a class="red" target="_blank" href="http://www.tilde.com/mt">Tilde</a></p>
-        <p class="copyright right hugo">Powered by <a class="red" href="https://www.hugo.lv" target="_blank">Hugo</a> Latvian eGov MT</p>
-    </footer>        
+    </div>
+    <div class="tilde">
+        Developed by <a class="red" href="https://www.tilde.com" target="_blank">Tilde</a>
+    </div>
+    <div ng-show="isActive('home')" style="visibility:hidden;" id="textWidget"></div>
 </body>
 </html>
 

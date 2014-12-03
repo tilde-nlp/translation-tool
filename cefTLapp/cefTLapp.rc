@@ -124,8 +124,8 @@ LANGUAGE LANG_LATVIAN, SUBLANG_DEFAULT
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,2
- PRODUCTVERSION 1,0,0,2
+ FILEVERSION 1,4,0,2
+ PRODUCTVERSION 1,4,0,2
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -142,12 +142,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Tilde SIA"
             VALUE "FileDescription", "Translator 2015"
-            VALUE "FileVersion", "1.0.0.2"
+            VALUE "FileVersion", "1.4.0.2"
             VALUE "InternalName", "Translator2015.rc"
-            VALUE "LegalCopyright", "© Tilde SIA, 2015"
+            VALUE "LegalCopyright", "Â© Tilde SIA, 2015"
             VALUE "OriginalFilename", "Translator2015.rc"
             VALUE "ProductName", "Translator 2015"
-            VALUE "ProductVersion", "1.0.0.2"
+            VALUE "ProductVersion", "1.4.0.2"
         END
     END
     BLOCK "VarFileInfo"

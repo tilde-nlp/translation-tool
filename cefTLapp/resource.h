@@ -20,6 +20,9 @@
 #define IDS_IMG_WEB_LETSMT              1010
 #define IDS_IMG_WEB_LETSMT_ACTIVE       1011
 #define IDS_IMG_LOGO                    1012
+#define IDS_IMG_LANDING_WHITE           1013
+#define IDS_IMG_MOBILE                  1014
+#define IDS_IMG_ARROW_RIGHT             1015
 
 #define IDS_JS_ANGULAR_MIN_JS           1101
 #define IDS_JS_ANGULAR_ROUTE_MIN_JS     1102

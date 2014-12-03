@@ -1,9 +1,8 @@
 ﻿
-var app = angular.module("myTranslatorApp", ['ngRoute','angular.filter']);
-
+var app = angular.module("myTranslatorApp", ['ngRoute', 'angular.filter']);
 app.config(['$routeProvider',
-  function ($routeProvider) {
-      $routeProvider        
+  function ($routeProvider, $filter) {
+      $routeProvider
         .when('/about', {
             templateUrl: 'templates/about.html',
             controller: 'myPageCtrl'
@@ -17,21 +16,21 @@ app.config(['$routeProvider',
               controller: 'myPageCtrl'
           })
         .when('/text', {
-              templateUrl: 'templates/translate-text.html',
-              controller: 'TranslateCtrl'
+            templateUrl: 'templates/translate-text.html',
+            controller: 'TranslateCtrl'
         })
           .when('/www', {
               templateUrl: 'templates/translate-website.html',
               controller: 'websiteTranslatorCtrl'
           })
-           .when('/website', {             
+           .when('/website', {
                templateUrl: 'templates/translate-website.html',
                controller: 'websiteTranslatorCtrl'
-           })           
+           })
            .when('/document', {
                templateUrl: 'templates/translate-document.html',
                controller: 'DocumentCtrl'
-           })         
+           })
         .otherwise({
             redirectTo: '/home'
         });

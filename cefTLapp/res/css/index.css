@@ -34,26 +34,11 @@ h1 {
     text-align:center;
 }
 
-form button{
-    border-radius: 3px;
-    padding: 11px 15px;     
-    background-color:#35a8df;
-    border-color:#35a8df;
-    border-style:solid;
-    cursor:pointer;
-    color:white;
-    font-size:1.25rem;    
-    margin-top:1px;   
-}
 
 .vertical{    
   height:100%;
     float:left; 
 }
-
-
-
-
 
 
 body{
@@ -85,9 +70,9 @@ nav{
    height:30%;
    min-height:190px;   
 }
-.textMenuItem:hover, .textMenuItem.active{ background-image: url("../img/text_letsmt-active.svg");}
-.documentMenuItem:hover, .documentMenuItem.active{background-image: url("../img/doc_letsmt-active.svg");}
-.websiteMenuItem:hover, .websiteMenuItem.active{background-image: url("../img/web_letsmt-active.svg");}
+.textMenuItem:hover, .textMenuItem:focus, .textMenuItem.active{ background-image: url("../img/text_letsmt-active.svg");}
+.documentMenuItem:hover, .documentMenuItem:focus, .documentMenuItem.active{background-image: url("../img/doc_letsmt-active.svg");}
+.websiteMenuItem:hover,.websiteMenuItem:focus,  .websiteMenuItem.active{background-image: url("../img/web_letsmt-active.svg");}
 a.textMenuItem{background-image: url("../img/text_letsmt.svg");  }
 a.documentMenuItem{ background-image: url("../img/doc_letsmt.svg");background-position-x:15px; }
 a.websiteMenuItem{ background-image: url("../img/web_letsmt.svg"); }
@@ -102,11 +87,17 @@ nav a{
     padding: 15px 10px 15px 60px;      
     display:block;
 }
-nav a:hover{
+nav a:hover,nav a:focus{
     background-color:#161F2E;
 }
-nav a:hover, nav a.active{
+nav a:hover, nav a.active,nav a:focus{
     color:white;   
+}
+
+a:focus{ 
+    text-decoration:dashed;  
+  text-decoration-color:#c6cacf;
+  text-decoration-style:dashed;
 }
 
 /*promo links*/
@@ -150,6 +141,7 @@ nav a:hover, nav a.active{
     right:20px;
     bottom:20px;
     font-weight:bold;
+    z-index:-1;
 }
 
 @-moz-keyframes blinker{0%{opacity:1}50%{opacity:0}100%{opacity:1}}@-webkit-keyframes blinker{0%{opacity:1}50%{opacity:0}100%{opacity:1}}@keyframes blinker{0%{opacity:1}50%{opacity:0}100%{opacity:1}}
@@ -175,80 +167,136 @@ nav a:hover, nav a.active{
 }
 
 #landingPage
-{ 
-    padding:25% 5% 5% 5%;
-    background-position:5% 5%, 80% bottom;    
-    background-color:#273347;
+{    
+    background-position:4% 4%, 85% bottom;  
     background-image:url("../img/logo_large.svg"), url("../img/landing.png");
     background-repeat:no-repeat; 
-    background-size: 120px, auto;  
+    background-size: 120px, cover;     
     position:fixed;
-    width:90%;
-    height:70%;
+    width:100%;
+    height:100%;
     background-color:#273347; 
     z-index:9999;
     left:0px;
+    padding:0;
+    margin:0;
 }
+.landingBackground, .mobileBackground
+{
+       
+    background-repeat:no-repeat; 
+    background-size:auto;  
+    background-color:white;
+    z-index:0;
+    padding:30px 0 30px 50px; 
+}
+.landingBackground
+{ 
+    background-position:bottom right;  
+background-image:url("../img/landingWhite.png");
+}
+
+.mobileBackground
+{
+  background-image:url("../img/mobile.png");
+  background-position: right 80px;      
+}
+
+#outer
+{   padding-left:4%;
+    position:relative; 
+    top:30%;
+}
+#outer::before {
+    display: block;
+    content: "";
+    width: 100%;
+    height: 10%;
+    top:30%;
+}
+#outer::after {
+    display: block;
+    content: "";
+    width: 100%;
+    height: 10%;
+    top:30%;
+}
+
+#inner {
+    width: 60%;
+    height: 80%;     
+    display:block;
+}
+
 #landingPage h1{
     color:white;
-    font-size:3rem;
+    font-size:3em;
     text-align:left;
-    width:60%;
+  
     padding-bottom:5%;
 }
 
-.firstpagenav div
+#landingPage #inner div
 {
     color:white;
 }
-.firstpagenav ul{
+
+#landingPage #inner ul{
     list-style:none;
     padding-left:0px;
     padding-top:30px;
 }
-.firstpagenav ul li{
+.multiple{
+    display:none;
+}
+#landingPage #inner li{
 
     background-image:url("../img/arrowWhite.png");
     background-repeat:no-repeat;
-    background-position: 90% center;
+    background-position: 90% center;    
    display:block;
    float:left;   
    margin-right:20px;
    min-width:12%;
    background-color:#161F2E; 
-   padding:15px 40px 15px 10px;
-   }
-.firstpagenav a{   
+   padding:0px 10px 0px 10px;
+   width:160px;  
+   margin-top:10px;
+   margin-bottom:10px;
+}
+
+#landingPage #inner li>a{  
    background-position:left center;
    background-repeat:no-repeat; 
    color:white;
-   padding:15px 0px 15px 50px;
-
+   padding:10px 30px 10px 40px;
+   display:block;  
 }
- .firstpagenav a:hover
- {
-    color:#c6cacf;  
- }
- #landingPage .red{
+
+#landingPage a.red{
      color:#DF332B;
+     display:inline;
  }
-#landingPage p{
-    position:fixed;
-    bottom:2%;
+
+#landingPage p{   
+    bottom:10px;
     color:#c6cacf;
     font-size:0.8rem;
+    position:fixed;
  }
+
 #landingPage .hugo{
     background-position: left center;
-padding-left: 15px;
-padding-top:0px;
+    padding-left: 15px;
+    padding-top:0px;
 }
- .firstpagenav p a
+
+#landingPage p a
  {padding:0px;}
 
- .firstpagenav .tilde{
+#landingPage .tilde{
       font-weight:normal;
-      left:40%;
+      right:46%;
   }
  /*website form*/
  form button{
@@ -280,7 +328,7 @@ form input[type='text']{
 .LanguageSelect, #address
 {
     padding-top:0px;
-    color:#c6cacf;  
+    color:#ACB6BF;  
    
 }
 .LanguageSelect
@@ -302,7 +350,7 @@ div.language{
 }
 div.language>span.ng-binding
 {
-    margin-left:5px;
+    margin-left:6px;
 }
 .language ul{
     display:none;
@@ -345,8 +393,8 @@ div.language>span.ng-binding
     color:white;
     cursor:pointer;
     background-color:#273347;
-    cursor: pointer;
-    padding: 0 1.6em 0.2em 0.5em;
+    cursor: pointer;    
+    padding: 0 2em 0.3em 0.7em;
     margin-right: 0.1em;
     white-space: nowrap;
     overflow: hidden;   
@@ -357,11 +405,14 @@ div.language>span.ng-binding
     background-repeat:no-repeat;
   
 }
+.language>span:empty{
+        display:none;
+}
 
 #websiteFrameContainer
 {
     position:fixed; 
-    top:65px;  
+    top:55px;  
     bottom:0px;
     right:0;
     left:160px;
@@ -370,6 +421,26 @@ div.language>span.ng-binding
 #websiteFrame {
     width:100%;
     height:100%;
+}
+
+  .infoMessage{
+      padding:5px;
+      border-radius:3px;
+      position:fixed; 
+      top:57px; 
+      right:20px;
+      color:#273347;
+      background-color:white;
+      border:#ac1413 thin solid;
+      width:200px;
+  }
+  .infoMessage  button{  
+    background-color:#ac1413;
+    border-color:#ac1413;
+    border-style:solid;
+    border-radius:4px;
+    cursor:pointer;
+    color:white;   
 }
 
 
@@ -407,7 +478,7 @@ div.language>span.ng-binding
     background-color: #273347;
     -moz-animation: blinker 1s steps(1,start) infinite;
     -webkit-animation: blinker 1s steps(1,start) infinite;
-    animation: blinker 1s steps(1,start) infinite
+    animation: blinker 1s steps(1,start) infinite;
  }
  .hidden{
      display:none;
@@ -434,7 +505,7 @@ div.language>span.ng-binding
         clear:both;
     }
     
-  #websiteLinks>ul li a{    
+  #websiteLinks>ul li a, a.stressed{    
     font-weight:bold;
     background-image: url("../img/arrow.png");
     background-repeat: no-repeat;
@@ -442,4 +513,5 @@ div.language>span.ng-binding
     padding-right: 20px;
     color:#273347;
   }
+
  

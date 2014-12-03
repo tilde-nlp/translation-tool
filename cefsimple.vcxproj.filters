@@ -427,14 +427,21 @@
     <Image Include="cefTLapp\res\img\landing.png">
       <Filter>cefTLapp\res\img</Filter>
     </Image>
+    <Image Include="cefTLapp\res\img\mobile.png">
+      <Filter>cefTLapp\res\img</Filter>
+    </Image>
+    <Image Include="cefTLapp\res\img\landingWhite.png">
+      <Filter>cefTLapp\res\img</Filter>
+    </Image>
+    <Image Include="cefTLapp\res\img\arrow.png">
+      <Filter>cefTLapp\res\img</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <Manifest Include="cefTLapp\cefTLapp.exe.manifest">
-      <Filter>cefTLapp</Filter>
-    </Manifest>
     <Manifest Include="cefTLapp\compatibility.manifest">
       <Filter>cefTLapp</Filter>
     </Manifest>
+    <Manifest Include="cefTLapp\cefTLapp.exe.manifest" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="cefTLapp\cefTLapp.rc">

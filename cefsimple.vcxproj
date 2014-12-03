@@ -622,10 +622,13 @@
   <ItemGroup>
     <Image Include="..\..\..\..\Users\andis.lagzdins\Downloads\d41d8cd98f00b204e9800998ecf8427e.ico" />
     <Image Include="cefTLapp\res\cefTLapp.ico" />
+    <Image Include="cefTLapp\res\img\arrow.png" />
     <Image Include="cefTLapp\res\img\arrowWhite.png" />
     <Image Include="cefTLapp\res\img\arrowWhiteDown.png" />
     <Image Include="cefTLapp\res\img\hugo.png" />
     <Image Include="cefTLapp\res\img\landing.png" />
+    <Image Include="cefTLapp\res\img\landingWhite.png" />
+    <Image Include="cefTLapp\res\img\mobile.png" />
     <Image Include="cefTLapp\res\small.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -133,19 +133,17 @@
 
     <div class="vertical" id="header">
         <a href="#/home">
-            <div id="logoSection">
-
-            </div>
+            <div id="logoSection"></div>
         </a>
 
         <nav>
-            <a class="textMenuItem" ng-class="{ active: isActive('text') }" href="#/text" title="Translate text">
+            <a tabindex="1" class="textMenuItem" ng-class="{ active: isActive('text') }" href="#/text" title="Translate text">
                 Text
             </a>
-            <a class="documentMenuItem" ng-class="{ active: isActive('document') }" href="#/document" title="Translate document">
+            <a tabindex="2" class="documentMenuItem" ng-class="{ active: isActive('document') }" href="#/document" title="Translate document">
                 Documents
             </a>
-            <a class="websiteMenuItem" href="#/www" ng-class="{ active: isActive('website') || isActive('www')  }" title="Translate website">
+            <a tabindex="3" class="websiteMenuItem" href="#/www" ng-class="{ active: isActive('website') || isActive('www')  }" title="Translate website">
                 Website
             </a>
         </nav>
@@ -161,10 +159,10 @@
 
     <div class="vertical" id="container">
         <form novalidate class="right" ng-show="isActive('www') || isActive('website')" ng-submit="">
-            <div class="LanguageSelect">
+            <div class="LanguageSelect" ng-show="controls.activeSystem">
                 <div id="source" class="language">
                     From <span>{{controls.activeSystem.SourceLanguage.Name.Text}}</span>
-                    <ul ng-class="{multiple :results.length==0}">
+                    <ul>
                         <li ng-model="controls.activeSystemSource"
                             ng-click="controls.activeSystemSource=system; controls.activeSystem=system;"
                             ng-repeat="system in controls.systems | unique: 'SourceLanguage.Name.Text' ">
@@ -190,16 +188,17 @@
                        ng-keyup="$scope.apply; $event.keyCode == 13 && updateWebsite(); "
                        placeholder="Enter Address"
                        ng-model="website.url"
-                       ng-disabled="website.status=='translating'"
+                       ng-disabled="false && website.status=='translating'"
                        required focus-on="website.focus" />
-                <button ng-click="updateWebsite()" ng-show="website.status=='initial' ||website.status=='loading' || website.status=='loaded'">Translate</button>
-                <button ng-click="website.untranslate()" ng-show="website.status=='translating'">Cancel</button>
-                <button ng-click="website.untranslate()" ng-show="website.status=='translated'">Restore original</button>
+                <button ng-click="updateWebsite()" ng-show="website.status=='translated' || website.status=='translating' || website.status=='initial' || website.status=='ready' ||website.status=='loading' || website.status=='loaded'">Translate</button>
+                <!--<button ng-click="website.untranslate()" ng-show="website.status=='translating'">Cancel</button>
+                <button ng-click="website.untranslate()" ng-show="website.status=='translated'">Restore</button>-->
 
             </div>
         </form>
 
         <div ng-hide="isActive('website') || isActive('www')" ng-view></div>
+
 
         <div ng-show="isActive('www')" style="clear:both;" class="restricted">
             <div class="bigText">
@@ -219,15 +218,19 @@
                 </ul>
             </div>
         </div>
-
         <div ng-show="isActive('website') && website.status!='initial'" id="websiteFrameContainer">
+            <div ng-show="website.status=='loading' || website.status=='translating'" class="infoMessage">
+                <center>Website {{website.status}}...</center>
+                <center>
+                    <button ng-click="website.untranslate()">Cancel</button>
+                </center>
+            </div>
             <iframe id="websiteFrame" name="websiteFrame" src="about:blank" frameborder="0"></iframe>
         </div>
     </div>
+    <div ng-show="isActive('home') || !controls.activeSystem" style="visibility:hidden;" id="textWidget"></div>
     <div class="tilde">
         Developed by <a class="red" href="https://www.tilde.com" target="_blank">Tilde</a>
     </div>
-    <div ng-show="isActive('home')" style="visibility:hidden;" id="textWidget"></div>
 </body>
 </html>
-

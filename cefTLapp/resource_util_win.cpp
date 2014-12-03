@@ -42,10 +42,14 @@ namespace {
 			{ "http://tlapp/index.html", IDS_MAIN_HTML, "text/html" },
 			{ "http://tlapp/css/index.css", IDS_CSS_INDEX, "text/css" },
 			//images
+			{ "http://tlapp/img/arrow.png", IDS_IMG_ARROW_RIGHT, "image/png" },
+
 			{ "http://tlapp/img/arrowWhite.png", IDS_IMG_ARROW, "image/png" },
 			{ "http://tlapp/img/arrowWhiteDown.png", IDS_IMG_ARROW_DOWN, "image/png" },		
 			{ "http://tlapp/img/hugo.png", IDS_IMG_HUGO, "image/png" },
 			{ "http://tlapp/img/landing.png", IDS_IMG_LANDING, "image/png" },	
+			{ "http://tlapp/img/landingWhite.png", IDS_IMG_LANDING_WHITE, "image/png" },
+			{ "http://tlapp/img/mobile.png", IDS_IMG_MOBILE, "image/png" },
 			{ "http://tlapp/img/doc_letsmt.svg", IDS_IMG_DOC_LETSMT, "image/svg+xml" },
 			{ "http://tlapp/img/doc_letsmt-active.svg", IDS_IMG_DOC_LETSMT_ACTIVE, "image/svg+xml" },
 			{ "http://tlapp/img/text_letsmt.svg", IDS_IMG_TEXT_LETSMT, "image/svg+xml" },

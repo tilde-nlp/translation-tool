@@ -23,7 +23,10 @@
     // $scope.website.frame = jQuery("#websiteFrame")[0].contentWindow;
     $scope.website.samples = listOfWebsites();
     $scope.updateWebsite = function () {
-        if ($scope.isActive('www')) {
+        if (!$scope.website.url || $scope.website.url.lenght == 0) {
+
+        }
+        else if ($scope.isActive('www')) {
             $location.path('/website');//?embeddedStyle=noUI
             window.open($scope.website.base + "/Translate/WebsiteEmbedded?embeddedStyle=noUI", "websiteFrame");
             $scope.website.frame = jQuery("#websiteFrame")[0].contentWindow;
@@ -199,6 +202,7 @@ app.directive('ngMessage', function ($window) {
                             scope.website.status = 'loading';
                             break;
                         case "stoppedLoading":
+                            //scope.website.status = 'loaded';
                             break;
                         case "systemChanged":
                             console.log("Tu: " + event.data.systemId);

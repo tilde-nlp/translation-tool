@@ -26,26 +26,26 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // 256
 //
 
-IDS_MAIN_HTML             256                     "res\\index.html"
-IDS_CSS_INDEX             256                     "res\\css\\index.css"
-IDS_IMG_ARROW             256                     "res\\img\\arrowWhite.png"
-IDS_IMG_ARROW_DOWN        256                     "res\\img\\arrowWhiteDown.png"
-IDS_IMG_ARROW_RIGHT       256                     "res\\img\\arrow.png"
-IDS_IMG_DOC_LETSMT        256                     "res\\img\\doc_letsmt.svg"
+IDS_MAIN_HTML           256                     "res\\index.html"
+IDS_CSS_INDEX           256                     "res\\css\\index.css"
+IDS_IMG_ARROW           256                     "res\\img\\arrowWhite.png"
+IDS_IMG_ARROW_DOWN      256                     "res\\img\\arrowWhiteDown.png"
+IDS_IMG_ARROW_RIGHT     256                     "res\\img\\arrow.png"
+IDS_IMG_DOC_LETSMT      256                     "res\\img\\doc_letsmt.svg"
 IDS_IMG_DOC_LETSMT_ACTIVE 256                     "res\\img\\doc_letsmt-active.svg"
-IDS_IMG_HUGO              256                     "res\\img\\hugo.png"
-IDS_IMG_LANDING           256                     "res\\img\\landing.png"
-IDS_IMG_LANDING_WHITE     256                     "res\\img\\landingWhite.png"
-IDS_IMG_MOBILE            256                     "res\\img\\mobile.png"
-IDS_IMG_LOGO              256                     "res\\img\\logo_large.svg"
-IDS_IMG_TEXT_LETSMT       256                     "res\\img\\text_letsmt.svg"
-IDS_IMG_TEXT_LETSMT_ACTIVE     256                     "res\\img\\text_letsmt-active.svg"
-IDS_IMG_WEB_LETSMT             256                     "res\\img\\web_letsmt.svg"
-IDS_IMG_WEB_LETSMT_ACTIVE      256                     "res\\img\\web_letsmt-active.svg"
-IDS_JS_ANGULAR_MIN_JS          256                     "res\\js\\angular.min.js"
-IDS_JS_ANGULAR_ROUTE_MIN_JS    256                     "res\\js\\angular-route.min.js"
-IDS_JS_ANGULAR_FILTER_MIN_JS   256                     "res\\js\\angular-filter.js"
-IDS_JQUERY_MIN_JS              256                     "res\\js\\jquery-2.1.1.min.js"
+IDS_IMG_HUGO            256                     "res\\img\\hugo.png"
+IDS_IMG_LANDING         256                     "res\\img\\landing.png"
+IDS_IMG_LANDING_WHITE   256                     "res\\img\\landingWhite.png"
+IDS_IMG_MOBILE          256                     "res\\img\\mobile.png"
+IDS_IMG_LOGO            256                     "res\\img\\logo_large.svg"
+IDS_IMG_TEXT_LETSMT     256                     "res\\img\\text_letsmt.svg"
+IDS_IMG_TEXT_LETSMT_ACTIVE 256                     "res\\img\\text_letsmt-active.svg"
+IDS_IMG_WEB_LETSMT      256                     "res\\img\\web_letsmt.svg"
+IDS_IMG_WEB_LETSMT_ACTIVE 256                     "res\\img\\web_letsmt-active.svg"
+IDS_JS_ANGULAR_MIN_JS   256                     "res\\js\\angular.min.js"
+IDS_JS_ANGULAR_ROUTE_MIN_JS 256                     "res\\js\\angular-route.min.js"
+IDS_JS_ANGULAR_FILTER_MIN_JS 256                     "res\\js\\angular-filter.js"
+IDS_JQUERY_MIN_JS       256                     "res\\js\\jquery-2.1.1.min.js"
 IDS_JS_MYPAGECTRL_JS    256                     "res\\js\\myPageCtrl.js"
 IDS_JS_MYTRANSLATORAPP_JS 256                     "res\\js\\myTranslatorApp.js"
 IDS_TEMPLATES_ABOUT_HTML 256                     "res\\templates\\about.html"
@@ -54,7 +54,6 @@ IDS_TEMPLATES_MOBILEAPP_HTML 256                     "res\\templates\\mobileAppl
 IDS_TEMPLATES_TRANSL_DOC_HTML 256                     "res\\templates\\translate-document.html"
 IDS_TEMPLATES_TRANSL_TEXT_HTML 256                     "res\\templates\\translate-text.html"
 IDS_TEMPLATES_TRANSL_WEB_HTML 256                     "res\\templates\\translate-website.html"
-
 IDS_TEXT_WIDGET_WIDGET_CSS 256                     "res\\text-widget\\translator.css"
 IDS_TEXT_WIDGET_CORE_JS 256                     "res\\text-widget\\translator.js"
 
@@ -124,8 +123,8 @@ LANGUAGE LANG_LATVIAN, SUBLANG_DEFAULT
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,4,0,2
- PRODUCTVERSION 1,4,0,2
+ FILEVERSION 1,5,0,2
+ PRODUCTVERSION 1,5,0,2
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -142,12 +141,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Tilde SIA"
             VALUE "FileDescription", "Translator 2015"
-            VALUE "FileVersion", "1.4.0.2"
+            VALUE "FileVersion", "1.5.0.2"
             VALUE "InternalName", "Translator2015.rc"
             VALUE "LegalCopyright", "© Tilde SIA, 2015"
             VALUE "OriginalFilename", "Translator2015.rc"
             VALUE "ProductName", "Translator 2015"
-            VALUE "ProductVersion", "1.4.0.2"
+            VALUE "ProductVersion", "1.5.0.2"
         END
     END
     BLOCK "VarFileInfo"

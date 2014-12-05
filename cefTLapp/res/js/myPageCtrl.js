@@ -23,10 +23,14 @@
     // $scope.website.frame = jQuery("#websiteFrame")[0].contentWindow;
     $scope.website.samples = listOfWebsites();
     $scope.updateWebsite = function () {
-
-        if ($scope.isActive('website') || $scope.website.status != 'initial') {
-            //initial|ready|loading|translating|loaded|translated
-            switch ($scope.website.status) {
+        if ($scope.isActive('www')) {
+            $location.path('/website');//?embeddedStyle=noUI
+            window.open($scope.website.base + "/Translate/WebsiteEmbedded?embeddedStyle=noUI", "websiteFrame");
+            $scope.website.frame = jQuery("#websiteFrame")[0].contentWindow;
+        } else {
+            switch ($scope.website.status) {//initial|ready|loading|translating|loaded|translated
+                case "initial":
+                    break;
                 case "loading":
                 case "translating":
                     $scope.website.untranslate();
@@ -35,10 +39,16 @@
                 default:
                     $scope.initWebsite();
             }
+        }
+    };
+
+    $scope.website.reset = function () {
+        if ($scope.website.status == 'loading' || $scope.website.status == 'translating') {
+            $scope.website.untranslate();
+            setTimeout(function () { $scope.website.reset(); }, 500);
         } else {
-            $location.path('/website');//?embeddedStyle=noUI
-            window.open($scope.website.base + "/Translate/WebsiteEmbedded?embeddedStyle=noUI", "websiteFrame");
-            $scope.website.frame = jQuery("#websiteFrame")[0].contentWindow;
+            $scope.website.status = 'initial';
+
         }
     };
 
@@ -92,8 +102,7 @@
 });
 
 app.controller('TranslateCtrl', function ($scope, $routeParams) {
-    $scope.website.status = 'initial';
-    $scope.website.url = '';
+    $scope.website.reset();
     $('#fileWidget').empty();
     initTextWidget($scope);
 });
@@ -118,10 +127,10 @@ function initTextWidget($scope, mustApply) {
 }
 
 app.controller('DocumentCtrl', function ($scope, $routeParams) {
-    $scope.website.status = 'initial';
+    $scope.website.reset();
     $scope.website.url = '';
-
     $('#textWidget').empty();
+    if ($widget) { $widget.textPluginUnload() };
 
     var fileWidget = new Tilde.TranslatorWidget('#fileWidget', {
         _language: 'en',
@@ -150,23 +159,27 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
 
 
 app.controller('websiteTranslatorCtrl', function ($scope, $routeParams) {
-
+    $scope.website.reset();
     if (!$scope.controls.activeSystem) {
         initTextWidget($scope, true);
     }
-    $scope.website.status = 'initial';
+
     $scope.controls.updated = function () {
         jQuery("#websiteFrame")[0].contentWindow.postMessage(
                    { "method": "changeSystem", "systemId": $scope.controls.activeSystem.id },
                      $scope.website.base);
     };
     $scope.website.updateSystem = function (systemID) {
+        if ($scope.controls.activeSystem.ID == systemID) return false;
         $scope.$apply($scope.controls.activeSystem = $scope.controls.activeSystem = $scope.controls.systems.filter(function (x) { return x.ID == systemID; })[0]);
+        return true;
     }
 });
 
 app.controller('homeCtrl', function ($scope, $routeParams) {
     initTextWidget($scope);
+    $scope.website.url = '';
+    $scope.website.reset();
 });
 
 app.directive('ngMessage', function ($window) {
@@ -189,7 +202,7 @@ app.directive('ngMessage', function ($window) {
                             break;
                         case "systemChanged":
                             console.log("Tu: " + event.data.systemId);
-                            scope.website.updateSystem(event.data.systemId);
+                            if (scope.website.updateSystem(event.data.systemId)) console.log("Es: system changed");
                             scope.website.translate();
                             break;
                         case "translationStarted":

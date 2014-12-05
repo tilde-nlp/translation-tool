@@ -36,12 +36,12 @@
                         <div data-text="systemDomain" class="translateDomainLabel"></div>
                         <select class="translateDomain"></select>
                     </div>
-                    <div class="translateProgress hide">
-                        <div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>
-                    </div>
                     <div class="translateResultClear hide">
                         <div data-text="clearTranslation" class="clearText"></div>
                         <div class="clearLink"></div>
+                    </div>
+                    <div class="translateProgress hide">
+                        <div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>
                     </div>
                 </div>
                 <div class="headerLine"></div>
@@ -53,7 +53,7 @@
                     <div class="fakeCursor blink hide"></div>
                     <div class="translateTextSourceContainer borderBoxSizing">
                         <div class="backGroundSource borderBoxSizing"></div>
-                        <textarea rows="10" cols="2" maxlength="10000" id="sourceText" class="translateTextSource borderBoxSizing"></textarea>
+                        <textarea rows="10" cols="2" maxlength="10000" id="sourceText" class="translateTextSource borderBoxSizing" spellcheck="false"></textarea>
                         <div data-text="sourceTextTooltip" class="translateTextTempSourceContainer translateTextTemp borderBoxSizing"></div>
                     </div>
                 </div>
@@ -76,6 +76,9 @@
                         <select class="translateTargetLang"></select>
                     </div>
                     <a data-text="translateButton" class="translateButton hide"></a>
+                    <div class="translateProgress left hide">
+                        <div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>
+                    </div>
                 </div>
                 <div class="translateHeaderRight">
                     <a data-text="docDownload" class="buttonDownDoc hide"></a>
@@ -84,10 +87,6 @@
                         <div data-text="systemDomain" class="translateDomainLabel"></div>
                         <select class="translateDomain"></select>
                     </div>
-                    <div class="translateProgress hide">
-                        <div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>
-                    </div>
-                    <div class="infoMessageBox error hide"></div>
                     <div class="docTranslateContent"><div class="transFileMeta hide"></div></div>
                     <div data-text="docAppleLimited" class="uploadNotSupported error hide"></div>
                     <a data-title="docUploadNewDoc" class="docUploadNewDoc hide"></a>
@@ -99,6 +98,7 @@
         <div class="layoutRow file">
             <div class="layoutCell translateContainerBody mainContent">
                 <div class="translateContainerLeft borderBoxSizing">
+                    <div class="infoMessageBox error hide"></div>
                     <a data-text="docUpload" class="docUploadNewDocument hide"></a>
                     <div id="docUploadFile" class="borderBoxSizing"></div>
                     <div id="docSourcePreview" class="hide"></div>
@@ -190,7 +190,7 @@
                        ng-model="website.url"
                        ng-disabled="false && website.status=='translating'"
                        required focus-on="website.focus" />
-                <button ng-click="updateWebsite()" ng-show="website.status=='translated' || website.status=='translating' || website.status=='initial' || website.status=='ready' ||website.status=='loading' || website.status=='loaded'">Translate</button>
+                <button ng-click="updateWebsite()" ng-show="website.status=='translated' || website.status=='error' || website.status=='translating' || website.status=='initial' || website.status=='ready' ||website.status=='loading' || website.status=='loaded'">Translate</button>
                 <!--<button ng-click="website.untranslate()" ng-show="website.status=='translating'">Cancel</button>
                 <button ng-click="website.untranslate()" ng-show="website.status=='translated'">Restore</button>-->
 
@@ -219,7 +219,7 @@
             </div>
         </div>
         <div ng-show="isActive('website') && website.status!='initial'" id="websiteFrameContainer">
-            <div ng-show="website.status=='loading' || website.status=='translating'" class="infoMessage">
+            <div ng-show="website.status=='loading' || website.status=='translating' || website.status=='error'" class="infoMessage">
                 <center>Website {{website.status}}...</center>
                 <center>
                     <button ng-click="website.untranslate()">Cancel</button>

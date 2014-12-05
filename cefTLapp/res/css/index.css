@@ -478,7 +478,7 @@ div.language>span.ng-binding
     background-color: #273347;
     -moz-animation: blinker 1s steps(1,start) infinite;
     -webkit-animation: blinker 1s steps(1,start) infinite;
-    animation: blinker 1s steps(1,start) infinite;
+    animation: blinker 1s steps(1,start) infinite
  }
  .hidden{
      display:none;

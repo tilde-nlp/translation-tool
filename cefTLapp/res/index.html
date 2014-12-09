@@ -127,7 +127,7 @@
     <script src="js/myTranslatorApp.js"></script>
     <script src="js/myPageCtrl.js"></script>
 
-    <title>Presidency Translator</title>
+    <title>Translate 2015</title>
 </head>
 <body ng-app="myTranslatorApp" ng-controller="myPageCtrl" ng-message>
 
@@ -229,8 +229,10 @@
         </div>
     </div>
     <div ng-show="isActive('home') || !controls.activeSystem" style="visibility:hidden;" id="textWidget"></div>
-    <div class="tilde">
-        Developed by <a class="red" href="https://www.tilde.com" target="_blank">Tilde</a>
+    <div class="tilde" ng-hide="isActive('home')">
+        Developed by <a class=" red" href="http://www.tilde.com" target="_blank">
+            Tilde
+        </a>
     </div>
 </body>
 </html>

@@ -100,8 +100,28 @@
         }
     }
 
-    /*end of language controls*/
     initEvents();
+
+    $scope.dialog = {};
+    $scope.dialog.showModal = '';
+    $scope.dialog.href = '';
+
+    $scope.dialog.navigate = function (forward) {
+        $scope.dialog.showModal = '';
+        if (forward) {
+            $location.path($scope.dialog.href);
+        }
+    };
+
+    $scope.routeMe = function (hash) {
+        $scope.dialog.href = hash;
+        if ((typeof $widget !== "undefined") && $widget.filePluginGetTranslationStatus() !== 'blank') {
+            $scope.dialog.showModal = 'show';
+        }
+        else {
+            $location.path(hash);
+        }
+    };
 });
 
 app.controller('TranslateCtrl', function ($scope, $routeParams) {
@@ -133,7 +153,7 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
     $scope.website.reset();
     $scope.website.url = '';
     $('#textWidget').empty();
-    if ($widget) { $widget.textPluginUnload() };
+    if (typeof $widget !== undefined) { $widget.textPluginUnload() };
 
     var fileWidget = new Tilde.TranslatorWidget('#fileWidget', {
         _language: 'en',
@@ -158,6 +178,7 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
         },
         _replaceContainer: false
     });
+
 });
 
 
@@ -239,8 +260,6 @@ app.directive('ngMessage', function ($window) {
     }
 });
 
-
-
 app.directive('focusOn', function ($timeout) {
     return {
         restrict: 'A',
@@ -284,24 +303,30 @@ function listOfWebsites() {
 function initEvents() {
 
     $('#source.language').click(function () {
-        $('#source ul').slideToggle(250);
-        return false;
-    });
-    $('#target.language').click(function () {
-        $('#target ul').slideToggle(250);
+        $('#source ul').slideToggle(400);
         return false;
     });
 
-    $('.language').mouseenter(function () {
+    $('#target.language').click(function () {
+        $('#target ul').slideToggle(400);
+        return false;
+    });
+
+
+
+
+    $('.language ul').mouseenter(function () {
         $(this).children('ul').css('display', 'none').stop(true, true).slideToggle(250).css('display', 'block').children('ul').css('display', 'none');
     });
 
-    $('#source').mouseleave(function () {
+    $('#source ul').mouseleave(function () {
         $('#source>ul').stop(true, true).fadeOut(250).css('display', 'none');
     })
-    $('#target').mouseleave(function () {
+    $('#target ul').mouseleave(function () {
         $('#target>ul').stop(true, true).fadeOut(250).css('display', 'none');
     })
+
+
 
     $("body").bind('click', function (e) {
         if (e.which == 2) {
@@ -310,3 +335,4 @@ function initEvents() {
     });
 
 }
+

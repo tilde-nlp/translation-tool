@@ -54,6 +54,7 @@ Tilde.TranslatorWidgetDefaultOptions = {
     _translations: {}, //used to owerride default labels and translations
     _language: 'en', //interface language
 
+    _useFancySelect: true, //use custom FancySelect plugin for system select box
     _systemSelectType: 'language', //system choose type: 'system', 'language', 'domain'
     _defaultSourceLang: null, //default source language (only if _systemSelectType: 'language', 'domain')
     _defaultTargetLang: null, //default target language (only if _systemSelectType: 'language', 'domain')
@@ -232,7 +233,7 @@ Tilde.TranslatorWidget.prototype = {
                         srcText = srcSelect.text();
 
                     srcSelect.replaceWith('<div class="translateSingleSourceLang" data-value="' + srcVal + '">' + srcText + '</div>');
-                    $widget.loadTargetLangList(srcVal);
+                    $widget.loadTargetLangList(srcVal, null, null);
                 }
                 else {
                     // default source lang
@@ -242,8 +243,9 @@ Tilde.TranslatorWidget.prototype = {
 
                     $widget.fancySource = $('.translateSourceLang', $widget.settings.container);
                     $widget.fancySource.fancySelect({
+                        useNativeSelect: !$widget.settings._useFancySelect,
                         triggerTemplate: function (el) {
-                            $widget.loadTargetLangList(el.val(), true);
+                            $widget.loadTargetLangList(el.val(), null, true);
                             return el.text();
                         }
                     });
@@ -256,6 +258,7 @@ Tilde.TranslatorWidget.prototype = {
 
                 $widget.fancyTarget = $('.translateTargetLang', $widget.settings.container);
                 $widget.fancyTarget.fancySelect({
+                    useNativeSelect: !$widget.settings._useFancySelect,
                     triggerTemplate: function (el) {
                         if ($widget.activeSystemId !== el.val()) {
                             $widget.activeSystemId = el.val();
@@ -304,8 +307,9 @@ Tilde.TranslatorWidget.prototype = {
 
                     $widget.fancySource = $('.translateSourceLang', $widget.settings.container);
                     $widget.fancySource.fancySelect({
+                        useNativeSelect: !$widget.settings._useFancySelect,
                         triggerTemplate: function (el) {
-                            $widget.loadTargetLangList(el.val(), false);
+                            $widget.loadTargetLangList(el.val(), null, false);
                             return el.text();
                         }
                     });
@@ -318,6 +322,7 @@ Tilde.TranslatorWidget.prototype = {
 
                 $widget.fancyTarget = $('.translateTargetLang', $widget.settings.container);
                 $widget.fancyTarget.fancySelect({
+                    useNativeSelect: !$widget.settings._useFancySelect,
                     triggerTemplate: function (el) {
                         var srcLang = $('.translateSourceLang', $widget.settings.container).val();
                         if ($('.translateSingleSourceLang', $widget.settings.container).length !== 0) {
@@ -339,6 +344,7 @@ Tilde.TranslatorWidget.prototype = {
                 // domain init fancySelect
                 $widget.fancyDomain = $('.translateDomain', $widget.settings.container);
                 $widget.fancyDomain.fancySelect({
+                    useNativeSelect: !$widget.settings._useFancySelect,
                     triggerTemplate: function (el) {
                         if ($widget.activeSystemId !== el.val()) {
                             $widget.activeSystemId = el.val();
@@ -496,6 +502,26 @@ Tilde.TranslatorWidget.prototype = {
         return idArr;
     },
 
+    setActiveSystem: function (systemId) {
+        if (systemId === $widget.activeSystemId) { return; }
+
+        var src = '', trg = '';
+        $.each($widget.settings._systems, function (idx, sys) {
+            if (sys.ID === systemId) {
+                src = sys.SourceLanguage.Code;
+                trg = sys.TargetLanguage.Code;
+            }
+        });
+
+        $('.translateSourceLang option[value="' + src + '"]', $widget.settings.container).attr('selected', 'selected');
+
+        if ($widget.fancySource !== null) {
+            $widget.fancySource.trigger('update.fs');
+        }
+
+        $widget.loadTargetLangList(src, trg, true);
+    },
+
     getReverseSystems: function () {
         var reverse = [{}];
         var used = $widget.systems_used;
@@ -554,9 +580,7 @@ Tilde.TranslatorWidget.prototype = {
         //}
     },
 
-    loadTargetLangList: function (source, putSystemId) {
-        var core = this;
-
+    loadTargetLangList: function (source, selTarget, putSystemId) {
         $('.translateTargetLang', $widget.settings.container).empty();
 
         $.each($widget.settings._systems, function (idx, sys) {
@@ -582,6 +606,11 @@ Tilde.TranslatorWidget.prototype = {
                 }
             }
         });
+
+        // select target
+        if (selTarget !== undefined && selTarget !== null) {
+            $('.translateTargetLang option[lang="' + selTarget + '"]', $widget.settings.container).attr('selected', 'selected');
+        }
 
         if ($widget.fancyTarget !== null) {
             $widget.fancyTarget.trigger('update.fs');
@@ -620,6 +649,7 @@ Tilde.TranslatorWidget.prototype = {
             $widget.fancyDomain.trigger('update.fs');
         }
     }
+
 };
 ///#source 1 1 ../../widget_core/tilde.translator.widget.fancyselect.js
 (function () {
@@ -628,12 +658,12 @@ Tilde.TranslatorWidget.prototype = {
     $ = window.jQuery || window.Zepto || window.$;
 
     $.fn.fancySelect = function (opts) {
-        var isiOS, settings;
+        var settings;
         if (opts == null) {
             opts = {};
         }
         settings = $.extend({
-            forceiOS: false,
+            useNativeSelect: false,
             includeBlank: false,
             optionTemplate: function (optionEl) {
                 return optionEl.text();
@@ -642,7 +672,6 @@ Tilde.TranslatorWidget.prototype = {
                 return optionEl.text();
             }
         }, opts);
-        isiOS = !!navigator.userAgent.match(/iP(hone|od|ad)/i);
         return this.each(function () {
             var copyOptionsToList, disabled, options, sel, trigger, updateTriggerText, wrapper;
             sel = $(this);
@@ -650,22 +679,33 @@ Tilde.TranslatorWidget.prototype = {
                 return;
             }
             sel.addClass('fancified');
-            sel.css({
-                width: 1,
-                height: 1,
-                display: 'block',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                opacity: 0
-            });
+            if (settings.useNativeSelect) {
+                sel.css({
+                    display: 'block',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    opacity: 0
+                });
+            }
+            else {
+                sel.css({
+                    width: 1,
+                    height: 1,
+                    display: 'block',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    opacity: 0
+                });
+            }
             sel.wrap('<div class="fancy-select">');
             wrapper = sel.parent();
             if (sel.data('class')) {
                 wrapper.addClass(sel.data('class'));
             }
             wrapper.append('<div class="trigger">');
-            if (!(isiOS && !settings.forceiOS)) {
+            if (!settings.useNativeSelect) {
                 wrapper.append('<ul class="options">');
             }
             trigger = wrapper.find('.trigger');
@@ -694,7 +734,7 @@ Tilde.TranslatorWidget.prototype = {
                 var offParent, parent;
                 if (!disabled) {
                     trigger.toggleClass('open');
-                    if (isiOS && !settings.forceiOS) {
+                    if (settings.useNativeSelect) {
                         if (trigger.hasClass('open')) {
                             return sel.focus();
                         }
@@ -709,7 +749,7 @@ Tilde.TranslatorWidget.prototype = {
                             }
                         }
                         options.toggleClass('open');
-                        if (!isiOS) {
+                        if (!settings.useNativeSelect) {
                             return sel.focus();
                         }
                     }
@@ -780,7 +820,7 @@ Tilde.TranslatorWidget.prototype = {
                 var clicked;
                 clicked = $(this);
                 sel.val(clicked.data('raw-value'));
-                if (!isiOS) {
+                if (!settings.useNativeSelect) {
                     sel.trigger('blur.fs').trigger('focus.fs');
                 }
                 options.find('.selected').removeClass('selected');
@@ -801,7 +841,7 @@ Tilde.TranslatorWidget.prototype = {
             copyOptionsToList = function () {
                 var selOpts;
                 updateTriggerText();
-                if (isiOS && !settings.forceiOS) {
+                if (settings.useNativeSelect) {
                     return;
                 }
                 selOpts = sel.find('option');
@@ -1067,6 +1107,8 @@ $.extend(Tilde.TranslatorWidgetDefaultOptions, {
     _enableParallelHover: true, //enable translation and source paralel hover
     _highlightTranslated: true, //toggle latest translation highlight in source and target
     _highlightTranslatedTimeout: 1500, //time in milissecond for highlight
+    _focusAfterClear: true, //source field focus after clear
+    _focusAfterTranslate: true, //source field focus after translation
 
     _onTranslationStarted: null,
     _onTranslationFinished: null
@@ -1157,7 +1199,10 @@ $.extend(Tilde.TranslatorWidget.prototype, {
     textPluginResultClear: function () {
         $widget.textPluginSetTempText();
 
-        $($widget.settings._textSource, $widget.settings.container).focus()
+        if ($widget.settings._focusAfterClear) {
+            $($widget.settings._textSource, $widget.settings.container).focus()
+        }
+
         $('.translateResultClear').addClass('hide');
     },
 
@@ -1242,7 +1287,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         $widget.textPluginSetTempTextResult();
         $widget.textPluginSetTempTextSource();
 
-        $('.translateResultClear').addClass('hide');
+        $('.translateResultClear', $widget.settings.container).addClass('hide');
         $('.translateProgress', $widget.settings.container).addClass('hide');
     },
 
@@ -1498,8 +1543,6 @@ Tilde.TextTranslator.prototype = {
     },
 
     makeAllNotTranslated: function () {
-        console.log('makeAllNotTranslated()');
-
         var cursor = this.pta.obj;
         do {
             if (cursor != null) {
@@ -1580,6 +1623,12 @@ Tilde.TextTranslator.prototype = {
                     cursor.translation = cursor.translation;
                 }
                 else {
+
+                    if (!$widget.settings._focusAfterTranslate) {
+                        $($widget.settings._textSource).blur();
+                    }
+
+                    $($widget.settings._textResult).removeClass('noNetwork');
 
                     $('.translateResultClear', $widget.settings.container).removeClass('hide');
 
@@ -3549,7 +3598,7 @@ uiResources = $.extend(true, uiResources, {
         "docCancel": "Cancel",
         "docUpload": "Upload",
         "docUploadTooltip": "document here",
-        "docUploadMsgType": "The file {file} format is not recognized. Translation is supported for these document formats: {extensions}.",
+        "docUploadMsgType": "The file {file} format is not supported currently.", //{extensions}
         "docUploadMsgSize": "File {file} is too large. Maximum file size is {sizeLimit}.",
         "docUploadMsgEmpty": "File {file} is empty. Please select a file with content.",
         "docUploadMsgWordcnt": "The maximum word count for one translation ({wordCount}) has been exceeded.",
@@ -3557,6 +3606,7 @@ uiResources = $.extend(true, uiResources, {
         "docUploadFilesize": "Document size:",
         "docUploadWordcount": "Word count:",
         "docUploadFailed": "File upload was not successful.",
+        "docTranslFailed": "Document translation failed. Please try again.",
         "docUploadNewDoc": "Delete",
         "docStarting": "Document translation is starting...",
         "docPreviewError": "Could not generate a preview of the document.",
@@ -3821,6 +3871,14 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
         $("#hidStopTranslation").val('false');
 
+        $('.translateResult').html(
+            '<div id="translProgress" class="starting">' +
+            '   <div class="progressImage"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div><div id="transItem" class="transItem">' +
+            '	    <span class="percent">' + uiResources[$widget.settings._language]['docStarting'] + '</span>' +
+            '   </div>' +
+            '</div>'
+        );
+
         var authHeaders = {};
 
         if ($widget.settings._clientId !== null) {
@@ -3855,9 +3913,6 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
                     $widget.filePluginTranslateProgress(response.docid);
 
-                    //if (optionsTT.onDocTranslationStart) {
-                    //    optionsTT.onDocTranslationStart($('#hidUploadTempId').val(), $('.trans_file_meta .qq-upload-file').text(), $('.trans_file_meta .qq-upload-size').text(), $('.trans_file_meta .qq-upload-wordcount').text());
-                    //}
                 }
                 else {
 
@@ -3936,7 +3991,8 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             $widget._onDocTranslationCancel(uploadId);
         }
 
-        $('.docUploadNewDoc, .buttonDownDoc').addClass('hide');
+        $('.docUploadNewDoc').addClass('hide');
+        $('.buttonDownDoc').removeAttr('href').addClass('hide');
         $('#hidTranslRealFilename').remove();
         $('#hidTranslTempFilename').remove();
         $('#hidUploadTempId').remove();
@@ -3949,6 +4005,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         $('#docSourcePreview').empty();
         $('#docSourcePreview').addClass('hide');
         $('.translateTextTempSourceContainer style').remove();
+        $('.translateResult').empty();
 
         $widget.filePluginSetTempTextResult();
 
@@ -4030,12 +4087,9 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             },
             success: function (response) {
                 // be positive 0% will be showed as 10%
-                var completed = (response.completed === 0) ? 2 : response.completed;
-                $('#translProgress').html(
-                    '<div class="progressImage"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div><div id="transItem" class="transItem">' +
-                    '	<span class="percent">' + completed + '%</span>' +
-                    '</div>'
-                );
+                var completed = (response.completed < 10) ? 10 : response.completed;
+                $('#translProgress').removeClass('starting');
+                $('#translProgress .percent').text(completed + '%');
 
                 // callback on error
                 if (response.status === 'error') {
@@ -4045,6 +4099,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                         error_msg = uiResources[$widget.settings._language][response.error];
                     }
 
+                    $('.docUploadNewDoc').removeClass('hide');
                     $('.buttonCancelDoc').addClass('hide');
                     $('.infoMessageBox').html(error_msg).removeClass('hide');
                     $('#translProgress').html('');
@@ -4063,7 +4118,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 }
                 else if (response.status === 'completed') {
                     var down = $widget.settings._downloadUrl + '?docid=' + encodeURIComponent(docid) + '&filename=' + encodeURIComponent(response.filename);
-                    $('.buttonDownDoc').attr('href', down).removeClass('hide');
+                    $('.buttonDownDoc').attr('href', down).attr('target', '_blank').removeClass('hide');
                     $('.buttonDelDoc').addClass('hide');
                     $('.buttonCancelDoc').addClass('hide');
                     $('#hidTranslRealFilename').remove();
@@ -4112,9 +4167,30 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 }
             },
             error: function () {
-                $('.infoMessageBox').html(uiResources[$widget.settings._language]['docUploadFailed']).removeClass('hide');
+                $('.docUploadNewDoc').removeClass('hide');
+                $('.infoMessageBox').html(uiResources[$widget.settings._language]['docTranslFailed']).removeClass('hide');
             }
         });
+    },
+
+    filePluginGetTranslationStatus: function () {
+        // possible values: blank, uploaded, translating, translated
+
+        if ($('.qq-upload-file').length === 0) {
+            return 'blank';
+        }
+        else if ($('.translateContainerRight').hasClass('docProgress')) {
+            var href = $('.buttonDownDoc').attr('href');
+            if (href !== undefined && href.length === 0) {
+                return 'translating';
+            }
+            else {
+                return 'translated';
+            }
+        }
+        else {
+            return 'uploaded';
+        }
     },
 
     filePluginSetTempTextResult: function () {

@@ -105,16 +105,7 @@
                 </div>
                 <div class="translateContainerRight borderBoxSizing">
                     <div data-text="docTempTarget" class="docTempTarget"></div>
-                    <div class="translateResult hide">
-                        <div id="translProgress" class="starting">
-                            <div class="progressImage">
-                                <div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>
-                            </div>
-                            <div id="transItem" class="transItem">
-                                <span data-text="docStarting" class="percent"></span>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="translateResult hide"></div>
                 </div>
             </div>
         </div>
@@ -132,25 +123,25 @@
 <body ng-app="myTranslatorApp" ng-controller="myPageCtrl" ng-message>
 
     <div class="vertical" id="header">
-        <a href="#/home">
+        <a href="" ng-click="routeMe('/home');">
             <div id="logoSection"></div>
         </a>
 
         <nav>
-            <a tabindex="1" class="textMenuItem" ng-class="{ active: isActive('text') }" href="#/text" title="Translate text">
+            <a tabindex="1" class="textMenuItem" ng-click="routeMe('/text');" ng-class="{ active: isActive('text') }" href="" title="Translate text">
                 Text
             </a>
             <a tabindex="2" class="documentMenuItem" ng-class="{ active: isActive('document') }" href="#/document" title="Translate document">
                 Documents
             </a>
-            <a tabindex="3" class="websiteMenuItem" href="#/www" ng-class="{ active: isActive('website') || isActive('www')  }" title="Translate website">
+            <a tabindex="3" class="websiteMenuItem" ng-click="routeMe('/www');" href="" ng-class="{ active: isActive('website') || isActive('www')  }" title="Translate website">
                 Website
             </a>
         </nav>
 
         <div id="promoSection">
-            <a href="#/about">About Translate 2015</a>
-            <a href="#/mobileApp">Get the Mobile App</a>
+            <a href="" ng-click="routeMe('/about');">About Translate 2015</a>
+            <a href="" ng-click="routeMe('/mobileApp');">Get the Mobile App</a>
         </div>
         <div class="footer">
             <p class="hugo">Powered by <a class="red" href="https://www.hugo.lv" target="_blank">Hugo</a> Latvian eGov MT</p>
@@ -161,7 +152,8 @@
         <form novalidate class="right" ng-show="isActive('www') || isActive('website')" ng-submit="">
             <div class="LanguageSelect" ng-show="controls.activeSystem">
                 <div id="source" class="language">
-                    From <span>{{controls.activeSystem.SourceLanguage.Name.Text}}</span>
+                    <label>From</label>
+                    <span class="trigger">{{controls.activeSystem.SourceLanguage.Name.Text}}</span>
                     <ul>
                         <li ng-model="controls.activeSystemSource"
                             ng-click="controls.activeSystemSource=system; controls.activeSystem=system;"
@@ -173,7 +165,7 @@
                     </ul>
                 </div>
                 <div id="target" class="language">
-                    to <span>{{controls.activeSystem.TargetLanguage.Name.Text}}</span>
+                    <label>to</label> <span>{{controls.activeSystem.TargetLanguage.Name.Text}}</span>
                     <ul ng-class="{multiple :results.length==0}">
                         <li ng-click="controls.activeSystem=system;" ng-repeat="system in controls.systems| unique: 'TargetLanguage.Name.Text'" ng-show="system.SourceLanguage.Code==controls.activeSystemSource.SourceLanguage.Code">
                             <a href="">{{system.TargetLanguage.Name.Text}}</a>
@@ -191,9 +183,6 @@
                        ng-disabled="false && website.status=='translating'"
                        required focus-on="website.focus" />
                 <button ng-click="updateWebsite()" ng-show="website.status=='translated' || website.status=='error' || website.status=='translating' || website.status=='initial' || website.status=='ready' ||website.status=='loading' || website.status=='loaded'">Translate</button>
-                <!--<button ng-click="website.untranslate()" ng-show="website.status=='translating'">Cancel</button>
-                <button ng-click="website.untranslate()" ng-show="website.status=='translated'">Restore</button>-->
-
             </div>
         </form>
 
@@ -229,10 +218,24 @@
         </div>
     </div>
     <div ng-show="isActive('home') || !controls.activeSystem" style="visibility:hidden;" id="textWidget"></div>
-    <div class="tilde" ng-hide="isActive('home')">
+    <div class="tilde" ng-hide="isActive('home') || isActive('about') || isActive('mobileApp')">
         Developed by <a class=" red" href="http://www.tilde.com" target="_blank">
             Tilde
         </a>
     </div>
+
+    <div id="modalConfirmation" ng-class="{modal: dialog.showModal=='show'}">
+        <div id="dialog">
+            <div id="dialog-bg">
+                <div id="dialog-title">Do you want to exit document translation?</div>
+                <div id="dialog-description">Any uploaded documents and translations will be discarded</div>
+                <div id="dialog-buttons">
+                    <a href="" ng-click="dialog.navigate(true);" class="dialogButton">Yes</a>
+                    <a href="" ng-click="dialog.navigate(false);" class="dialogButton cancelButton">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

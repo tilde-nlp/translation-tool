@@ -29,7 +29,6 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 IDS_MAIN_HTML           256                     "res\\index.html"
 IDS_CSS_INDEX           256                     "res\\css\\index.css"
 IDS_IMG_ARROW           256                     "res\\img\\arrowWhite.png"
-IDS_IMG_ARROW_DOWN      256                     "res\\img\\arrowWhiteDown.png"
 IDS_IMG_ARROW_RIGHT     256                     "res\\img\\arrow.png"
 IDS_IMG_DOC_LETSMT      256                     "res\\img\\doc_letsmt.svg"
 IDS_IMG_DOC_LETSMT_ACTIVE 256                     "res\\img\\doc_letsmt-active.svg"
@@ -123,8 +122,8 @@ LANGUAGE LANG_LATVIAN, SUBLANG_DEFAULT
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,6,0,2
- PRODUCTVERSION 1,6,0,2
+ FILEVERSION 1,7,0,2
+ PRODUCTVERSION 1,7,0,2
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -141,12 +140,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Tilde SIA"
             VALUE "FileDescription", "Translator 2015"
-            VALUE "FileVersion", "1.6.0.2"
+            VALUE "FileVersion", "1.7.0.2"
             VALUE "InternalName", "Translator2015.rc"
             VALUE "LegalCopyright", "© Tilde SIA, 2015"
             VALUE "OriginalFilename", "Translator2015.rc"
             VALUE "ProductName", "Translator 2015"
-            VALUE "ProductVersion", "1.6.0.2"
+            VALUE "ProductVersion", "1.7.0.2"
         END
     END
     BLOCK "VarFileInfo"

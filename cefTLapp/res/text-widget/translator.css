@@ -12,7 +12,12 @@ div.fancy-select select:focus + div.trigger.open {
 }
 
 div.fancy-select div.trigger {
-	cursor: pointer;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH3gwICC8SCxIKjAAAAR1JREFUeNrtmc1tQjEQBp9FaUSBFEB+JOiJJBItQFJGrrmnhnTxcUIyB4R4Xu/avJkGvDO23u8wAAAAAAAAAAAAwDUk/SqjgXlyfjwXy5kHiK8uDeMtf+LBUf7l2jDe8icWLcibRpD0r9uYRxz7C/x57n7OsoL865hBogKYRhgrHx3A5MIo6blkAIsAs8IIy4K116Hy2SDfhREeR6z5VrjmzvoidPA6CaU7L+mz1m2oegRJmyblPSI0L18zQjfyhhGeDOU/ol5FiyN0K28YoV/54AhtyAdFaEveOUKb8k4R3nv5cHqYrHwWYT9ZeeMIfcobRehbvjDC9t7+KO0nK39jhPuUzyJ8tfKQk4JDnH20TCmlAQAAAAAAAABqcwQA5OgEVxvaGAAAAABJRU5ErkJggg==') /*../img/arrow.png*/;
+    background-size: 11px;
+    background-repeat: no-repeat;
+    background-position: 85% center;
+
+    cursor: pointer;
 	padding: 0 2em 0.3em 0.7em;
     margin-top: 0.1em;
 	white-space: nowrap;
@@ -24,17 +29,6 @@ div.fancy-select div.trigger {
 	-moz-transition: all 240ms ease-out;
 	-ms-transition: all 240ms ease-out;
 	-o-transition: all 240ms ease-out;
-}
-
-div.fancy-select div.trigger:after {
-	content: "";
-	display: block;
-	position: absolute;
-	width: 11px;
-	height: 8px;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAICAYAAAAvOAWIAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA7BAAAOwQG4kWvtAAAAB3RJTUUH3gwBDjAUVq6SHwAAARBJREFUGNN9kD1Lw2AAhC/okDRbhg5G8ibWD9QmVKGSFqQ1BYVi8zucHZ3cXHRxEnRxEaxYsaVQPxAnxdVRUFz8KOpYk0HfcxCEQvGZ7+C5AwCIdJHJlE/0IJnyaaeLBIB+xw0oLBPDQxaubwxGcQxVVRHFMXRNQ24mg7v7RyhKQBgiy/XNHZLkXrVB11+kOTZLL1/h/mGTJLm2sUVDZNk3YI+vPr++QVgmwnIARwyi/f6BleUlhOUSzi6vsL1bxfeX/PWyJgrM5EPW6qeUUvLppU0pJQ+OWvRyFYrJQvcexws4Or3A4+Y5SbJWP+HI1Dwdr/QXVLoKbsBEQoOua+h0PhFFMR5uLxT8h+3O9bzxB8fwdhe/CzINAAAAAElFTkSuQmCC') /*../img/arrow.png*/;
-	top: 8px;
-	right: 9px;
 }
 
 div.fancy-select div.trigger.open:after {
@@ -221,8 +215,8 @@ div.fancy-select ul.options li.hover {
 .translateHeaderLeft,
 .translateHeaderRight {
     width: 49%;
-    width: -webkit-calc(50% - 1.89em);
-    width: calc(50% - 1.89em);
+    width: -webkit-calc(50% - 27px);
+    width: calc(50% - 27px);
 }
 
 .translateHeaderLeft {

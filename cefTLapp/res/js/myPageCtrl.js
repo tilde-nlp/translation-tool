@@ -141,12 +141,26 @@ function initTextWidget($scope, mustApply) {
         _getFilteredSystems: true,
         _onWidgetLoaded: function () {
             $scope.website.initLanguages((typeof mustApply === "undefined") ? false : mustApply);
+            $(document)
+               .keydown(function (e) {
+                   if (isCharacterKeyPress(e) && $scope.isActive('text')) $(".translateTextSource").click();
+                   if (isCharacterKeyPress(e) && $scope.isActive('www')) { $("#url").focus(); }
+               });
         },
         _onSystemChanged: function (id) {
             //console.log('_onSystemChanged(' + id + ')');
         },
         _replaceContainer: false
     });
+}
+
+function isCharacterKeyPress(evt) {
+    if (typeof evt.which == "undefined") {
+        return true;
+    } else if (typeof evt.which == "number" && evt.which > 0) {
+        return !evt.ctrlKey && !evt.metaKey && !evt.altKey && evt.which != 8;
+    }
+    return false;
 }
 
 app.controller('DocumentCtrl', function ($scope, $routeParams) {

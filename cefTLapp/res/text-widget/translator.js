@@ -270,9 +270,8 @@ Tilde.TranslatorWidget.prototype = {
                             if ($widget.textPluginTranslate && typeof ($widget.textPluginTranslate) === "function") {
                                 $widget.textPluginTranslate();
                             }
-
-                            return el.text();
                         }
+                        return el.text();
                     }
                 });
 

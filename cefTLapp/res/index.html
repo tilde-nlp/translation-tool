@@ -144,33 +144,19 @@
             <a href="" ng-click="routeMe('/mobileApp');">Get the Mobile App</a>
         </div>
         <div class="footer">
-            <p class="hugo">Powered by <a class="red" href="https://www.hugo.lv" target="_blank">Hugo</a> Latvian eGov MT</p>
+            <p class="hugo">Powered by <a class="red" href="https://www.hugo.lv" target="_blank">Hugo</a> Latvian eGov MT </p>
         </div>
     </div>
 
     <div class="vertical" id="container">
         <form novalidate class="right" ng-show="isActive('www') || isActive('website')" ng-submit="">
-            <div class="LanguageSelect" ng-show="controls.activeSystem">
-                <div id="source" class="language">
-                    <label>From</label>
-                    <span class="trigger">{{controls.activeSystem.SourceLanguage.Name.Text}}</span>
-                    <ul>
-                        <li ng-model="controls.activeSystemSource"
-                            ng-click="controls.activeSystemSource=system; controls.activeSystem=system;"
-                            ng-repeat="system in controls.systems | unique: 'SourceLanguage.Name.Text' ">
-                            <a href="">
-                                {{system.SourceLanguage.Name.Text}}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div id="target" class="language">
-                    <label>to</label> <span>{{controls.activeSystem.TargetLanguage.Name.Text}}</span>
-                    <ul ng-class="{multiple :results.length==0}">
-                        <li ng-click="controls.activeSystem=system;" ng-repeat="system in controls.systems| unique: 'TargetLanguage.Name.Text'" ng-show="system.SourceLanguage.Code==controls.activeSystemSource.SourceLanguage.Code">
-                            <a href="">{{system.TargetLanguage.Name.Text}}</a>
-                        </li>
-                    </ul>
+            <div class="LanguageSelect w">
+                <div class="translateLanguageContainer" ng-show="website.languagesReady=='yes'">
+                    <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
+                    <select class="translateSourceLang"></select>
+                    <select class="translateSystem hide"></select>
+                    <div data-text="targetSystem" class="translateTargetSystemLabel"></div>
+                    <select class="translateTargetLang"></select>
                 </div>
             </div>
             <div id="address">
@@ -187,7 +173,6 @@
         </form>
 
         <div ng-hide="isActive('website') || isActive('www')" ng-view></div>
-
 
         <div ng-show="isActive('www')" style="clear:both;" class="restricted">
             <div class="bigText">
@@ -217,7 +202,7 @@
             <iframe id="websiteFrame" name="websiteFrame" src="about:blank" frameborder="0"></iframe>
         </div>
     </div>
-    <div ng-show="isActive('home') || !controls.activeSystem" style="visibility:hidden;" id="textWidget"></div>
+    <div ng-show="isActive('home')" style="visibility:hidden;" id="textWidget"></div>
     <div class="tilde" ng-hide="isActive('home') || isActive('about') || isActive('mobileApp')">
         Developed by <a class=" red" href="http://www.tilde.com" target="_blank">
             Tilde

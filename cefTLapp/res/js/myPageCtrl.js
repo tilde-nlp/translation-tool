@@ -13,15 +13,15 @@
     };
 
     $scope.website = {};
-    $scope.controls = {};
+    $scope.website.system = '';
     $scope.website.base = "https://hugo.lv/en"
     $scope.website.url = '';
     $scope.website.errorMsg = '';
     $scope.website.freeze = false;
     $scope.website.status = 'initial';
     $scope.website.focus = false;
-    // $scope.website.frame = jQuery("#websiteFrame")[0].contentWindow;
     $scope.website.samples = listOfWebsites();
+    $scope.website.languagesReady = 'no';
     $scope.updateWebsite = function () {
         if (!$scope.website.url || $scope.website.url.lenght == 0) {
 
@@ -55,19 +55,12 @@
         }
     };
 
-    $scope.website.initLanguages = function (mustApply) {
-        //callback from text translation widget - loaded  
-        $scope.controls.systems = $widget.settings._systems; /*language controls $widget.settings._systems*/
-        $scope.controls.activeSystem = {};
-        $scope.controls.activeSystem = $scope.controls.systems[0];
-        $scope.controls.activeSystemSource = $scope.controls.activeSystem;
-        if (mustApply) $scope.$apply($scope.controls.activeSystemSource);
-    };
-
     $scope.initWebsite = function () {
         $scope.website.changeSystem();
         $scope.website.loadUrl(true);
     };
+
+
 
     $scope.website.loadUrl = function (translateAfterLoad) {
         console.log("Es: loadURL + translate it:  " + $scope.website.url);
@@ -89,8 +82,8 @@
     }
 
     $scope.website.changeSystem = function () {
-        console.log("Es: change system to " + $scope.controls.activeSystem.ID);
-        jQuery("#websiteFrame")[0].contentWindow.postMessage({ "message": "changeSystem", "systemId": $scope.controls.activeSystem.ID },
+        console.log("Es: change system to " + $scope.website.system);
+        jQuery("#websiteFrame")[0].contentWindow.postMessage({ "message": "changeSystem", "systemId": $scope.website.system },
           "*");
     }
 
@@ -100,19 +93,18 @@
         }
     }
 
+
     initEvents();
 
     $scope.dialog = {};
     $scope.dialog.showModal = '';
     $scope.dialog.href = '';
-
     $scope.dialog.navigate = function (forward) {
         $scope.dialog.showModal = '';
         if (forward) {
             $location.path($scope.dialog.href);
         }
     };
-
     $scope.routeMe = function (hash) {
         $scope.dialog.href = hash;
         if ((typeof $widget !== "undefined") && $widget.filePluginGetTranslationStatus() !== 'blank') {
@@ -140,7 +132,10 @@ function initTextWidget($scope, mustApply) {
         _landingView: true,
         _getFilteredSystems: true,
         _onWidgetLoaded: function () {
-            $scope.website.initLanguages((typeof mustApply === "undefined") ? false : mustApply);
+
+            if ($scope.isActive('www') || $scope.isActive('website')) {
+                initLanguages($scope);
+            }
             $(document)
                .keydown(function (e) {
                    if (isCharacterKeyPress(e) && $scope.isActive('text')) $(".translateTextSource").click();
@@ -148,7 +143,7 @@ function initTextWidget($scope, mustApply) {
                });
         },
         _onSystemChanged: function (id) {
-            //console.log('_onSystemChanged(' + id + ')');
+
         },
         _replaceContainer: false
     });
@@ -167,7 +162,8 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
     $scope.website.reset();
     $scope.website.url = '';
     $('#textWidget').empty();
-    if (typeof $widget !== undefined) { $widget.textPluginUnload() };
+
+    if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
 
     var fileWidget = new Tilde.TranslatorWidget('#fileWidget', {
         _language: 'en',
@@ -185,7 +181,7 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
         _getFilteredSystems: true,
         _allowedFileTypes: [{ ext: "docx", mime: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }],
         _onWidgetLoaded: function () {
-            $scope.website.initLanguages();
+            initLanguages($scope);
         },
         _onSystemChanged: function (id) {
             //console.log('_onSystemChanged(' + id + ')');
@@ -195,27 +191,31 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
 
 });
 
-
 app.controller('websiteTranslatorCtrl', function ($scope, $routeParams) {
     $scope.website.reset();
-    if (!$scope.controls.activeSystem) {
+
+    if (typeof $widget == "undefined") {
         initTextWidget($scope, true);
     }
+    else {
+        $scope.website.languagesReady = 'yes';
+    }
 
-    $scope.controls.updated = function () {
+    $scope.website.systemUpdated = function () {
         jQuery("#websiteFrame")[0].contentWindow.postMessage(
-                   { "method": "changeSystem", "systemId": $scope.controls.activeSystem.id },
+                   { "method": "changeSystem", "systemId": $scope.website.system },
                      $scope.website.base);
     };
     $scope.website.updateSystem = function (systemID) {
-        if ($scope.controls.activeSystem.ID == systemID) return false;
-        $scope.$apply($scope.controls.activeSystem = $scope.controls.activeSystem = $scope.controls.systems.filter(function (x) { return x.ID == systemID; })[0]);
+        if ($scope.website.system == systemID) return false;
+        $scope.website.system = systemID;
+        setActiveSystem(systemID);
         return true;
     }
 });
 
 app.controller('homeCtrl', function ($scope, $routeParams) {
-    initTextWidget($scope);
+
     $scope.website.url = '';
     $scope.website.reset();
 });
@@ -274,6 +274,26 @@ app.directive('ngMessage', function ($window) {
     }
 });
 
+app.directive('fancybox', function ($compile, $timeout) {
+    return {
+        link: function ($scope, element, attrs) {
+            element.fancybox({
+                hideOnOverlayClick: false,
+                hideOnContentClick: false,
+                enableEscapeButton: false,
+                showNavArrows: false,
+                onComplete: function () {
+                    $timeout(function () {
+                        $compile($("#targetBox"))($scope);
+                        $scope.$apply();
+                        $.fancybox.resize();
+                    })
+                }
+            });
+        }
+    }
+});
+
 app.directive('focusOn', function ($timeout) {
     return {
         restrict: 'A',
@@ -326,9 +346,6 @@ function initEvents() {
         return false;
     });
 
-
-
-
     $('.language ul').mouseenter(function () {
         $(this).children('ul').css('display', 'none').stop(true, true).slideToggle(250).css('display', 'block').children('ul').css('display', 'none');
     });
@@ -340,8 +357,6 @@ function initEvents() {
         $('#target>ul').stop(true, true).fadeOut(250).css('display', 'none');
     })
 
-
-
     $("body").bind('click', function (e) {
         if (e.which == 2) {
             e.preventDefault();
@@ -350,3 +365,116 @@ function initEvents() {
 
 }
 
+function initLanguages($scope) {
+
+    $.each($widget.settings._systems, function (idx, sys) {
+        if ($('.w .translateSourceLang option[value="' + sys.SourceLanguage.Code + '"]').length == 0) {
+            $('.w .translateSourceLang').append($('<option>', {
+                value: sys.SourceLanguage.Code,
+                text: sys.SourceLanguage.Name.Text
+            }));
+        }
+    });
+
+    // if only one, replace source select with block
+    if ($('.w .translateSourceLang option').length === 1) {
+        var srcSelect = $('.w .translateSourceLang', $widget.settings.container),
+            srcVal = srcSelect.val(),
+            srcText = srcSelect.text();
+
+        srcSelect.replaceWith('<div class="translateSingleSourceLang" data-value="' + srcVal + '">' + srcText + '</div>');
+        loadTargetLangList(srcVal, null, null);
+    }
+    else {
+        // default source lang
+        if ($widget.settings._defaultSourceLang !== null) {
+            $('.w .translateSourceLang').val($widget.settings._defaultSourceLang);
+        }
+
+        $('.w .translateSourceLang').fancySelect({
+            triggerTemplate: function (el) {
+                loadTargetLangList(el.val(), null, true);
+                return el.text();
+            }
+        });
+    }
+
+    // default target lang        
+    if ($widget.settings._defaultTargetLang !== null) {
+
+        $('.w .translateTargetLang option[lang="' + $widget.settings._defaultTargetLang + '"]').val($widget.settings._defaultTargetLang);
+    }
+
+    $('.w .translateTargetLang').fancySelect({
+        triggerTemplate: function (el) {
+            if ($widget.activeSystemId !== el.val()) {
+                $widget.activeSystemId = el.val();
+                if ($widget.settings._onSystemChanged && typeof ($widget.settings._onSystemChanged) === "function") {
+                    $widget.settings._onSystemChanged($widget.activeSystemId);
+                }
+            }
+            return el.text();
+        }
+    });
+
+    setTimeout(function () {
+        $scope.website.languagesReady = 'yes';
+        $scope.$apply();
+    }, 0);
+}
+
+function loadTargetLangList(source, selTarget, putSystemId) {
+    $('.w .translateTargetLang').empty();
+
+    $.each($widget.settings._systems, function (idx, sys) {
+        if (sys.SourceLanguage.Code === source) {
+            if (putSystemId) {
+                // check unique in lang attribute
+                if ($('.w .translateTargetLang option[lang="' + sys.TargetLanguage.Code + '"]').length === 0) {
+                    $('.w .translateTargetLang').append($('<option>', {
+                        value: sys.ID,
+                        text: sys.TargetLanguage.Name.Text,
+                        lang: sys.TargetLanguage.Code
+                    }));
+                }
+            }
+            else {
+                // check unique in value attribute
+                if ($('.w .translateTargetLang option[value="' + sys.TargetLanguage.Code + '"]').length === 0) {
+                    $('.w .translateTargetLang').append($('<option>', {
+                        value: sys.TargetLanguage.Code,
+                        text: sys.TargetLanguage.Name.Text
+                    }));
+                }
+            }
+        }
+    });
+
+    // select target
+    if (selTarget !== undefined && selTarget !== null) {
+        $('.w .translateTargetLang option[lang="' + selTarget + '"]').attr('selected', 'selected');
+    }
+
+    if ($('.w .translateTargetLang') !== null) {
+        $('.w .translateTargetLang').trigger('update.fs');
+    }
+
+}
+
+function setActiveSystem(systemId) {
+    if (systemId === $widget.activeSystemId) { return; }
+
+    var src = '', trg = '';
+    $.each($widget.settings._systems, function (idx, sys) {
+        if (sys.ID === systemId) {
+            src = sys.SourceLanguage.Code;
+            trg = sys.TargetLanguage.Code;
+        }
+    });
+
+    $('.w .translateSourceLang option[value="' + src + '"]').attr('selected', 'selected');
+    if ($('.w .translateSourceLang') !== null) {
+        $('.w .translateSourceLang').trigger('update.fs');
+    }
+    loadTargetLangList(src, trg, true);
+}

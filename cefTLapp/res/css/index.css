@@ -369,9 +369,15 @@ form input[type='text']{
    
 }
 .LanguageSelect
-{   margin:10px 20px 10px 39px;  
-    float:left;  
-  font-size:14px;
+{   
+    float: left;
+    min-width: 210px;
+    position: relative;
+    z-index: 8;
+    background-color: #FFF;
+    padding: 0 0em;
+    margin: 0.85em 0 0 2.1em;    
+   font-size:14px;
 }
 #address
 {  
@@ -700,3 +706,9 @@ div.language>span.ng-binding
 }
 
 
+.LanguageSelect .fancy-select {
+margin: 0.2em 0.5em 1em 0;
+border-radius: 2em;
+background-color: #273347;
+color: #FFF;
+}

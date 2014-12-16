@@ -128,7 +128,7 @@ function initTextWidget($scope, mustApply) {
         _systemListUrl: 'https://hugo.lv/ws/Service.svc/json/GetSystemList',
         _clientId: 'u-bfcaf986-8147-4901-a131-f0d618a7354b',
         _templateId: 'translatetext-template',
-        _appId: "web",
+        _appId: "presidency.desktop",
         _landingView: true,
         _getFilteredSystems: true,
         _onWidgetLoaded: function () {
@@ -176,7 +176,7 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
         _checkStatusUrl: 'https://hugo.lv/ws/Files/GetStatus',
         _clientId: 'u-bfcaf986-8147-4901-a131-f0d618a7354b',
         _templateId: 'translatefile-template',
-        _appId: "web",
+        _appId: "presidency.desktop",
         _landingView: true,
         _getFilteredSystems: true,
         _allowedFileTypes: [{ ext: "docx", mime: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }],

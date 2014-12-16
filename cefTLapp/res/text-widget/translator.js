@@ -7,7 +7,8 @@ var uiResources = {
         "targetSystem": "to",
         "sourceSystemReverse": "Reverse",
         "translateButton": "Translate",
-        "systemDomain": "Domain"
+        "systemDomain": "Domain",
+        "systemLoadError": "Error while loading systems"
     },
     'fr': {
         "sourceSystem": "From",
@@ -176,6 +177,11 @@ Tilde.TranslatorWidget.prototype = {
                 if ($widget.settings._onGetSystemListError && typeof ($widget.settings._onGetSystemListError) === "function") {
                     $widget.settings._onGetSystemListError();
                 }
+
+                $('.loading').addClass('hide');
+                $widget.settings.container
+                    .text(uiResources[$widget.settings._language]['systemLoadError'])
+                    .addClass('noNetwork');
             }
         });
     },
@@ -270,6 +276,7 @@ Tilde.TranslatorWidget.prototype = {
                             if ($widget.textPluginTranslate && typeof ($widget.textPluginTranslate) === "function") {
                                 $widget.textPluginTranslate();
                             }
+
                         }
                         return el.text();
                     }
@@ -351,13 +358,8 @@ Tilde.TranslatorWidget.prototype = {
                                 $widget.settings._onSystemChanged($widget.activeSystemId);
                             }
 
-                            return el.text();
                         }
-                        //if (!$widget.settings._doc_translation) {
-                        //    $widget.translateText(true);
-                        //} else {
-                        //    $widget.setTempTextResult();
-                        //}
+                        return el.text();
                     }
                 });
 
@@ -1072,6 +1074,7 @@ uiResources = $.extend(true, uiResources, {
     'en': {
         "clearTranslation": "Clear all",
         "sourceTextTooltip": "Enter the text you want to translate",
+        "noInternet": "No internet connection",
         "targetTextTooltip": "Machine translation results help to understand the meaning of a source text, but do not equal translation by a human"
     },
     'fr': {
@@ -1108,6 +1111,7 @@ $.extend(Tilde.TranslatorWidgetDefaultOptions, {
     _highlightTranslatedTimeout: 1500, //time in milissecond for highlight
     _focusAfterClear: true, //source field focus after clear
     _focusAfterTranslate: true, //source field focus after translation
+    _translateAll: false, //allways translate all text
 
     _onTranslationStarted: null,
     _onTranslationFinished: null
@@ -1286,6 +1290,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         $widget.textPluginSetTempTextResult();
         $widget.textPluginSetTempTextSource();
 
+        $('.sourceLang, .targetLang', $widget.settings.container).text('');
         $('.translateResultClear', $widget.settings.container).addClass('hide');
         $('.translateProgress', $widget.settings.container).addClass('hide');
     },
@@ -1334,7 +1339,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         //    txt += "</p>";
         //}
 
-        $(this.settings._textResult, $widget.settings.container).html(txt);
+        $($widget.settings._textResult, $widget.settings.container).html(txt).removeClass('noNetwork');
     }
 
 });
@@ -1457,8 +1462,8 @@ Tilde.TextTranslator.prototype = {
         this.clearAlltimeouts();
 
         if (!this.translationInProgress) {
-            this.translateWebsiteIfTextLooksLikeUrl();
-            this.doTranslation();
+            //this.translateWebsiteIfTextLooksLikeUrl();
+            this.doTranslation({ translateAll: $widget.settings._translateAll });
         }
     },
 
@@ -1604,8 +1609,6 @@ Tilde.TextTranslator.prototype = {
                 this.options._onTranslationStarted();
         }
 
-        //var cursor = this.pta.obj;
-
         if (typeof (options) === 'undefined') {
             options = { translateAll: false };
         }
@@ -1627,9 +1630,24 @@ Tilde.TextTranslator.prototype = {
                         $($widget.settings._textSource).blur();
                     }
 
-                    $($widget.settings._textResult).removeClass('noNetwork');
-
                     $('.translateResultClear', $widget.settings.container).removeClass('hide');
+
+                    $('.sourceLang', $widget.settings.container).text($('.translateSourceLang option:selected', $widget.settings.container).text());
+                    $('.targetLang', $widget.settings.container).text($('.translateTargetLang option:selected', $widget.settings.container).text());
+
+                    if ($('#hidOnline').val() === 'false') {
+                        if (this.options._onTranslationFinished)
+                            this.options._onTranslationFinished();
+
+                        this.translationInProgress = false;
+
+                        $($widget.settings._textResult, $widget.settings.container)
+                            .text(uiResources[$widget.settings._language]['noInternet'])
+                            .addClass('noNetwork');
+                        return;
+                    }
+
+                    $($widget.settings._textResult, $widget.settings.container).removeClass('noNetwork');
 
                     // hide intro
                     if ($widget.settings._landingView) {
@@ -1692,7 +1710,7 @@ Tilde.TextTranslator.prototype = {
                 cursor.translated = true;
                 cursor.latest = true;
                 cursor.scroll = true;
-                if (typeof (result[0].Text) === 'undefined') {
+                if (typeof (result[0]) === 'undefined' || typeof (result[0].Text) === 'undefined') {
                     cursor.translation = '{{' + cursor.translation + '}}';
                 }
                 else {
@@ -3696,6 +3714,7 @@ $.extend(Tilde.TranslatorWidgetDefaultOptions, {
     _landingView: false, //intro box with tooltip
     _allowedFileTypes: [{ ext: "txt", mime: "text/plain" }], //file translation types
     _uploadSizeLimit: 1024 * 1024 * 15, //doc translate upload size limit (default 15MB)
+    _startPercent: 0, //translation progress init percentage
     _docMaxWordCount: 0, //document translation max word count
     _docTransMetadata: {}, //custom metadata of translated file (json)
     _onFileUpload: null, //callback function when document is uploaded
@@ -3959,7 +3978,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             },
             complete: function () {
                 $('#translProgress').removeClass('starting');
-                $('#translProgress #transItem .percent').text("2%");
+                $('#translProgress #transItem .percent').text($widget.settings._startPercent + '%');
             }
         });
     },
@@ -4086,7 +4105,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             },
             success: function (response) {
                 // be positive 0% will be showed as 10%
-                var completed = (response.completed < 10) ? 10 : response.completed;
+                var completed = (response.completed < $widget.settings._startPercent) ? $widget.settings._startPercent : response.completed;
                 $('#translProgress').removeClass('starting');
                 $('#translProgress .percent').text(completed + '%');
 

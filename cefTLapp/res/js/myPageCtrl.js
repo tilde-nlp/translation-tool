@@ -28,7 +28,7 @@
         }
         else if ($scope.isActive('www')) {
             $location.path('/website');//?embeddedStyle=noUI
-            window.open($scope.website.base + "/Translate/WebsiteEmbedded?embeddedStyle=noUI", "websiteFrame");
+            window.open($scope.website.base + "/Translate/WebsiteEmbedded?embeddedStyle=noUI&appId=presidency.desktop", "websiteFrame");
             $scope.website.frame = jQuery("#websiteFrame")[0].contentWindow;
         } else {
             switch ($scope.website.status) {//initial|ready|loading|translating|loaded|translated
@@ -138,12 +138,17 @@ function initTextWidget($scope, mustApply) {
             }
             $(document)
                .keydown(function (e) {
-                   if (isCharacterKeyPress(e) && $scope.isActive('text')) $(".translateTextSource").click();
-                   if (isCharacterKeyPress(e) && $scope.isActive('www')) { $("#url").focus(); }
+                   if (isCharacterKeyPress(e) && $scope.isActive('text')) {
+                       $(".translateTextSource").click();
+
+                   }
+                   if (isCharacterKeyPress(e) && $scope.isActive('www') && !$("#url").is(":focus")) {
+                       $(".bigText input").focus();
+                   }
                });
         },
         _onSystemChanged: function (id) {
-
+            $scope.website.system = id;
         },
         _replaceContainer: false
     });
@@ -184,6 +189,7 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
             initLanguages($scope);
         },
         _onSystemChanged: function (id) {
+            $scope.website.system = id;
             //console.log('_onSystemChanged(' + id + ')');
         },
         _replaceContainer: false
@@ -335,27 +341,6 @@ function listOfWebsites() {
 }
 
 function initEvents() {
-
-    $('#source.language').click(function () {
-        $('#source ul').slideToggle(400);
-        return false;
-    });
-
-    $('#target.language').click(function () {
-        $('#target ul').slideToggle(400);
-        return false;
-    });
-
-    $('.language ul').mouseenter(function () {
-        $(this).children('ul').css('display', 'none').stop(true, true).slideToggle(250).css('display', 'block').children('ul').css('display', 'none');
-    });
-
-    $('#source ul').mouseleave(function () {
-        $('#source>ul').stop(true, true).fadeOut(250).css('display', 'none');
-    })
-    $('#target ul').mouseleave(function () {
-        $('#target>ul').stop(true, true).fadeOut(250).css('display', 'none');
-    })
 
     $("body").bind('click', function (e) {
         if (e.which == 2) {

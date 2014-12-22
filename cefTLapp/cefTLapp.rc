@@ -102,7 +102,7 @@ END
 
 STRINGTABLE
 BEGIN
-    IDS_APP_TITLE           "Translator 2015"
+    IDS_APP_TITLE           "Translate 2015"
     IDC_CEFCLIENT           "CEFCLIENT"
 END
 

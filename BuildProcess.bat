@@ -1,6 +1,6 @@
 SET processName=BuildProcess.bat
- set sendto=andis.lagzdins@tilde.lv
-rem set sendto=evita.kornejeva@tilde.lv
+rem  set sendto=andis.lagzdins@tilde.lv
+set sendto=evita.kornejeva@tilde.lv
 set WaitingTime=120
 set BuildProject="Translator2015Setup.ism"
 set ProductVersion=01.10.01

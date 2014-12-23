@@ -653,11 +653,11 @@
 		<row><td>ReadyToRemove</td><td>RemoveNow</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>8388611</td><td/><td>##IDS__IsVerifyRemoveAllDlg_Remove##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupCompleteError</td><td>DlgLine</td><td>Line</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupCompleteError</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>372</td><td>264</td><td>1</td><td/><td/><td>PushButton1</td><td/><td>0</td><td/><td/><td>NewBinary23</td></row>
-		<row><td>SetupCompleteError</td><td>PushButton1</td><td>PushButton</td><td>299</td><td>241</td><td>66</td><td>17</td><td>3</td><td/><td>##NEW_STRING1##</td><td>Image</td><td/><td/><td/><td/><td/></row>
+		<row><td>SetupCompleteError</td><td>PushButton1</td><td>PushButton</td><td>153</td><td>223</td><td>66</td><td>17</td><td>3</td><td/><td>##NEW_STRING1##</td><td>Image</td><td/><td/><td/><td/><td/></row>
 		<row><td>SetupCompleteSuccess</td><td>DlgLine</td><td>Line</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupCompleteSuccess</td><td>ImageInstall</td><td>Bitmap</td><td>0</td><td>0</td><td>372</td><td>264</td><td>1</td><td/><td/><td>ImageUninstall</td><td/><td>0</td><td/><td/><td>NewBinary21</td></row>
 		<row><td>SetupCompleteSuccess</td><td>ImageUninstall</td><td>Bitmap</td><td>0</td><td>0</td><td>372</td><td>264</td><td>1</td><td/><td/><td>PushButton1</td><td/><td/><td/><td/><td>NewBinary20</td></row>
-		<row><td>SetupCompleteSuccess</td><td>PushButton1</td><td>PushButton</td><td>299</td><td>241</td><td>66</td><td>17</td><td>3</td><td/><td>##NEW_STRING2##</td><td>ImageInstall</td><td/><td/><td/><td/><td/></row>
+		<row><td>SetupCompleteSuccess</td><td>PushButton1</td><td>PushButton</td><td>153</td><td>202</td><td>66</td><td>17</td><td>3</td><td/><td>##NEW_STRING2##</td><td>ImageInstall</td><td/><td/><td/><td/><td/></row>
 		<row><td>SetupError</td><td>A</td><td>PushButton</td><td>192</td><td>80</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS__IsErrorDlg_Abort##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupError</td><td>C</td><td>PushButton</td><td>192</td><td>80</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_CANCEL2##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupError</td><td>ErrorIcon</td><td>Icon</td><td>15</td><td>15</td><td>24</td><td>24</td><td>5242881</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary4</td></row>
@@ -678,7 +678,7 @@
 		<row><td>SetupInitialization</td><td>TextLine2</td><td>Text</td><td>135</td><td>55</td><td>228</td><td>30</td><td>196611</td><td/><td>##IDS__IsInitDlg_PreparingWizard##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupInterrupted</td><td>DlgLine</td><td>Line</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupInterrupted</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>372</td><td>264</td><td>1</td><td/><td/><td>PushButton1</td><td/><td>0</td><td/><td/><td>NewBinary22</td></row>
-		<row><td>SetupInterrupted</td><td>PushButton1</td><td>PushButton</td><td>299</td><td>241</td><td>66</td><td>17</td><td>3</td><td/><td>##NEW_STRING3##</td><td>Image</td><td/><td/><td/><td/><td/></row>
+		<row><td>SetupInterrupted</td><td>PushButton1</td><td>PushButton</td><td>153</td><td>223</td><td>66</td><td>17</td><td>3</td><td/><td>##NEW_STRING3##</td><td>Image</td><td/><td/><td/><td/><td/></row>
 		<row><td>SetupProgress</td><td>ActionProgress95</td><td>ProgressBar</td><td>16</td><td>242</td><td>275</td><td>16</td><td>65537</td><td/><td>##IDS__IsProgressDlg_ProgressDone##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupProgress</td><td>ActionText</td><td>Text</td><td>16</td><td>228</td><td>275</td><td>12</td><td>65539</td><td/><td>##IDS__IsProgressDlg_2##</td><td>ActionProgress95</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupProgress</td><td>BannerInstall</td><td>Bitmap</td><td>0</td><td>0</td><td>372</td><td>264</td><td>0</td><td/><td/><td>BannerUninstall</td><td/><td/><td/><td/><td>NewBinary19</td></row>

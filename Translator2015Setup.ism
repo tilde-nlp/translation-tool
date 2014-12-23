@@ -266,8 +266,8 @@
 		<row><td>NewBinary18</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\InstallStateMenu.ico</td></row>
 		<row><td>NewBinary19</td><td/><td>&lt;ISPROJECTDIR&gt;\resources\Instalacijai_2.bmp</td></row>
 		<row><td>NewBinary2</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\New.ibd</td></row>
-		<row><td>NewBinary20</td><td/><td>&lt;ISPROJECTDIR&gt;\resources\Instalacijai_4.bmp</td></row>
-		<row><td>NewBinary21</td><td/><td>&lt;ISPROJECTDIR&gt;\resources\Instalacijai_3.bmp</td></row>
+		<row><td>NewBinary20</td><td/><td>&lt;ISPROJECTDIR&gt;\resources\Instalacijai_3.bmp</td></row>
+		<row><td>NewBinary21</td><td/><td>&lt;ISPROJECTDIR&gt;\resources\Instalacijai_4.bmp</td></row>
 		<row><td>NewBinary22</td><td/><td>&lt;ISPROJECTDIR&gt;\resources\Instalacijai_5.bmp</td></row>
 		<row><td>NewBinary23</td><td/><td>&lt;ISPROJECTDIR&gt;\resources\Instalacijai_5.bmp</td></row>
 		<row><td>NewBinary3</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\Up.ibd</td></row>
@@ -655,9 +655,9 @@
 		<row><td>SetupCompleteError</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>372</td><td>264</td><td>1</td><td/><td/><td>PushButton1</td><td/><td>0</td><td/><td/><td>NewBinary23</td></row>
 		<row><td>SetupCompleteError</td><td>PushButton1</td><td>PushButton</td><td>153</td><td>223</td><td>66</td><td>17</td><td>3</td><td/><td>##NEW_STRING1##</td><td>Image</td><td/><td/><td/><td/><td/></row>
 		<row><td>SetupCompleteSuccess</td><td>DlgLine</td><td>Line</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
-		<row><td>SetupCompleteSuccess</td><td>ImageInstall</td><td>Bitmap</td><td>0</td><td>0</td><td>372</td><td>264</td><td>1</td><td/><td/><td>ImageUninstall</td><td/><td>0</td><td/><td/><td>NewBinary21</td></row>
-		<row><td>SetupCompleteSuccess</td><td>ImageUninstall</td><td>Bitmap</td><td>0</td><td>0</td><td>372</td><td>264</td><td>1</td><td/><td/><td>PushButton1</td><td/><td/><td/><td/><td>NewBinary20</td></row>
-		<row><td>SetupCompleteSuccess</td><td>PushButton1</td><td>PushButton</td><td>153</td><td>202</td><td>66</td><td>17</td><td>3</td><td/><td>##NEW_STRING2##</td><td>ImageInstall</td><td/><td/><td/><td/><td/></row>
+		<row><td>SetupCompleteSuccess</td><td>ImageInstalled</td><td>Bitmap</td><td>0</td><td>0</td><td>372</td><td>264</td><td>1</td><td/><td/><td>PushButton1</td><td/><td/><td/><td/><td>NewBinary20</td></row>
+		<row><td>SetupCompleteSuccess</td><td>ImageUninstall</td><td>Bitmap</td><td>0</td><td>0</td><td>372</td><td>264</td><td>1</td><td/><td/><td>ImageInstalled</td><td/><td>0</td><td/><td/><td>NewBinary21</td></row>
+		<row><td>SetupCompleteSuccess</td><td>PushButton1</td><td>PushButton</td><td>153</td><td>202</td><td>66</td><td>17</td><td>3</td><td/><td>##NEW_STRING2##</td><td>ImageUninstall</td><td/><td/><td/><td/><td/></row>
 		<row><td>SetupError</td><td>A</td><td>PushButton</td><td>192</td><td>80</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS__IsErrorDlg_Abort##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupError</td><td>C</td><td>PushButton</td><td>192</td><td>80</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_CANCEL2##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupError</td><td>ErrorIcon</td><td>Icon</td><td>15</td><td>15</td><td>24</td><td>24</td><td>5242881</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary4</td></row>
@@ -756,7 +756,7 @@
 		<row><td>ReadyToInstall</td><td>InstallPerMachine</td><td>Show</td><td>VersionNT &gt;= "601" AND ISSupportPerUser AND NOT Installed</td></row>
 		<row><td>ReadyToInstall</td><td>InstallPerUser</td><td>Hide</td><td>VersionNT &lt; "601" OR NOT ISSupportPerUser OR Installed</td></row>
 		<row><td>ReadyToInstall</td><td>InstallPerUser</td><td>Show</td><td>VersionNT &gt;= "601" AND ISSupportPerUser AND NOT Installed</td></row>
-		<row><td>SetupCompleteSuccess</td><td>ImageInstall</td><td>Show</td><td>ProgressType2="installed" And ((ACTION&lt;&gt;"INSTALL") OR (NOT ISENABLEDWUSFINISHDIALOG) OR (ISENABLEDWUSFINISHDIALOG And Installed))</td></row>
+		<row><td>SetupCompleteSuccess</td><td>ImageInstalled</td><td>Show</td><td>ProgressType2="installed" And ((ACTION&lt;&gt;"INSTALL") OR (NOT ISENABLEDWUSFINISHDIALOG) OR (ISENABLEDWUSFINISHDIALOG And Installed))</td></row>
 		<row><td>SetupCompleteSuccess</td><td>ImageUninstall</td><td>Show</td><td>ProgressType2="uninstalled" And ((ACTION&lt;&gt;"INSTALL") OR (NOT ISENABLEDWUSFINISHDIALOG) OR (ISENABLEDWUSFINISHDIALOG And Installed))</td></row>
 		<row><td>SetupProgress</td><td>BannerInstall</td><td>Show</td><td>ProgressType3="installs"</td></row>
 		<row><td>SetupProgress</td><td>BannerUninstall</td><td>Show</td><td>ProgressType3="uninstalls"</td></row>
@@ -1048,7 +1048,7 @@ Next </td><td>0</td><td/></row>
 		<row><td>ReadyToInstall</td><td>50</td><td>50</td><td>374</td><td>266</td><td>35</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>InstallNow</td><td>InstallNow</td><td>Cancel</td><td>Ready to Install</td><td/><td>0</td><td/></row>
 		<row><td>ReadyToRemove</td><td>50</td><td>50</td><td>374</td><td>266</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>RemoveNow</td><td>RemoveNow</td><td>Cancel</td><td>Verify Remove</td><td/><td>0</td><td/></row>
 		<row><td>SetupCompleteError</td><td>50</td><td>50</td><td>372</td><td>264</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Image</td><td>PushButton1</td><td>PushButton1</td><td>Fatal Error</td><td/><td>0</td><td/></row>
-		<row><td>SetupCompleteSuccess</td><td>50</td><td>50</td><td>372</td><td>264</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>ImageInstall</td><td>PushButton1</td><td>PushButton1</td><td>Exit</td><td/><td>0</td><td/></row>
+		<row><td>SetupCompleteSuccess</td><td>50</td><td>50</td><td>372</td><td>264</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>ImageUninstall</td><td>PushButton1</td><td>PushButton1</td><td>Exit</td><td/><td>0</td><td/></row>
 		<row><td>SetupError</td><td>50</td><td>50</td><td>270</td><td>110</td><td>65543</td><td>##IDS__IsErrorDlg_InstallerInfo##</td><td>ErrorText</td><td>O</td><td>C</td><td>Error</td><td/><td>0</td><td/></row>
 		<row><td>SetupInitialization</td><td>50</td><td>50</td><td>374</td><td>266</td><td>5</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Cancel</td><td>Cancel</td><td>Cancel</td><td>Setup Initialization</td><td/><td>0</td><td/></row>
 		<row><td>SetupInterrupted</td><td>50</td><td>50</td><td>372</td><td>264</td><td>3</td><td>##IDS_PRODUCTNAME_INSTALLSHIELD##</td><td>Image</td><td>PushButton1</td><td>PushButton1</td><td>User Exit</td><td/><td>0</td><td/></row>

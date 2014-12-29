@@ -194,13 +194,15 @@
         </div>
         <div ng-show="isActive('website') && website.status!='initial'" id="websiteFrameContainer">
             <div ng-show="website.status=='loading' || website.status=='translating' || website.status=='error'" class="infoMessage">
-                <center>Website {{website.status}}...</center>
+                <center ng-show="website.status=='translating' || website.status=='error'">Translation in progress</center>
+                <center ng-show="website.status=='loading'">Loading in progress</center>
                 <center>
                     <button ng-click="website.untranslate()">Cancel</button>
                 </center>
             </div>
             <iframe id="websiteFrame" name="websiteFrame" src="about:blank" frameborder="0"></iframe>
         </div>
+
     </div>
     <div ng-show="isActive('home')" style="visibility:hidden;" id="textWidget"></div>
     <div class="tilde" ng-hide="isActive('home') || isActive('about') || isActive('mobileApp')">
@@ -212,8 +214,8 @@
     <div id="modalConfirmation" ng-class="{modal: dialog.showModal=='show'}">
         <div id="dialog">
             <div id="dialog-bg">
-                <div id="dialog-title">Do you want to exit document translation?</div>
-                <div id="dialog-description">Any uploaded documents and translations will be discarded</div>
+                <div id="dialog-title">Are you sure you want to exit document translation?</div>
+                <div id="dialog-description">Your translation will not be saved.</div>
                 <div id="dialog-buttons">
                     <a href="" ng-click="dialog.navigate(true);" class="dialogButton">Yes</a>
                     <a href="" ng-click="dialog.navigate(false);" class="dialogButton cancelButton">Cancel</a>
@@ -221,6 +223,17 @@
             </div>
         </div>
     </div>
-
+    <div ng-controller="updateCtrl" ng-show="isActive('home') && update.type!=''">
+        <div class="update" id="dialog">
+            <div id="dialog-bg">
+                <div id="dialog-title">{{update.title}}</div>
+                <div id="dialog-description">{{update.description}}</div>
+                <div id="dialog-buttons">
+                    <a href="{{update.url}}" target="_blank" ng-click="update.type=''" class="dialogButton">{{update.yes}}</a>
+                    <a href="" ng-click="update.type=''" class="dialogButton cancelButton">{{update.no}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

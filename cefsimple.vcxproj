@@ -629,6 +629,7 @@
     <Image Include="cefTLapp\res\img\landing.png" />
     <Image Include="cefTLapp\res\img\landingWhite.png" />
     <Image Include="cefTLapp\res\img\mobile.png" />
+    <Image Include="cefTLapp\res\img\tilde.png" />
     <Image Include="cefTLapp\res\small.ico" />
   </ItemGroup>
   <ItemGroup>

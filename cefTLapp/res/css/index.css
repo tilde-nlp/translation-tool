@@ -260,7 +260,7 @@ background-image:url("../img/landingWhite.png");
 }
 
 #inner {
-    width: 60%;
+    width: 65%;
     height: 80%;     
     display:block;
 }
@@ -301,6 +301,10 @@ background-image:url("../img/landingWhite.png");
    margin-top:10px;
    margin-bottom:10px;
 }
+#landingPage #inner li:last-child{
+
+   margin-right:0px;  
+}
 
 #landingPage #inner li>a{  
    background-position:left center;
@@ -324,16 +328,49 @@ background-image:url("../img/landingWhite.png");
 
 #landingPage .hugo{
     background-position: left center;
-    padding-left: 15px;
+    padding-left: 35px;
     padding-top:0px;
 }
 
 #landingPage p a
- {padding:0px;}
+ {
+    padding:0px;
+
+}
+
+#landingPage #inner #links{
+    padding-top:20px;
+    clear:both;
+}
+#landingPage #inner #links>a{
+    color:white;
+    background-image:url("../img/arrowWhite.png");
+    background-repeat:no-repeat;
+    background-position: 90% center;    
+   display:block;
+   float:left;   
+   margin-right:20px;
+   min-width:12%;
+   padding:0px 10px 0px 0px;
+   width:170px;  
+   margin-top:10px;
+   margin-bottom:10px;
+  font-size:0.9rem;
+}
+.aboutBlock a{
+    color:#e4332a;
+}
+.aboutBlock a:hover{
+    color:#35a8df;
+}
 
 #landingPage .tilde{
       font-weight:normal;
       right:46%;
+       background-image:url("../img/tilde.png");
+    background-repeat:no-repeat;
+    background-position:left center;  
+    padding-left:20px;
   }
  /*website form*/
  form button{
@@ -356,9 +393,10 @@ form input[type='text']{
     border-color:#c6cacf;
     border-style:solid;
     border-width:thin;
-    padding: 8px 15px;     
-    color:#c6cacf;
+    padding: 4px 15px 6px 15px;       
+    color:#273347;
     width:55%;
+    font-size:18px;
 }
 
  /*Language form*/
@@ -492,7 +530,34 @@ div.language>span.ng-binding
     height:100%;
 }
 
-  .infoMessage{
+   .infoMessage{
+      padding:5px;
+      border-radius:5px;
+      position:fixed; 
+      top:60px; 
+      right:115px;
+      color:#273347;
+      background-color:white;
+      border:#ac1413 2px solid;
+      width:200px;
+      height:70px;
+      z-index:3; 
+      border-color:#273347;
+
+  }
+ .infoMessage  button{       
+     border-radius:4px;
+    padding: 6px 15px 7px 15px;
+    background-color: #273347;
+    border-color: #273347;
+    border-style: solid;
+    cursor: pointer;
+    color: white;
+    font-size: 0.9rem; 
+    margin-top:10px;
+}
+
+/*  .infoMessage{
       padding:5px;
       border-radius:3px;
       position:fixed; 
@@ -504,13 +569,8 @@ div.language>span.ng-binding
       width:200px;
   }
   .infoMessage  button{  
-    background-color:#ac1413;
-    border-color:#ac1413;
-    border-style:solid;
-    border-radius:4px;
-    cursor:pointer;
-    color:white;   
-}
+    
+}*/
 
 
 .bigText, #websiteLinks{  
@@ -520,7 +580,7 @@ div.language>span.ng-binding
 
 .bigText input{
    
-   color: #c6cacf;
+   color:#273347;
     height: 90px;
     padding: 10px 16px;
     font-size: 3rem;
@@ -531,7 +591,7 @@ div.language>span.ng-binding
     width:80%;
 }
 .bigText input:focus{
-    color:#273347;
+    color:#2C384B;
     padding-left:29px;
 }
 @-moz-keyframes blinker{0%{opacity:1}50%{opacity:0}100%{opacity:1}}@-webkit-keyframes blinker{0%{opacity:1}50%{opacity:0}100%{opacity:1}}@keyframes blinker{0%{opacity:1}50%{opacity:0}100%{opacity:1}}
@@ -614,6 +674,14 @@ div.language>span.ng-binding
     border-radius: 9px; /* Opera 10.5, IE9, Saf5, Chrome, FF4, iOS 4, Android 2.1+ */
       z-index:9001;
 }
+
+
+#dialog.update { 
+    margin-top: 1%;  
+    margin-left:20%; 
+    z-index:99999;
+}
+
 
 #dialog-bg {
     background-color: #FBFBFB;

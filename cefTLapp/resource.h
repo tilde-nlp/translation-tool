@@ -23,6 +23,7 @@
 #define IDS_IMG_LANDING_WHITE           1013
 #define IDS_IMG_MOBILE                  1014
 #define IDS_IMG_ARROW_RIGHT             1015
+#define IDS_IMG_TILDE                   1016
 
 #define IDS_JS_ANGULAR_MIN_JS           1101
 #define IDS_JS_ANGULAR_ROUTE_MIN_JS     1102

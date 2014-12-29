@@ -34,6 +34,7 @@ IDS_IMG_ARROW_DOWN      256                     "res\\img\\arrowWhiteDown.png"
 IDS_IMG_DOC_LETSMT      256                     "res\\img\\doc_letsmt.svg"
 IDS_IMG_DOC_LETSMT_ACTIVE 256                     "res\\img\\doc_letsmt-active.svg"
 IDS_IMG_HUGO            256                     "res\\img\\hugo.png"
+IDS_IMG_TILDE           256                     "res\\img\\tilde.png"
 IDS_IMG_LANDING         256                     "res\\img\\landing.png"
 IDS_IMG_LANDING_WHITE   256                     "res\\img\\landingWhite.png"
 IDS_IMG_MOBILE          256                     "res\\img\\mobile.png"
@@ -123,8 +124,8 @@ LANGUAGE LANG_LATVIAN, SUBLANG_DEFAULT
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,10,0,2
- PRODUCTVERSION 1,10,0,2
+ FILEVERSION 1,19,0,2
+ PRODUCTVERSION 1,19,0,2
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -140,13 +141,13 @@ BEGIN
         BLOCK "042604b0"
         BEGIN
             VALUE "CompanyName", "Tilde SIA"
-            VALUE "FileDescription", "Translator 2015"
-            VALUE "FileVersion", "1.10.0.2"
-            VALUE "InternalName", "Translator2015.rc"
-            VALUE "LegalCopyright", "Â© Tilde SIA, 2015"
-            VALUE "OriginalFilename", "Translator2015.rc"
-            VALUE "ProductName", "Translator 2015"
-            VALUE "ProductVersion", "1.10.0.2"
+            VALUE "FileDescription", "Translate 2015"
+            VALUE "FileVersion", "1.19.0.2"
+            VALUE "InternalName", "Translate2015.rc"
+            VALUE "LegalCopyright", "© Tilde SIA, 2015"
+            VALUE "OriginalFilename", "Translate2015.rc"
+            VALUE "ProductName", "Translate 2015"
+            VALUE "ProductVersion", "1.19.0.2"
         END
     END
     BLOCK "VarFileInfo"

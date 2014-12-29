@@ -47,6 +47,7 @@ namespace {
 			{ "http://tlapp/img/arrowWhite.png", IDS_IMG_ARROW, "image/png" },
 			{ "http://tlapp/img/arrowWhiteDown.png", IDS_IMG_ARROW_DOWN, "image/png" },		
 			{ "http://tlapp/img/hugo.png", IDS_IMG_HUGO, "image/png" },
+			{ "http://tlapp/img/tilde.png", IDS_IMG_TILDE, "image/png" },
 			{ "http://tlapp/img/landing.png", IDS_IMG_LANDING, "image/png" },	
 			{ "http://tlapp/img/landingWhite.png", IDS_IMG_LANDING_WHITE, "image/png" },
 			{ "http://tlapp/img/mobile.png", IDS_IMG_MOBILE, "image/png" },

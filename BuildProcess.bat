@@ -3,7 +3,7 @@ set sendto=andis.lagzdins@tilde.lv
 rem set sendto=evita.kornejeva@tilde.lv
 set WaitingTime=120
 set BuildProject="Translator2015Setup.ism"
-set ProductVersion=01.15.01
+set ProductVersion=01.19.01
 set ISPath2013="c:\program files\installshield\2013 SP1 SAB\system\"
 
 
@@ -21,7 +21,7 @@ dir *.exe /s /b /x >>files1.txt
 generateSigner.pl files1.txt sign_Translator2015_files.bat
 rem del files1.txt
 
-echo Jâparaksta Translator 2015 setup faili. > SignMM.txt
+echo Jâparaksta Translate 2015 setup faili. > SignMM.txt
 echo Parakstîðanas fails: "E:\6\LetsMT!\Translator2015\Sources\sign_Translator2015_files.bat" >> SignMM.txt
 echo Gaidîðu %WaitingTime% minûtes >> SignMM.txt
 if DEFINED sendto blat.exe SignMM.txt -t %sendto% -f codesigner@tilde.lv -subject "Please sign Translator 2015 setup files" -server pastnieks
@@ -46,7 +46,7 @@ REM for %%F in (*.ico) do echo ICON=%%F>>autorun.inf
 REM CD ..\..
 
 path %path%;Precious\Mail;
-echo Jâparaksta Translator 2015 relîzes faili. > SignMM.txt
+echo Jâparaksta Translate 2015 relîzes faili. > SignMM.txt
 echo Parakstîðanas fails: "E:\6\LetsMT!\Translator2015\Sources\sign_Translator_2015_release.bat" >> SignMM.txt
 echo Gaidîðu %WaitingTime% minûtes >> SignMM.txt
 if DEFINED sendto blat.exe SignMM.txt -t %sendto% -f codesigner@tilde.lv -subject "Please sign Translator 2015 release files" -server pastnieks

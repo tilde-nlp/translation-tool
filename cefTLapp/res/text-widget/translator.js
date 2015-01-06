@@ -3141,7 +3141,7 @@ qq.UploadButton.prototype = {
         }
 
         input.setAttribute("type", "file");
-        input.setAttribute("accept", this._options.allowedMimetypes.join(', '));
+        // input.setAttribute("accept", this._options.allowedMimetypes.join(', '));        
         input.setAttribute("name", this._options.name);
 
         qq.css(input, {
@@ -3739,7 +3739,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         var extArray = [];
         var mimeArray = [];
         for (var idx in $widget.settings._allowedFileTypes) {
-            var item = $widget.settings._allowedFileTypes[idx];
+            var item = $widget.settings._allowedFileTypes[idx];            
             if ($.inArray(item.ext, extArray) == -1) {
                 extArray.push(item.ext);
             }

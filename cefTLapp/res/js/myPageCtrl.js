@@ -1,4 +1,4 @@
-﻿var $versionNumber = '1.20';
+﻿var $versionNumber = '1.21';
 
 app.controller("updateCtrl", function ($scope) {
     $scope.version = $versionNumber;//possible values - text|website|  
@@ -222,7 +222,21 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
         _appId: "presidency.desktop",
         _landingView: true,
         _getFilteredSystems: true,
-        _allowedFileTypes: [{ ext: "docx", mime: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }],
+        _allowedFileTypes: [
+                     { ext: "doc", mime: "application/msword" },
+                     { ext: "docx", mime: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" },
+                     { ext: "xlsx", mime: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" },
+                     { ext: "pptx", mime: "application/vnd.openxmlformats-officedocument.presentationml.presentation" },
+                     { ext: "odt", mime: "application/vnd.oasis.opendocument.text" },
+                     { ext: "odp", mime: "application/vnd.oasis.opendocument.presentation" },
+                     { ext: "ods", mime: "application/vnd.oasis.opendocument.spreadsheet" },
+                     { ext: "rtf", mime: "﻿application/rtf" },
+                     { ext: "html", mime: "text/html" },
+                     { ext: "htm", mime: "text/html" },
+                     { ext: "xhtml", mime: "﻿﻿application/xhtml" },
+                     { ext: "xht", mime: "﻿application/xhtml+xml" },
+                     { ext: "txt", mime: "text/plain" }
+        ],
         _onWidgetLoaded: function () {
             initLanguages($scope);
         },

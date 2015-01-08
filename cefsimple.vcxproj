@@ -631,6 +631,16 @@
     <Image Include="cefTLapp\res\img\mobile.png" />
     <Image Include="cefTLapp\res\img\tilde.png" />
     <Image Include="cefTLapp\res\small.ico" />
+    <Image Include="cefTLapp\res_tr2015\cefTLapp.ico" />
+    <Image Include="cefTLapp\res_tr2015\img\arrow.png" />
+    <Image Include="cefTLapp\res_tr2015\img\arrowWhite.png" />
+    <Image Include="cefTLapp\res_tr2015\img\arrowWhiteDown.png" />
+    <Image Include="cefTLapp\res_tr2015\img\hugo.png" />
+    <Image Include="cefTLapp\res_tr2015\img\landing.png" />
+    <Image Include="cefTLapp\res_tr2015\img\landingWhite.png" />
+    <Image Include="cefTLapp\res_tr2015\img\mobile.png" />
+    <Image Include="cefTLapp\res_tr2015\img\tilde.png" />
+    <Image Include="cefTLapp\res_tr2015\small.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="libcef_dll_wrapper.vcxproj">
@@ -683,6 +693,29 @@ call xcopy /efy "$(Configuration)\*.dll" "$(OutDir)"</Command>
     <None Include="cefTLapp\res\templates\translate-website.html" />
     <None Include="cefTLapp\res\text-widget\translator.css" />
     <None Include="cefTLapp\res\text-widget\translator.js" />
+    <None Include="cefTLapp\res_tr2015\css\index.css" />
+    <None Include="cefTLapp\res_tr2015\img\doc_letsmt-active.svg" />
+    <None Include="cefTLapp\res_tr2015\img\doc_letsmt.svg" />
+    <None Include="cefTLapp\res_tr2015\img\logo_large.svg" />
+    <None Include="cefTLapp\res_tr2015\img\text_letsmt-active.svg" />
+    <None Include="cefTLapp\res_tr2015\img\text_letsmt.svg" />
+    <None Include="cefTLapp\res_tr2015\img\web_letsmt-active.svg" />
+    <None Include="cefTLapp\res_tr2015\img\web_letsmt.svg" />
+    <None Include="cefTLapp\res_tr2015\index.html" />
+    <None Include="cefTLapp\res_tr2015\js\angular-filter.js" />
+    <None Include="cefTLapp\res_tr2015\js\angular-route.min.js" />
+    <None Include="cefTLapp\res_tr2015\js\angular.min.js" />
+    <None Include="cefTLapp\res_tr2015\js\jquery-2.1.1.min.js" />
+    <None Include="cefTLapp\res_tr2015\js\myPageCtrl.js" />
+    <None Include="cefTLapp\res_tr2015\js\myTranslatorApp.js" />
+    <None Include="cefTLapp\res_tr2015\templates\about.html" />
+    <None Include="cefTLapp\res_tr2015\templates\home.html" />
+    <None Include="cefTLapp\res_tr2015\templates\mobileApplications.html" />
+    <None Include="cefTLapp\res_tr2015\templates\translate-document.html" />
+    <None Include="cefTLapp\res_tr2015\templates\translate-text.html" />
+    <None Include="cefTLapp\res_tr2015\templates\translate-website.html" />
+    <None Include="cefTLapp\res_tr2015\text-widget\translator.css" />
+    <None Include="cefTLapp\res_tr2015\text-widget\translator.js" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -103,7 +103,7 @@ END
 
 STRINGTABLE
 BEGIN
-    IDS_APP_TITLE           "MT for NP Foods"
+    IDS_APP_TITLE           "Translate 2015"
     IDC_CEFCLIENT           "CEFCLIENT"
 END
 
@@ -124,8 +124,8 @@ LANGUAGE LANG_LATVIAN, SUBLANG_DEFAULT
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,2,0,2
- PRODUCTVERSION 1,2,0,2
+ FILEVERSION 1,22,0,2
+ PRODUCTVERSION 1,22,0,2
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -142,12 +142,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Tilde SIA"
             VALUE "FileDescription", "Translate 2015"
-            VALUE "FileVersion", "1.2.0.2"
+            VALUE "FileVersion", "1.22.0.2"
             VALUE "InternalName", "Translate2015.rc"
             VALUE "LegalCopyright", "© Tilde SIA, 2015"
             VALUE "OriginalFilename", "Translate2015.rc"
             VALUE "ProductName", "Translate 2015"
-            VALUE "ProductVersion", "1.2.0.2"
+            VALUE "ProductVersion", "1.22.0.2"
         END
     END
     BLOCK "VarFileInfo"

@@ -168,10 +168,10 @@ a:focus{
 
 #landingPage
 {    
-    background-position:5% 4%, 85% bottom;  
+    background-position:4% 4%, 85% bottom;  
     background-image:url("../img/logo_large.svg"), url("../img/landing.png");
     background-repeat:no-repeat; 
-    background-size: 320px, cover;     
+    background-size: 120px, cover;     
     position:fixed;
     width:100%;
     height:100%;

@@ -131,14 +131,18 @@
             </a>
             <a tabindex="2" class="documentMenuItem" ng-class="{ active: isActive('document') }" href="#/document" title="Translate document">
                 Documents
-            </a>          
+            </a>
+            <a tabindex="3" class="websiteMenuItem" ng-click="routeMe('/www');" href="" ng-class="{ active: isActive('website') || isActive('www')  }" title="Translate website">
+                Website
+            </a>
         </nav>
 
         <div id="promoSection">
-           
+            <a href="" ng-click="routeMe('/about');">About Translate 2015</a>
+            <a href="" ng-click="routeMe('/mobileApp');">Get the Mobile App</a>
         </div>
         <div class="footer">
-            <p class="hugo">Powered by <a class="red" href="http://www.tilde.com/mt/letsmt" target="_blank">LetsMT</a>  Technology</p>
+            <p class="hugo">Powered by <a class="red" href="https://www.hugo.lv" target="_blank">Hugo</a> Latvian eGov MT </p>
         </div>
     </div>
 

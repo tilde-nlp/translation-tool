@@ -406,38 +406,48 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="cefTLapp\res\small.ico">
-      <Filter>cefTLapp\res</Filter>
-    </Image>
-    <Image Include="cefTLapp\res\cefTLapp.ico">
-      <Filter>cefTLapp\res</Filter>
-    </Image>
-    <Image Include="cefTLapp\res\img\hugo.png">
-      <Filter>cefTLapp\res\img</Filter>
-    </Image>
     <Image Include="..\..\..\..\Users\andis.lagzdins\Downloads\d41d8cd98f00b204e9800998ecf8427e.ico">
       <Filter>cefTLapp</Filter>
     </Image>
-    <Image Include="cefTLapp\res\img\arrowWhite.png">
+    <Image Include="cefTLapp\res\img\arrow.png" />
+    <Image Include="cefTLapp\res\img\arrowWhite.png" />
+    <Image Include="cefTLapp\res\img\arrowWhiteDown.png" />
+    <Image Include="cefTLapp\res\img\hugo.png" />
+    <Image Include="cefTLapp\res\img\landing.png" />
+    <Image Include="cefTLapp\res\img\landingWhite.png" />
+    <Image Include="cefTLapp\res\img\mobile.png" />
+    <Image Include="cefTLapp\res\img\tilde.png" />
+    <Image Include="cefTLapp\res\cefTLapp.ico" />
+    <Image Include="cefTLapp\res\small.ico" />
+    <Image Include="cefTLapp\res_tr2015\img\arrow.png">
       <Filter>cefTLapp\res\img</Filter>
     </Image>
-    <Image Include="cefTLapp\res\img\arrowWhiteDown.png">
+    <Image Include="cefTLapp\res_tr2015\img\arrowWhite.png">
       <Filter>cefTLapp\res\img</Filter>
     </Image>
-    <Image Include="cefTLapp\res\img\landing.png">
+    <Image Include="cefTLapp\res_tr2015\img\arrowWhiteDown.png">
       <Filter>cefTLapp\res\img</Filter>
     </Image>
-    <Image Include="cefTLapp\res\img\mobile.png">
+    <Image Include="cefTLapp\res_tr2015\img\hugo.png">
       <Filter>cefTLapp\res\img</Filter>
     </Image>
-    <Image Include="cefTLapp\res\img\landingWhite.png">
+    <Image Include="cefTLapp\res_tr2015\img\landing.png">
       <Filter>cefTLapp\res\img</Filter>
     </Image>
-    <Image Include="cefTLapp\res\img\arrow.png">
+    <Image Include="cefTLapp\res_tr2015\img\landingWhite.png">
       <Filter>cefTLapp\res\img</Filter>
     </Image>
-    <Image Include="cefTLapp\res\img\tilde.png">
+    <Image Include="cefTLapp\res_tr2015\img\mobile.png">
       <Filter>cefTLapp\res\img</Filter>
+    </Image>
+    <Image Include="cefTLapp\res_tr2015\img\tilde.png">
+      <Filter>cefTLapp\res\img</Filter>
+    </Image>
+    <Image Include="cefTLapp\res_tr2015\cefTLapp.ico">
+      <Filter>cefTLapp\res</Filter>
+    </Image>
+    <Image Include="cefTLapp\res_tr2015\small.ico">
+      <Filter>cefTLapp\res</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
@@ -449,82 +459,105 @@
     </Manifest>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="cefTLapp\cefTLapp.rc">
-      <Filter>cefTLapp</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="cefTLapp\res\index.html">
-      <Filter>cefTLapp\res</Filter>
-    </None>
-    <None Include="cefTLapp\res\css\index.css">
+    <None Include="cefTLapp\res\css\index.css" />
+    <None Include="cefTLapp\res\img\doc_letsmt.svg" />
+    <None Include="cefTLapp\res\img\doc_letsmt-active.svg" />
+    <None Include="cefTLapp\res\img\logo_large.svg" />
+    <None Include="cefTLapp\res\img\text_letsmt.svg" />
+    <None Include="cefTLapp\res\img\text_letsmt-active.svg" />
+    <None Include="cefTLapp\res\img\web_letsmt.svg" />
+    <None Include="cefTLapp\res\img\web_letsmt-active.svg" />
+    <None Include="cefTLapp\res\js\angular.min.js" />
+    <None Include="cefTLapp\res\js\angular-filter.js" />
+    <None Include="cefTLapp\res\js\angular-route.min.js" />
+    <None Include="cefTLapp\res\js\jquery-2.1.1.min.js" />
+    <None Include="cefTLapp\res\js\myPageCtrl.js" />
+    <None Include="cefTLapp\res\js\myTranslatorApp.js" />
+    <None Include="cefTLapp\res\templates\about.html" />
+    <None Include="cefTLapp\res\templates\home.html" />
+    <None Include="cefTLapp\res\templates\mobileApplications.html" />
+    <None Include="cefTLapp\res\templates\translate-document.html" />
+    <None Include="cefTLapp\res\templates\translate-text.html" />
+    <None Include="cefTLapp\res\templates\translate-website.html" />
+    <None Include="cefTLapp\res\text-widget\translator.css" />
+    <None Include="cefTLapp\res\text-widget\translator.js" />
+    <None Include="cefTLapp\res\index.html" />
+    <None Include="cefTLapp\res_tr2015\css\index.css">
       <Filter>cefTLapp\res\css</Filter>
     </None>
-    <None Include="cefTLapp\res\img\doc_letsmt.svg">
+    <None Include="cefTLapp\res_tr2015\img\doc_letsmt.svg">
       <Filter>cefTLapp\res\img</Filter>
     </None>
-    <None Include="cefTLapp\res\img\doc_letsmt-active.svg">
+    <None Include="cefTLapp\res_tr2015\img\doc_letsmt-active.svg">
       <Filter>cefTLapp\res\img</Filter>
     </None>
-    <None Include="cefTLapp\res\img\text_letsmt.svg">
+    <None Include="cefTLapp\res_tr2015\img\logo_large.svg">
       <Filter>cefTLapp\res\img</Filter>
     </None>
-    <None Include="cefTLapp\res\img\text_letsmt-active.svg">
+    <None Include="cefTLapp\res_tr2015\img\text_letsmt.svg">
       <Filter>cefTLapp\res\img</Filter>
     </None>
-    <None Include="cefTLapp\res\img\web_letsmt.svg">
+    <None Include="cefTLapp\res_tr2015\img\text_letsmt-active.svg">
       <Filter>cefTLapp\res\img</Filter>
     </None>
-    <None Include="cefTLapp\res\img\web_letsmt-active.svg">
+    <None Include="cefTLapp\res_tr2015\img\web_letsmt.svg">
       <Filter>cefTLapp\res\img</Filter>
     </None>
-    <None Include="cefTLapp\res\js\angular.min.js">
+    <None Include="cefTLapp\res_tr2015\img\web_letsmt-active.svg">
+      <Filter>cefTLapp\res\img</Filter>
+    </None>
+    <None Include="cefTLapp\res_tr2015\js\angular.min.js">
       <Filter>cefTLapp\res\js</Filter>
     </None>
-    <None Include="cefTLapp\res\js\angular-route.min.js">
+    <None Include="cefTLapp\res_tr2015\js\angular-filter.js">
       <Filter>cefTLapp\res\js</Filter>
     </None>
-    <None Include="cefTLapp\res\js\myPageCtrl.js">
+    <None Include="cefTLapp\res_tr2015\js\angular-route.min.js">
       <Filter>cefTLapp\res\js</Filter>
     </None>
-    <None Include="cefTLapp\res\js\myTranslatorApp.js">
+    <None Include="cefTLapp\res_tr2015\js\jquery-2.1.1.min.js">
       <Filter>cefTLapp\res\js</Filter>
     </None>
-    <None Include="cefTLapp\res\templates\about.html">
-      <Filter>cefTLapp\res\templates</Filter>
-    </None>
-    <None Include="cefTLapp\res\templates\mobileApplications.html">
-      <Filter>cefTLapp\res\templates</Filter>
-    </None>
-    <None Include="cefTLapp\res\templates\translate-document.html">
-      <Filter>cefTLapp\res\templates</Filter>
-    </None>
-    <None Include="cefTLapp\res\templates\translate-text.html">
-      <Filter>cefTLapp\res\templates</Filter>
-    </None>
-    <None Include="cefTLapp\res\templates\translate-website.html">
-      <Filter>cefTLapp\res\templates</Filter>
-    </None>
-    <None Include="cefTLapp\res\js\angular-filter.js">
+    <None Include="cefTLapp\res_tr2015\js\myPageCtrl.js">
       <Filter>cefTLapp\res\js</Filter>
     </None>
-    <None Include="cefTLapp\res\js\jquery-2.1.1.min.js">
+    <None Include="cefTLapp\res_tr2015\js\myTranslatorApp.js">
       <Filter>cefTLapp\res\js</Filter>
     </None>
-    <None Include="cefTLapp\res\img\logo_large.svg">
-      <Filter>cefTLapp\res\img</Filter>
-    </None>
-    <None Include="cefTLapp\res\templates\home.html">
+    <None Include="cefTLapp\res_tr2015\templates\about.html">
       <Filter>cefTLapp\res\templates</Filter>
     </None>
-    <None Include="cefTLapp\res\text-widget\translator.css">
+    <None Include="cefTLapp\res_tr2015\templates\home.html">
+      <Filter>cefTLapp\res\templates</Filter>
+    </None>
+    <None Include="cefTLapp\res_tr2015\templates\mobileApplications.html">
+      <Filter>cefTLapp\res\templates</Filter>
+    </None>
+    <None Include="cefTLapp\res_tr2015\templates\translate-document.html">
+      <Filter>cefTLapp\res\templates</Filter>
+    </None>
+    <None Include="cefTLapp\res_tr2015\templates\translate-text.html">
+      <Filter>cefTLapp\res\templates</Filter>
+    </None>
+    <None Include="cefTLapp\res_tr2015\templates\translate-website.html">
+      <Filter>cefTLapp\res\templates</Filter>
+    </None>
+    <None Include="cefTLapp\res_tr2015\text-widget\translator.css">
       <Filter>cefTLapp\res\text-widget</Filter>
     </None>
-    <None Include="cefTLapp\res\text-widget\translator.js">
+    <None Include="cefTLapp\res_tr2015\text-widget\translator.js">
       <Filter>cefTLapp\res\text-widget</Filter>
+    </None>
+    <None Include="cefTLapp\res_tr2015\index.html">
+      <Filter>cefTLapp\res</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="cefclient.gyp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="cefTLapp\cefTLapp.rc">
+      <Filter>cefTLapp</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

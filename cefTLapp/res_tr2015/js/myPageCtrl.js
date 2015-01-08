@@ -1,8 +1,8 @@
-﻿var $versionNumber = '1.2';
+﻿var $versionNumber = '1.22';
 
 app.controller("updateCtrl", function ($scope) {
     $scope.version = $versionNumber;//possible values - text|website|  
-    $scope.url = 'https://saas.tilde.com/bb7_updateinfo/downloads/translateMPFOODupdates.js';//possible values - mobile|about
+    $scope.url = 'https://saas.tilde.com/bb7_updateinfo/downloads/translate2015updates.js';//possible values - mobile|about
     $scope.update = {
         type: '',
         title: '',
@@ -161,25 +161,14 @@ app.controller('TranslateCtrl', function ($scope, $routeParams) {
 });
 
 function initTextWidget($scope, mustApply) {
-
     var textWidget = new Tilde.TranslatorWidget('#textWidget', {
         _language: 'en',
-        _systemListUrl: 'https://letsmt.eu/npfoods/Service.svc/json/GetSystemList',
-        _translationUrl: 'https://letsmt.eu/npfoods/Service.svc/json/GetTranslations',
-        _clientId: 'u-918f738b-7413-405d-acda-577ac8825db2',
+        _systemListUrl: 'https://hugo.lv/ws/Service.svc/json/GetSystemList',
+        _clientId: 'u-bfcaf986-8147-4901-a131-f0d618a7354b',
         _templateId: 'translatetext-template',
-        _appId: "npfoods",
+        _appId: "presidency.desktop",
         _landingView: true,
         _getFilteredSystems: true,
-        _onSystemsLoaded: function (systems) {
-            $widget.settings._systems = [];
-            $.each(systems, function (idx, sys) {
-                var ids = $widget.getSystemMetaValue(sys.Metadata, 'app-ids');
-                if (ids === 'npfoods') {
-                    $widget.settings._systems.push(sys);
-                }
-            });
-        },
         _onWidgetLoaded: function () {
 
             if ($scope.isActive('www') || $scope.isActive('website')) {
@@ -201,7 +190,6 @@ function initTextWidget($scope, mustApply) {
         },
         _replaceContainer: false
     });
-
 }
 
 function isCharacterKeyPress(evt) {
@@ -218,45 +206,47 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
     $scope.website.url = '';
     $('#textWidget').empty();
 
-
     if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
+
     var fileWidget = new Tilde.TranslatorWidget('#fileWidget', {
         _language: 'en',
-        _systemListUrl: 'https://letsmt.eu/npfoods/Service.svc/json/GetSystemList',
-        _uploadUrl: 'https://letsmt.eu/npfoods/Files/Upload',
-        _deleteUrl: 'https://letsmt.eu/npfoods/Files/Delete',
-        _downloadUrl: 'https://letsmt.eu/npfoods/Files/Download',
-        _translateUrl: 'https://letsmt.eu/npfoods/Files/StartTranslation',
-        _previewUrl: 'https://letsmt.eu/npfoods/Files/GetDocumentPreview',
-        _checkStatusUrl: 'https://letsmt.eu/npfoods/Files/GetStatus',
-        _clientId: 'u-918f738b-7413-405d-acda-577ac8825db2',
+        _systemListUrl: 'https://hugo.lv/ws/Service.svc/json/GetSystemList',
+        _uploadUrl: 'https://hugo.lv/ws/Files/Upload',
+        _deleteUrl: 'https://hugo.lv/ws/Files/Delete',
+        _downloadUrl: 'https://hugo.lv/Files/Download',
+        _translateUrl: 'https://hugo.lv/ws/Files/StartTranslation',
+        _previewUrl: 'https://hugo.lv/ws/Files/GetDocumentPreview',
+        _checkStatusUrl: 'https://hugo.lv/ws/Files/GetStatus',
+        _clientId: 'u-bfcaf986-8147-4901-a131-f0d618a7354b',
         _templateId: 'translatefile-template',
-        _appId: "npfoods",
+        _appId: "presidency.desktop",
         _landingView: true,
         _getFilteredSystems: true,
         _allowedFileTypes: [
-            { ext: "docx", mime: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" },
-            { ext: "txt", mime: "text/plain" }
+                     { ext: "doc", mime: "application/msword" },
+                     { ext: "docx", mime: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" },
+                     { ext: "xlsx", mime: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" },
+                     { ext: "pptx", mime: "application/vnd.openxmlformats-officedocument.presentationml.presentation" },
+                     { ext: "odt", mime: "application/vnd.oasis.opendocument.text" },
+                     { ext: "odp", mime: "application/vnd.oasis.opendocument.presentation" },
+                     { ext: "ods", mime: "application/vnd.oasis.opendocument.spreadsheet" },
+                     { ext: "rtf", mime: "﻿application/rtf" },
+                     { ext: "html", mime: "text/html" },
+                     { ext: "htm", mime: "text/html" },
+                     { ext: "xhtml", mime: "﻿﻿application/xhtml" },
+                     { ext: "xht", mime: "﻿application/xhtml+xml" },
+                     { ext: "txt", mime: "text/plain" }
         ],
-        _onSystemsLoaded: function (systems) {
-            $widget.settings._systems = [];
-            $.each(systems, function (idx, sys) {
-                var ids = $widget.getSystemMetaValue(sys.Metadata, 'app-ids');
-                if (ids === 'npfoods') {
-                    $widget.settings._systems.push(sys);
-                }
-            });
-        },
         _onWidgetLoaded: function () {
             initLanguages($scope);
         },
         _onSystemChanged: function (id) {
-            $scope.website.system = id;        
+            $scope.website.system = id;
+            //console.log('_onSystemChanged(' + id + ')');
         },
-        _mimetypeFilter: false,
         _replaceContainer: false
     });
-  
+
 });
 
 app.controller('websiteTranslatorCtrl', function ($scope, $routeParams) {

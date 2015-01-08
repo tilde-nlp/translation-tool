@@ -141,12 +141,12 @@ BEGIN
         BLOCK "042604b0"
         BEGIN
             VALUE "CompanyName", "Tilde SIA"
-            VALUE "FileDescription", "Translate 2015"
+            VALUE "FileDescription", "MT for NP Foods"
             VALUE "FileVersion", "1.2.0.2"
             VALUE "InternalName", "Translate2015.rc"
             VALUE "LegalCopyright", "© Tilde SIA, 2015"
             VALUE "OriginalFilename", "Translate2015.rc"
-            VALUE "ProductName", "Translate 2015"
+            VALUE "ProductName", "MT for NP Foods"
             VALUE "ProductVersion", "1.2.0.2"
         END
     END

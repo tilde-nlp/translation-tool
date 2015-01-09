@@ -135,6 +135,9 @@ a:focus{
 .red{
     color:#e4332a;
 }
+.white{
+    color:white;
+}
 .tilde{
     position:absolute;
     color:#c6cacf;

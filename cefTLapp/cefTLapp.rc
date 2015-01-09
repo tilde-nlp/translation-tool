@@ -74,23 +74,23 @@ IDI_SMALL               ICON                    "res\\small.ico"
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE 
+1 TEXTINCLUDE
 BEGIN
-    "resource.h\0"
+"resource.h\0"
 END
 
-2 TEXTINCLUDE 
+2 TEXTINCLUDE
 BEGIN
-    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
-    "#include ""windows.h""\r\n"
-    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
-    "\0"
+"#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+"#include ""windows.h""\r\n"
+"#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+"\0"
 END
 
-3 TEXTINCLUDE 
+3 TEXTINCLUDE
 BEGIN
-    "\r\n"
-    "\0"
+"\r\n"
+"\0"
 END
 
 #endif    // APSTUDIO_INVOKED
@@ -103,8 +103,8 @@ END
 
 STRINGTABLE
 BEGIN
-    IDS_APP_TITLE           "MT for NP Foods"
-    IDC_CEFCLIENT           "CEFCLIENT"
+IDS_APP_TITLE           "NPFoods translation tool"
+IDC_CEFCLIENT           "NPFoods translation tool"
 END
 
 #endif    // English (United States) resources
@@ -124,36 +124,36 @@ LANGUAGE LANG_LATVIAN, SUBLANG_DEFAULT
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,2,0,2
- PRODUCTVERSION 1,2,0,2
- FILEFLAGSMASK 0x3fL
+FILEVERSION 1,2,0,2
+PRODUCTVERSION 1,2,0,2
+FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
- FILEFLAGS 0x1L
+FILEFLAGS 0x1L
 #else
- FILEFLAGS 0x0L
+FILEFLAGS 0x0L
 #endif
- FILEOS 0x40004L
- FILETYPE 0x0L
- FILESUBTYPE 0x0L
+FILEOS 0x40004L
+FILETYPE 0x0L
+FILESUBTYPE 0x0L
 BEGIN
-    BLOCK "StringFileInfo"
-    BEGIN
-        BLOCK "042604b0"
-        BEGIN
-            VALUE "CompanyName", "Tilde SIA"
-            VALUE "FileDescription", "MT for NP Foods"
-            VALUE "FileVersion", "1.2.0.2"
-            VALUE "InternalName", "Translate2015.rc"
-            VALUE "LegalCopyright", "© Tilde SIA, 2015"
-            VALUE "OriginalFilename", "Translate2015.rc"
-            VALUE "ProductName", "MT for NP Foods"
-            VALUE "ProductVersion", "1.2.0.2"
-        END
-    END
-    BLOCK "VarFileInfo"
-    BEGIN
-        VALUE "Translation", 0x426, 1200
-    END
+BLOCK "StringFileInfo"
+BEGIN
+BLOCK "042604b0"
+BEGIN
+VALUE "CompanyName", "Tilde SIA"
+VALUE "FileDescription", "NPFoods translation tool"
+VALUE "FileVersion", "1.2.0.2"
+VALUE "InternalName", "NPFoods.rc"
+VALUE "LegalCopyright", "Â© Tilde SIA, 2015"
+VALUE "OriginalFilename", "NPFoods.rc"
+VALUE "ProductName", "NPFoods translation tool"
+VALUE "ProductVersion", "1.2.0.2"
+END
+END
+BLOCK "VarFileInfo"
+BEGIN
+VALUE "Translation", 0x426, 1200
+END
 END
 
 #endif    // Latvian (Latvia) resources

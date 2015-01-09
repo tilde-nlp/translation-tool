@@ -116,7 +116,7 @@
     <script src="js/myTranslatorApp.js"></script>
     <script src="js/myPageCtrl.js"></script>
 
-    <title>Translate 2015</title>
+    <title>NPFoods translation tool</title>
 </head>
 <body ng-app="myTranslatorApp" ng-controller="myPageCtrl" ng-message>
 
@@ -138,7 +138,10 @@
            
         </div>
         <div class="footer">
-            <p class="hugo">Powered by <a class="red" href="http://www.tilde.com/mt/letsmt" target="_blank">LetsMT</a>  Technology</p>
+            <p class="hugo">Developed by <a class="red" href="http://www.tilde.com/mt" target="_blank">Tilde</a></p>
+            <p class="hugo">
+                <a class="white" href="mailto:mt@tilde.com" target="_blank">Contact Support</a>
+            </p>
         </div>
     </div>
 
@@ -199,11 +202,7 @@
 
     </div>
     <div ng-show="isActive('home')" style="visibility:hidden;" id="textWidget"></div>
-    <div class="tilde" ng-hide="isActive('home') || isActive('about') || isActive('mobileApp')">
-        Developed by <a class=" red" href="http://www.tilde.com" target="_blank">
-            Tilde
-        </a>
-    </div>
+
 
     <div id="modalConfirmation" ng-class="{modal: dialog.showModal=='show'}">
         <div id="dialog">

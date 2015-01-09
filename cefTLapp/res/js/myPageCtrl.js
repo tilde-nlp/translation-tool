@@ -181,10 +181,6 @@ function initTextWidget($scope, mustApply) {
             });
         },
         _onWidgetLoaded: function () {
-
-            if ($scope.isActive('www') || $scope.isActive('website')) {
-                initLanguages($scope);
-            }
             $(document)
                .keydown(function (e) {
                    if (isCharacterKeyPress(e) && $scope.isActive('text')) {
@@ -195,10 +191,7 @@ function initTextWidget($scope, mustApply) {
                        $(".bigText input").focus();
                    }
                });
-        },
-        _onSystemChanged: function (id) {
-            $scope.website.system = id;
-        },
+        },      
         _replaceContainer: false
     });
 
@@ -246,13 +239,7 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
                     $widget.settings._systems.push(sys);
                 }
             });
-        },
-        _onWidgetLoaded: function () {
-            initLanguages($scope);
-        },
-        _onSystemChanged: function (id) {
-            $scope.website.system = id;        
-        },
+        },     
         _mimetypeFilter: false,
         _replaceContainer: false
     });
@@ -412,119 +399,3 @@ function initEvents() {
     });
 
 }
-
-function initLanguages($scope) {
-
-    $.each($widget.settings._systems, function (idx, sys) {
-        if ($('.w .translateSourceLang option[value="' + sys.SourceLanguage.Code + '"]').length == 0) {
-            $('.w .translateSourceLang').append($('<option>', {
-                value: sys.SourceLanguage.Code,
-                text: sys.SourceLanguage.Name.Text
-            }));
-        }
-    });
-
-    // if only one, replace source select with block
-    if ($('.w .translateSourceLang option').length === 1) {
-        var srcSelect = $('.w .translateSourceLang', $widget.settings.container),
-            srcVal = srcSelect.val(),
-            srcText = srcSelect.text();
-
-        srcSelect.replaceWith('<div class="translateSingleSourceLang" data-value="' + srcVal + '">' + srcText + '</div>');
-        loadTargetLangList(srcVal, null, null);
-    }
-    else {
-        // default source lang
-        if ($widget.settings._defaultSourceLang !== null) {
-            $('.w .translateSourceLang').val($widget.settings._defaultSourceLang);
-        }
-
-        $('.w .translateSourceLang').fancySelect({
-            triggerTemplate: function (el) {
-                loadTargetLangList(el.val(), null, true);
-                return el.text();
-            }
-        });
-    }
-
-    // default target lang        
-    if ($widget.settings._defaultTargetLang !== null) {
-
-        $('.w .translateTargetLang option[lang="' + $widget.settings._defaultTargetLang + '"]').val($widget.settings._defaultTargetLang);
-    }
-
-    $('.w .translateTargetLang').fancySelect({
-        triggerTemplate: function (el) {
-            if ($widget.activeSystemId !== el.val()) {
-                $widget.activeSystemId = el.val();
-                if ($widget.settings._onSystemChanged && typeof ($widget.settings._onSystemChanged) === "function") {
-                    $widget.settings._onSystemChanged($widget.activeSystemId);
-                }
-            }
-            return el.text();
-        }
-    });
-
-    setTimeout(function () {
-        $scope.website.languagesReady = 'yes';
-        $scope.$apply();
-    }, 0);
-}
-
-function loadTargetLangList(source, selTarget, putSystemId) {
-    $('.w .translateTargetLang').empty();
-
-    $.each($widget.settings._systems, function (idx, sys) {
-        if (sys.SourceLanguage.Code === source) {
-            if (putSystemId) {
-                // check unique in lang attribute
-                if ($('.w .translateTargetLang option[lang="' + sys.TargetLanguage.Code + '"]').length === 0) {
-                    $('.w .translateTargetLang').append($('<option>', {
-                        value: sys.ID,
-                        text: sys.TargetLanguage.Name.Text,
-                        lang: sys.TargetLanguage.Code
-                    }));
-                }
-            }
-            else {
-                // check unique in value attribute
-                if ($('.w .translateTargetLang option[value="' + sys.TargetLanguage.Code + '"]').length === 0) {
-                    $('.w .translateTargetLang').append($('<option>', {
-                        value: sys.TargetLanguage.Code,
-                        text: sys.TargetLanguage.Name.Text
-                    }));
-                }
-            }
-        }
-    });
-
-    // select target
-    if (selTarget !== undefined && selTarget !== null) {
-        $('.w .translateTargetLang option[lang="' + selTarget + '"]').attr('selected', 'selected');
-    }
-
-    if ($('.w .translateTargetLang') !== null) {
-        $('.w .translateTargetLang').trigger('update.fs');
-    }
-
-}
-
-function setActiveSystem(systemId) {
-    if (systemId === $widget.activeSystemId) { return; }
-
-    var src = '', trg = '';
-    $.each($widget.settings._systems, function (idx, sys) {
-        if (sys.ID === systemId) {
-            src = sys.SourceLanguage.Code;
-            trg = sys.TargetLanguage.Code;
-        }
-    });
-
-    $('.w .translateSourceLang option[value="' + src + '"]').attr('selected', 'selected');
-    if ($('.w .translateSourceLang') !== null) {
-        $('.w .translateSourceLang').trigger('update.fs');
-    }
-    loadTargetLangList(src, trg, true);
-}
-
-

@@ -1076,7 +1076,7 @@ Next </td><td>0</td><td/></row>
 		<row><td>FavoritesFolder</td><td>TARGETDIR</td><td>.:FAVORI~1|Favorites</td><td/><td>0</td><td/></row>
 		<row><td>FontsFolder</td><td>TARGETDIR</td><td>.:Fonts</td><td/><td>0</td><td/></row>
 		<row><td>GlobalAssemblyCache</td><td>TARGETDIR</td><td>.:Global~1|GlobalAssemblyCache</td><td/><td>0</td><td/></row>
-		<row><td>INSTALLDIR</td><td>TRANSLATE_2015</td><td>.</td><td/><td>0</td><td/></row>
+		<row><td>INSTALLDIR</td><td>TRANSLATION_TOOL</td><td>.</td><td/><td>0</td><td/></row>
 		<row><td>ISCommonFilesFolder</td><td>CommonFilesFolder</td><td>Instal~1|InstallShield</td><td/><td>0</td><td/></row>
 		<row><td>ISMyCompanyDir</td><td>ProgramFilesFolder</td><td>MYCOMP~1|My Company Name</td><td/><td>0</td><td/></row>
 		<row><td>ISMyProductDir</td><td>ISMyCompanyDir</td><td>MYPROD~1|My Product Name</td><td/><td>0</td><td/></row>
@@ -1104,8 +1104,8 @@ Next </td><td>0</td><td/></row>
 		<row><td>SystemFolder</td><td>TARGETDIR</td><td>.:System32</td><td/><td>0</td><td/></row>
 		<row><td>TARGETDIR</td><td/><td>SourceDir</td><td/><td>0</td><td/></row>
 		<row><td>TILDE_SIA</td><td>ProgramFilesFolder</td><td>TILDES~1|Tilde SIA</td><td/><td>0</td><td/></row>
-		<row><td>TRANSLATE_2015</td><td>ProgramFilesFolder</td><td>TRANSL~1|Translate 2015</td><td/><td>0</td><td/></row>
-		<row><td>TRANSLATOR_2015</td><td>ProgramFilesFolder</td><td>TRANSL~1|Translator 2015</td><td/><td>0</td><td/></row>
+		<row><td>TRANSLATION_TOOL</td><td>ProgramFilesFolder</td><td>TRANSL~1|Tilde Translation Tool</td><td/><td>0</td><td/></row>
+		<row><td>TRANSLATION_TOOL</td><td>ProgramFilesFolder</td><td>TRANSL~1|Tilde Translation Tool</td><td/><td>0</td><td/></row>
 		<row><td>TempFolder</td><td>TARGETDIR</td><td>.:Temp</td><td/><td>0</td><td/></row>
 		<row><td>TemplateFolder</td><td>TARGETDIR</td><td>.:ShellNew</td><td/><td>0</td><td/></row>
 		<row><td>USERPROFILE</td><td>TARGETDIR</td><td>.:USERPR~1|UserProfile</td><td/><td>0</td><td/></row>
@@ -2394,7 +2394,7 @@ Next </td><td>0</td><td/></row>
 		<col def="S255">DotNetBuildConfiguration</col>
 		<col def="S255">MsiCommandLine</col>
 		<col def="I4">ISSetupPrerequisiteLocation</col>
-		<row><td>A.1</td><td>PT</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>1</td><td>1033</td><td>2</td><td>1</td><td>Intel</td><td/><td>1033</td><td>0</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>42051597</td><td/><td/><td>/L*v "%WINDIR%\temp\Translate 2015 Setup.log" /norestart</td><td/></row>
+		<row><td>A.1</td><td>PT</td><td>&lt;ISProjectDataFolder&gt;</td><td>PackageName</td><td>1</td><td>1033</td><td>2</td><td>1</td><td>Intel</td><td/><td>1033</td><td>0</td><td>0</td><td>0</td><td>0</td><td/><td>0</td><td/><td>MediaLocation</td><td/><td>http://</td><td/><td/><td/><td/><td>42051597</td><td/><td/><td>/L*v "%WINDIR%\temp\Tilde Translation Tool Setup.log" /norestart</td><td/></row>
 	</table>
 
 	<table name="ISReleaseASPublishInfo">

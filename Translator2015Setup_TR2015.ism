@@ -52,7 +52,7 @@
 	<summary>
 		<codepage>1252</codepage>
 		<title>Installation Database</title>
-		<subject>Translation Tool</subject>
+		<subject>Translate 2015</subject>
 		<author>##COMPANY_NAME##</author>
 		<keywords>Installer,MSI,Database</keywords>
 		<comments>Contact:  Your local administrator</comments>
@@ -3466,7 +3466,7 @@ Next </td><td>0</td><td/></row>
 		<row><td>IDS_PROGMSG_XML_UPDATE_FILE</td><td>1033</td><td>Updating XML file %s...</td><td>0</td><td/><td>-224316768</td></row>
 		<row><td>IDS_SETUPEXE_EXPIRE_MSG</td><td>1033</td><td>This setup works until %s. The setup will now exit.</td><td>0</td><td/><td>-224316768</td></row>
 		<row><td>IDS_SETUPEXE_LAUNCH_COND_E</td><td>1033</td><td>This setup was built with an evaluation version of InstallShield and can only be launched from setup.exe.</td><td>0</td><td/><td>-224316768</td></row>
-		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>1033</td><td>Translation Tool</td><td>0</td><td/><td>-1105045716</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>1033</td><td>Translate 2015</td><td>0</td><td/><td>-1105045716</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO</td><td>1033</td><td>From the list of servers below, select the database server you would like to target.</td><td>0</td><td/><td>-224316768</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_DB</td><td>1033</td><td>From the list of catalog names below, select the database catalog you would like to target.</td><td>0</td><td/><td>-224316768</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_TEMPLATE</td><td>1033</td><td>[IS_SQLBROWSE_INTRO]</td><td>0</td><td/><td>-224316768</td></row>
@@ -3757,10 +3757,10 @@ Next </td><td>0</td><td/></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-224316768</td></row>
 		<row><td>ID_STRING1</td><td>1033</td><td>http://www.tilde.com</td><td>0</td><td/><td>-1247669813</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>LAUNCH~1.EXE|Launch cefTLapp.exe</td><td>0</td><td/><td>-1247649269</td></row>
-		<row><td>ID_STRING3</td><td>1033</td><td>Translation Tool Setup completed successfully.</td><td>0</td><td/><td>-1105062100</td></row>
-		<row><td>ID_STRING4</td><td>1033</td><td>Translation Tool</td><td>0</td><td/><td>-1105060052</td></row>
-		<row><td>ID_STRING5</td><td>1033</td><td>Translation Tool</td><td>0</td><td/><td>-1105053908</td></row>
-		<row><td>ID_STRING6</td><td>1033</td><td>Translation Tool</td><td>0</td><td/><td>-1105051860</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>Translate 2015 Setup completed successfully.</td><td>0</td><td/><td>-1105062100</td></row>
+		<row><td>ID_STRING4</td><td>1033</td><td>Translate 2015</td><td>0</td><td/><td>-1105060052</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>Translate 2015</td><td>0</td><td/><td>-1105053908</td></row>
+		<row><td>ID_STRING6</td><td>1033</td><td>Translate 2015</td><td>0</td><td/><td>-1105051860</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-224316768</td></row>
 		<row><td>NEW_STRING1</td><td>1033</td><td>&amp;Finish</td><td>0</td><td/><td>-1105015827</td></row>
 		<row><td>NEW_STRING2</td><td>1033</td><td>&amp;Finish</td><td>0</td><td/><td>-1105023955</td></row>
@@ -4374,10 +4374,10 @@ QQAuADEAAQBQAFQA
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>ProductCode</td><td>{F81EA931-A232-4B25-NPFD-D52F1B826FF5}</td><td/></row>
+		<row><td>ProductCode</td><td>{F81EA931-A232-4B25-B16C-D52F1B826FF5}</td><td/></row>
 		<row><td>ProductID</td><td>none</td><td/></row>
 		<row><td>ProductLanguage</td><td>1033</td><td/></row>
-		<row><td>ProductName</td><td>Translation Tool</td><td/></row>
+		<row><td>ProductName</td><td>Translate 2015</td><td/></row>
 		<row><td>ProductVersion</td><td>1.04.01</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
@@ -4389,7 +4389,7 @@ QQAuADEAAQBQAFQA
 		<row><td>SHOWLAUNCHPROGRAM</td><td>0</td><td/></row>
 		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;INSTALLDIR;</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
-		<row><td>UpgradeCode</td><td>{8CB3E327-9563-49D1-NPFD-DB8B0C83D0CD}</td><td/></row>
+		<row><td>UpgradeCode</td><td>{8CB3E327-9563-49D1-AF37-DB8B0C83D0CD}</td><td/></row>
 		<row><td>_IsMaintenance</td><td>Reinstall</td><td/></row>
 		<row><td>_IsSetupTypeMin</td><td>Typical</td><td/></row>
 	</table>

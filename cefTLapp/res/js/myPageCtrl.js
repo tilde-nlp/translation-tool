@@ -1,4 +1,4 @@
-﻿var $versionNumber = '1.2';
+﻿var $versionNumber = '1.6';
 
 app.controller("updateCtrl", function ($scope) {
     $scope.version = $versionNumber;//possible values - text|website|  

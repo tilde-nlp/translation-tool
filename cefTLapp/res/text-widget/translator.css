@@ -518,6 +518,14 @@ div.fancy-select ul.options li.hover {
     padding-left: 1.4em;
 }
 
+.text .translateTextSource,
+.text .translateTextResult {
+    -moz-user-select: text;
+    -ms-user-select: text;
+    -webkit-user-select: text;
+    user-select: text;
+}
+
 .text .translateTextSourceContainer  {
     position: relative;
     width: 100%;

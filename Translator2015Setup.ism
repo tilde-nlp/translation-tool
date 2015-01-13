@@ -343,19 +343,19 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
-		<row><td>Translator2015.exe</td><td>{037EF42B-0501-4888-B002-71AD766BE7C0}</td><td>INSTALLDIR</td><td>8</td><td/><td>translator2015.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>cef_100_pak</td><td>{D6A02E45-161E-455E-BEC6-DE3DB8D48CAA}</td><td>INSTALLDIR</td><td>8</td><td/><td>cef_100_percent.pak</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>cef_200_pak</td><td>{FA695B2D-68E9-4A9A-AD9D-3D5CFF6439DD}</td><td>INSTALLDIR</td><td>8</td><td/><td>cef_200_percent.pak</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>cef_pak</td><td>{204A8B3D-BA79-4F16-B74C-A5BA75538ED1}</td><td>INSTALLDIR</td><td>8</td><td/><td>cef.pak</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>d3dcompiler_43.dll</td><td>{9DC1476A-8492-4EBD-8620-B9AEAF0628D6}</td><td>INSTALLDIR</td><td>8</td><td/><td>d3dcompiler_43.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>d3dcompiler_46.dll</td><td>{A6C530F3-9F4E-457D-B365-FA9D84270A7C}</td><td>INSTALLDIR</td><td>8</td><td/><td>d3dcompiler_46.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>en_us</td><td>{4E0AB481-FED4-4527-A79F-D57AFF5A93FC}</td><td>LOCALES</td><td>8</td><td/><td>en_us.pak</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ffmpegsumo.dll</td><td>{DED494CB-B0A4-419E-AFC1-09F6EB3C857A}</td><td>INSTALLDIR</td><td>8</td><td/><td>ffmpegsumo.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>icudtl</td><td>{8C3B4CA5-B3C3-4A11-A01D-0A31BF9B207C}</td><td>INSTALLDIR</td><td>8</td><td/><td>icudtl.dat</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>libEGL.dll</td><td>{B4BDAC1E-318C-499C-8C75-15A4937586FD}</td><td>INSTALLDIR</td><td>8</td><td/><td>libegl.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>libGLESv2.dll</td><td>{C8C18E4B-9A1D-4E24-8CB0-F4BB3D2896D0}</td><td>INSTALLDIR</td><td>8</td><td/><td>libglesv2.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>libcef.dll</td><td>{C497C823-9543-46CD-A5FE-73501F2B7C36}</td><td>INSTALLDIR</td><td>8</td><td/><td>libcef.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>pdf.dll</td><td>{29A61FD0-79F8-415C-B846-111597ABB48A}</td><td>INSTALLDIR</td><td>8</td><td/><td>pdf.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>Translator2015.exe</td><td>{4B9F59CD-5AA1-4111-A697-3A2341127908}</td><td>INSTALLDIR</td><td>8</td><td/><td>translator2015.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>cef_100_pak</td><td>{444CDDC7-41EE-441D-9C47-93288022B0F8}</td><td>INSTALLDIR</td><td>8</td><td/><td>cef_100_percent.pak</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>cef_200_pak</td><td>{24A3BDAC-9485-4B99-82A5-E2E94B8C185B}</td><td>INSTALLDIR</td><td>8</td><td/><td>cef_200_percent.pak</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>cef_pak</td><td>{7348485E-138A-47B5-9CFE-E41B79A13987}</td><td>INSTALLDIR</td><td>8</td><td/><td>cef.pak</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>d3dcompiler_43.dll</td><td>{45A8BF0D-149C-4C3B-BB65-2ACEB8280273}</td><td>INSTALLDIR</td><td>8</td><td/><td>d3dcompiler_43.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>d3dcompiler_46.dll</td><td>{FC0F9E82-FA08-4363-8EC4-F1C7D54102FC}</td><td>INSTALLDIR</td><td>8</td><td/><td>d3dcompiler_46.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>en_us</td><td>{3055425F-2D45-4AE4-A06A-3012663A9B5B}</td><td>LOCALES</td><td>8</td><td/><td>en_us.pak</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ffmpegsumo.dll</td><td>{91F360C0-2145-450D-83C6-9601DBA9C0DA}</td><td>INSTALLDIR</td><td>8</td><td/><td>ffmpegsumo.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>icudtl</td><td>{6C37E2F5-9DB8-4957-9FE9-CF831C00365C}</td><td>INSTALLDIR</td><td>8</td><td/><td>icudtl.dat</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>libEGL.dll</td><td>{B286A1CB-8E4C-4A1B-8D19-FB45914D03E8}</td><td>INSTALLDIR</td><td>8</td><td/><td>libegl.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>libGLESv2.dll</td><td>{FF033D93-6ED4-4732-A36F-293CF593F451}</td><td>INSTALLDIR</td><td>8</td><td/><td>libglesv2.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>libcef.dll</td><td>{F55603E6-9508-4025-A6DA-9B111BDC9109}</td><td>INSTALLDIR</td><td>8</td><td/><td>libcef.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>pdf.dll</td><td>{048C13D4-509A-4A60-8FAB-F08E2FD4BFA7}</td><td>INSTALLDIR</td><td>8</td><td/><td>pdf.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">

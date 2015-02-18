@@ -124,8 +124,8 @@ LANGUAGE LANG_LATVIAN, SUBLANG_DEFAULT
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,6,1,2
- PRODUCTVERSION 1,6,1,2
+ FILEVERSION 1,7,1,2
+ PRODUCTVERSION 1,7,1,2
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -142,12 +142,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Tilde SIA"
             VALUE "FileDescription", "NPFoods translation tool"
-            VALUE "FileVersion", "1.6.1.2"
+            VALUE "FileVersion", "1.7.1.2"
             VALUE "InternalName", "NPFoods.rc"
             VALUE "LegalCopyright", "© Tilde SIA, 2015"
             VALUE "OriginalFilename", "NPFoods.rc"
             VALUE "ProductName", "NPFoods translation tool"
-            VALUE "ProductVersion", "1.6.1.2"
+            VALUE "ProductVersion", "1.7.1.2"
         END
     END
     BLOCK "VarFileInfo"

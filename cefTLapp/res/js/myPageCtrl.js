@@ -1,6 +1,6 @@
-﻿var $versionNumber = '1.6';
+﻿var $versionNumber = '1.7';
 
-app.controller("updateCtrl", function ($scope) {
+app.controller("updateCtrl", function ($scope) { 
     $scope.version = $versionNumber;//possible values - text|website|  
     $scope.url = 'https://saas.tilde.com/bb7_updateinfo/downloads/translateMPFOODupdates.js';//possible values - mobile|about
     $scope.update = {
@@ -44,7 +44,7 @@ app.controller("myPageCtrl", function ($scope, $location) {
     catch (err) {
         console.log(err.message);
     }
-
+   
     $scope.isActive = function (viewLocation) {
         var active = ("/" + viewLocation === $location.path());
         return active;
@@ -169,13 +169,14 @@ function initTextWidget($scope, mustApply) {
         _clientId: 'u-918f738b-7413-405d-acda-577ac8825db2',
         _templateId: 'translatetext-template',
         _appId: "npfoods",
+        _systemSelectType: 'domain',
         _landingView: true,
         _getFilteredSystems: true,
         _onSystemsLoaded: function (systems) {
             $widget.settings._systems = [];
             $.each(systems, function (idx, sys) {
                 var ids = $widget.getSystemMetaValue(sys.Metadata, 'app-ids');
-                if (ids === 'npfoods') {
+                if (ids !== null && ids.indexOf("npfoods") !== -1) {
                     $widget.settings._systems.push(sys);
                 }
             });
@@ -225,6 +226,7 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
         _clientId: 'u-918f738b-7413-405d-acda-577ac8825db2',
         _templateId: 'translatefile-template',
         _appId: "npfoods",
+        _systemSelectType: 'domain',
         _landingView: true,
         _getFilteredSystems: true,
         _allowedFileTypes: [
@@ -235,11 +237,11 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
             $widget.settings._systems = [];
             $.each(systems, function (idx, sys) {
                 var ids = $widget.getSystemMetaValue(sys.Metadata, 'app-ids');
-                if (ids === 'npfoods') {
+                if (ids !== null && ids.indexOf("npfoods") !== -1) {
                     $widget.settings._systems.push(sys);
                 }
             });
-        },     
+        },
         _mimetypeFilter: false,
         _replaceContainer: false
     });
@@ -274,6 +276,7 @@ app.controller('homeCtrl', function ($scope, $routeParams) {
 
     $scope.website.url = '';
     $scope.website.reset();
+    jQuery('#versionNR').text(" " + $versionNumber);
 });
 
 app.directive('ngMessage', function ($window) {

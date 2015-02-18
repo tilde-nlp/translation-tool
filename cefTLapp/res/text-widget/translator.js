@@ -2,42 +2,46 @@
 /* UI texts */
 
 var uiResources = {
-	'en': {
-	    "sourceSystem":         "From",
-	    "targetSystem":         "to",
-	    "swapLanguage":         "Reverse",
-	    "translateButton":      "Translate",
-	    "systemDomain":         "Domain",
-	    "systemLoadError":      "Error while loading systems"
-	},
-	'fr': {
-	    "sourceSystem": 		"From",
-	    "targetSystem": 		"To",
-	    "swapLanguage":         "Reverse",
-	    "translateButton": 		"Traduire",
-	    "systemDomain": 		"Domain"
-	},
-	'lt': {
-	    "sourceSystem": 		"Iš",
-	    "targetSystem": 		"Į",
-	    "swapLanguage":         "Reverse",
-	    "translateButton": 		"Versti",
-	    "systemDomain": 		"Domain"
-	},
-	'lv': {
-	    "sourceSystem": 		"Tulkošanas virziens",
-	    "targetSystem": 		"Uz",
-	    "swapLanguage":         "Apgriezt",
-	    "translateButton": 		"Tulkot",
-	    "systemDomain": 		"Domēns"
-	},
-	'ru': {
-	    "sourceSystem": 		"Направление перевода",
-	    "targetSystem": 		"На",
-	    "swapLanguage":         "Перевернуть",
-	    "translateButton": 		"Перевести",
-	    "systemDomain": 		"Тематическая область"
-	}
+    'en': {
+        "sourceSystem": "From",
+        "targetSystem": "to",
+        "swapLanguage": "Reverse",
+        "translateButton": "Translate",
+        "systemDomain": "Domain",
+        "systemLoadError": "Error while loading systems"
+    },
+    'fr': {
+        "sourceSystem": "From",
+        "targetSystem": "To",
+        "swapLanguage": "Reverse",
+        "translateButton": "Traduire",
+        "systemDomain": "Domain",
+        "systemLoadError": "Error while loading systems"
+    },
+    'lt': {
+        "sourceSystem": "Iš",
+        "targetSystem": "Į",
+        "swapLanguage": "Reverse",
+        "translateButton": "Versti",
+        "systemDomain": "Domain",
+        "systemLoadError": "Error while loading systems"
+    },
+    'lv': {
+        "sourceSystem": "Tulkošanas virziens",
+        "targetSystem": "Uz",
+        "swapLanguage": "Apgriezt",
+        "translateButton": "Tulkot",
+        "systemDomain": "Domēns",
+        "systemLoadError": "Neizdevās ielādēt tulkošanas sitēmas"
+    },
+    'ru': {
+        "sourceSystem": "Направление перевода",
+        "targetSystem": "На",
+        "swapLanguage": "Перевернуть",
+        "translateButton": "Перевести",
+        "systemDomain": "Тематическая область",
+        "systemLoadError": "Error while loading systems"
+    }
 };
 ///#source 1 1 ../../widget_core/tilde.translator.widget.core.js
 /* tilde.translator.widget.core.js */
@@ -46,6 +50,7 @@ if (typeof (Tilde) === 'undefined') Tilde = {};
 
 Tilde.TranslatorWidgetDefaultOptions = {
     _systemListUrl: 'https://hugo.lv/ws/Service.svc/json/GetSystemList',
+    _apiIsInTheSameDomain: false, //is API WS in the same domain as the page that contains the widget
     _jsonType: 'json', //jsonp or json
     _appId: 'unknown', //appid of widget - used to get systems and translations
     _clientId: 'u-bfcaf986-8147-4901-a131-f0d618a7354b',
@@ -72,7 +77,7 @@ Tilde.TranslatorWidgetDefaultOptions = {
 };
 
 Tilde.TranslatorWidget = function (container, options) {
-    if ($(container).length === 0 || $(container).children().length !== 0) {
+    if ($(container).length === 0) {
         return;
     }
 
@@ -93,33 +98,50 @@ Tilde.TranslatorWidget.prototype = {
     settings: null,
 
     //calculated settings
-    systemNames: null,
     reverseSystems: [{}],
-    systemsUsed: [], 
 
     //fancySelect objects
     fancySource: null,
-	fancyTarget: null,
+    fancyTarget: null,
     fancyDomain: null,
+
+    onSystemChangedHandlers: [], // callback functions to run when system is changed
+    pluginInitializers: [],
 
     initWidget: function (options) {
         $widget = this;
         $widget.settings = options;
-        $widget.retrieveSystemData(function() {
+        $widget.retrieveSystemData(function () {
             $widget.initPlugins();
         });
     },
 
     initPlugins: function () {
-        // plugin: translatetext
-        if ($widget.textPluginInit && typeof ($widget.textPluginInit) === "function") {
-            $widget.textPluginInit();
+
+        if ($widget.pluginInitializers) {
+            $.each($widget.pluginInitializers, function (idx, pluginInitializer) {
+                pluginInitializer();
+            });
         }
 
-        // plugin: translatefile
-        if ($widget.filePluginInit && typeof ($widget.filePluginInit) === "function") {
-            $widget.filePluginInit();
+    },
+
+    getAuthHeaders: function () {
+        var authHeaders = {};
+
+        if ($widget.settings._clientId !== null) {
+            authHeaders = {
+                'client-id': $widget.settings._clientId
+            }
         }
+
+        if (!$widget.settings._apiIsInTheSameDomain) {
+            var websiteAuthCookie = $widget.readCookie("smts");
+            if (websiteAuthCookie) {
+                authHeaders["website-auth-cookie"] = websiteAuthCookie;
+            }
+        }
+        return authHeaders;
     },
 
     retrieveSystemData: function (cbLoaded) {
@@ -133,13 +155,6 @@ Tilde.TranslatorWidget.prototype = {
             return;
         }
 
-        var authHeaders = {};
-
-        if ($widget.settings._clientId !== null) {
-            authHeaders = {
-                'client-id': $widget.settings._clientId
-            }
-        }
 
         var params = {
             appID: $widget.settings._appId,
@@ -147,18 +162,14 @@ Tilde.TranslatorWidget.prototype = {
         }
 
         if ($widget.settings._getFilteredSystems) {
-            params = {
-                appID: $widget.settings._appId,
-                uiLanguageID: $widget.settings._language,
-                options: 'filter'
-            }
+            params["options"] = "filter";
         }
 
         $.ajax({
             dataType: $widget.settings._json_type,
             type: 'GET',
             url: $widget.settings._systemListUrl,
-            headers: authHeaders,
+            headers: $widget.getAuthHeaders(),
             data: params,
             success: function (data) {
                 // take only running
@@ -193,36 +204,71 @@ Tilde.TranslatorWidget.prototype = {
         });
     },
 
+    getSystemMetaValue: function (array, key) {
+        if (array === undefined) {
+            return false;
+        }
+        var value = null;
+
+        $.each(array, function (idx, item) {
+            if (item.Key === key) {
+                value = item.Value;
+                return false; //breaks the loop
+            }
+        });
+
+        return value;
+    },
+
     systemLoadComplete: function () {
 
         $widget.initWidgetTemplate();
 
         if ($widget.settings._systemSelectType === 'system') {
-            $('.translateSystem').addOption($widget.system_names, false);
-            $('.translateSystem').selectOptions($widget.settings._system, true);
-            $('.translateSystem').trigger('change');
 
-            $('.translateSystem').bind('change', function () {
-                if ($(this).selectedValues()[0] !== null) {
+            $.each($widget.settings._systems, function (idx, sys) {
+                sys.order = $widget.getSystemMetaValue(sys.Metadata, 'order');
+            });
 
-                    $widget.activeSystemId = $(this).selectedValues()[0];
+            $widget.settings._systems.sort(function (a, b) {
+                if (typeof (a.order) !== "undefined" && a.order !== null && !isNaN(parseInt(a.order, 10))) {
+                    if (typeof (b.order) !== "undefined" && b.order !== null && !isNaN(parseInt(b.order, 10))) {
+                        return parseInt(a.order, 10) > parseInt(b.order, 10) ? 1 : -1;
+                    } else {
+                        return -1;
+                    }
+                } else {
+                    if (typeof (b.order) !== "undefined" && b.order !== null && !isNaN(parseInt(b.order, 10))) {
+                        return 1;
+                    } else {
+                        return a.Title.Text > b.Title.Text ? 1 : -1;
+                    }
+                }
+            });
 
-                    // TODO: fix reverse button show/hide logic
-                    //if ($widget.settings._swapLanguages) {
-                    //    var showRev = false;
-                    //    for (var sys in $widget.revers_systems) {
-                    //        if (sys == $widget.settings._system) {
-                    //            showRev = true;
-                    //            break;
-                    //        }
-                    //    }
-                    //    if (showRev) {
-                    //        $('.translate_source_system_reverse', $widget.settings.container).removeClass('hidden');
-                    //    }
-                    //    else {
-                    //        $('.translate_source_system_reverse', $widget.settings.container).addClass('hidden');
-                    //    }
-                    //}
+            $widget.fancySystem = $('.translateSystem', this.settings.container);
+
+            $.each($widget.settings._systems, function (idx, sys) {
+                $widget.fancySystem.append($("<option/>", { value: sys.ID, text: sys.Title.Text }));
+            });
+
+            $widget.fancySystem.fancySelect({
+                useNativeSelect: !$widget.settings._useFancySelect,
+                triggerTemplate: function (el) {
+                    if ($widget.activeSystemId !== el.val()) {
+                        $widget.activeSystemId = el.val();
+
+                        if ($widget.settings._onSystemChanged && typeof ($widget.settings._onSystemChanged) === "function") {
+                            $widget.settings._onSystemChanged($widget.activeSystemId);
+                        }
+
+                        if ($widget.onSystemChangedHandlers) {
+                            $.each($widget.onSystemChangedHandlers, function (idx, systemChangedHandler) {
+                                systemChangedHandler($widget.activeSystemId);
+                            });
+                        }
+                        return el.text();
+                    }
                 }
             });
         }
@@ -245,7 +291,7 @@ Tilde.TranslatorWidget.prototype = {
                     srcText = srcSelect.text();
 
                 srcSelect.replaceWith('<div class="translateSingleSourceLang" data-value="' + srcVal + '">' + srcText + '</div>');
-                $widget.loadTargetLangList(srcVal, null, null);
+                $widget.loadTargetLangList(srcVal, null, ($widget.settings._systemSelectType === 'language'));
             }
             else {
                 // default source lang
@@ -257,7 +303,10 @@ Tilde.TranslatorWidget.prototype = {
                 $widget.fancySource.fancySelect({
                     useNativeSelect: !$widget.settings._useFancySelect,
                     triggerTemplate: function (el) {
-                        $widget.loadTargetLangList(el.val(), null, true);
+                        var targ = $widget.fancyTarget,
+                            lang = targ && targ.length ? (targ[0].options && targ[0].options.length ?
+                                   targ[0].options[targ[0].selectedIndex].lang : null) : null;
+                        $widget.loadTargetLangList(el.val(), lang, ($widget.settings._systemSelectType === 'language'));
                         return el.text();
                     }
                 });
@@ -298,16 +347,11 @@ Tilde.TranslatorWidget.prototype = {
                             $widget.settings._onSystemChanged($widget.activeSystemId);
                         }
 
-                        // if there is text translation plugin, call text translation
-                        if ($widget.textPluginTranslate && typeof ($widget.textPluginTranslate) === "function") {
-                            $widget.textPluginTranslate();
+                        if ($widget.onSystemChangedHandlers) {
+                            $.each($widget.onSystemChangedHandlers, function (idx, systemChangedHandler) {
+                                systemChangedHandler($widget.activeSystemId);
+                            });
                         }
-
-                        // if there is file translation plugin, call system change function
-                        if ($widget.filePluginSystemChange && typeof ($widget.filePluginSystemChange) === "function") {
-                            $widget.filePluginSystemChange();
-                        }
-
                     }
                     return el.text();
                 }
@@ -350,10 +394,16 @@ Tilde.TranslatorWidget.prototype = {
                 triggerTemplate: function (el) {
                     if ($widget.activeSystemId !== el.val()) {
                         $widget.activeSystemId = el.val();
+
                         if ($widget.settings._onSystemChanged && typeof ($widget.settings._onSystemChanged) === "function") {
                             $widget.settings._onSystemChanged($widget.activeSystemId);
                         }
 
+                        if ($widget.onSystemChangedHandlers) {
+                            $.each($widget.onSystemChangedHandlers, function (idx, systemChangedHandler) {
+                                systemChangedHandler($widget.activeSystemId);
+                            });
+                        }
                     }
                     return el.text();
                 }
@@ -376,114 +426,32 @@ Tilde.TranslatorWidget.prototype = {
         $widget.onWidgetActivated();
 
         if ($widget.settings._templateId !== null || $widget.settings._templateId !== '') {
-			if ($widget.settings._replaceContainer) {
-				var template = $('#' + $widget.settings._templateId).html(),
-					remContainer = $widget.settings.container;
-				
-				$(template).insertBefore($widget.settings.container);
+            if ($widget.settings._replaceContainer) {
+                var template = $('#' + $widget.settings._templateId).html(),
+                    remContainer = $widget.settings.container;
+
+                $(template).insertBefore($widget.settings.container);
                 $widget.settings.container = $widget.settings.container.parent();
                 remContainer.remove();
-			}
-			else {
-			    $widget.settings.container.html($('#' + $widget.settings._templateId).html());
-			}
+            }
+            else {
+                $widget.settings.container.html($('#' + $widget.settings._templateId).html());
+            }
 
-			$widget.initWidgetLanguage();
-            //$('.translate_text_source', $widget.settings.container).data('widget', this);
+            $widget.initWidgetLanguage();
         }
     },
 
     initWidgetLanguage: function () {
         var core = this;
 
-		//override or extend ui translations
-		uiResources[$widget.settings._language] = $.extend(uiResources[$widget.settings._language], $widget.settings._translations[$widget.settings._language]);
+        //override or extend ui translations
+        uiResources[$widget.settings._language] = $.extend(uiResources[$widget.settings._language], $widget.settings._translations[$widget.settings._language]);
 
-		$.each(uiResources[$widget.settings._language], function (id, txt) {
-            $('[data-text="' + id + '"]', $widget.settings._container).text(txt);
-            $('[data-title="' + id + '"]', $widget.settings._container).attr('title', txt);
+        $.each(uiResources[$widget.settings._language], function (id, txt) {
+            $('[data-text="' + id + '"]', $widget.settings.container).text(txt);
+            $('[data-title="' + id + '"]', $widget.settings.container).attr('title', txt);
         });
-
-        // system list sorting and localization is not needed in this case
-        if ($widget.settings._systemSelectType !== 'system') {
-            return;
-        }
-
-        var systems_used = $widget.systems_used;
-
-        // get localized title & sort order
-        for (var idx in systems_used) {
-            var sys = systems_used[idx];
-            if (typeof (sys) !== 'undefined' && sys != null) {
-                for (var i in $widget.systems) {
-                    if ($widget.systems[i].id == sys) {
-                        $widget.systems[i].localizedTitle = $widget.systems[i]['title'].text;
-                        var loc_title = $widget.get_system_meta_value($widget.systems[i], 'title_' + lang);
-                        if (loc_title !== null) {
-                            $widget.systems[i].localizedTitle = loc_title;
-                        }
-                        $widget.systems[i].order = $widget.get_system_meta_value($widget.systems[i], 'order');
-                    }
-                }
-            }
-        };
-
-        // sort
-        $widget.systems.sort(function (a, b) {
-            if (typeof (a.order) !== "undefined" && a.order !== null && !isNaN(parseInt(a.order, 10))) {
-                if (typeof (b.order) !== "undefined" && b.order !== null && !isNaN(parseInt(b.order, 10))) {
-                    return parseInt(a.order, 10) > parseInt(b.order, 10) ? 1 : -1;
-                } else {
-                    return -1;
-                }
-            } else {
-                if (typeof (b.order) !== "undefined" && b.order !== null && !isNaN(parseInt(b.order, 10))) {
-                    return 1;
-                } else {
-                    return a.localizedTitle > b.localizedTitle ? 1 : -1;
-                }
-            }
-        });
-
-        // totally too much code to find first usable system in the sorted list
-        if (typeof ($widget.settings._system) === 'undefined' || $widget.settings._system == null || $widget.settings._system.length == 0) {
-            if ($widget.systems_used.length > 0) {
-                legs:
-                    for (var i in $widget.systems) {
-                        for (var idx in systems_used) {
-                            var sys = systems_used[idx];
-                            if (typeof (sys) !== 'undefined' && sys != null) {
-                                if ($widget.systems[i].id == sys) {
-                                    $widget.settings._system = $widget.systems_used[idx];
-                                    break legs;
-                                }
-                            }
-                        }
-                    }
-            }
-        }
-
-        $widget.system_names = {};
-
-        // fill system names in order of sorted systems, not in order of systems_used
-        for (var i in $widget.systems) {
-            for (var idx in systems_used) {
-                var sys = systems_used[idx];
-                if (typeof (sys) !== 'undefined' && sys != null) {
-                    if ($widget.systems[i].id == sys) {
-                        $widget.system_names[sys] = $widget.systems[i].localizedTitle;
-                    }
-                }
-            }
-        }
-    },
-
-    getSystemIds: function () {
-        var idArr = [];
-        for (var idx in $widget.systems) {
-            idArr.push($widget.systems[idx]['id']);
-        }
-        return idArr;
     },
 
     setActiveSystem: function (systemId) {
@@ -494,16 +462,17 @@ Tilde.TranslatorWidget.prototype = {
             if (sys.ID === systemId) {
                 src = sys.SourceLanguage.Code;
                 trg = sys.TargetLanguage.Code;
+                return false;
             }
         });
 
         $('.translateSourceLang option[value="' + src + '"]', $widget.settings.container).attr('selected', 'selected');
 
-        if ($widget.fancySource !== null) {
-            $widget.fancySource.trigger('update.fs');
-        }
-
         $widget.loadTargetLangList(src, trg, true);
+
+        if ($widget.fancySource !== null) {
+            $widget.fancySource.trigger('change.fs');
+        }
     },
 
     checkReverseSystem: function () {
@@ -546,36 +515,24 @@ Tilde.TranslatorWidget.prototype = {
         });
     },
 
-    getSystemMetaValue: function (array, key) {
-        var status = '';
+    disableSystemChange: function () {
+        $('.swapLanguage').attr('data-disabled', true);
 
-        $.each(array, function (idx, item) {
-            if (item.Key === key) {
-                status = item.Value;
-            }
-        });
-
-        return status;
+        if ($widget.fancySource) $widget.fancySource.trigger('disable').trigger('update.fs');
+        if ($widget.fancyTarget) $widget.fancyTarget.trigger('disable').trigger('update.fs');
+        if ($widget.fancyDomain) $widget.fancyDomain.trigger('disable').trigger('update.fs');
+        if ($widget.fancySystem) $widget.fancySystem.trigger('disable').trigger('update.fs');
+        if ($widget.terminology) $widget.terminology.trigger('disable').trigger('update.fs');
     },
 
-    disableTranslation: function () {
-        //$('.translateButton').attr('data-disabled', true);
-        //$('.translateSystem').attr('data-disabled', true).attr('disabled', 'disabled');
-        //$('.swapLanguage').attr('data-disabled', true);
+    enableSystemChange: function () {
+        $('.swapLanguage').attr('data-disabled', false);
 
-        //if ($widget.fancySource) $widget.fancySource.trigger('disable').trigger('update.fs');
-        //if ($widget.fancyTarget) $widget.fancyTarget.trigger('disable').trigger('update.fs');
-        //if ($widget.fancyDomain) $widget.fancyDomain.trigger('disable').trigger('update.fs');
-    },
-
-    enableTranslation: function () {
-        //$('.translateButton').attr('data-disabled', false);
-        //$('.translateSystem').attr('data-disabled', false).removeAttr('disabled');
-        //$('.swapLanguage').attr('data-disabled', false);
-
-        //if ($widget.fancySource) $widget.fancySource.trigger('enable').trigger('update.fs');
-        //if ($widget.fancyTarget) $widget.fancyTarget.trigger('enable').trigger('update.fs');
-        //if ($widget.fancyDomain) $widget.fancyDomain.trigger('enable').trigger('update.fs');
+        if ($widget.fancySource) $widget.fancySource.trigger('enable').trigger('update.fs');
+        if ($widget.fancyTarget) $widget.fancyTarget.trigger('enable').trigger('update.fs');
+        if ($widget.fancyDomain) $widget.fancyDomain.trigger('enable').trigger('update.fs');
+        if ($widget.fancySystem) $widget.fancySystem.trigger('enable').trigger('update.fs');
+        if ($widget.terminology) $widget.terminology.trigger('enable').trigger('update.fs');
     },
 
     loadTargetLangList: function (source, selTarget, putSystemId) {
@@ -606,7 +563,7 @@ Tilde.TranslatorWidget.prototype = {
         });
 
         // select target
-        if (selTarget !== undefined && selTarget !== null) {
+        if (typeof selTarget !== 'undefined' && selTarget !== null) {
             $('.translateTargetLang option[lang="' + selTarget + '"]', $widget.settings.container).attr('selected', 'selected');
         }
 
@@ -646,17 +603,28 @@ Tilde.TranslatorWidget.prototype = {
         if ($widget.fancyDomain !== null) {
             $widget.fancyDomain.trigger('update.fs');
         }
-    }
+    },
 
+    readCookie: function (name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
 };
 ///#source 1 1 ../../widget_core/tilde.translator.widget.fancyselect.js
+// patched with: https://github.com/octopuscreative/FancySelect/pull/52/files#r16327745
 (function () {
     var $;
 
     $ = window.jQuery || window.Zepto || window.$;
 
     $.fn.fancySelect = function (opts) {
-        var settings;
+        var settings, clicking = false;
         if (opts == null) {
             opts = {};
         }
@@ -718,17 +686,21 @@ Tilde.TranslatorWidget.prototype = {
                 return trigger.html(triggerHtml);
             };
             sel.on('blur.fs', function () {
+                if (clicking) return;
                 if (trigger.hasClass('open')) {
-                    return setTimeout(function () {
-                        return trigger.trigger('close.fs');
-                    }, 120);
+                    return trigger.trigger('close.fs');
                 }
             });
             trigger.on('close.fs', function () {
+                clicking = false;
                 trigger.removeClass('open');
                 return options.removeClass('open');
             });
+            trigger.on('mousedown.fs', function () {
+                clicking = true;
+            });
             trigger.on('click.fs', function () {
+                clicking = false;
                 var offParent, parent;
                 if (!disabled) {
                     trigger.toggleClass('open');
@@ -827,7 +799,11 @@ Tilde.TranslatorWidget.prototype = {
                 options.find('.selected').removeClass('selected');
                 clicked.addClass('selected');
                 trigger.addClass('selected');
+                clicking = false;
                 return sel.val(clicked.data('raw-value')).trigger('change.fs').trigger('blur.fs').trigger('focus.fs');
+            });
+            options.on('mousedown.fs', 'li', function () {
+                clicking = true;
             });
             options.on('mouseenter.fs', 'li', function () {
                 var hovered, nowHovered;
@@ -877,61 +853,61 @@ Tilde.TranslatorWidget.prototype = {
         getSelection: function () {
             var e = this.$ ? this[0] : this;
             return (
-				('selectionStart' in e && function () {
-				    var l = e.selectionEnd - e.selectionStart;
-				    return { start: e.selectionStart, end: e.selectionEnd, length: l, text: e.value.substr(e.selectionStart, l) };
-				}) ||
-				(document.selection && function () {
-				    try {
-				        var r = document.selection.createRange();
-				        if ($(r.parentElement()).parents('.translate_container_right').length > 0) {
-				            return { start: 0, end: e.value.length, length: 0, text: '' };
-				        }
+                ('selectionStart' in e && function () {
+                    var l = e.selectionEnd - e.selectionStart;
+                    return { start: e.selectionStart, end: e.selectionEnd, length: l, text: e.value.substr(e.selectionStart, l) };
+                }) ||
+                (document.selection && function () {
+                    try {
+                        var r = document.selection.createRange();
+                        if ($(r.parentElement()).parents('.translateContainerRight').length > 0) {
+                            return { start: 0, end: e.value.length, length: 0, text: '' };
+                        }
 
-				        if (r == null) {
-				            return { start: 0, end: e.value.length, length: 0 };
-				        }
-				        var re = e.createTextRange();
-				        var rc = re.duplicate();
-				        re.moveToBookmark(r.getBookmark());
-				        rc.setEndPoint('EndToStart', re);
-				        var s = rc.text;
-				        return { start: s.replace(/\r\n/g, '\n').length, end: s.length + r.text.length, length: r.text.length, text: r.text };
-				    }
-				    catch (ex) {
-				        if (e.length > 0) {
-				            return { start: 0, end: e[0].value.length, length: 0, text: '' };
-				        } else {
-				            return { start: 0, end: e.value.length, length: 0, text: '' };
-				        }
+                        if (r == null) {
+                            return { start: 0, end: e.value.length, length: 0 };
+                        }
+                        var re = e.createTextRange();
+                        var rc = re.duplicate();
+                        re.moveToBookmark(r.getBookmark());
+                        rc.setEndPoint('EndToStart', re);
+                        var s = rc.text;
+                        return { start: s.replace(/\r\n/g, '\n').length, end: s.length + r.text.length, length: r.text.length, text: r.text };
+                    }
+                    catch (ex) {
+                        if (e.length > 0) {
+                            return { start: 0, end: e[0].value.length, length: 0, text: '' };
+                        } else {
+                            return { start: 0, end: e.value.length, length: 0, text: '' };
+                        }
 
-				    }
-				}) ||
+                    }
+                }) ||
 
-				function () {
-				    return { start: 0, end: e.length, length: 0, text: '' };
-				}
-			)();
+                function () {
+                    return { start: 0, end: e.length, length: 0, text: '' };
+                }
+            )();
         },
 
         replaceSelection: function () {
             var e = this.$ ? this[0] : this;
             var text = arguments[0] || '';
             return (
-				('selectionStart' in e && function () {
-				    e.value = e.value.substr(0, e.selectionStart) + text + e.value.substr(e.selectionEnd, e.value.length);
-				    return this;
-				}) ||
-				(document.selection && function () {
-				    e.focus();
-				    document.selection.createRange().text = text;
-				    return this;
-				}) ||
-				function () {
-				    e.value += text;
-				    return this;
-				}
-			)();
+                ('selectionStart' in e && function () {
+                    e.value = e.value.substr(0, e.selectionStart) + text + e.value.substr(e.selectionEnd, e.value.length);
+                    return this;
+                }) ||
+                (document.selection && function () {
+                    e.focus();
+                    document.selection.createRange().text = text;
+                    return this;
+                }) ||
+                function () {
+                    e.value += text;
+                    return this;
+                }
+            )();
         }
     };
 
@@ -995,20 +971,20 @@ Tilde.TranslatorWidget.prototype = {
                 t = a[1];
             }
         }
-        this.each (
-		    function () {
-		        if (this.nodeName.toLowerCase() != "select") return;
-		        if (m) {
-		            for (var item in items) {
-		                add(this, item, items[item], sO, startindex);
-		                startindex += 1;
-		            }
-		        }
-		        else {
-		            add(this, v, t, sO, startindex);
-		        }
-		    }
-	    );
+        this.each(
+            function () {
+                if (this.nodeName.toLowerCase() != "select") return;
+                if (m) {
+                    for (var item in items) {
+                        add(this, item, items[item], sO, startindex);
+                        startindex += 1;
+                    }
+                }
+                else {
+                    add(this, v, t, sO, startindex);
+                }
+            }
+        );
         return this;
     };
 
@@ -1026,33 +1002,33 @@ Tilde.TranslatorWidget.prototype = {
         var c = clear || false;
         // has to be a string or regular expression (object in IE, function in Firefox)
         if (vT != "string" && vT != "function" && vT != "object") return this;
-        this.each (
-		    function () {
-		        if (this.nodeName.toLowerCase() != "select") return this;
-		        // get options
-		        var o = this.options;
-		        // get number of options
-		        var oL = o.length;
-		        for (var i = 0; i < oL; i++) {
-		            if (v.constructor == RegExp) {
-		                if (o[i].value.match(v)) {
-		                    o[i].selected = true;
-		                }
-		                else if (c) {
-		                    o[i].selected = false;
-		                }
-		            }
-		            else {
-		                if (o[i].value == v) {
-		                    o[i].selected = true;
-		                }
-		                else if (c) {
-		                    o[i].selected = false;
-		                }
-		            }
-		        }
-		    }
-	    );
+        this.each(
+            function () {
+                if (this.nodeName.toLowerCase() != "select") return this;
+                // get options
+                var o = this.options;
+                // get number of options
+                var oL = o.length;
+                for (var i = 0; i < oL; i++) {
+                    if (v.constructor == RegExp) {
+                        if (o[i].value.match(v)) {
+                            o[i].selected = true;
+                        }
+                        else if (c) {
+                            o[i].selected = false;
+                        }
+                    }
+                    else {
+                        if (o[i].value == v) {
+                            o[i].selected = true;
+                        }
+                        else if (c) {
+                            o[i].selected = false;
+                        }
+                    }
+                }
+            }
+        );
         return this;
     };
 
@@ -1071,38 +1047,38 @@ Tilde.TranslatorWidget.prototype = {
 /* UI texts */
 
 uiResources = $.extend(true, uiResources, {
-	'en': {
-	    "clearTranslation":     "Clear all",
-	    "sourceTextTooltip":    "Enter the text you want to translate",
-	    "noInternet":           "No internet connection",
-	    "targetTextTooltip":    "Machine translation results help to understand the meaning of a source text, but do not equal translation by a human"
-	},
-	'fr': {
-	    "clearTranslation":     "Clear",
-	    "sourceTextTooltip": 	"Entrez le texte que vous voulez traduire",
-	    "targetTextTooltip": 	"Les résultats de traduction électronique aident à comprendre le sens du texte original mais ils ne remplacent pas un traducteur humain"
-	},
-	'lt': {
-		"clearTranslation":     "Clear",
-	    "sourceTextTooltip": 	"Įveskite norimą versti tekstą",
-	    "targetTextTooltip": 	"Automatinio vertimo rezultatai padeda suprasti teksto prasmę, tačiau nepakeičia žmonių kuriamų vertimų"
-	},
-	'lv': {
-		"clearTranslation":     "Notīrīt",
-	    "sourceTextTooltip": 	"Ievadiet tulkojamo tekstu",
-	    "targetTextTooltip": 	"Mašīntulkošanas rezultāti ļauj saprast teksta nozīmi, bet nevar aizstāt cilvēka radītu tulkojumu."
-	},
-	'ru': {
-		"clearTranslation":     "Удалить текст",	
-	    "sourceTextTooltip": 	"Введите текст для перевода",
-	    "targetTextTooltip": 	"Результаты машинного перевода позволяют понять значение текста, но не позволяют заменить сделанный человеком перевод"
-	}
+    'en': {
+        "clearTranslation": "Clear",
+        "sourceTextTooltip": "Enter the text you want to translate",
+        "noInternet": "No internet connection",
+        "targetTextTooltip": "Machine translation results help to understand the meaning of a source text, but do not equal translation by a human."
+    },
+    'fr': {
+        "clearTranslation": "Effacer",
+        "sourceTextTooltip": "Entrez le texte que vous voulez traduire",
+        "targetTextTooltip": "Les résultats de traduction électronique aident à comprendre le sens du texte original mais ils ne remplacent pas un traducteur humain."
+    },
+    'lt': {
+        "clearTranslation": "Ištrinti",
+        "sourceTextTooltip": "Įveskite norimą versti tekstą",
+        "targetTextTooltip": "Automatinio vertimo rezultatai padeda suprasti teksto prasmę, tačiau nepakeičia žmonių kuriamų vertimų."
+    },
+    'lv': {
+        "clearTranslation": "Notīrīt",
+        "sourceTextTooltip": "Ievadiet tulkojamo tekstu",
+        "targetTextTooltip": "Mašīntulkošanas rezultāti ļauj saprast teksta nozīmi, bet nevar aizstāt cilvēka radītu tulkojumu."
+    },
+    'ru': {
+        "clearTranslation": "Очистить",
+        "sourceTextTooltip": "Введите текст для перевода",
+        "targetTextTooltip": "Результаты машинного перевода позволяют понять значение текста, но не позволяют заменить сделанный человеком перевод."
+    }
 });
 ///#source 1 1 ../../widget_plugins/translatetext/tilde.translator.widget.translatetext.js
 /* tilde.translator.widget.TRANSLATETEXT.js */
 
 $.extend(Tilde.TranslatorWidgetDefaultOptions, {
-    _translationUrl: 'https://hugo.lv/ws/Service.svc/json/GetTranslations',
+    _translationUrl: 'https://hugo.lv/ws/Service.svc/json/Translate',
     _textSource: '.translateTextSource', //source container <textarea>
     _textResult: '.translateTextResult', //target container <div>
     _landingView: false, //intro box with tooltip
@@ -1111,10 +1087,13 @@ $.extend(Tilde.TranslatorWidgetDefaultOptions, {
     _highlightTranslatedTimeout: 1500, //time in milissecond for highlight
     _focusAfterClear: true, //source field focus after clear
     _focusAfterTranslate: true, //source field focus after translation
-    _translateAll: false, //allways translate all text
-
+    _focusAfterLoad: false, //source field focus after widget is loaded
+    _translateAll: false, //allways translate all text (when?)
     _onTranslationStarted: null,
-    _onTranslationFinished: null
+    _onTranslationFinished: null,
+    _onUrlEntered: null,
+    _onTextInput: null, // Delayd event fired on user input
+    _onScrollBarWidthChanged: null // Fired when scrollbar appears or disappears for source textarea
 });
 
 $.extend(Tilde.TranslatorWidget.prototype, {
@@ -1125,6 +1104,11 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
         if ($('.translateTextSource', $widget.settings.container).length === 0)
             return;
+
+        if ($widget.settings._focusAfterLoad) {
+            // sets the focus to input textarea, while still showing the "Enter the text you want to translate" message
+            $($widget.settings._textSource, $widget.settings.container).focus();
+        }
 
         $widget.textPluginEvents();
 
@@ -1145,6 +1129,11 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         ));
 
         $widget.textPluginSetTempText();
+
+        $widget.onSystemChangedHandlers.push($widget.textPluginTranslate);
+        if (typeof ($widget.termCorpusChangedHandlers) !== "undefined") {
+            $widget.termCorpusChangedHandlers.push($widget.textPluginTranslate);
+        }
     },
 
     textPluginUnload: function () {
@@ -1277,7 +1266,10 @@ $.extend(Tilde.TranslatorWidget.prototype, {
     },
 
     textPluginTranslate: function () {
-        //$widget.textTranslator.translateWebsiteIfTextLooksLikeUrl();
+        if ($widget.settings._onUrlEntered) {
+            $widget.textTranslator.checkTextForUrl();
+        }
+
         if ($widget.textTranslator) {
             $widget.textTranslator.doTranslation({ translateAll: true });
         }
@@ -1305,7 +1297,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
         $('.translateTextTempSourceContainer', $widget.settings.container).removeClass('hide');
         $('.translateTextTempSourceContainer', $widget.settings.container).html(uiResources[$widget.settings._language]['sourceTextTooltip']);
-        
+
         $('.translateTextTempSourceContainer', $widget.settings.container).unbind('focus');
         $('.translateTextTempSourceContainer', $widget.settings.container).bind('focus', function () {
             $('.translateTextTempSourceContainer', $widget.settings.container).addClass('hide');
@@ -1325,24 +1317,23 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
     textPluginSetTempTextResult: function () {
         $($widget.settings._textResult, $widget.settings.container).addClass('translateTextTemp');
-        var txt = '';
+        var txt = uiResources[$widget.settings._language]['targetTextTooltip'];
 
-        //if (this.domain && $widget.settings._domainDescriptions.length > 0) {
-        //    if ($widget.settings._domainDescriptions[this.domain] !== undefined) {
-        //        txt = this.settings._domainDescriptions[this.domain] + "<p>";
-        //    }
-        //}
+        if ($widget.settings._systemSelectType === 'domain') {
+            var domain = $('.translateDomain option:selected', $widget.settings.container).text(),
+                descr = uiResources[$widget.settings._language]['DOMAIN_' + domain.toUpperCase()];
 
-        txt += uiResources[$widget.settings._language]['targetTextTooltip'];
-
-        //if (this.domain) {
-        //    txt += "</p>";
-        //}
+            if (descr !== undefined) {
+                txt = descr + '<p>' + txt + '</p>';
+            }
+        }
 
         $($widget.settings._textResult, $widget.settings.container).html(txt).removeClass('noNetwork');
     }
 
 });
+
+Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.textPluginInit);
 
 Tilde.TextTranslator = function (options) { this.init(options); };
 Tilde.TextTranslator.prototype = {
@@ -1353,7 +1344,6 @@ Tilde.TextTranslator.prototype = {
     translationInProgress: false,
 
     init: function (options) {
-
         if (typeof (options) == 'undefined') {
             alert('no options specified for "Tilde.TextTranslator"');
         }
@@ -1368,6 +1358,32 @@ Tilde.TextTranslator.prototype = {
 
         optionsTA.onNewParagraph = $.proxy(this.onNewParagraph, this);
         optionsTA.onTextChanged = $.proxy(this.onTextChanged, this);
+        optionsTA.onTextInput = $.proxy(this.onTextInput, this);
+
+        if (this.options._focusAfterLoad) {
+            optionsTA.onTextChangedWithoutDelay = $.proxy(function () {
+                // hide input hint as soon as user starts typing
+                // (normally it is hidden when focusing input area,
+                // but it can be visible when if textarea was focused automatically when page was loaded)
+                if ($(this.options._textSource).val().length > 0) {
+                    $('.translateTextTempSourceContainer', this.options.container).addClass('hide');
+                }
+            }, this);
+        }
+
+        if (this.options._onScrollBarWidthChanged) {
+            $(window).resize(this.checkScrollbarWidth);
+            var me = this;
+
+            if (optionsTA.onTextChangedWithoutDelay) {
+                var existingEventHandler = optionsTA.onTextChangedWithoutDelay;
+                optionsTA.onTextChangedWithoutDelay = $.proxy(function () {
+                    existingEventHandler();
+                    window.setTimeout(me.checkScrollbarWidth, 0); // give it time to understand if it has a scrollbar
+                }, this);
+            }
+        }
+
         optionsTA.onBackgroundHover = this.options.onBackgroundHover;
 
         this.pta = new Tilde.ProgressiveTextArea(optionsTA);
@@ -1401,6 +1417,12 @@ Tilde.TextTranslator.prototype = {
         }
 
         this.timeoutText = setTimeout($.proxy(this.onNewParagraphWork, this), 3000);
+    },
+
+    onTextInput: function (event) {
+        if (this.options._onTextInput) {
+            this.options._onTextInput(event);
+        }
     },
 
     onBackgroundHover: function (context) {
@@ -1462,18 +1484,34 @@ Tilde.TextTranslator.prototype = {
         this.clearAlltimeouts();
 
         if (!this.translationInProgress) {
-            //this.translateWebsiteIfTextLooksLikeUrl();
+            if ($widget.settings._onUrlEntered) {
+                $widget.textTranslator.checkTextForUrl();
+            }
             this.doTranslation({ translateAll: $widget.settings._translateAll });
         }
     },
 
-    redrawResult: function () {
+    previousScrollBarWidth: 0,
 
+    checkScrollbarWidth: function () {
+        var textarea = $($widget.settings._textSource)[0];
+        var scrollbarWidth = textarea.offsetWidth - textarea.clientWidth;
+        if (this.previousScrollBarWidth != scrollbarWidth) {
+            $widget.settings._onScrollBarWidthChanged(scrollbarWidth);
+            this.previousScrollBarWidth = scrollbarWidth;
+        }
+    },
+
+    redrawResult: function () {
         var cursor = this.pta.obj;
         $(this.options._textResult).html('');
         do {
             if (cursor != null) {
                 var txt = cursor.translation;
+                if (cursor.translation[0] !== undefined && cursor.translation[0].Text !== undefined) {
+                    txt = cursor.translation[0].Text;
+                }
+
                 var isTranslated = true;
                 if (!cursor.translated) {
                     if (txt.replace(/\s/g, '').length == 0) {
@@ -1544,6 +1582,9 @@ Tilde.TextTranslator.prototype = {
                 break;
             }
         } while (true);
+        if (this.options._onScrollBarWidthChanged) {
+            this.checkScrollbarWidth();
+        }
     },
 
     makeAllNotTranslated: function () {
@@ -1568,33 +1609,15 @@ Tilde.TextTranslator.prototype = {
         this.doTranslation({ translateAll: true });
     },
 
-    getTargetText: function () {
-        var resultString = '';
-
-        $('.mt-translation', $(this.options._textResult)).each(function () {
-            resultString += '\r\n' + $(this).text();
-        });
-
-        if (resultString.length > 0)
-            resultString = resultString.slice(2);
-        return resultString;
-    },
-
-    getSourceText: function () {
-        return $(this.options.sourceStringSelector).val().replace(/(\n)|(\r)|(\r\n)/g, '\r\n');
-    },
-
-    translateWebsiteIfTextLooksLikeUrl: function () {
-        if (!this.options.websiteTranslationRedirect)
-            return;
-        var text = $(this.options.sourceStringSelector, this.options.container).val();
+    checkTextForUrl: function () {
+        var text = $(this.options._textSource, this.options.container).val();
         var urlPattern = /\b((?:https?:(?:\/{1,3}|[a-z0-9%])|[a-z0-9.\-]+[.](?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)\/)(?:[^\s()<>{}\[\]]+|\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\))+(?:\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’])|(?:[a-z0-9]+(?:[.\-][a-z0-9]+)*[.](?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|xxx|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)\b\/?(?!@)))/gi;
         var urlMatch = urlPattern.exec(text);
         if (urlMatch) {
             var url = urlMatch[0];
             if (url.length / $.trim(text).length > 0.8) // most of the text is url
             {
-                window.location = this.options.base_path + "Translate/Website?url=" + encodeURIComponent(url);
+                $widget.settings._onUrlEntered(url);
             }
         }
     },
@@ -1650,20 +1673,12 @@ Tilde.TextTranslator.prototype = {
                     $('.targetLang', $widget.settings.container).text($('.translateTargetLang option:selected', $widget.settings.container).text());
 
                     $($widget.settings._textResult, $widget.settings.container).removeClass('noNetwork');
-                    
+
                     // hide intro
                     if ($widget.settings._landingView) {
                         $('.fakeCursor', $widget.settings.container).addClass('hide');
                         $('.translateContainerRight', $widget.settings.container).removeClass('hide');
                         $('.translateContainerLeft, .translateContainerHeader', $widget.settings.container).removeClass('intro');
-                    }
-
-                    var authHeaders = {};
-
-                    if (this.options._clientId !== null) {
-                        authHeaders = {
-                            'client-id': this.options._clientId
-                        }
                     }
 
                     $.ajax({
@@ -1674,11 +1689,12 @@ Tilde.TextTranslator.prototype = {
                         },
                         dataType: this.options.jsonType,
                         url: this.options._translationUrl,
-                        headers: authHeaders,
+                        headers: $widget.getAuthHeaders(),
                         data: {
                             appid: this.options._appId,
                             text: cursor.translation,
-                            systemid: $widget.activeSystemId
+                            systemid: $widget.activeSystemId,
+                            options: $widget.termCorpusId ? "termCorpusId=" + $widget.termCorpusId : null
                         },
                         success: this.onSuccess,
                         error: this.onSuccess
@@ -1712,11 +1728,11 @@ Tilde.TextTranslator.prototype = {
                 cursor.translated = true;
                 cursor.latest = true;
                 cursor.scroll = true;
-                if (typeof (result[0]) === 'undefined' || typeof (result[0].Text) === 'undefined') {
+                if (typeof (result) === 'undefined' || result == null) {
                     cursor.translation = '{{' + cursor.translation + '}}';
                 }
                 else {
-                    cursor.translation = result[0].Text;
+                    cursor.translation = result;
                 }
                 break;
             }
@@ -1802,6 +1818,7 @@ Tilde.ProgressiveTextAreaOptions = function () { };
 Tilde.ProgressiveTextAreaOptions.prototype = {
     textAreaSelector: '',
     directCompare: false,
+    onTextInput: null,
     onTextChanged: null,
     onNewParagraph: null,
     onBackgroundHover: null
@@ -1968,6 +1985,10 @@ Tilde.ProgressiveTextArea.prototype = {
     kayTimeout: null,
 
     onKeyStroke: function (event) {
+        if (this.options.onTextChangedWithoutDelay) {
+            this.options.onTextChangedWithoutDelay();
+        }
+
         if (typeof (this.kayTimeout) !== 'undefined' && this.kayTimeout != null) {
             clearTimeout(this.kayTimeout);
             this.kayTimeout = null;
@@ -1975,11 +1996,16 @@ Tilde.ProgressiveTextArea.prototype = {
 
         if (typeof (event) === 'undefined' || event.keyCode == 13) {
             this.onKeyStrokeSub(event);
+            this.triggerOnTextInput(event);
             return;
         }
 
         var e = event;
-        this.kayTimeout = setTimeout($.proxy(function () { this.onKeyStrokeSub(e); this.kayTimeout = null; }, this), 250);
+        this.kayTimeout = setTimeout($.proxy(function () {
+            this.onKeyStrokeSub(e);
+            this.kayTimeout = null;
+            this.triggerOnTextInput(e);
+        }, this), 250);
     },
 
     onKeyStrokeSub: function (event) {
@@ -2325,6 +2351,12 @@ Tilde.ProgressiveTextArea.prototype = {
         }
     },
 
+    triggerOnTextInput: function (event) {
+        if (this.options.onTextInput) {
+            this.options.onTextInput(event);
+        }
+    },
+
     triggerOnNewParagraph: function () {
         if (this.options.onNewParagraph) {
             this.options.onNewParagraph();
@@ -2345,7 +2377,7 @@ Tilde.ProgressiveTextArea.prototype = {
  * © 2010 Andrew Valums ( andrew(at)valums.com ) 
  * 
  * Licensed under GNU GPL 2 or later and GNU LGPL 2 or later, see license.txt.
- */    
+ */
 
 //
 // Helper functions
@@ -2355,60 +2387,60 @@ var qq = qq || {};
 
 /**
  * Adds all missing properties from second obj to first obj
- */ 
-qq.extend = function(first, second){
-    for (var prop in second){
+ */
+qq.extend = function (first, second) {
+    for (var prop in second) {
         first[prop] = second[prop];
     }
-};  
+};
 
 /**
  * Searches for a given element in the array, returns -1 if it is not present.
  * @param {Number} [from] The index at which to begin the search
  */
-qq.indexOf = function(arr, elt, from){
+qq.indexOf = function (arr, elt, from) {
     if (arr.indexOf) return arr.indexOf(elt, from);
-    
-    from = from || 0;
-    var len = arr.length;    
-    
-    if (from < 0) from += len;  
 
-    for (; from < len; from++){  
-        if (from in arr && arr[from] === elt){  
+    from = from || 0;
+    var len = arr.length;
+
+    if (from < 0) from += len;
+
+    for (; from < len; from++) {
+        if (from in arr && arr[from] === elt) {
             return from;
         }
-    }  
-    return -1;  
-}; 
-    
-qq.getUniqueId = (function(){
+    }
+    return -1;
+};
+
+qq.getUniqueId = (function () {
     var id = 0;
-    return function(){ return id++; };
+    return function () { return id++; };
 })();
 
 //
 // Events
 
-qq.attach = function(element, type, fn){
-    if (element.addEventListener){
+qq.attach = function (element, type, fn) {
+    if (element.addEventListener) {
         element.addEventListener(type, fn, false);
-    } else if (element.attachEvent){
+    } else if (element.attachEvent) {
         element.attachEvent('on' + type, fn);
     }
 };
-qq.detach = function(element, type, fn){
-    if (element.removeEventListener){
+qq.detach = function (element, type, fn) {
+    if (element.removeEventListener) {
         element.removeEventListener(type, fn, false);
-    } else if (element.attachEvent){
+    } else if (element.attachEvent) {
         element.detachEvent('on' + type, fn);
     }
 };
 
-qq.preventDefault = function(e){
-    if (e.preventDefault){
+qq.preventDefault = function (e) {
+    if (e.preventDefault) {
         e.preventDefault();
-    } else{
+    } else {
         e.returnValue = false;
     }
 };
@@ -2419,18 +2451,18 @@ qq.preventDefault = function(e){
 /**
  * Insert node a before node b.
  */
-qq.insertBefore = function(a, b){
+qq.insertBefore = function (a, b) {
     b.parentNode.insertBefore(a, b);
 };
-qq.remove = function(element){
+qq.remove = function (element) {
     element.parentNode.removeChild(element);
 };
 
-qq.contains = function(parent, descendant){       
+qq.contains = function (parent, descendant) {
     // compareposition returns false in this case
     if (parent == descendant) return true;
-    
-    if (parent.contains){
+
+    if (parent.contains) {
         return parent.contains(descendant);
     } else {
         return !!(descendant.compareDocumentPosition(parent) & 8);
@@ -2441,9 +2473,9 @@ qq.contains = function(parent, descendant){
  * Creates and returns element from html string
  * Uses innerHTML to create an element
  */
-qq.toElement = (function(){
+qq.toElement = (function () {
     var div = document.createElement('div');
-    return function(html){
+    return function (html) {
         div.innerHTML = html;
         var element = div.firstChild;
         div.removeChild(element);
@@ -2458,28 +2490,28 @@ qq.toElement = (function(){
  * Sets styles for an element.
  * Fixes opacity in IE6-8.
  */
-qq.css = function(element, styles){
-    if (styles.opacity != null){
-        if (typeof element.style.opacity != 'string' && typeof(element.filters) != 'undefined'){
+qq.css = function (element, styles) {
+    if (styles.opacity != null) {
+        if (typeof element.style.opacity != 'string' && typeof (element.filters) != 'undefined') {
             styles.filter = 'alpha(opacity=' + Math.round(100 * styles.opacity) + ')';
         }
     }
     qq.extend(element.style, styles);
 };
-qq.hasClass = function(element, name){
+qq.hasClass = function (element, name) {
     var re = new RegExp('(^| )' + name + '( |$)');
     return re.test(element.className);
 };
-qq.addClass = function(element, name){
-    if (!qq.hasClass(element, name)){
+qq.addClass = function (element, name) {
+    if (!qq.hasClass(element, name)) {
         element.className += ' ' + name;
     }
 };
-qq.removeClass = function(element, name){
+qq.removeClass = function (element, name) {
     var re = new RegExp('(^| )' + name + '( |$)');
     element.className = element.className.replace(re, ' ').replace(/^\s+|\s+$/g, "");
 };
-qq.setText = function(element, text){
+qq.setText = function (element, text) {
     element.innerText = text;
     element.textContent = text;
 };
@@ -2487,12 +2519,12 @@ qq.setText = function(element, text){
 //
 // Selecting elements
 
-qq.children = function(element){
+qq.children = function (element) {
     var children = [],
     child = element.firstChild;
 
-    while (child){
-        if (child.nodeType == 1){
+    while (child) {
+        if (child.nodeType == 1) {
             children.push(child);
         }
         child = child.nextSibling;
@@ -2501,8 +2533,8 @@ qq.children = function(element){
     return children;
 };
 
-qq.getByClass = function(element, className){
-    if (element.querySelectorAll){
+qq.getByClass = function (element, className) {
+    if (element.querySelectorAll) {
         return element.querySelectorAll('.' + className);
     }
 
@@ -2510,8 +2542,8 @@ qq.getByClass = function(element, className){
     var candidates = element.getElementsByTagName("*");
     var len = candidates.length;
 
-    for (var i = 0; i < len; i++){
-        if (qq.hasClass(candidates[i], className)){
+    for (var i = 0; i < len; i++) {
+        if (qq.hasClass(candidates[i], className)) {
             result.push(candidates[i]);
         }
     }
@@ -2534,38 +2566,38 @@ qq.getByClass = function(element, className){
  * @param  String current querystring-part
  * @return String encoded querystring
  */
-qq.obj2url = function(obj, temp, prefixDone){
+qq.obj2url = function (obj, temp, prefixDone) {
     var uristrings = [],
         prefix = '&',
-        add = function(nextObj, i){
-            var nextTemp = temp 
+        add = function (nextObj, i) {
+            var nextTemp = temp
                 ? (/\[\]$/.test(temp)) // prevent double-encoding
                    ? temp
-                   : temp+'['+i+']'
+                   : temp + '[' + i + ']'
                 : i;
-            if ((nextTemp != 'undefined') && (i != 'undefined')) {  
+            if ((nextTemp != 'undefined') && (i != 'undefined')) {
                 uristrings.push(
-                    (typeof nextObj === 'object') 
+                    (typeof nextObj === 'object')
                         ? qq.obj2url(nextObj, nextTemp, true)
                         : (Object.prototype.toString.call(nextObj) === '[object Function]')
                             ? encodeURIComponent(nextTemp) + '=' + encodeURIComponent(nextObj())
-                            : encodeURIComponent(nextTemp) + '=' + encodeURIComponent(nextObj)                                                          
+                            : encodeURIComponent(nextTemp) + '=' + encodeURIComponent(nextObj)
                 );
             }
-        }; 
+        };
 
     if (!prefixDone && temp) {
-      prefix = (/\?/.test(temp)) ? (/\?$/.test(temp)) ? '' : '&' : '?';
-      uristrings.push(temp);
-      uristrings.push(qq.obj2url(obj));
-    } else if ((Object.prototype.toString.call(obj) === '[object Array]') && (typeof obj != 'undefined') ) {
+        prefix = (/\?/.test(temp)) ? (/\?$/.test(temp)) ? '' : '&' : '?';
+        uristrings.push(temp);
+        uristrings.push(qq.obj2url(obj));
+    } else if ((Object.prototype.toString.call(obj) === '[object Array]') && (typeof obj != 'undefined')) {
         // we wont use a for-in-loop on an array (performance)
-        for (var i = 0, len = obj.length; i < len; ++i){
+        for (var i = 0, len = obj.length; i < len; ++i) {
             add(obj[i], i);
         }
-    } else if ((typeof obj != 'undefined') && (obj !== null) && (typeof obj === "object")){
+    } else if ((typeof obj != 'undefined') && (obj !== null) && (typeof obj === "object")) {
         // for anything else but a scalar, we will use for-in-loop
-        for (var i in obj){
+        for (var i in obj) {
             add(obj[i], i);
         }
     } else {
@@ -2574,7 +2606,7 @@ qq.obj2url = function(obj, temp, prefixDone){
 
     return uristrings.join(prefix)
                      .replace(/^&/, '')
-                     .replace(/%20/g, '+'); 
+                     .replace(/%20/g, '+');
 };
 
 //
@@ -2584,16 +2616,16 @@ qq.obj2url = function(obj, temp, prefixDone){
 //
 
 var qq = qq || {};
-    
+
 /**
  * Creates upload button, validates upload, but doesn't create file list or dd. 
  */
-qq.FileUploaderBasic = function(o){
+qq.FileUploaderBasic = function (o) {
     this._options = {
         // set to true to see the server response
         debug: false,
         action: '/server/upload',
-        clientid: null,
+        headers: null,
         params: {},
         button: null,
         multiple: true,
@@ -2601,150 +2633,150 @@ qq.FileUploaderBasic = function(o){
         // validation        
         allowedExtensions: [],
         allowedMimetypes: [],
-        sizeLimit: 0,   
-        minSizeLimit: 0,                             
+        sizeLimit: 0,
+        minSizeLimit: 0,
         // events
         // return false to cancel submit
-        onSubmit: function(id, fileName){},
-        onProgress: function(id, fileName, loaded, total){},
-        onComplete: function(id, fileName, responseJSON){},
-        onCancel: function(id, fileName){},
+        onSubmit: function (id, fileName) { },
+        onProgress: function (id, fileName, loaded, total) { },
+        onComplete: function (id, fileName, responseJSON) { },
+        onCancel: function (id, fileName) { },
         // messages                
         messages: {
             typeError: "{file} has invalid extension. Only {extensions} are allowed.",
             sizeError: "{file} is too large, maximum file size is {sizeLimit}.",
             minSizeError: "{file} is too small, minimum file size is {minSizeLimit}.",
             emptyError: "{file} is empty, please select files again without it.",
-            onLeave: "The files are being uploaded, if you leave now the upload will be cancelled."            
+            onLeave: "The files are being uploaded, if you leave now the upload will be cancelled."
         },
-        showMessage: function(message){
+        showMessage: function (message) {
             alert(message);
-        }               
+        }
     };
     qq.extend(this._options, o);
-        
+
     // number of files being uploaded
     this._filesInProgress = 0;
-    this._handler = this._createUploadHandler(); 
-    
-    if (this._options.button){ 
+    this._handler = this._createUploadHandler();
+
+    if (this._options.button) {
         this._button = this._createUploadButton(this._options.button);
     }
-                        
-    this._preventLeaveInProgress();         
+
+    this._preventLeaveInProgress();
 };
-   
+
 qq.FileUploaderBasic.prototype = {
-    setParams: function(params){
+    setParams: function (params) {
         this._options.params = params;
     },
-    getInProgress: function(){
-        return this._filesInProgress;         
+    getInProgress: function () {
+        return this._filesInProgress;
     },
-    _createUploadButton: function(element){
+    _createUploadButton: function (element) {
         var self = this;
-        
+
         return new qq.UploadButton({
             element: element,
             multiple: this._options.multiple && qq.UploadHandlerXhr.isSupported(),
             allowedMimetypes: this._options.allowedMimetypes,
             onChange: function (input) {
                 self._onInputChange(input);
-            }        
-        });           
-    },    
-    _createUploadHandler: function(){
+            }
+        });
+    },
+    _createUploadHandler: function () {
         var self = this,
-            handlerClass;        
-        
-        if(qq.UploadHandlerXhr.isSupported()){           
-            handlerClass = 'UploadHandlerXhr';                        
+            handlerClass;
+
+        if (qq.UploadHandlerXhr.isSupported()) {
+            handlerClass = 'UploadHandlerXhr';
         } else {
             handlerClass = 'UploadHandlerForm';
         }
 
         var handler = new qq[handlerClass]({
             debug: this._options.debug,
-            action: this._options.action,         
-            clientid: this._options.clientid,
+            action: this._options.action,
+            headers: this._options.headers,
             maxConnections: this._options.maxConnections,
-            onProgress: function(id, fileName, loaded, total){                
+            onProgress: function (id, fileName, loaded, total) {
                 self._onProgress(id, fileName, loaded, total);
-                self._options.onProgress(id, fileName, loaded, total);                    
-            },            
-            onComplete: function(id, fileName, result){
+                self._options.onProgress(id, fileName, loaded, total);
+            },
+            onComplete: function (id, fileName, result) {
                 self._onComplete(id, fileName, result);
                 self._options.onComplete(id, fileName, result);
             },
-            onCancel: function(id, fileName){
+            onCancel: function (id, fileName) {
                 self._onCancel(id, fileName);
                 self._options.onCancel(id, fileName);
             }
         });
 
         return handler;
-    },    
-    _preventLeaveInProgress: function(){
+    },
+    _preventLeaveInProgress: function () {
         var self = this;
-        
-        qq.attach(window, 'beforeunload', function(e){
-            if (!self._filesInProgress){return;}
-            
+
+        qq.attach(window, 'beforeunload', function (e) {
+            if (!self._filesInProgress) { return; }
+
             var e = e || window.event;
             // for ie, ff
             e.returnValue = self._options.messages.onLeave;
             // for webkit
-            return self._options.messages.onLeave;             
-        });        
-    },    
-    _onSubmit: function(id, fileName){
-        this._filesInProgress++;  
+            return self._options.messages.onLeave;
+        });
     },
-    _onProgress: function(id, fileName, loaded, total){        
+    _onSubmit: function (id, fileName) {
+        this._filesInProgress++;
     },
-    _onComplete: function(id, fileName, result){
-        this._filesInProgress--;                 
-        if (result.error){
+    _onProgress: function (id, fileName, loaded, total) {
+    },
+    _onComplete: function (id, fileName, result) {
+        this._filesInProgress--;
+        if (result.error) {
             this._options.showMessage(result.error);
-        }             
-    },
-    _onCancel: function(id, fileName){
-        this._filesInProgress--;        
-    },
-    _onInputChange: function(input){
-        if (this._handler instanceof qq.UploadHandlerXhr){                
-            this._uploadFileList(input.files);                   
-        } else {             
-            if (this._validateFile(input)){                
-                this._uploadFile(input);                                    
-            }                      
-        }               
-        this._button.reset();   
-    },  
-    _uploadFileList: function(files){
-        for (var i=0; i<files.length; i++){
-            if ( !this._validateFile(files[i])){
-                return;
-            }            
         }
-        
-        for (var i=0; i<files.length; i++){
-            this._uploadFile(files[i]);        
-        }        
-    },       
-    _uploadFile: function(fileContainer){      
+    },
+    _onCancel: function (id, fileName) {
+        this._filesInProgress--;
+    },
+    _onInputChange: function (input) {
+        if (this._handler instanceof qq.UploadHandlerXhr) {
+            this._uploadFileList(input.files);
+        } else {
+            if (this._validateFile(input)) {
+                this._uploadFile(input);
+            }
+        }
+        this._button.reset();
+    },
+    _uploadFileList: function (files) {
+        for (var i = 0; i < files.length; i++) {
+            if (!this._validateFile(files[i])) {
+                return;
+            }
+        }
+
+        for (var i = 0; i < files.length; i++) {
+            this._uploadFile(files[i]);
+        }
+    },
+    _uploadFile: function (fileContainer) {
         var id = this._handler.add(fileContainer);
         var fileName = this._handler.getName(id);
-        
-        if (this._options.onSubmit(id, fileName) !== false){
+
+        if (this._options.onSubmit(id, fileName) !== false) {
             this._onSubmit(id, fileName);
             this._handler.upload(id, this._options.params);
         }
-    },      
-    _validateFile: function(file){
+    },
+    _validateFile: function (file) {
         var name, size;
-        
-        if (file.value){
+
+        if (file.value) {
             // it is a file input            
             // get input value and remove path to normalize
             name = file.value.replace(/.*(\/|\\)/, "");
@@ -2754,89 +2786,88 @@ qq.FileUploaderBasic.prototype = {
             size = file.fileSize != null ? file.fileSize : file.size;
         }
 
-        if (name)
-        {
+        if (name) {
             name = decodeURIComponent(name); // android file picker may urlencode unicode characters
         }
-                    
-        if (! this._isAllowedExtension(name)){            
+
+        if (!this._isAllowedExtension(name)) {
             this._error('typeError', name);
             return false;
-            
-        } else if (size === 0){            
+
+        } else if (size === 0) {
             this._error('emptyError', name);
             return false;
-                                                     
-        } else if (size && this._options.sizeLimit && size > this._options.sizeLimit){            
+
+        } else if (size && this._options.sizeLimit && size > this._options.sizeLimit) {
             this._error('sizeError', name);
             return false;
-                        
-        } else if (size && size < this._options.minSizeLimit){
+
+        } else if (size && size < this._options.minSizeLimit) {
             this._error('minSizeError', name);
-            return false;            
+            return false;
         }
-        
-        return true;                
+
+        return true;
     },
-    _error: function(code, fileName){
-        var message = this._options.messages[code];        
-        function r(name, replacement){ message = message.replace(name, replacement); }
-        
-        r('{file}', this._formatFileName(fileName));        
+    _error: function (code, fileName) {
+        var message = this._options.messages[code];
+        function r(name, replacement) { message = message.replace(name, replacement); }
+
+        r('{file}', this._formatFileName(fileName));
         r('{extensions}', this._options.allowedExtensions.join(', '));
         r('{sizeLimit}', this._formatSize(this._options.sizeLimit));
         r('{minSizeLimit}', this._formatSize(this._options.minSizeLimit));
-        
-        this._options.showMessage(message);                
+
+        this._options.showMessage(message);
     },
-    _formatFileName: function(name){
-        if (name.length > 33){
-            name = name.slice(0, 19) + '...' + name.slice(-13);    
+    _formatFileName: function (name) {
+        if (name.length > 33) {
+            name = name.slice(0, 19) + '...' + name.slice(-13);
         }
         return name;
     },
-    _isAllowedExtension: function(fileName){
+    _isAllowedExtension: function (fileName) {
         var ext = (-1 !== fileName.indexOf('.')) ? fileName.replace(/.*[.]/, '').toLowerCase() : '';
         var allowed = this._options.allowedExtensions;
-        
-        if (!allowed.length){return true;}        
-        
-        for (var i=0; i<allowed.length; i++){
-            if (allowed[i].toLowerCase() == ext){ return true;}    
+
+        if (!allowed.length) { return true; }
+
+        for (var i = 0; i < allowed.length; i++) {
+            if (allowed[i].toLowerCase() == ext) { return true; }
         }
-        
+
         return false;
-    },    
-    _formatSize: function(bytes){
-        var i = -1;                                    
+    },
+    _formatSize: function (bytes) {
+        var i = -1;
         do {
             bytes = bytes / 1024;
-            i++;  
+            i++;
         } while (bytes > 99);
-        
-        return Math.max(bytes, 0.1).toFixed(1) + ['kB', 'MB', 'GB', 'TB', 'PB', 'EB'][i];          
+
+        return Math.max(bytes, 0.1).toFixed(1) + ['kB', 'MB', 'GB', 'TB', 'PB', 'EB'][i];
     }
 };
-    
-       
+
+
 /**
  * Class that creates upload widget with drag-and-drop and file list
  * @inherits qq.FileUploaderBasic
  */
-qq.FileUploader = function(o){
+qq.FileUploader = function (o) {
     // call parent constructor
     qq.FileUploaderBasic.apply(this, arguments);
-    
+
     // additional options    
     qq.extend(this._options, {
         element: null,
         // if set, will be used instead of qq-upload-list in template
         listElement: null,
-                
-        template: '<div class="qq-uploader">' + 
+
+        template: '<div class="qq-uploader">' +
                 '<div class="qq-upload-drop-area"><span>Drop files here to upload</span></div>' +
                 '<div class="qq-upload-button">Upload a file</div>' +
-                '<ul class="qq-upload-list"></ul>' + 
+                '<ul class="qq-upload-list"></ul>' +
              '</div>',
 
         // template for one item in file list
@@ -2846,15 +2877,15 @@ qq.FileUploader = function(o){
                 '<span class="qq-upload-size"></span>' +
                 '<a class="qq-upload-cancel" href="#">Cancel</a>' +
                 '<span class="qq-upload-failed-text">Failed</span>' +
-            '</li>',        
-        
+            '</li>',
+
         classes: {
             // used to get elements from templates
             button: 'qq-upload-button',
             drop: 'qq-upload-drop-area',
             dropActive: 'qq-upload-drop-area-active',
             list: 'qq-upload-list',
-                        
+
             file: 'qq-upload-file',
             spinner: 'qq-upload-spinner',
             size: 'qq-upload-size',
@@ -2867,16 +2898,16 @@ qq.FileUploader = function(o){
         }
     });
     // overwrite options with user supplied    
-    qq.extend(this._options, o);       
+    qq.extend(this._options, o);
 
     this._element = this._options.element;
-    this._element.innerHTML = this._options.template;        
+    this._element.innerHTML = this._options.template;
     this._listElement = this._options.listElement || this._find(this._element, 'list');
-    
+
     this._classes = this._options.classes;
-        
-    this._button = this._createUploadButton(this._find(this._element, 'button'));        
-    
+
+    this._button = this._createUploadButton(this._find(this._element, 'button'));
+
     this._bindCancelEvent();
     this._setupDragDrop();
 };
@@ -2888,234 +2919,234 @@ qq.extend(qq.FileUploader.prototype, {
     /**
      * Gets one of the elements listed in this._options.classes
      **/
-    _find: function(parent, type){                                
-        var element = qq.getByClass(parent, this._options.classes[type])[0];        
-        if (!element){
+    _find: function (parent, type) {
+        var element = qq.getByClass(parent, this._options.classes[type])[0];
+        if (!element) {
             throw new Error('element not found ' + type);
         }
-        
+
         return element;
     },
-    _setupDragDrop: function(){
+    _setupDragDrop: function () {
         var self = this,
-            dropArea = this._find(this._element, 'drop');                        
+            dropArea = this._find(this._element, 'drop');
 
         var dz = new qq.UploadDropZone({
             element: dropArea,
-            onEnter: function(e){
+            onEnter: function (e) {
                 qq.addClass(dropArea, self._classes.dropActive);
                 e.stopPropagation();
             },
-            onLeave: function(e){
+            onLeave: function (e) {
                 e.stopPropagation();
             },
-            onLeaveNotDescendants: function(e){
-                qq.removeClass(dropArea, self._classes.dropActive);  
+            onLeaveNotDescendants: function (e) {
+                qq.removeClass(dropArea, self._classes.dropActive);
             },
-            onDrop: function(e){
+            onDrop: function (e) {
                 dropArea.style.display = 'none';
                 qq.removeClass(dropArea, self._classes.dropActive);
-                self._uploadFileList(e.dataTransfer.files);    
+                self._uploadFileList(e.dataTransfer.files);
             }
         });
-                
+
         dropArea.style.display = 'none';
 
-        qq.attach(document, 'dragenter', function(e){     
-            if (!dz._isValidFileDrag(e)) return; 
-            
-            dropArea.style.display = 'block';            
-        });                 
-        qq.attach(document, 'dragleave', function(e){
-            if (!dz._isValidFileDrag(e)) return;            
-            
+        qq.attach(document, 'dragenter', function (e) {
+            if (!dz._isValidFileDrag(e)) return;
+
+            dropArea.style.display = 'block';
+        });
+        qq.attach(document, 'dragleave', function (e) {
+            if (!dz._isValidFileDrag(e)) return;
+
             var relatedTarget = document.elementFromPoint(e.clientX, e.clientY);
             // only fire when leaving document out
-            if ( ! relatedTarget || relatedTarget.nodeName == "HTML"){               
-                dropArea.style.display = 'none';                                            
+            if (!relatedTarget || relatedTarget.nodeName == "HTML") {
+                dropArea.style.display = 'none';
             }
-        });                
+        });
     },
-    _onSubmit: function(id, fileName){
+    _onSubmit: function (id, fileName) {
         qq.FileUploaderBasic.prototype._onSubmit.apply(this, arguments);
-        this._addToList(id, fileName);  
+        this._addToList(id, fileName);
     },
-    _onProgress: function(id, fileName, loaded, total){
+    _onProgress: function (id, fileName, loaded, total) {
         qq.FileUploaderBasic.prototype._onProgress.apply(this, arguments);
 
         var item = this._getItemByFileId(id);
         var size = this._find(item, 'size');
         size.style.display = 'inline';
-        
-        var text; 
-        if (loaded != total){
+
+        var text;
+        if (loaded != total) {
             text = Math.round(loaded / total * 100) + '% from ' + this._formatSize(total);
-        } else {                                   
+        } else {
             text = this._formatSize(total);
-        }          
-        
-        qq.setText(size, text);         
+        }
+
+        qq.setText(size, text);
     },
-    _onComplete: function(id, fileName, result){
+    _onComplete: function (id, fileName, result) {
         qq.FileUploaderBasic.prototype._onComplete.apply(this, arguments);
 
         // mark completed
-        var item = this._getItemByFileId(id);                
+        var item = this._getItemByFileId(id);
         qq.remove(this._find(item, 'cancel'));
         //qq.remove(this._find(item, 'spinner'));
-        
-        if (result.success){
-            qq.addClass(item, this._classes.success);    
+
+        if (result.success) {
+            qq.addClass(item, this._classes.success);
         } else {
             qq.addClass(item, this._classes.fail);
-        }         
+        }
     },
-    _addToList: function(id, fileName){
-        var item = qq.toElement(this._options.fileTemplate);                
+    _addToList: function (id, fileName) {
+        var item = qq.toElement(this._options.fileTemplate);
         item.qqFileId = id;
 
-        var fileElement = this._find(item, 'file');        
+        var fileElement = this._find(item, 'file');
         qq.setText(fileElement, this._formatFileName(fileName));
-        this._find(item, 'size').style.display = 'none';        
+        this._find(item, 'size').style.display = 'none';
 
         this._listElement.appendChild(item);
     },
-    _getItemByFileId: function(id){
-        var item = this._listElement.firstChild;        
-        
+    _getItemByFileId: function (id) {
+        var item = this._listElement.firstChild;
+
         // there can't be txt nodes in dynamically created list
         // and we can  use nextSibling
-        while (item){            
-            if (item.qqFileId == id) return item;            
+        while (item) {
+            if (item.qqFileId == id) return item;
             item = item.nextSibling;
-        }          
+        }
     },
     /**
      * delegate click event for cancel link 
      **/
-    _bindCancelEvent: function(){
+    _bindCancelEvent: function () {
         var self = this,
-            list = this._listElement;            
-        
-        qq.attach(list, 'click', function(e){            
+            list = this._listElement;
+
+        qq.attach(list, 'click', function (e) {
             e = e || window.event;
             var target = e.target || e.srcElement;
-            
-            if (qq.hasClass(target, self._classes.cancel)){                
+
+            if (qq.hasClass(target, self._classes.cancel)) {
                 qq.preventDefault(e);
-               
+
                 var item = target.parentNode;
                 self._handler.cancel(item.qqFileId);
                 qq.remove(item);
             }
         });
-    }    
+    }
 });
-    
-qq.UploadDropZone = function(o){
+
+qq.UploadDropZone = function (o) {
     this._options = {
-        element: null,  
-        onEnter: function(e){},
-        onLeave: function(e){},  
+        element: null,
+        onEnter: function (e) { },
+        onLeave: function (e) { },
         // is not fired when leaving element by hovering descendants   
-        onLeaveNotDescendants: function(e){},   
-        onDrop: function(e){}                       
+        onLeaveNotDescendants: function (e) { },
+        onDrop: function (e) { }
     };
-    qq.extend(this._options, o); 
-    
+    qq.extend(this._options, o);
+
     this._element = this._options.element;
-    
+
     this._disableDropOutside();
-    this._attachEvents();   
+    this._attachEvents();
 };
 
 qq.UploadDropZone.prototype = {
-    _disableDropOutside: function(e){
+    _disableDropOutside: function (e) {
         // run only once for all instances
-        if (!qq.UploadDropZone.dropOutsideDisabled ){
+        if (!qq.UploadDropZone.dropOutsideDisabled) {
 
-            qq.attach(document, 'dragover', function(e){
-                if (e.dataTransfer){
+            qq.attach(document, 'dragover', function (e) {
+                if (e.dataTransfer) {
                     e.dataTransfer.dropEffect = 'none';
-                    e.preventDefault(); 
-                }           
+                    e.preventDefault();
+                }
             });
-            
-            qq.UploadDropZone.dropOutsideDisabled = true; 
-        }        
+
+            qq.UploadDropZone.dropOutsideDisabled = true;
+        }
     },
-    _attachEvents: function(){
-        var self = this;              
-                  
-        qq.attach(self._element, 'dragover', function(e){
+    _attachEvents: function () {
+        var self = this;
+
+        qq.attach(self._element, 'dragover', function (e) {
             if (!self._isValidFileDrag(e)) return;
-            
+
             var effect = e.dataTransfer.effectAllowed;
-            if (effect == 'move' || effect == 'linkMove'){
+            if (effect == 'move' || effect == 'linkMove') {
                 e.dataTransfer.dropEffect = 'move'; // for FF (only move allowed)    
-            } else {                    
+            } else {
                 e.dataTransfer.dropEffect = 'copy'; // for Chrome
             }
-                                                     
+
             e.stopPropagation();
-            e.preventDefault();                                                                    
+            e.preventDefault();
         });
-        
-        qq.attach(self._element, 'dragenter', function(e){
+
+        qq.attach(self._element, 'dragenter', function (e) {
             if (!self._isValidFileDrag(e)) return;
-                        
+
             self._options.onEnter(e);
         });
-        
-        qq.attach(self._element, 'dragleave', function(e){
+
+        qq.attach(self._element, 'dragleave', function (e) {
             if (!self._isValidFileDrag(e)) return;
-            
+
             self._options.onLeave(e);
-            
-            var relatedTarget = document.elementFromPoint(e.clientX, e.clientY);                      
+
+            var relatedTarget = document.elementFromPoint(e.clientX, e.clientY);
             // do not fire when moving a mouse over a descendant
             if (qq.contains(this, relatedTarget)) return;
-                        
-            self._options.onLeaveNotDescendants(e); 
+
+            self._options.onLeaveNotDescendants(e);
         });
-                
-        qq.attach(self._element, 'drop', function(e){
+
+        qq.attach(self._element, 'drop', function (e) {
             if (!self._isValidFileDrag(e)) return;
-            
+
             e.preventDefault();
             self._options.onDrop(e);
-        });          
+        });
     },
-    _isValidFileDrag: function(e){
+    _isValidFileDrag: function (e) {
         var dt = e.dataTransfer,
             // do not check dt.types.contains in webkit, because it crashes safari 4            
-            isWebkit = navigator.userAgent.indexOf("AppleWebKit") > -1;                        
+            isWebkit = navigator.userAgent.indexOf("AppleWebKit") > -1;
 
         // dt.effectAllowed is none in Safari 5
         // dt.types.contains check is for firefox            
-        return dt && dt.effectAllowed != 'none' && 
+        return dt && dt.effectAllowed != 'none' &&
             (dt.files || (!isWebkit && dt.types.contains && dt.types.contains('Files')));
-        
-    }        
-}; 
 
-qq.UploadButton = function(o){
+    }
+};
+
+qq.UploadButton = function (o) {
     this._options = {
-        element: null,  
+        element: null,
         // if set to true adds multiple attribute to file input      
         multiple: false,
         allowedMimetypes: [],
         // name attribute of file input
         name: 'file',
-        onChange: function(input){},
+        onChange: function (input) { },
         hoverClass: 'qq-upload-button-hover',
-        focusClass: 'qq-upload-button-focus'                       
+        focusClass: 'qq-upload-button-focus'
     };
-    
+
     qq.extend(this._options, o);
-        
+
     this._element = this._options.element;
-    
+
     // make button suitable container for input
     qq.css(this._element, {
         position: 'relative',
@@ -3123,36 +3154,36 @@ qq.UploadButton = function(o){
         // Make sure browse button is in the right side
         // in Internet Explorer
         direction: 'ltr'
-    });   
-    
+    });
+
     this._input = this._createInput();
 };
 
 qq.UploadButton.prototype = {
-    /* returns file input element */    
-    getInput: function(){
+    /* returns file input element */
+    getInput: function () {
         return this._input;
     },
     /* cleans/recreates the file input */
-    reset: function(){
-        if (this._input.parentNode){
-            qq.remove(this._input);    
-        }                
-        
+    reset: function () {
+        if (this._input.parentNode) {
+            qq.remove(this._input);
+        }
+
         qq.removeClass(this._element, this._options.focusClass);
         this._input = this._createInput();
-    },    
-    _createInput: function(){                
+    },
+    _createInput: function () {
         var input = document.createElement("input");
-        
-        if (this._options.multiple){
+
+        if (this._options.multiple) {
             input.setAttribute("multiple", "multiple");
         }
-                
+
         input.setAttribute("type", "file");
         input.setAttribute("accept", this._options.allowedMimetypes.join(', '));
         input.setAttribute("name", this._options.name);
-        
+
         qq.css(input, {
             position: 'absolute',
             // in Opera and in IE10 only 'browse' button
@@ -3170,94 +3201,94 @@ qq.UploadButton.prototype = {
             cursor: 'pointer',
             opacity: 0
         });
-        
+
         this._element.appendChild(input);
 
         var self = this;
-        qq.attach(input, 'change', function(){
+        qq.attach(input, 'change', function () {
             self._options.onChange(input);
         });
-                
-        qq.attach(input, 'mouseover', function(){
+
+        qq.attach(input, 'mouseover', function () {
             qq.addClass(self._element, self._options.hoverClass);
         });
-        qq.attach(input, 'mouseout', function(){
+        qq.attach(input, 'mouseout', function () {
             qq.removeClass(self._element, self._options.hoverClass);
         });
-        qq.attach(input, 'focus', function(){
+        qq.attach(input, 'focus', function () {
             qq.addClass(self._element, self._options.focusClass);
         });
-        qq.attach(input, 'blur', function(){
+        qq.attach(input, 'blur', function () {
             qq.removeClass(self._element, self._options.focusClass);
         });
 
         // IE and Opera, unfortunately have 2 tab stops on file input
         // which is unacceptable in our case, disable keyboard access
-        if (window.attachEvent){
+        if (window.attachEvent) {
             // it is IE or Opera
             input.setAttribute('tabIndex', "-1");
         }
 
-        return input;            
-    }        
+        return input;
+    }
 };
 
 /**
  * Class for uploading files, uploading itself is handled by child classes
  */
-qq.UploadHandlerAbstract = function(o){
+qq.UploadHandlerAbstract = function (o) {
     this._options = {
         debug: false,
         action: '/upload.php',
-        clientid: null,
+        headers: null,
         // maximum number of concurrent uploads        
         maxConnections: 999,
-        onProgress: function(id, fileName, loaded, total){},
-        onComplete: function(id, fileName, response){},
-        onCancel: function(id, fileName){}
+        onProgress: function (id, fileName, loaded, total) { },
+        onComplete: function (id, fileName, response) { },
+        onCancel: function (id, fileName) { }
     };
-    qq.extend(this._options, o);    
-    
+    qq.extend(this._options, o);
+
     this._queue = [];
     // params for files in queue
     this._params = [];
 };
 qq.UploadHandlerAbstract.prototype = {
-    log: function(str){
-        if (this._options.debug && window.console) console.log('[uploader] ' + str);        
+    log: function (str) {
+        if (this._options.debug && typeof (console) !== "undefined") console.log('[uploader] ' + str);
     },
     /**
      * Adds file or file input to the queue
      * @returns id
-     **/    
-    add: function(file){},
+     **/
+    add: function (file) { },
     /**
      * Sends the file identified by id and additional query params to the server
      */
-    upload: function(id, params){
+    upload: function (id, params) {
         var len = this._queue.push(id);
 
-        var copy = {};        
+        var copy = {};
         qq.extend(copy, params);
-        this._params[id] = copy;        
-                
+        this._params[id] = copy;
+
         // if too many active uploads, wait...
-        if (len <= this._options.maxConnections){               
+        if (len <= this._options.maxConnections) {
             this._upload(id, this._params[id]);
         }
     },
     /**
      * Cancels file upload by id
      */
-    cancel: function(id){
+    cancel: function (id) {
         this._cancel(id);
         this._dequeue(id);
     },
     /**
      * Cancells all uploads
      */
-    cancelAll: function(){
-        for (var i=0; i<this._queue.length; i++){
+    cancelAll: function () {
+        for (var i = 0; i < this._queue.length; i++) {
             this._cancel(this._queue[i]);
         }
         this._queue = [];
@@ -3265,79 +3296,79 @@ qq.UploadHandlerAbstract.prototype = {
     /**
      * Returns name of the file identified by id
      */
-    getName: function(id){},
+    getName: function (id) { },
     /**
      * Returns size of the file identified by id
-     */          
-    getSize: function(id){},
+     */
+    getSize: function (id) { },
     /**
      * Returns id of files being uploaded or
      * waiting for their turn
      */
-    getQueue: function(){
+    getQueue: function () {
         return this._queue;
     },
     /**
      * Actual upload method
      */
-    _upload: function(id){},
+    _upload: function (id) { },
     /**
      * Actual cancel method
      */
-    _cancel: function(id){},     
+    _cancel: function (id) { },
     /**
      * Removes element from queue, starts upload of next
      */
-    _dequeue: function(id){
+    _dequeue: function (id) {
         var i = qq.indexOf(this._queue, id);
         this._queue.splice(i, 1);
-                
+
         var max = this._options.maxConnections;
-        
-        if (this._queue.length >= max && i < max){
-            var nextId = this._queue[max-1];
+
+        if (this._queue.length >= max && i < max) {
+            var nextId = this._queue[max - 1];
             this._upload(nextId, this._params[nextId]);
         }
-    }        
+    }
 };
 
 /**
  * Class for uploading files using form and iframe
  * @inherits qq.UploadHandlerAbstract
  */
-qq.UploadHandlerForm = function(o){
+qq.UploadHandlerForm = function (o) {
     qq.UploadHandlerAbstract.apply(this, arguments);
-       
+
     this._inputs = {};
 };
 // @inherits qq.UploadHandlerAbstract
 qq.extend(qq.UploadHandlerForm.prototype, qq.UploadHandlerAbstract.prototype);
 
 qq.extend(qq.UploadHandlerForm.prototype, {
-    add: function(fileInput){
+    add: function (fileInput) {
         fileInput.setAttribute('name', 'fname');
-        var id = 'qq-upload-handler-iframe' + qq.getUniqueId();       
-        
+        var id = 'qq-upload-handler-iframe' + qq.getUniqueId();
+
         this._inputs[id] = fileInput;
-        
+
         // remove file input from DOM
-        if (fileInput.parentNode){
+        if (fileInput.parentNode) {
             qq.remove(fileInput);
         }
-                
+
         return id;
     },
-    getName: function(id){
+    getName: function (id) {
         // get input value and remove path to normalize
         return this._inputs[id].value.replace(/.*(\/|\\)/, "");
-    },    
-    _cancel: function(id){
+    },
+    _cancel: function (id) {
         this._options.onCancel(id, this.getName(id));
-        
-        delete this._inputs[id];        
+
+        delete this._inputs[id];
 
         var iframe = document.getElementById(id);
-        if (iframe){
+        if (iframe) {
             // to cancel request set src to something else
             // we use src="javascript:false;" because it doesn't
             // trigger ie6 prompt on https
@@ -3345,54 +3376,54 @@ qq.extend(qq.UploadHandlerForm.prototype, {
 
             qq.remove(iframe);
         }
-    },     
-    _upload: function(id, params){                        
+    },
+    _upload: function (id, params) {
         var input = this._inputs[id];
-        
-        if (!input){
+
+        if (!input) {
             throw new Error('file with passed id was not added, or already uploaded or cancelled');
-        }                
+        }
 
         var fileName = this.getName(id);
-                
+
         var iframe = this._createIframe(id);
         var form = this._createForm(iframe, params);
         form.appendChild(input);
 
         var self = this;
-        this._attachLoadEvent(iframe, function(){                                 
+        this._attachLoadEvent(iframe, function () {
             self.log('iframe loaded');
-            
+
             var response = self._getIframeContentJSON(iframe);
 
             self._options.onComplete(id, fileName, response);
             self._dequeue(id);
-            
+
             delete self._inputs[id];
             // timeout added to fix busy state in FF3.6
-            setTimeout(function(){
+            setTimeout(function () {
                 qq.remove(iframe);
             }, 1);
         });
 
-        form.submit();        
-        qq.remove(form);        
-        
+        form.submit();
+        qq.remove(form);
+
         return id;
-    }, 
-    _attachLoadEvent: function(iframe, callback){
-        qq.attach(iframe, 'load', function(){
+    },
+    _attachLoadEvent: function (iframe, callback) {
+        qq.attach(iframe, 'load', function () {
             // when we remove iframe from dom
             // the request stops, but in IE load
             // event fires
-            if (!iframe.parentNode){
+            if (!iframe.parentNode) {
                 return;
             }
 
             // fixing Opera 10.53
             if (iframe.contentDocument &&
                 iframe.contentDocument.body &&
-                iframe.contentDocument.body.innerHTML == "false"){
+                iframe.contentDocument.body.innerHTML == "false") {
                 // In Opera event is fired second time
                 // when body.innerHTML changed from false
                 // to server response approx. after 1 sec
@@ -3406,26 +3437,26 @@ qq.extend(qq.UploadHandlerForm.prototype, {
     /**
      * Returns json object received by iframe from server.
      */
-    _getIframeContentJSON: function(iframe){
+    _getIframeContentJSON: function (iframe) {
         // iframe.contentWindow.document - for IE<7
-        var doc = iframe.contentDocument ? iframe.contentDocument: iframe.contentWindow.document,
+        var doc = iframe.contentDocument ? iframe.contentDocument : iframe.contentWindow.document,
             response;
-        
+
         this.log("converting iframe's innerHTML to JSON");
         this.log("innerHTML = " + doc.body.outerText);
-                        
+
         try {
             response = eval("(" + doc.body.outerText + ")");
-        } catch(err){
+        } catch (err) {
             response = {};
-        }        
+        }
 
         return response;
     },
     /**
      * Creates iframe with unique name
      */
-    _createIframe: function(id){
+    _createIframe: function (id) {
         // We can't use following code as the name attribute
         // won't be properly registered in IE6, and new window
         // on form submit will open
@@ -3445,7 +3476,7 @@ qq.extend(qq.UploadHandlerForm.prototype, {
     /**
      * Creates form, that will be submitted to iframe
      */
-    _createForm: function(iframe, params){
+    _createForm: function (iframe, params) {
         // We can't use the following code in IE6
         // var form = document.createElement('form');
         // form.setAttribute('method', 'post');
@@ -3468,25 +3499,25 @@ qq.extend(qq.UploadHandlerForm.prototype, {
  * Class for uploading files using xhr
  * @inherits qq.UploadHandlerAbstract
  */
-qq.UploadHandlerXhr = function(o){
+qq.UploadHandlerXhr = function (o) {
     qq.UploadHandlerAbstract.apply(this, arguments);
 
     this._files = [];
     this._xhrs = [];
-    
+
     // current loaded size in bytes for each file 
     this._loaded = [];
 };
 
 // static method
-qq.UploadHandlerXhr.isSupported = function(){
+qq.UploadHandlerXhr.isSupported = function () {
     var input = document.createElement('input');
-    input.type = 'file';        
-    
+    input.type = 'file';
+
     return (
         'multiple' in input &&
         typeof File != "undefined" &&
-        typeof (new XMLHttpRequest()).upload != "undefined" );       
+        typeof (new XMLHttpRequest()).upload != "undefined");
 };
 
 // @inherits qq.UploadHandlerAbstract
@@ -3496,15 +3527,15 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
     /**
      * Adds file to the queue
      * Returns id to use with upload, cancel
-     **/    
-    add: function(file){
-        if (!(file instanceof File)){
+     **/
+    add: function (file) {
+        if (!(file instanceof File)) {
             throw new Error('Passed obj in not a File (in qq.UploadHandlerXhr)');
         }
-                
-        return this._files.push(file) - 1;        
+
+        return this._files.push(file) - 1;
     },
-    getName: function(id){        
+    getName: function (id) {
         var file = this._files[id];
         // fix missing name in Safari 4
         var name = file.fileName != null ? file.fileName : file.name;
@@ -3515,40 +3546,40 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
             return name;
         }
     },
-    getSize: function(id){
+    getSize: function (id) {
         var file = this._files[id];
         return file.fileSize != null ? file.fileSize : file.size;
-    },    
+    },
     /**
      * Returns uploaded bytes for file identified by id 
-     */    
-    getLoaded: function(id){
-        return this._loaded[id] || 0; 
+     */
+    getLoaded: function (id) {
+        return this._loaded[id] || 0;
     },
     /**
      * Sends the file identified by id and additional query params to the server
      * @param {Object} params name-value string pairs
-     */    
+     */
     _upload: function (id, params) {
         var file = this._files[id],
             name = this.getName(id),
             size = this.getSize(id);
-                
+
         this._loaded[id] = 0;
-                                
+
         var xhr = this._xhrs[id] = new XMLHttpRequest();
         var self = this;
-                                        
-        xhr.upload.onprogress = function(e){
-            if (e.lengthComputable){
+
+        xhr.upload.onprogress = function (e) {
+            if (e.lengthComputable) {
                 self._loaded[id] = e.loaded;
                 self._options.onProgress(id, name, e.loaded, e.total);
             }
         };
 
-        xhr.onreadystatechange = function(){            
-            if (xhr.readyState == 4){
-                self._onComplete(id, xhr);                    
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                self._onComplete(id, xhr);
             }
         };
 
@@ -3558,53 +3589,55 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
         var queryString = qq.obj2url(params, this._options.action);
 
         xhr.open("POST", queryString, true);
-        if (this._options.clientid !== null) {
-            xhr.setRequestHeader("client-id", this._options.clientid);
+        for (var header in this._options.headers) {
+            if (this._options.headers.hasOwnProperty(header)) {
+                xhr.setRequestHeader(header, this._options.headers[header]);
+            }
         }
         xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
         xhr.setRequestHeader("X-File-Name", encodeURIComponent(name));
         xhr.setRequestHeader("Content-Type", "application/octet-stream");
         xhr.send(file);
     },
-    _onComplete: function(id, xhr){
+    _onComplete: function (id, xhr) {
         // the request was aborted/cancelled
         if (!this._files[id]) return;
-        
+
         var name = this.getName(id);
         var size = this.getSize(id);
-        
+
         this._options.onProgress(id, name, size, size);
-                
-        if (xhr.status == 200){
+
+        if (xhr.status == 200) {
             this.log("xhr - server response received");
             this.log("responseText = " + xhr.responseText);
-                        
+
             var response;
-                    
+
             try {
                 response = eval("(" + xhr.responseText + ")");
-            } catch(err){
+            } catch (err) {
                 response = {};
             }
-            
+
             this._options.onComplete(id, name, response);
-                        
-        } else {                   
-            this._options.onComplete(id, name, {});
+
+        } else {
+            this._options.onComplete(id, name, { error: "Fail. HTTP status: " + xhr.status + " " + xhr.statusText });
         }
-                
+
         this._files[id] = null;
-        this._xhrs[id] = null;    
-        this._dequeue(id);                    
+        this._xhrs[id] = null;
+        this._dequeue(id);
     },
-    _cancel: function(id){
+    _cancel: function (id) {
         this._options.onCancel(id, this.getName(id));
-        
+
         this._files[id] = null;
-        
-        if (this._xhrs[id]){
+
+        if (this._xhrs[id]) {
             this._xhrs[id].abort();
-            this._xhrs[id] = null;                                   
+            this._xhrs[id] = null;
         }
     }
 });
@@ -3612,96 +3645,161 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
 /* UI texts */
 
 uiResources = $.extend(true, uiResources, {
-	'en': {
-	    "docTempTarget":        "Machine translation results for documents help to understand the meaning of a source text, but do not equal translation by a human.",
-	    "docDownload":          "Download full translation",
-	    "docCancel":            "Cancel",
-        "docUploadTooltip":     "Upload document here to get a full translation",
-        "docUploadMsgType":     "The file {file} format is not recognized. Translation is supported for these document formats: {extensions}.",
-	    "docUploadMsgSize":     "File {file} is too large. Maximum file size is {sizeLimit}.",
-	    "docUploadMsgEmpty":    "File {file} is empty. Please select a file with content.",
-	    "docUploadMsgWordcnt":  "The maximum word count for one translation ({wordCount}) has been exceeded.",
-	    "docUploadFilename":    "Document title:",
-	    "docUploadFilesize":    "Document size:",
-	    "docUploadWordcount":   "Word count:",
-	    "docUploadFailed":      "File upload was not successful.",
-	    "docTranslFailed":      "Document translation failed. Please try again.",
-	    "docUploadNewDoc":      "Delete",
-	    "docStarting":          "Document translation is starting...",
-	    "docPreviewError":      "Could not generate a preview of the document.",
-	    "docAppleLimited":      "File upload on iOS devices is limited.",
-	    "docTranslInProgress":  "Document translation is in progress. If you leave the page, the translation will be lost.",
-	},
-	'lv': {
-	    "docTempTarget":        "Dokumentu mašīntulkošanas rezultāti ļauj saprast teksta nozīmi, bet nevar aizstāt cilvēka radītu tulkojumu.",
-	    "docDownload":          "Atvērt",
-	    "docCancel":            "Atcelt",
-	    "docUploadTooltip":     "Augšupielādēt dokumentu",
-	    "docUploadMsgType":     "Faila {file} formāts nav atpazīts. Tulkošana tiek atbalstīta šādiem dokumentu formātiem: {extensions}.",
-	    "docUploadMsgSize":     "Fails {file} ir pārāk liels. Maksimālais lielums ir {sizeLimit}.",
-	    "docUploadMsgEmpty":    "Fails {file} ir tukšs. Izvēlieties failu, kurā ir saturs.",
-	    "docUploadMsgWordcnt":  "Ir pārsniegts vienam tulkojumam pieejamais vārdu skaits ({wordCount}), tādēļ dokuments tiks iztulkots daļēji. Pilnam tulkojumam, lūdzu, sadaliet tekstu vairākos dokumentos.",
-	    "docUploadFilename":    "Dokumenta nosaukums:",
-	    "docUploadFilesize":    "Dokumenta lielums:",
-	    "docUploadWordcount":   "Vārdu skaits:",
-	    "docUploadFailed":      "Neizdevās ielādēt failu.",
-	    "docUploadNewDoc":      "Izdzēst",
-	    "docStarting":          "Tiek sākta dokumenta tulkošana...",
-	    "docPreviewError":      "Neizdevās izveidot dokumenta priekšskatījumu.",
-	    "docAppleLimited":      "iOS iekārtās failu augšupielāde ir ierobežota.",
-	    "docTranslInProgress":  "Patreiz notiek dokumenta tulkošana. Pametot lapu, tulkojums tiks pazaudēts.",
-	},
-	'ru': {
-	    "docTempTarget":        "Результаты машинного перевода документов позволяют понять значение текста, но не позволяют заменить сделанный человеком перевод.",
-	    "docDownload":          "Открыть",
-	    "docCancel":            "Отменить",
-	    "docUploadTooltip":     "Загрузить документ",
-	    "docUploadMsgType":     "Формат файла {file} не опознан. Перевод поддерживается для следующих форматов документов: {extensions}.",
-	    "docUploadMsgSize":     "Файл {file} слишком большой. Максимальный размер: {sizeLimit}.",
-	    "docUploadMsgEmpty":    "Файл {file} пустой. Выберите файл с содержимым.",
-	    "docUploadMsgWordcnt":  "Превышено количество слов, доступное для одного файла ({wordCount}).",
-	    "docUploadFilename":    "Название документа:",
-	    "docUploadFilesize":    "Размер документа:",
-	    "docUploadWordcount":   "Количество слов:",
-	    "docUploadFailed":      "Файл не удалось загрузить.",
-	    "docUploadNewDoc":      "Удалить",
-	    "docStarting":          "Начат перевод документа...",
-	    "docPreviewError":      "Не удалось создать предварительный просмотр документа.",
-	    "docAppleLimited":      "Загрузка файла на устройствах IOS ограничено.",
-	    "docTranslInProgress":  "Перевод документов в процессе. Если вы уйдете со страницы, перевод будет потерян.",
-	}
+    'en': {
+        "docTempTarget": "Machine translation results for documents help to understand the meaning of a source text, but do not equal translation by a human.",
+        "docDownload": "Download",
+        "docCancel": "Cancel",
+        "docUploadTooltip": "Upload document",
+        "docUploadMsgType": "The file \"{file}\" format is not recognized. Translation is supported for these document formats: {extensions}.",
+        "docUploadMsgSize": "File \"{file}\" is too large. Maximum file size is {sizeLimit}.",
+        "docUploadMsgEmpty": "File \"{file}\" is empty. Please select a file with content.",
+        "docUploadMsgWordcnt": "The maximum word count for one translation ({wordCount}) has been exceeded.",
+        "docUploadFilename": "Document title:",
+        "docUploadFilesize": "Document size:",
+        "docUploadWordcount": "Word count:",
+        "docUploadFailed": "File upload was not successful.",
+        "docTranslFailed": "Document translation failed. Please try again.",
+        "docUploadNewDoc": "Delete",
+        "docStarting": "Document translation is starting...",
+        "docPreviewError": "Could not generate a preview of the document.",
+        "docAppleLimited": "File upload on iOS devices is limited.",
+        "docTranslInProgress": "Document translation is in progress. If you leave the page, the translation will be lost."
+    },
+    'lv': {
+        "docTempTarget": "Dokumentu mašīntulkošanas rezultāti ļauj saprast teksta nozīmi, bet nevar aizstāt cilvēka radītu tulkojumu.",
+        "docDownload": "Atvērt",
+        "docCancel": "Atcelt",
+        "docUploadTooltip": "Augšupielādēt dokumentu",
+        "docUploadMsgType": "Faila \"{file}\" formāts nav atpazīts. Tulkošana tiek atbalstīta šādiem dokumentu formātiem: {extensions}.",
+        "docUploadMsgSize": "Fails \"{file}\" ir pārāk liels. Maksimālais lielums ir {sizeLimit}.",
+        "docUploadMsgEmpty": "Fails \"{file}\" ir tukšs. Izvēlieties failu, kurā ir saturs.",
+        "docUploadMsgWordcnt": "Ir pārsniegts vienam tulkojumam pieejamais vārdu skaits ({wordCount}), tādēļ dokuments tiks iztulkots daļēji. Pilnam tulkojumam, lūdzu, sadaliet tekstu vairākos dokumentos.",
+        "docUploadFilename": "Dokumenta nosaukums:",
+        "docUploadFilesize": "Dokumenta lielums:",
+        "docUploadWordcount": "Vārdu skaits:",
+        "docUploadFailed": "Neizdevās ielādēt failu.",
+        "docUploadNewDoc": "Izdzēst",
+        "docStarting": "Tiek sākta dokumenta tulkošana...",
+        "docPreviewError": "Neizdevās izveidot dokumenta priekšskatījumu.",
+        "docAppleLimited": "iOS iekārtās failu augšupielāde ir ierobežota.",
+        "docTranslInProgress": "Patreiz notiek dokumenta tulkošana. Pametot lapu, tulkojums tiks pazaudēts."
+    },
+    'ru': {
+        "docTempTarget": "Результаты машинного перевода документов позволяют понять значение текста, но не позволяют заменить сделанный человеком перевод.",
+        "docDownload": "Открыть",
+        "docCancel": "Отменить",
+        "docUploadTooltip": "Загрузить документ",
+        "docUploadMsgType": "Формат файла \"{file}\" не опознан. Перевод поддерживается для следующих форматов документов: {extensions}.",
+        "docUploadMsgSize": "Файл \"{file}\" слишком большой. Максимальный размер: {sizeLimit}.",
+        "docUploadMsgEmpty": "Файл \"{file}\" пустой. Выберите файл с содержимым.",
+        "docUploadMsgWordcnt": "Превышено количество слов, доступное для одного файла ({wordCount}).",
+        "docUploadFilename": "Название документа:",
+        "docUploadFilesize": "Размер документа:",
+        "docUploadWordcount": "Количество слов:",
+        "docUploadFailed": "Файл не удалось загрузить.",
+        "docUploadNewDoc": "Удалить",
+        "docStarting": "Начат перевод документа...",
+        "docPreviewError": "Не удалось создать предварительный просмотр документа.",
+        "docAppleLimited": "Загрузка файла на устройствах IOS ограничено.",
+        "docTranslInProgress": "Перевод документов в процессе. Если вы уйдете со страницы, перевод будет потерян."
+    },
+    'lt': {
+        "docTempTarget": "Dokumentų mašininio vertimo rezultatai padeda suprasti originalo teksto prasmę, tačiau jo kokybės negalima lyginti su žmonių atliekamu vertimu.",
+        "docDownload": "Atidaryti",
+        "docCancel": "Atšaukti",
+        "docUploadTooltip": "Įkelti dokumentą",
+        "docUploadMsgType": "Failo „{file}“ formatas neatpažintas. Atliekamas tik šių dokumentų formatų vertimas: {extensions}.",
+        "docUploadMsgSize": "Failas „{file}“ yra per didelis. Maksimalus leistinas failo dydis: {sizeLimit}.",
+        "docUploadMsgEmpty": "Failas „{file}“ yra tuščias. Pasirinkite failą su turiniu.",
+        "docUploadMsgWordcnt": "Viršytas maksimalus vieno vertimo žodžių skaičius ({wordCount}).",
+        "docUploadFilename": "Document title:",
+        "docUploadFilesize": "Document size:",
+        "docUploadWordcount": "Word count:",
+        "docUploadFailed": "Failo įkelti nepavyko.",
+        "docTranslFailed": "Document translation failed. Please try again.",
+        "docUploadNewDoc": "Ištrinti",
+        "docStarting": "Pradedamas dokumento vertimas...",
+        "docPreviewError": "Dokumento peržiūros sugeneruoti nepavyko.",
+        "docAppleLimited": "Failų įkėlimas iOS įrenginiuose yra apribotas.",
+        "docTranslInProgress": "Dokumentas verčiamas. Jei uždarysite šį puslapį, vertimas bus prarastas."
+    },
+    'fr': {
+        "docTempTarget": "Les résultats de la traduction automatique de documents aident à comprendre le sens d'un texte source, mais ils ne sont pas équivalents à une traduction humaine.",
+        "docDownload": "Ouvrir",
+        "docCancel": "Annuler",
+        "docUploadTooltip": "Charger le document",
+        "docUploadMsgType": "Le format du fichier \"{file}\" n'est pas reconnu. La traduction est prise en charge pour les formats de document suivants : {extensions}.",
+        "docUploadMsgSize": "Le fichier \"{file}\" est trop grand. La taille maximum du fichier est de {sizeLimit}.",
+        "docUploadMsgEmpty": "Le fichier \"{file}\" est vide. Veuillez sélectionner un fichier avec contenu.",
+        "docUploadMsgWordcnt": "Le nombre maximum de mots pour une traduction ({wordCount}) a été dépassé.",
+        "docUploadFilename": "Document title:",
+        "docUploadFilesize": "Document size:",
+        "docUploadWordcount": "Word count:",
+        "docUploadFailed": "Failo įkelti nepavyko.",
+        "docTranslFailed": "Échec du chargement du fichier.",
+        "docUploadNewDoc": "Supprimer",
+        "docStarting": "La traduction du document démarre…",
+        "docPreviewError": "Impossible de générer un aperçu du document.",
+        "docAppleLimited": "Le chargement de fichiers sur les appareils iOS est limité.",
+        "docTranslInProgress": "La traduction du document est en cours. Si vous quittez la page, la traduction sera perdue."
+    }
+});
+///#source 1 1 ../../widget_plugins/translatefile/translatefile.resources.long.descriptions.js
+uiResources = $.extend(true, uiResources, {
+    'en': {
+        "docDownload": "Download full translation",
+        "docUploadTooltip": "Upload document here to get a full translation",
+    },
 });
 ///#source 1 1 ../../widget_plugins/translatefile/translatefile.errors.js
 /* UI texts */
 
 uiResources = $.extend(true, uiResources, {
-	'en': {
-	    "E_DEFAULT_ERROR":          "Error occurred while translating.",
-	    "E_UNKNOWN_FILE_TYPE":      "Unknown file type.",
-	    "E_CANNOT_READ_FILE":       "Cannot read file, file may be corrupted.",
-	    "E_FAILED_IN_TRANSLATION":  "Error occurred while translating.",
-	    "E_FORMAT_TRACK_CHANGES":   "Could not translate because track changes was turned on. Changes must first be accepted.",
-	    "E_UNKNOWN_ERROR":          "An unknown error occurred.",
-	    "E_UNAUTHORIZED":           "Document translation was denied."
-	},
-	'lv': {
-	    "E_DEFAULT_ERROR":          "Tulkojot radās kļūda.",
-	    "E_UNKNOWN_FILE_TYPE":      "Nezināms faila tips.",
-	    "E_CANNOT_READ_FILE":       "Neizdevās nolasīt faila saturu, iespējams, fails ir bojāts.",
-	    "E_FAILED_IN_TRANSLATION":  "Tulkojot radās kļūda.",
-	    "E_FORMAT_TRACK_CHANGES":   "Nevarēja iztulkot dokumentā, jo bija ieslēgta izmaiņu reģistrēšana. Vispirms apstipriniet izmaiņas.",
-	    "E_UNKNOWN_ERROR":          "Radās nezināma kļūda.",
-	    "E_UNAUTHORIZED":           "Dokumenta tulkošana tika liegta."
-	},
-	'ru': {
-	    "E_DEFAULT_ERROR":          "Во время перевода возникла ошибка.",
-	    "E_UNKNOWN_FILE_TYPE":      "Неизвестный тип файла.",
-	    "E_CANNOT_READ_FILE":       "Не удалось считать содержание файла, возможно, файл поврежден.",
-	    "E_FAILED_IN_TRANSLATION":  "Во время перевода возникла ошибка.",
-	    "E_FORMAT_TRACK_CHANGES":   "Не удалось перевести, поскольку был включен режим отслеживания исправлений. Сначала примите исправления.",
-	    "E_UNKNOWN_ERROR":          "Возникла неизвестная ошибка.",
-	    "E_UNAUTHORIZED":           "Перевод документа запрещен."
-	}
+    'en': {
+        "E_DEFAULT_ERROR": "Error occurred while translating.",
+        "E_UNKNOWN_FILE_TYPE": "Unknown file type.",
+        "E_CANNOT_READ_FILE": "Cannot read file, file may be corrupted.",
+        "E_FAILED_IN_TRANSLATION": "Error occurred while translating.",
+        "E_FORMAT_TRACK_CHANGES": "Could not translate because track changes was turned on. Changes must first be accepted.",
+        "E_UNKNOWN_ERROR": "An unknown error occurred.",
+        "E_UNAUTHORIZED": "Document translation was denied."
+    },
+    'lv': {
+        "E_DEFAULT_ERROR": "Tulkojot radās kļūda.",
+        "E_UNKNOWN_FILE_TYPE": "Nezināms faila tips.",
+        "E_CANNOT_READ_FILE": "Neizdevās nolasīt faila saturu, iespējams, fails ir bojāts.",
+        "E_FAILED_IN_TRANSLATION": "Tulkojot radās kļūda.",
+        "E_FORMAT_TRACK_CHANGES": "Nevarēja iztulkot dokumentu, jo bija ieslēgta izmaiņu reģistrēšana. Vispirms apstipriniet izmaiņas.",
+        "E_UNKNOWN_ERROR": "Radās nezināma kļūda.",
+        "E_UNAUTHORIZED": "Dokumenta tulkošana tika liegta."
+    },
+    'ru': {
+        "E_DEFAULT_ERROR": "Во время перевода возникла ошибка.",
+        "E_UNKNOWN_FILE_TYPE": "Неизвестный тип файла.",
+        "E_CANNOT_READ_FILE": "Не удалось считать содержание файла, возможно, файл поврежден.",
+        "E_FAILED_IN_TRANSLATION": "Во время перевода возникла ошибка.",
+        "E_FORMAT_TRACK_CHANGES": "Не удалось перевести, поскольку был включен режим отслеживания исправлений. Сначала примите исправления.",
+        "E_UNKNOWN_ERROR": "Возникла неизвестная ошибка.",
+        "E_UNAUTHORIZED": "Перевод документа запрещен."
+    },
+    'lt': {
+        'E_DEFAULT_ERROR': 'Verčiant įvyko klaida.',
+        'E_UNKNOWN_FILE_TYPE': 'Nežinomas failo tipas.',
+        'E_CANNOT_READ_FILE': 'Failo nuskaityti nepavyko. Jis gali būti sugadintas.',
+        'E_FAILED_IN_TRANSLATION': 'Verčiant įvyko klaida.',
+        'E_FORMAT_TRACK_CHANGES': 'Išversti nepavyko, nes įjungtas keitimų sekimas (angl. track changes). Pirmiausia sutikite su visais keitimais.',
+        'E_UNKNOWN_ERROR': 'Aptikta nenustatyta klaida.',
+        'E_UNAUTHORIZED': 'Dokumento vertimas atmestas.'
+    },
+    'fr': {
+        'E_DEFAULT_ERROR': 'Une erreur est survenue pendant la traduction.',
+        'E_UNKNOWN_FILE_TYPE': 'Type de fichier inconnu.',
+        'E_CANNOT_READ_FILE': 'Impossible de lire le fichier, le fichier est peut-être endommagé.',
+        'E_FAILED_IN_TRANSLATION': 'Une erreur est survenue pendant la traduction.',
+        'E_FORMAT_TRACK_CHANGES': 'Impossible de traduire car le suivi des corrections est activé. Les corrections doivent d\'abord être acceptées.',
+        'E_UNKNOWN_ERROR': 'Une erreur inconnue s\'est produite.',
+        'E_UNAUTHORIZED': 'La traduction du document a été refusée.'
+    }
 });
 ///#source 1 1 ../../widget_plugins/translatefile/tilde.translator.widget.translatefile.js
 /* tilde.translator.widget.TRANSLATEFILE.js */
@@ -3725,7 +3823,8 @@ $.extend(Tilde.TranslatorWidgetDefaultOptions, {
     _onDocTranslationCancel: null, //callback function on document cancel translation 
     _onDocTranslationStop: null, //callback function on document translation stop
     _onDocTranslationFinished: null, //callback function on document finished translation 
-    _onDocTranslationError: null //callback function on document error translation 
+    _onDocTranslationError: null, //callback function on document error translation
+    _warnWhenRunningAway: false //warn when navigating to different page while translation is in progess
 });
 
 $.extend(Tilde.TranslatorWidget.prototype, {
@@ -3736,6 +3835,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             return;
 
         $widget.filePluginEvents();
+        $widget.filePluginSetTempTextResult();
 
         if (navigator.userAgent.indexOf("iPhone OS") > -1) {
             $(".docAppleLimited").removeClass('hide');
@@ -3767,9 +3867,9 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             allowedExtensions: extArray,
             allowedMimetypes: mimeArray,
             action: $widget.settings._uploadUrl,
-            clientid: $widget.settings._clientId,
+            headers: $widget.getAuthHeaders(),
             debug: false,
-            sizeLimit: this.settings._upload_size_limit,
+            sizeLimit: $widget.settings._uploadSizeLimit,
             template: '<div class="qq-uploader">' +
                       ' <div class="qq-upload-drop-area"></div>' +
                       '	<div href="#" class="qq-upload-button">' +
@@ -3816,7 +3916,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                     $('.transFileMeta').html($('.qq-upload-success').html());
                     $('.docUploadNewDoc').removeClass('hide');
                     $('.translateButton').removeClass('hide');
-                    $widget.enableTranslation();
+                    $widget.enableSystemChange();
 
                     var filename = responseJSON.filename;
                     var wordcount = responseJSON.wordcount;
@@ -3855,8 +3955,12 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
                     // max word count check
                     if ($widget.settings._docMaxWordCount !== 0 && $widget.settings._docMaxWordCount < parseInt(wordcount)) {
+                        var message = uiResources[$widget.settings._language]['docUploadMsgWordcnt'].replace('{wordCount}', wordcount);
                         $('.qq-upload-wordcount').addClass('warning');
-                        $('.infoMessageBox').html(uiResources[$widget.settings._language]['docUploadMsgWordcnt'].replace('{wordCount}', wordcount)).removeClass('hide');
+                        $('.infoMessageBox').html(message).removeClass('hide');
+                        if ($widget.settings._onDocTranslationError && typeof ($widget.settings._onDocTranslationError) === "function") {
+                            $widget.settings._onDocTranslationError('FT_ERR_WORDCOUNT', message);
+                        }
                     }
                     else {
                         $('.qq-upload-wordcount').removeClass('warning');
@@ -3864,8 +3968,12 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                     }
                 }
                 else if (responseJSON.error || jQuery.isEmptyObject(responseJSON)) {
+                    var message = uiResources[$widget.settings._language]['docUploadFailed'];
                     $('.translateProgress').addClass('hide');
-                    $('.infoMessageBox').html(uiResources[$widget.settings._language]['docUploadFailed']).show();
+                    $('.infoMessageBox').html(message).show();
+                    if ($widget.settings._onDocTranslationError && typeof ($widget.settings._onDocTranslationError) === "function") {
+                        $widget.settings._onDocTranslationError('FT_ERR_UPLOAD', message);
+                    }
                 }
 
             },
@@ -3874,10 +3982,20 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 $('.infoMessageBox').html(message).removeClass('hide');
             }
         });
+
+        $widget.onSystemChangedHandlers.push(
+            function (systemId) {
+                if ($('.buttonDownDoc').length === 1 && !$('.buttonDownDoc').hasClass('hide')) {
+                    $widget.filePluginUploadNew();
+                }
+
+                $widget.filePluginSetTempTextResult();
+            }
+        );
     },
 
     filePluginTranslate: function () {
-        $widget.disableTranslation();
+        $widget.disableSystemChange();
         $('.translateButton, .docUploadNewDoc').addClass('hide');
 
         $('.buttonCancelDoc').removeClass('hide');
@@ -3888,7 +4006,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         $('.translateResult').addClass("bigIcon");
 
         if ($widget.settings._onDocTranslationStart && typeof ($widget.settings._onDocTranslationStart) === "function") {
-            $widget._onDocTranslationStart();
+            $widget.settings._onDocTranslationStart();
         }
 
         $("#hidStopTranslation").val('false');
@@ -3901,27 +4019,28 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             '</div>'
         );
 
-        var authHeaders = {};
-
-        if ($widget.settings._clientId !== null) {
-            authHeaders = {
-                'client-id': $widget.settings._clientId
-            }
-        }
-
         $.ajax({
             type: 'POST',
             dataType: 'json',
             url: $widget.settings._translateUrl,
-            headers: authHeaders,
+            headers: $widget.getAuthHeaders(),
             data: {
                 systemid: $widget.activeSystemId,
+                appid: $widget.settings._appId,
                 filename: $('.transFileMeta .qq-upload-file').text(),
                 tmpname: $('#hidTranslRealFilename').val(),
-                translimit: $widget.settings._docMaxWordCount
+                translimit: $widget.settings._docMaxWordCount,
+                termcorpusid: $widget.termCorpusId ? $widget.termCorpusId : null
             },
             success: function (response) {
                 if (response.success) {
+                    if ($widget.settings._warnWhenRunningAway) {
+                        // IE10 somehow manages to rise unload event when starting
+                        // this ajax request, so, must wait until it gets response before listening to "unload"
+                        $(window).bind('beforeunload.warn', function () {
+                            return uiResources[$widget.settings._language]["docTranslInProgress"];
+                        });
+                    }
                     if ($('#hidUploadTempId').length == 0) {
                         $('.docTranslateContent').after($('<input>', {
                             type: 'hidden',
@@ -3940,11 +4059,11 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
                     //error
                     if ($widget.settings._onDocTranslationError && typeof ($widget.settings._onDocTranslationError) === "function") {
-                        $widget._onDocTranslationError('', uiResources[$widget.settings._language]['E_FAILED_IN_TRANSLATION']);
+                        $widget.settings._onDocTranslationError('', uiResources[$widget.settings._language]['E_FAILED_IN_TRANSLATION']);
                     }
 
                     if ($widget.settings._onDocTranslationStop && typeof ($widget.settings._onDocTranslationStop) === "function") {
-                        $widget._onDocTranslationStop();
+                        $widget.settings._onDocTranslationStop();
                     }
 
                     $('.infoMessageBox').html(uiResources[$widget.settings._language]['E_FAILED_IN_TRANSLATION']).removeClass('hide');
@@ -3952,7 +4071,9 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                     $('.docUploadNewDoc').removeClass('hide');
                     $('.translateContainerRight').removeClass('docProgress');
                     $('#translProgress').html('');
-                    console.log(response);
+                    if (typeof (console) !== "undefined") {
+                        console.log(response);
+                    }
                 }
             },
             error: function (response, status, error) {
@@ -3965,11 +4086,11 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 }
 
                 if ($widget.settings._onDocTranslationError && typeof ($widget.settings._onDocTranslationError) === "function") {
-                    $widget._onDocTranslationError('', errorMsg);
+                    $widget.settings._onDocTranslationError('', errorMsg);
                 }
 
                 if ($widget.settings._onDocTranslationStop && typeof ($widget.settings._onDocTranslationStop) === "function") {
-                    $widget._onDocTranslationStop();
+                    $widget.settings._onDocTranslationStop();
                 }
 
                 $('.infoMessageBox').html(errorMsg).removeClass('hide');
@@ -3978,7 +4099,9 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 $('.translateContainerRight').removeClass('docProgress');
                 $('#translProgress').html('');
 
-                console.error(error);
+                if (typeof (console) !== "undefined") {
+                    console.error(error);
+                }
             },
             complete: function () {
                 $('#translProgress').removeClass('starting');
@@ -3997,9 +4120,12 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         });
 
         $('.buttonCancelDoc', $widget.settings.container).on('click', function () {
+            if ($widget.settings._warnWhenRunningAway) {
+                $(window).unbind('beforeunload.warn');
+            }
             $widget.filePluginDeleteFile();
         });
-        
+
         $('.translateButton', $widget.settings.container).on('click', function () {
             $widget.filePluginTranslate();
         });
@@ -4010,7 +4136,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         if (typeof (uploadId) == 'undefined') { uploadId = ''; }
 
         if ($widget.settings._onDocTranslationCancel && typeof ($widget.settings._onDocTranslationCancel) === "function") {
-            $widget._onDocTranslationCancel(uploadId);
+            $widget.settings._onDocTranslationCancel(uploadId);
         }
 
         $('.docUploadNewDoc').addClass('hide');
@@ -4031,7 +4157,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
         $widget.filePluginSetTempTextResult();
 
-        $widget.disableTranslation();
+        $widget.enableSystemChange();
         $('.translateButton').addClass('hide');
 
         // landing intro box
@@ -4046,7 +4172,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
     },
 
     filePluginDeleteFile: function () {
-        
+
         var uploadId = $('#hidUploadTempId').val();
         if (typeof (uploadId) == 'undefined') { uploadId = ''; }
 
@@ -4063,38 +4189,30 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
         this.filePluginSetTempTextResult();
 
-        var authHeaders = {};
-
-        if ($widget.settings._clientId !== null) {
-            authHeaders = {
-                'client-id': $widget.settings._clientId
-            }
-        }
-
         if (uploadId.length > 0) {
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
                 url: $widget.settings._deleteUrl,
-                headers: authHeaders,
+                headers: $widget.getAuthHeaders(),
                 data: {
                     docid: uploadId
                 },
                 success: function (response) {
                     if (!response.success) {
-                        console.error('error while deleting: ' + response.error);
+                        if (typeof (console) !== "undefined") {
+                            console.error('error while deleting: ' + response.error);
+                        }
                     }
+                    $widget.enableSystemChange();
                 },
                 error: function (response) {
-                    console.error('error while deleting: ' + response.error);
+                    if (typeof (console) !== "undefined") {
+                        console.error('error while deleting: ' + response.error);
+                    }
+                    $widget.enableSystemChange();
                 }
             });
-        }
-    },
-
-    filePluginSystemChange: function () {
-        if ($('.buttonDownDoc').length === 1 && !$('.buttonDownDoc').hasClass('hide')) {
-            $widget.filePluginUploadNew();
         }
     },
 
@@ -4107,19 +4225,11 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             $('.translateContainerRight').addClass('docProgress');
         }
 
-        var authHeaders = {};
-
-        if ($widget.settings._clientId !== null) {
-            authHeaders = {
-                'client-id': $widget.settings._clientId
-            }
-        }
-
         $.ajax({
             type: 'POST',
             dataType: 'json',
             url: $widget.settings._checkStatusUrl,
-            headers: authHeaders,
+            headers: $widget.getAuthHeaders(),
             data: {
                 docId: docid
             },
@@ -4142,8 +4252,12 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                     $('.infoMessageBox').html(error_msg).removeClass('hide');
                     $('#translProgress').html('');
 
+                    if ($widget.settings._onDocTranslationError && typeof ($widget.settings._onDocTranslationError) === "function") {
+                        $widget.settings._onDocTranslationError('', error_msg);
+                    }
+
                     if ($widget.settings._onDocTranslationStop && typeof ($widget.settings._onDocTranslationStop) === "function") {
-                        $widget._onDocTranslationStop();
+                        $widget.settings._onDocTranslationStop();
                     }
                 }
 
@@ -4155,7 +4269,19 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                     }, 5 * 1000); //refresh interval -> 10 seconds
                 }
                 else if (response.status === 'completed') {
-                    var down = $widget.settings._downloadUrl + '?docid=' + encodeURIComponent(docid) + '&filename=' + encodeURIComponent(response.filename);
+                    var down = $widget.settings._downloadUrl + '?docid=' + encodeURIComponent(docid)
+                        + '&filename=' + encodeURIComponent(response.filename);
+
+                    var authHeders = $widget.getAuthHeaders();
+                    if (authHeders) {
+                        if (authHeders["client-id"]) {
+                            down += "&clientId=" + encodeURIComponent(authHeders["client-id"]);
+                        }
+                        if (authHeders["website-auth-cookie"]) {
+                            down += "&websiteAuthCookie=" + encodeURIComponent(authHeders["website-auth-cookie"]);
+                        }
+                    }
+
                     $('.buttonDownDoc').attr('href', down).attr('target', '_blank').removeClass('hide');
                     $('.buttonDelDoc').addClass('hide');
                     $('.buttonCancelDoc').addClass('hide');
@@ -4163,31 +4289,31 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                     $('#hidTranslTempFilename').remove();
                     $('.docUploadNewDoc').removeClass('hide');
 
+                    if ($widget.settings._warnWhenRunningAway) {
+                        $(window).unbind('beforeunload.warn');
+                    }
+
                     // translation finish callback
                     if ($widget.settings._onDocTranslationFinished && typeof ($widget.settings._onDocTranslationFinished) === "function") {
                         $widget.settings._onDocTranslationFinished(docid);
                     }
 
-                    if ($widget.settings._clientId !== null) {
-                        authHeaders = {
-                            'client-id': $widget.settings._clientId
-                        }
-                    }
+                    var downloadFileName = response.filename;
 
                     $.ajax({
                         type: 'POST',
                         dataType: 'json',
                         url: $widget.settings._previewUrl,
-                        headers: authHeaders,
+                        headers: $widget.getAuthHeaders(),
                         data: {
-                            filename: response.filename,
+                            filename: downloadFileName,
                             docid: docid
                         },
                         success: function (response) {
                             if (response.success) {
                                 $('.translateResult').html(response.preview);
                                 $('.translateResult').toggleClass("bigIcon", $('.translated-no-preview').length > 0);
-                                $('.translated-no-preview').html('<a href="' + down + '" target="_blank"><span>' + $('.uploadedDocumentName').text() + '</span></a>');
+                                $('.translated-no-preview').html('<a href="' + down + '" target="_blank"><span>' + downloadFileName + '</span></a>');
                             }
                             else {
                                 $('.infoMessageBox').html(uiResources[$widget.settings._language]['docPreviewError']).removeClass('hide');
@@ -4205,6 +4331,9 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 }
             },
             error: function () {
+                if ($widget.settings._warnWhenRunningAway) {
+                    $(window).unbind('beforeunload.warn');
+                }
                 $('.docUploadNewDoc').removeClass('hide');
                 $('.infoMessageBox').html(uiResources[$widget.settings._language]['docTranslFailed']).removeClass('hide');
             }
@@ -4232,8 +4361,21 @@ $.extend(Tilde.TranslatorWidget.prototype, {
     },
 
     filePluginSetTempTextResult: function () {
-        $('.docTempTarget', $widget.settings.container).removeClass('hide');
+        var txt = uiResources[$widget.settings._language]['docTempTarget'];
+
+        if ($widget.settings._systemSelectType === 'domain') {
+            var domain = $('.translateDomain option:selected', $widget.settings.container).text(),
+                descr = uiResources[$widget.settings._language]['DOMAIN_' + domain.toUpperCase()];
+
+            if (descr !== undefined) {
+                txt = descr + '<p>' + txt + '</p>';
+            }
+        }
+
+        $('.docTempTarget', $widget.settings.container).html(txt).removeClass('hide');
         $('.translateResult', $widget.settings.container).addClass('hide');
     }
 
 });
+
+Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.filePluginInit);

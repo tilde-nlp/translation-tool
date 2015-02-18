@@ -367,10 +367,14 @@ background-image:url("../img/landingWhite.png");
     color:#35a8df;
 }
 
+#landingPage .version{
+      font-weight:normal;
+      right:1%;    
+  }
 #landingPage .tilde{
       font-weight:normal;
       right:46%;
-       background-image:url("../img/tilde.png");
+      background-image:url("../img/tilde.png");
     background-repeat:no-repeat;
     background-position:left center;  
     padding-left:20px;

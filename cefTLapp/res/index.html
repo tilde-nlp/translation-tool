@@ -30,16 +30,12 @@
                     </div>
                     <a data-title="swapLanguage" class="swapLanguage hide"></a>
                     <a data-text="translateButton" class="translateButton hide"></a>
-                </div>
-                <div class="translateHeaderRight">
                     <div class="translateDomainContainer hide">
                         <div data-text="systemDomain" class="translateDomainLabel"></div>
                         <select class="translateDomain"></select>
                     </div>
-                    <div class="translateResultClear hide">
-                        <div data-text="clearTranslation" class="clearText"></div>
-                        <div class="clearLink"></div>
-                    </div>
+                </div>
+                <div class="translateHeaderRight">
                     <div class="translateProgress hide">
                         <div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>
                     </div>
@@ -54,6 +50,9 @@
                         <div class="backGroundSource borderBoxSizing"></div>
                         <textarea rows="10" cols="2" maxlength="10000" id="sourceText" class="translateTextSource borderBoxSizing" spellcheck="false"></textarea>
                         <div data-text="sourceTextTooltip" class="translateTextTempSourceContainer translateTextTemp borderBoxSizing"></div>
+                    </div>
+                    <div class="translateResultClear hide">
+                        <div class="clearLink"></div>
                     </div>
                 </div>
                 <div class="translateContainerRight borderBoxSizing">
@@ -74,6 +73,10 @@
                         <select class="translateTargetLang"></select>
                     </div>
                     <a data-title="swapLanguage" class="swapLanguage hide"></a>
+                    <div class="translateDomainContainer hide">
+                        <div data-text="systemDomain" class="translateDomainLabel"></div>
+                        <select class="translateDomain"></select>
+                    </div>
                     <a data-text="translateButton" class="translateButton hide"></a>
                     <div class="translateProgress left hide">
                         <div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>
@@ -82,13 +85,9 @@
                 <div class="translateHeaderRight">
                     <a data-text="docDownload" class="buttonDownDoc hide"></a>
                     <a data-text="docCancel" class="buttonCancelDoc hide"></a>
-                    <div class="translateDomainContainer hide">
-                        <div data-text="systemDomain" class="translateDomainLabel"></div>
-                        <select class="translateDomain"></select>
-                    </div>
+
                     <div class="docTranslateContent"><div class="transFileMeta hide"></div></div>
                     <div data-text="docAppleLimited" class="uploadNotSupported error hide"></div>
-                    <a data-title="docUploadNewDoc" class="docUploadNewDoc hide"></a>
                     <div class="uploadedDocumentName hide"></div>
                 </div>
             </div>
@@ -100,6 +99,7 @@
                     <a data-text="docUpload" class="docUploadNewDocument hide"></a>
                     <div id="docUploadFile" class="borderBoxSizing"></div>
                     <div id="docSourcePreview" class="hide"></div>
+                    <a data-title="docUploadNewDoc" class="docUploadNewDoc hide"></a>
                 </div>
                 <div class="translateContainerRight borderBoxSizing">
                     <div data-text="docTempTarget" class="docTempTarget"></div>

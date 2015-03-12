@@ -621,6 +621,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\Users\andis.lagzdins\Downloads\d41d8cd98f00b204e9800998ecf8427e.ico" />
+    <Image Include="cefTLapp\cefTLapp.ico" />
     <Image Include="cefTLapp\res\cefTLapp.ico" />
     <Image Include="cefTLapp\res\img\arrow.png" />
     <Image Include="cefTLapp\res\img\arrowWhite.png" />
@@ -641,6 +642,7 @@
     <Image Include="cefTLapp\res_tr2015\img\mobile.png" />
     <Image Include="cefTLapp\res_tr2015\img\tilde.png" />
     <Image Include="cefTLapp\res_tr2015\small.ico" />
+    <Image Include="cefTLapp\small.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="libcef_dll_wrapper.vcxproj">

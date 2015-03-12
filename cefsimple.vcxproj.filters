@@ -413,12 +413,9 @@
     <Image Include="cefTLapp\res\img\arrowWhite.png" />
     <Image Include="cefTLapp\res\img\arrowWhiteDown.png" />
     <Image Include="cefTLapp\res\img\hugo.png" />
-    <Image Include="cefTLapp\res\img\landing.png" />
     <Image Include="cefTLapp\res\img\landingWhite.png" />
     <Image Include="cefTLapp\res\img\mobile.png" />
     <Image Include="cefTLapp\res\img\tilde.png" />
-    <Image Include="cefTLapp\res\cefTLapp.ico" />
-    <Image Include="cefTLapp\res\small.ico" />
     <Image Include="cefTLapp\res_tr2015\img\arrow.png">
       <Filter>cefTLapp\res\img</Filter>
     </Image>
@@ -449,6 +446,11 @@
     <Image Include="cefTLapp\res_tr2015\small.ico">
       <Filter>cefTLapp\res</Filter>
     </Image>
+    <Image Include="cefTLapp\small.ico" />
+    <Image Include="cefTLapp\cefTLapp.ico" />
+    <Image Include="cefTLapp\res\small.ico" />
+    <Image Include="cefTLapp\res\cefTLapp.ico" />
+    <Image Include="cefTLapp\res\img\landing.png" />
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="cefTLapp\compatibility.manifest">
@@ -462,7 +464,6 @@
     <None Include="cefTLapp\res\css\index.css" />
     <None Include="cefTLapp\res\img\doc_letsmt.svg" />
     <None Include="cefTLapp\res\img\doc_letsmt-active.svg" />
-    <None Include="cefTLapp\res\img\logo_large.svg" />
     <None Include="cefTLapp\res\img\text_letsmt.svg" />
     <None Include="cefTLapp\res\img\text_letsmt-active.svg" />
     <None Include="cefTLapp\res\img\web_letsmt.svg" />
@@ -551,6 +552,7 @@
     <None Include="cefTLapp\res_tr2015\index.html">
       <Filter>cefTLapp\res</Filter>
     </None>
+    <None Include="cefTLapp\res\img\logo_large.svg" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="cefclient.gyp" />

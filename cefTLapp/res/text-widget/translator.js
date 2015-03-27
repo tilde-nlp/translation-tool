@@ -5,6 +5,7 @@ var uiResources = {
     'en': {
         "sourceSystem": "From",
         "targetSystem": "to",
+        "systemSelect": "System",
         "swapLanguage": "Reverse",
         "translateButton": "Translate",
         "systemDomain": "Domain",
@@ -13,6 +14,7 @@ var uiResources = {
     'fr': {
         "sourceSystem": "From",
         "targetSystem": "To",
+        "systemSelect": "System",
         "swapLanguage": "Reverse",
         "translateButton": "Traduire",
         "systemDomain": "Domain",
@@ -21,6 +23,7 @@ var uiResources = {
     'lt': {
         "sourceSystem": "Iš",
         "targetSystem": "Į",
+        "systemSelect": "System",
         "swapLanguage": "Reverse",
         "translateButton": "Versti",
         "systemDomain": "Domain",
@@ -29,6 +32,7 @@ var uiResources = {
     'lv': {
         "sourceSystem": "Tulkošanas virziens",
         "targetSystem": "Uz",
+        "systemSelect": "System",
         "swapLanguage": "Apgriezt",
         "translateButton": "Tulkot",
         "systemDomain": "Domēns",
@@ -37,6 +41,7 @@ var uiResources = {
     'ru': {
         "sourceSystem": "Направление перевода",
         "targetSystem": "На",
+        "systemSelect": "System",
         "swapLanguage": "Перевернуть",
         "translateButton": "Перевести",
         "systemDomain": "Тематическая область",
@@ -55,6 +60,7 @@ Tilde.TranslatorWidgetDefaultOptions = {
     _appId: 'unknown', //appid of widget - used to get systems and translations
     _clientId: 'u-bfcaf986-8147-4901-a131-f0d618a7354b',
     _systems: null, //configurable system list in JSON format. If contains values system list is not loaded from server but from given data
+    _allowedSystemStatuses: 'running', //filter system list with specified statuses
     _templateId: null,
     _replaceContainer: false, //if true then instead of putting widget inside of container div, it will be put instead of container div
     _translations: {}, //used to owerride default labels and translations
@@ -172,11 +178,11 @@ Tilde.TranslatorWidget.prototype = {
             headers: $widget.getAuthHeaders(),
             data: params,
             success: function (data) {
-                // take only running
+                // filter by allowed statuses
                 $widget.settings._systems = [];
                 $.each(data.System, function (idx, sys) {
                     var status = $widget.getSystemMetaValue(sys.Metadata, 'status');
-                    if (status === 'running') {
+                    if ($widget.settings._allowedSystemStatuses.indexOf(status) !== -1) {
                         $widget.settings._systems.push(sys);
                     }
                 });
@@ -220,6 +226,28 @@ Tilde.TranslatorWidget.prototype = {
         return value;
     },
 
+    setSystemMetaValue: function (systemId, key, value) {
+        var system = null;
+        $.each($widget.settings._systems, function (idx, sys) {
+            if (sys.ID === systemId) {
+                system = sys;
+            }
+        });
+
+        if (system === null || system.Metadata === undefined) {
+            return false;
+        }
+
+        $.each(system.Metadata, function (idx, item) {
+            if (item.Key === key) {
+                item.Value = value;
+                return true; //breaks the loop
+            }
+        });
+
+        return false;
+    },
+
     systemLoadComplete: function () {
 
         $widget.initWidgetTemplate();
@@ -246,11 +274,16 @@ Tilde.TranslatorWidget.prototype = {
                 }
             });
 
-            $widget.fancySystem = $('.translateSystem', this.settings.container);
+            $widget.fancySystem = $('.translateSystem', $widget.settings.container);
 
             $.each($widget.settings._systems, function (idx, sys) {
                 $widget.fancySystem.append($("<option/>", { value: sys.ID, text: sys.Title.Text }));
             });
+
+            // default system
+            if ($widget.settings._defaultSystem !== null) {
+                $('.translateSystem', $widget.settings.container).val($widget.settings._defaultSystem);
+            }
 
             $widget.fancySystem.fancySelect({
                 useNativeSelect: !$widget.settings._useFancySelect,
@@ -450,6 +483,7 @@ Tilde.TranslatorWidget.prototype = {
 
         $.each(uiResources[$widget.settings._language], function (id, txt) {
             $('[data-text="' + id + '"]', $widget.settings.container).text(txt);
+            $('[data-html="' + id + '"]', $widget.settings.container).html(txt);
             $('[data-title="' + id + '"]', $widget.settings.container).attr('title', txt);
         });
     },
@@ -473,6 +507,17 @@ Tilde.TranslatorWidget.prototype = {
         if ($widget.fancySource !== null) {
             $widget.fancySource.trigger('change.fs');
         }
+    },
+
+    getActiveSystemObj: function () {
+        var system = null;
+        $.each($widget.settings._systems, function (idx, sys) {
+            if (sys.ID === $widget.activeSystemId) {
+                system = sys;
+                return false;
+            }
+        });
+        return system;
     },
 
     checkReverseSystem: function () {
@@ -518,21 +563,21 @@ Tilde.TranslatorWidget.prototype = {
     disableSystemChange: function () {
         $('.swapLanguage').attr('data-disabled', true);
 
-        if ($widget.fancySource) $widget.fancySource.trigger('disable').trigger('update.fs');
-        if ($widget.fancyTarget) $widget.fancyTarget.trigger('disable').trigger('update.fs');
-        if ($widget.fancyDomain) $widget.fancyDomain.trigger('disable').trigger('update.fs');
-        if ($widget.fancySystem) $widget.fancySystem.trigger('disable').trigger('update.fs');
-        if ($widget.terminology) $widget.terminology.trigger('disable').trigger('update.fs');
+        if ($widget.fancySource) $widget.fancySource.trigger('disable');
+        if ($widget.fancyTarget) $widget.fancyTarget.trigger('disable');
+        if ($widget.fancyDomain) $widget.fancyDomain.trigger('disable');
+        if ($widget.fancySystem) $widget.fancySystem.trigger('disable');
+        if ($widget.terminology) $widget.terminology.trigger('disable');
     },
 
     enableSystemChange: function () {
         $('.swapLanguage').attr('data-disabled', false);
 
-        if ($widget.fancySource) $widget.fancySource.trigger('enable').trigger('update.fs');
-        if ($widget.fancyTarget) $widget.fancyTarget.trigger('enable').trigger('update.fs');
-        if ($widget.fancyDomain) $widget.fancyDomain.trigger('enable').trigger('update.fs');
-        if ($widget.fancySystem) $widget.fancySystem.trigger('enable').trigger('update.fs');
-        if ($widget.terminology) $widget.terminology.trigger('enable').trigger('update.fs');
+        if ($widget.fancySource) $widget.fancySource.trigger('enable');
+        if ($widget.fancyTarget) $widget.fancyTarget.trigger('enable');
+        if ($widget.fancyDomain) $widget.fancyDomain.trigger('enable');
+        if ($widget.fancySystem) $widget.fancySystem.trigger('enable');
+        if ($widget.terminology) $widget.terminology.trigger('enable');
     },
 
     loadTargetLangList: function (source, selTarget, putSystemId) {
@@ -728,8 +773,7 @@ Tilde.TranslatorWidget.prototype = {
             sel.on('enable', function () {
                 sel.prop('disabled', false);
                 wrapper.removeClass('disabled');
-                disabled = false;
-                return copyOptionsToList();
+                return disabled = false;
             });
             sel.on('disable', function () {
                 sel.prop('disabled', true);
@@ -1051,27 +1095,32 @@ uiResources = $.extend(true, uiResources, {
         "clearTranslation": "Clear",
         "sourceTextTooltip": "Enter the text you want to translate",
         "noInternet": "No internet connection",
-        "targetTextTooltip": "Machine translation results help to understand the meaning of a source text, but do not equal translation by a human."
+        "targetTextTooltip": "Machine translation results help to understand the meaning of a source text, but do not equal translation by a human.",
+        "transLimit": "You have reached the maximum word limit for one translation request. To translate the untranslated part please make another request."
     },
     'fr': {
         "clearTranslation": "Effacer",
         "sourceTextTooltip": "Entrez le texte que vous voulez traduire",
-        "targetTextTooltip": "Les résultats de traduction électronique aident à comprendre le sens du texte original mais ils ne remplacent pas un traducteur humain."
+        "targetTextTooltip": "Les résultats de traduction électronique aident à comprendre le sens du texte original mais ils ne remplacent pas un traducteur humain.",
+        "transLimit": "You have reached the maximum word limit for one translation request. To translate the untranslated part please make another request."
     },
     'lt': {
         "clearTranslation": "Ištrinti",
         "sourceTextTooltip": "Įveskite norimą versti tekstą",
-        "targetTextTooltip": "Automatinio vertimo rezultatai padeda suprasti teksto prasmę, tačiau nepakeičia žmonių kuriamų vertimų."
+        "targetTextTooltip": "Automatinio vertimo rezultatai padeda suprasti teksto prasmę, tačiau nepakeičia žmonių kuriamų vertimų.",
+        "transLimit": "You have reached the maximum word limit for one translation request. To translate the untranslated part please make another request."
     },
     'lv': {
         "clearTranslation": "Notīrīt",
         "sourceTextTooltip": "Ievadiet tulkojamo tekstu",
-        "targetTextTooltip": "Mašīntulkošanas rezultāti ļauj saprast teksta nozīmi, bet nevar aizstāt cilvēka radītu tulkojumu."
+        "targetTextTooltip": "Mašīntulkošanas rezultāti ļauj saprast teksta nozīmi, bet nevar aizstāt cilvēka radītu tulkojumu.",
+        "transLimit": "You have reached the maximum word limit for one translation request. To translate the untranslated part please make another request."
     },
     'ru': {
         "clearTranslation": "Очистить",
         "sourceTextTooltip": "Введите текст для перевода",
-        "targetTextTooltip": "Результаты машинного перевода позволяют понять значение текста, но не позволяют заменить сделанный человеком перевод."
+        "targetTextTooltip": "Результаты машинного перевода позволяют понять значение текста, но не позволяют заменить сделанный человеком перевод.",
+        "transLimit": "You have reached the maximum word limit for one translation request. To translate the untranslated part please make another request."
     }
 });
 ///#source 1 1 ../../widget_plugins/translatetext/tilde.translator.widget.translatetext.js
@@ -1079,26 +1128,28 @@ uiResources = $.extend(true, uiResources, {
 
 $.extend(Tilde.TranslatorWidgetDefaultOptions, {
     _translationUrl: 'https://hugo.lv/ws/Service.svc/json/Translate',
-    _textSource: '.translateTextSource', //source container <textarea>
-    _textResult: '.translateTextResult', //target container <div>
-    _landingView: false, //intro box with tooltip
-    _enableParallelHover: true, //enable translation and source paralel hover
-    _highlightTranslated: true, //toggle latest translation highlight in source and target
-    _highlightTranslatedTimeout: 1500, //time in milissecond for highlight
-    _focusAfterClear: true, //source field focus after clear
-    _focusAfterTranslate: true, //source field focus after translation
-    _focusAfterLoad: false, //source field focus after widget is loaded
-    _translateAll: false, //allways translate all text (when?)
+    _textSource: '.translateTextSource', // source container <textarea>
+    _textResult: '.translateTextResult', // target container <div>
+    _landingView: false, // intro box with tooltip
+    _enableParallelHover: true, // enable translation and source paralel hover
+    _highlightTranslated: true, // toggle latest translation highlight in source and target
+    _highlightTranslatedTimeout: 1500, // time in milissecond for highlight
+    _focusAfterClear: true, // source field focus after clear
+    _focusAfterTranslate: true, // source field focus after translation
+    _focusAfterLoad: false, // source field focus after widget is loaded
+    _translateAll: false, // allways translate all text (when?)
+    _translationLimit: -1, // sentence count to translate. if -1 then no limit
     _onTranslationStarted: null,
     _onTranslationFinished: null,
     _onUrlEntered: null,
-    _onTextInput: null, // Delayd event fired on user input
-    _onScrollBarWidthChanged: null // Fired when scrollbar appears or disappears for source textarea
+    _onTextInput: null, // delayd event fired on user input
+    _onScrollBarWidthChanged: null // fired when scrollbar appears or disappears for source textarea
 });
 
 $.extend(Tilde.TranslatorWidget.prototype, {
 
     textTranslator: null,
+    translatedCnt: 0,
 
     textPluginInit: function () {
 
@@ -1150,6 +1201,9 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         }
 
         $('.translateButton', $widget.settings.container).on('click', function () {
+            if ($(this).attr('data-disabled') === 'true') {
+                return false;
+            }
             $widget.textPluginTranslate();
         });
 
@@ -1158,6 +1212,9 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         });
 
         $('.translateTextSourceContainer', $widget.settings.container).bind(focusEvents, function () {
+            if ($('.translateTextTempSourceContainer').attr('data-disabled') === 'true') {
+                return false;
+            }
             $($widget.settings._textSource, $widget.settings.container).focus();
         });
 
@@ -1189,6 +1246,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
     },
 
     textPluginResultClear: function () {
+        $widget.translatedCnt = 0;
         $widget.textPluginSetTempText();
 
         if ($widget.settings._focusAfterClear) {
@@ -1281,6 +1339,8 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         }
         $widget.textPluginSetTempTextResult();
         $widget.textPluginSetTempTextSource();
+
+        $($widget.settings._textResult, $widget.settings.container).removeClass('transLimit');
 
         $('.sourceLang, .targetLang', $widget.settings.container).text('');
         $('.translateResultClear', $widget.settings.container).addClass('hide');
@@ -1511,6 +1571,9 @@ Tilde.TextTranslator.prototype = {
                 if (cursor.translation[0] !== undefined && cursor.translation[0].Text !== undefined) {
                     txt = cursor.translation[0].Text;
                 }
+                else if (cursor.translation.translation !== undefined) {
+                    txt = cursor.translation.translation;
+                }
 
                 var isTranslated = true;
                 if (!cursor.translated) {
@@ -1657,6 +1720,19 @@ Tilde.TextTranslator.prototype = {
                     return;
                 }
 
+                // case if there is translation limit reached
+                if ($widget.settings._translationLimit !== -1 && $widget.translatedCnt > $widget.settings._translationLimit) {
+                    if (this.options._onTranslationFinished)
+                        this.options._onTranslationFinished();
+
+                    this.translationInProgress = false;
+
+                    $($widget.settings._textResult, $widget.settings.container)
+                        .text(uiResources[$widget.settings._language]['transLimit'])
+                        .addClass('transLimit');
+                    return;
+                }
+
                 if (cursor.translation.replace(/\s/g, '').length == 0) {
                     cursor.translated = true;
                     cursor.translation = cursor.translation;
@@ -1728,10 +1804,18 @@ Tilde.TextTranslator.prototype = {
                 cursor.translated = true;
                 cursor.latest = true;
                 cursor.scroll = true;
-                if (typeof (result) === 'undefined' || result == null) {
+                if (typeof (result) === 'undefined' || result == null || (result.status && result.status != "200")) {
                     cursor.translation = '{{' + cursor.translation + '}}';
                 }
                 else {
+                    // increase sentence counter
+                    if (result.countSentences !== undefined) {
+                        var cnt = parseInt(result.countSentences);
+                        $widget.translatedCnt += (cnt > 0) ? cnt : 1;
+                    }
+                    else {
+                        $widget.translatedCnt++;
+                    }
                     cursor.translation = result;
                 }
                 break;
@@ -2843,9 +2927,9 @@ qq.FileUploaderBasic.prototype = {
         do {
             bytes = bytes / 1024;
             i++;
-        } while (bytes > 99);
+        } while (bytes > 999);
 
-        return Math.max(bytes, 0.1).toFixed(1) + ['kB', 'MB', 'GB', 'TB', 'PB', 'EB'][i];
+        return +bytes.toFixed(2) + ['kB', 'MB', 'GB', 'TB', 'PB', 'EB'][i];
     }
 };
 
@@ -3805,12 +3889,12 @@ uiResources = $.extend(true, uiResources, {
 /* tilde.translator.widget.TRANSLATEFILE.js */
 
 $.extend(Tilde.TranslatorWidgetDefaultOptions, {
-    _uploadUrl: 'https://hugo.lv/Files/Upload',
-    _deleteUrl: 'https://hugo.lv/Files/Delete',
-    _downloadUrl: 'https://hugo.lv/Files/Download',
-    _translateUrl: 'https://hugo.lv/Files/StartTranslation',
-    _previewUrl: 'https://hugo.lv/Files/GetDocumentPreview',
-    _checkStatusUrl: 'https://hugo.lv/Files/GetStatus',
+    _uploadUrl: 'https://hugo.lv/ws/Files/Upload',
+    _deleteUrl: 'https://hugo.lv/ws/Files/Delete',
+    _downloadUrl: 'https://hugo.lv/ws/Files/Download',
+    _translateUrl: 'https://hugo.lv/ws/Files/StartTranslation',
+    _previewUrl: 'https://hugo.lv/ws/Files/GetDocumentPreview',
+    _checkStatusUrl: 'https://hugo.lv/ws/Files/GetStatus',
     _landingView: false, //intro box with tooltip
     _allowedFileTypes: [{ ext: "txt", mime: "text/plain" }], //file translation types
     _mimetypeFilter: true, //show only allowed filetypes in open file dialog
@@ -3901,82 +3985,11 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 sizeError: uiResources[$widget.settings._language]['docUploadMsgSize'],
                 emptyError: uiResources[$widget.settings._language]['docUploadMsgEmpty']
             },
-            onSubmit: function () {
-                $('.qq-upload-list, .infoMessageBox').html('').addClass('hide');
-                $('.translateProgress').removeClass('hide');
-            },
-            onComplete: function (id, fileName, responseJSON) {
-                if (responseJSON.success) {
-                    // landing intro box
-                    if ($widget.settings._landingView) {
-                        $('.translateContainerRight', $widget.settings.container).removeClass('hide');
-                        $('.translateContainerLeft, .translateContainerHeader', $widget.settings.container).removeClass('intro');
-                    }
 
-                    $('.transFileMeta').html($('.qq-upload-success').html());
-                    $('.docUploadNewDoc').removeClass('hide');
-                    $('.translateButton').removeClass('hide');
-                    $widget.enableSystemChange();
+            onSubmit: $widget.filePluginUploadOnSubmit,
 
-                    var filename = responseJSON.filename;
-                    var wordcount = responseJSON.wordcount;
-                    $('.qq-upload-wordcount').html(wordcount);
-                    $('#docUploadFile').addClass('hide');
+            onComplete: $widget.filePluginUploadOnComplete,
 
-                    $('.translateProgress').addClass('hide');
-                    $('.uploadedDocumentName').text($('.qq-upload-file:first').text()).removeClass('hide');
-
-                    if ($('#hidTranslRealFilename').length == 0) {
-                        $('.docTranslateContent').after($('<input>', {
-                            type: 'hidden',
-                            id: 'hidTranslRealFilename',
-                            value: filename
-                        }));
-
-                    }
-                    else {
-                        $('#hidTranslRealFilename').val(filename);
-                    }
-
-                    // detect language
-                    //if ($(".translate_source_lang option[value='" + responseJSON.detlang + "']").length !== 0) {
-                    //    $('.translate_source_lang').val(responseJSON.detlang);
-                    //    $('.translate_source_lang').trigger('change');
-                    //}
-
-                    $("#docSourcePreview").removeClass('hide');
-                    $('#docSourcePreview').html(responseJSON.preview);
-                    $('#docSourcePreview').toggleClass("bigIcon", $('.no-preview', $("#docSourcePreview")).length > 0);
-
-                    // file upload callback
-                    if ($widget.settings._onFileUpload && typeof ($widget.settings._onFileUpload) === "function") {
-                        $widget.settings._onFileUpload(filename, wordcount);
-                    }
-
-                    // max word count check
-                    if ($widget.settings._docMaxWordCount !== 0 && $widget.settings._docMaxWordCount < parseInt(wordcount)) {
-                        var message = uiResources[$widget.settings._language]['docUploadMsgWordcnt'].replace('{wordCount}', wordcount);
-                        $('.qq-upload-wordcount').addClass('warning');
-                        $('.infoMessageBox').html(message).removeClass('hide');
-                        if ($widget.settings._onDocTranslationError && typeof ($widget.settings._onDocTranslationError) === "function") {
-                            $widget.settings._onDocTranslationError('FT_ERR_WORDCOUNT', message);
-                        }
-                    }
-                    else {
-                        $('.qq-upload-wordcount').removeClass('warning');
-                        $('.qq-upload-warn-msg').remove();
-                    }
-                }
-                else if (responseJSON.error || jQuery.isEmptyObject(responseJSON)) {
-                    var message = uiResources[$widget.settings._language]['docUploadFailed'];
-                    $('.translateProgress').addClass('hide');
-                    $('.infoMessageBox').html(message).show();
-                    if ($widget.settings._onDocTranslationError && typeof ($widget.settings._onDocTranslationError) === "function") {
-                        $widget.settings._onDocTranslationError('FT_ERR_UPLOAD', message);
-                    }
-                }
-
-            },
             showMessage: function (message) {
                 $('.translateProgress').addClass('hide');
                 $('.infoMessageBox').html(message).removeClass('hide');
@@ -3992,6 +4005,83 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 $widget.filePluginSetTempTextResult();
             }
         );
+    },
+
+    filePluginUploadOnSubmit: function () {
+        $('.qq-upload-list, .infoMessageBox').html('').addClass('hide');
+        $('.translateProgress').removeClass('hide');
+    },
+
+    filePluginUploadOnComplete: function (id, fileName, responseJSON) {
+        if (responseJSON.success) {
+            // landing intro box
+            if ($widget.settings._landingView) {
+                $('.translateContainerRight', $widget.settings.container).removeClass('hide');
+                $('.translateContainerLeft, .translateContainerHeader', $widget.settings.container).removeClass('intro');
+            }
+
+            $('.transFileMeta').html($('.qq-upload-success').html());
+            $('.docUploadNewDoc').removeClass('hide');
+            $('.translateButton').removeClass('hide');
+            $widget.enableSystemChange();
+
+            var filename = responseJSON.filename;
+            var wordcount = responseJSON.wordcount;
+            $('.qq-upload-wordcount').html(wordcount);
+            $('#docUploadFile').addClass('hide');
+
+            $('.translateProgress').addClass('hide');
+            $('.uploadedDocumentName').text($('.qq-upload-file:first').text()).removeClass('hide');
+
+            if ($('#hidTranslRealFilename').length == 0) {
+                $('.docTranslateContent').after($('<input>', {
+                    type: 'hidden',
+                    id: 'hidTranslRealFilename',
+                    value: filename
+                }));
+
+            }
+            else {
+                $('#hidTranslRealFilename').val(filename);
+            }
+
+            // detect language
+            //if ($(".translate_source_lang option[value='" + responseJSON.detlang + "']").length !== 0) {
+            //    $('.translate_source_lang').val(responseJSON.detlang);
+            //    $('.translate_source_lang').trigger('change');
+            //}
+
+            $("#docSourcePreview").removeClass('hide');
+            $('#docSourcePreview').html(responseJSON.preview);
+            $('#docSourcePreview').toggleClass("bigIcon", $('.no-preview', $("#docSourcePreview")).length > 0);
+
+            // file upload callback
+            if ($widget.settings._onFileUpload && typeof ($widget.settings._onFileUpload) === "function") {
+                $widget.settings._onFileUpload(filename, wordcount);
+            }
+
+            // max word count check
+            if ($widget.settings._docMaxWordCount !== 0 && $widget.settings._docMaxWordCount < parseInt(wordcount)) {
+                var message = uiResources[$widget.settings._language]['docUploadMsgWordcnt'].replace('{wordCount}', wordcount);
+                $('.qq-upload-wordcount').addClass('warning');
+                $('.infoMessageBox').html(message).removeClass('hide');
+                if ($widget.settings._onDocTranslationError && typeof ($widget.settings._onDocTranslationError) === "function") {
+                    $widget.settings._onDocTranslationError('FT_ERR_WORDCOUNT', message);
+                }
+            }
+            else {
+                $('.qq-upload-wordcount').removeClass('warning');
+                $('.qq-upload-warn-msg').remove();
+            }
+        }
+        else if (responseJSON.error || jQuery.isEmptyObject(responseJSON)) {
+            var message = uiResources[$widget.settings._language]['docUploadFailed'];
+            $('.translateProgress').addClass('hide');
+            $('.infoMessageBox').html(message).show();
+            if ($widget.settings._onDocTranslationError && typeof ($widget.settings._onDocTranslationError) === "function") {
+                $widget.settings._onDocTranslationError('FT_ERR_UPLOAD', message);
+            }
+        }
     },
 
     filePluginTranslate: function () {
@@ -4127,6 +4217,9 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         });
 
         $('.translateButton', $widget.settings.container).on('click', function () {
+            if ($(this).attr('data-disabled') === 'true') {
+                return false;
+            }
             $widget.filePluginTranslate();
         });
     },
@@ -4134,10 +4227,6 @@ $.extend(Tilde.TranslatorWidget.prototype, {
     filePluginUploadNew: function () {
         var uploadId = $('#hidUploadTempId').val();
         if (typeof (uploadId) == 'undefined') { uploadId = ''; }
-
-        if ($widget.settings._onDocTranslationCancel && typeof ($widget.settings._onDocTranslationCancel) === "function") {
-            $widget.settings._onDocTranslationCancel(uploadId);
-        }
 
         $('.docUploadNewDoc').addClass('hide');
         $('.buttonDownDoc').removeAttr('href').addClass('hide');
@@ -4159,6 +4248,10 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
         $widget.enableSystemChange();
         $('.translateButton').addClass('hide');
+
+        if ($widget.settings._onDocTranslationCancel && typeof ($widget.settings._onDocTranslationCancel) === "function") {
+            $widget.settings._onDocTranslationCancel(uploadId);
+        }
 
         // landing intro box
         if ($widget.settings._landingView) {

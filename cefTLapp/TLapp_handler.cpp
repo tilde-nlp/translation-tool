@@ -38,13 +38,151 @@ TLappHandler* TLappHandler::GetInstance() {
 	return g_instance;
 }
 
+
 void TLappHandler::OnAfterCreated(CefRefPtr<CefBrowser> browser) {
 	CEF_REQUIRE_UI_THREAD();
 	browser_ = browser;
 	// Add to the list of existing browsers.
 	browser_list_.push_back(browser);
 }
+bool replace(std::string& str, const std::string& from, const std::string& to) {
+	size_t start_pos = str.find(from);
+	if (start_pos == std::string::npos)
+		return false;
+	str.replace(start_pos, from.length(), to);
+	return true;
+}
+int WriteSingleValue(const HKEY &hive, const wchar_t *path, const wchar_t *valueName, const std::wstring &wsValue)
+{
+	HKEY key;
 
+	HRESULT	rc = RegCreateKeyExW(hive, path, 0, 0, REG_OPTION_NON_VOLATILE, KEY_WRITE, NULL, &key, NULL);
+	if (rc == ERROR_SUCCESS)
+	{
+		rc = RegSetValueExW(key, valueName, 0, REG_SZ, (BYTE*)wsValue.c_str(), (wsValue.length() + 1)*sizeof(wchar_t));
+		RegCloseKey(key);
+
+		if (rc == ERROR_SUCCESS)
+			return ERROR_SUCCESS;
+		else
+		{
+			//REPORT_ERROR(ERR_SEVERITY_LOW, L"Failed to write to registry");
+			return ERROR_GEN_FAILURE;
+		}
+	}
+	else
+	{
+		//REPORT_ERROR(ERR_SEVERITY_LOW, L"Failed to open a registry key");
+		return ERROR_GEN_FAILURE;
+	}
+}
+int MultiReadSingleValue(const wchar_t *path, const wchar_t *valueName, std::wstring &wsValue)
+{
+	int retVal = ERROR_GEN_FAILURE;
+
+	const DWORD bufSize = 1024;
+	wchar_t buffer[bufSize];
+	wchar_t *readbuf = NULL;
+
+	HKEY key;
+	HRESULT	rc;
+
+	rc = RegOpenKeyExW(HKEY_CURRENT_USER, path, 0, KEY_READ, &key);
+	if (rc == ERROR_SUCCESS)
+	{
+		DWORD dataSize = 0;
+		rc = RegQueryValueExW(key, valueName, 0, 0, 0, &dataSize);
+		if (rc == ERROR_SUCCESS && dataSize > 0)
+		{
+			if (dataSize <= (bufSize*sizeof(wchar_t)))
+				readbuf = buffer;
+			else
+				readbuf = (wchar_t*)malloc(dataSize);
+
+			rc = RegQueryValueEx(key, valueName, 0, 0, (LPBYTE)readbuf, &dataSize);
+			if (rc == ERROR_SUCCESS)
+				wsValue.assign(readbuf, (dataSize / 2) - 1);
+
+			if (readbuf != buffer)
+				free(readbuf);
+		}
+		RegCloseKey(key);
+
+		if (rc == ERROR_SUCCESS)
+		{
+			retVal = ERROR_SUCCESS;
+		}
+	}
+
+	if (retVal != ERROR_SUCCESS)
+	{
+		rc = RegOpenKeyExW(HKEY_LOCAL_MACHINE, path, 0, KEY_READ, &key);
+		if (rc == ERROR_SUCCESS)
+		{
+			DWORD dataSize = 0;
+			rc = RegQueryValueExW(key, valueName, 0, 0, 0, &dataSize);
+			if (rc == ERROR_SUCCESS && dataSize > 0)
+			{
+				if (dataSize <= (bufSize*sizeof(wchar_t)))
+					readbuf = buffer;
+				else
+					readbuf = (wchar_t*)malloc(dataSize);
+
+				rc = RegQueryValueEx(key, valueName, 0, 0, (LPBYTE)readbuf, &dataSize);
+				if (rc == ERROR_SUCCESS)
+					wsValue.assign(readbuf, (dataSize / 2) - 1);
+
+				if (readbuf != buffer)
+					free(readbuf);
+			}
+			RegCloseKey(key);
+
+			if (rc == ERROR_SUCCESS)
+			{
+				retVal = ERROR_SUCCESS;
+			}
+		}
+	}
+
+	return retVal;
+}
+
+int StringToWString(std::wstring &ws, const std::string &s)
+{
+	std::wstring wsTmp(s.begin(), s.end());
+
+	ws = wsTmp;
+
+	return 0;
+}
+void TLappHandler::OnAddressChange(CefRefPtr<CefBrowser> browser,
+	CefRefPtr<CefFrame> frame,
+	const CefString& url)
+{
+	std::string u = url.ToString();
+	if (u.find("http://tlapp/#/getkey") != std::string::npos)
+	{
+		MessageBoxA(NULL, "get key!", "getKey", 0);
+		std::string key = "5646542315418542546584";
+
+		
+		std::wstring wkey;
+		if (MultiReadSingleValue(L"Software\\Tilde\\TLapp", L"CurrentKey", wkey) == ERROR_SUCCESS)
+		frame->ExecuteJavaScript(L"getKey('" + wkey + L"')",url,0);
+	}
+	if (u.find("http://tlapp/#/setkey") != std::string::npos)
+	{
+		MessageBoxA(NULL, "set key!", "setKey", 0);
+		replace(u, "http://tlapp/#/setkey/", "");
+		std::wstring a;
+		StringToWString(a, u);
+		WriteSingleValue(HKEY_CURRENT_USER, L"Software\\Tilde\\TLapp", L"CurrentKey", a);
+		MessageBoxA(NULL, u.c_str(), "key is", 0);
+	}
+	//string u = url.c_str();
+	//if (url)
+
+}
 bool TLappHandler::DoClose(CefRefPtr<CefBrowser> browser) {
 	CEF_REQUIRE_UI_THREAD();
 
@@ -129,7 +267,25 @@ bool TLappHandler::OnBeforePopup(CefRefPtr<CefBrowser> browser,
 	::ShellExecute(NULL, NULL, target_url.c_str(), L"", NULL, SW_SHOWNORMAL);
 	return true;
 }
+bool TLappHandler::OnProcessMessageReceived(
+	CefRefPtr<CefBrowser> browser,
+	CefProcessId source_process,
+	CefRefPtr<CefProcessMessage> message)  {
+	//if (message_router_->OnProcessMessageReceived(browser, source_process,
+	//	message)) {
+	//	return true;
+	//}
 
+	// Handle IPC messages from the browser process...
+	CefRefPtr<CefFrame> frame = browser->GetMainFrame();
+	std::string message_name = message->GetName();
+	if (message_name == "getautocomplete")
+	{
+		std::wstring text = message->GetArgumentList()->GetString(0).ToWString();
+		//CommandProcessor.FillCommandQueue(L"tldic://getautocomplete/" + text + L"/");
+	}
+	return true;
+}
 CefRefPtr<CefResourceHandler> TLappHandler::GetResourceHandler(
 	CefRefPtr<CefBrowser> browser,
 	CefRefPtr<CefFrame> frame,

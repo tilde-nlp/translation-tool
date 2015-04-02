@@ -6,12 +6,24 @@
 #define CEF_TESTS_CEFTLAPP_APP_H_
 
 #include "include/cef_app.h"
+#include "include/cef_client.h"
 #include <winhttp.h>
 #include <sstream>
 class TLapp : public CefApp,
-                  public CefBrowserProcessHandler {
+	public CefBrowserProcessHandler,
+	public CefRenderProcessHandler {
  public:
 	 TLapp(){};
+
+
+	 ///Adddition
+	 CefRefPtr<CefRenderProcessHandler> GetRenderProcessHandler() OVERRIDE
+	 {
+		 return this;
+	 }
+	 void OnWebKitInitialized() OVERRIDE;
+
+	 ///Addition
 
 	 bool GetIEHttpsProxy(CefString *pbsProxy, int *pnPort)
 	 {

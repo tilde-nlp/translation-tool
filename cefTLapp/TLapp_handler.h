@@ -45,7 +45,9 @@ public:
 		virtual CefRefPtr<CefRequestHandler> GetRequestHandler() OVERRIDE{
 		return this;
 	}
-
+		virtual void OnAddressChange(CefRefPtr<CefBrowser> browser,
+		CefRefPtr<CefFrame> frame,
+		const CefString& url) OVERRIDE;
 	// CefContextMenuHandler methods
 	virtual void OnBeforeContextMenu(CefRefPtr<CefBrowser> browser,
 		CefRefPtr<CefFrame> frame,
@@ -99,6 +101,11 @@ public:
 		CefRefPtr<CefClient>& client,
 		CefBrowserSettings& settings,
 		bool* no_javascript_access) OVERRIDE;
+
+	virtual bool OnProcessMessageReceived(
+		CefRefPtr<CefBrowser> browser,
+		CefProcessId source_process,
+		CefRefPtr<CefProcessMessage> message) OVERRIDE;
 
 	CefRefPtr<CefBrowser> GetBrowser() const;
 private:

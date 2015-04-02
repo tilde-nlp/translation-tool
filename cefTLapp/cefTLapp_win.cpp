@@ -8,6 +8,9 @@
 #include "include/cef_sandbox_win.h"
 #include "ceftlapp/resource.h"
 
+#include "ClientHandler.h"
+#include "ClientV8ExtensionHandler.h"
+
 // When generating projects with CMake the CEF_USE_SANDBOX value will be defined
 // automatically if using the required compiler version. Pass -DUSE_SANDBOX=OFF
 // to the CMake command-line to disable use of the sandbox.
@@ -250,4 +253,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam,
 	}
 
 	return DefWindowProc(hWnd, message, wParam, lParam);
+}
+
+void TLapp::OnWebKitInitialized()
+{
+	std::string app_code =
+		"var app;"
+		"if (!app)"
+		"    app = {};"
+		"(function() {"
+		"    app.ChangeTextInJS = function(text) {"
+		"        native function ChangeTextInJS();"
+		"        return ChangeTextInJS(text);"
+		"    };"
+		"})();;";
+
+	CefRegisterExtension("v8/app", app_code, new ClientV8ExtensionHandler(this));
 }

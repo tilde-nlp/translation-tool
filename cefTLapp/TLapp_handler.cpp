@@ -162,22 +162,36 @@ void TLappHandler::OnAddressChange(CefRefPtr<CefBrowser> browser,
 	std::string u = url.ToString();
 	if (u.find("http://tlapp/#/getkey") != std::string::npos)
 	{
-		MessageBoxA(NULL, "get key!", "getKey", 0);
-		std::string key = "5646542315418542546584";
-
+	//	MessageBoxA(NULL, "get key!", "getKey", 0);
+	//	std::string key = "5646542315418542546584";
+		std::string keyName = u;
+		std::size_t pos = keyName.find("keyName=");
+		pos += 8;
 		
+		keyName = keyName.substr(pos);
+	//	MessageBoxA(NULL, keyName.c_str(), "key name", 0);
+		std::wstring a;
+		StringToWString(a, keyName);
 		std::wstring wkey;
-		if (MultiReadSingleValue(L"Software\\Tilde\\TLapp", L"CurrentKey", wkey) == ERROR_SUCCESS)
-		frame->ExecuteJavaScript(L"getKey('" + wkey + L"')",url,0);
+		if (MultiReadSingleValue(L"Software\\Tilde\\TLapp", a.c_str(), wkey) == ERROR_SUCCESS)
+			frame->ExecuteJavaScript(L"getKey('" + wkey + L"')",url,0);
 	}
 	if (u.find("http://tlapp/#/setkey") != std::string::npos)
 	{
-		MessageBoxA(NULL, "set key!", "setKey", 0);
-		replace(u, "http://tlapp/#/setkey/", "");
+	//	MessageBoxA(NULL, "set key!", "setKey", 0);
+		replace(u, "http://tlapp/#/setkey/?keyName=", "");
+		std::size_t pos = u.find("&key=");
+		std::string keyName = u.substr(pos);
+
+		replace(u, keyName, "");
+		replace(keyName, "&key=", "");
 		std::wstring a;
 		StringToWString(a, u);
-		WriteSingleValue(HKEY_CURRENT_USER, L"Software\\Tilde\\TLapp", L"CurrentKey", a);
-		MessageBoxA(NULL, u.c_str(), "key is", 0);
+		std::wstring b;
+		StringToWString(b, keyName);
+		
+		WriteSingleValue(HKEY_CURRENT_USER, L"Software\\Tilde\\TLapp", a.c_str(), b);
+	//	MessageBoxA(NULL, u.c_str(), "key is", 0);
 	}
 	//string u = url.c_str();
 	//if (url)

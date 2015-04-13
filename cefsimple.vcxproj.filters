@@ -390,6 +390,12 @@
     <ClInclude Include="cefTLapp\resource_util.h">
       <Filter>cefTLapp</Filter>
     </ClInclude>
+    <ClInclude Include="ClientV8ExtensionHandler.h">
+      <Filter>cefTLapp</Filter>
+    </ClInclude>
+    <ClInclude Include="ClientHandler.h">
+      <Filter>cefTLapp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cefTLapp\cefTLapp_win.cpp">
@@ -402,6 +408,12 @@
       <Filter>cefTLapp</Filter>
     </ClCompile>
     <ClCompile Include="cefTLapp\resource_util_win.cpp">
+      <Filter>cefTLapp</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientV8ExtensionHandler.cpp">
+      <Filter>cefTLapp</Filter>
+    </ClCompile>
+    <ClCompile Include="ClientHandler.cpp">
       <Filter>cefTLapp</Filter>
     </ClCompile>
   </ItemGroup>

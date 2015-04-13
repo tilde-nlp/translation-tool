@@ -489,6 +489,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="cefTLapp\resource_util.h" />
+    <ClInclude Include="ClientHandler.h" />
+    <ClInclude Include="ClientV8ExtensionHandler.h" />
     <ClInclude Include="include\cef_base.h" />
     <ClInclude Include="include\cef_pack_resources.h" />
     <ClInclude Include="include\cef_pack_strings.h" />
@@ -611,6 +613,8 @@
     <ClCompile Include="cefTLapp\TLapp_handler.cpp" />
     <ClCompile Include="cefTLapp\cefTLapp_win.cpp" />
     <ClCompile Include="cefTLapp\TLapp_handler_win.cpp" />
+    <ClCompile Include="ClientHandler.cpp" />
+    <ClCompile Include="ClientV8ExtensionHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="cefTLapp\cefTLapp.exe.manifest" />

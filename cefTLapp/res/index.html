@@ -154,10 +154,9 @@
         <form novalidate class="right" ng-show="isActive('www') || isActive('website')" ng-submit="">
             <div class="LanguageSelect w">
                 <div class="translateLanguageContainer" ng-show="website.languagesReady=='yes'">
-                    <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
+                    <div class="translateSourceSystemLabel">From</div>
                     <select class="translateSourceLang"></select>
-                    <select class="translateSystem hide"></select>
-                    <div data-text="targetSystem" class="translateTargetSystemLabel"></div>
+                    <div class="translateTargetSystemLabel">to</div>
                     <select class="translateTargetLang"></select>
                 </div>
             </div>

@@ -770,6 +770,10 @@ div.language > span.ng-binding {
     display: none;
 }
 
+.white, #landingPage .contactUs .white {
+    color: #FFF;
+}
+
 /*#region Enter key form*/
 
 #enterKey {

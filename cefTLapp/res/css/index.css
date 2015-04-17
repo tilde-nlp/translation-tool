@@ -114,6 +114,10 @@ nav a {
     display: block;
 }
 
+nav a.keyMenuItem {
+    background-position: 17px center;
+}
+
 nav a:hover, nav a:focus {
     background-color: #161F2E;
 }

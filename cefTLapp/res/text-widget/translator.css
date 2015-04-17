@@ -318,7 +318,7 @@ div.fancy-select ul.options li.hover {
     background-image: none;
     margin: 0.2em 1.5em 0 0;
     height: 2.5em;
-    float: right;
+    float: left;
 }
 
 .translateProgress.left {
@@ -518,6 +518,14 @@ div.fancy-select ul.options li.hover {
     padding-left: 1.4em;
 }
 
+.text .translateTextSource,
+.text .translateTextResult {
+    -moz-user-select: text;
+    -ms-user-select: text;
+    -webkit-user-select: text;
+    user-select: text;
+}
+
 .text .translateTextSourceContainer  {
     position: relative;
     width: 100%;
@@ -674,6 +682,9 @@ div.fancy-select ul.options li.hover {
     height: 25px;
     float: left;
     clear: left;
+    max-width: 18em;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
 }
 
 .file .docTempTarget {
@@ -1065,3 +1076,29 @@ div.fancy-select ul.options li.hover {
 }
 
 /*#endregion*/
+
+.text .translateDomainContainer,
+.file .translateDomainContainer {
+    position: absolute;
+    right: 1em;
+    top: 0.85em;
+}
+        
+.text .translateContainerLeft,
+.file .translateContainerLeft {
+    position: relative;
+}
+
+.text .translateResultClear,
+.file .docUploadNewDoc {
+    top: 0.5em;
+    right: 0.7em;
+    position: absolute;
+    z-index: 5;
+}
+
+.text .translateResultClear .clearLink,
+.file .docUploadNewDoc {
+    width: 0.3em;
+    height: 0.3em;
+}

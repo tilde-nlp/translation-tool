@@ -1,7 +1,6 @@
 var $versionNumber = '1.22',
-    $keySkipped = false;
-    $publicClientId = 'u-bfcaf986-8147-4901-a131-f0d618a7354b',
-    $currentClientId = '';
+    $publicKey = 'trtool.desktop-u-c55bf80d-3eb5-4d07-975d-35e45b11bd7a',
+    $currentKey = '';
 
 app.controller("updateCtrl", function ($scope, $location) {
     $scope.version = $versionNumber;//possible values - text|website|  
@@ -20,7 +19,7 @@ app.controller("updateCtrl", function ($scope, $location) {
         jsonpCallback: "applicationUpdates",
         success: function (data) {
             jQuery.each(data, function (i, update) {
-                console.log($scope.version.match(update.forVersion));
+                //console.log($scope.version.match(update.forVersion));
                 if ($scope.version.match(update.forVersion)) {
                     $scope.update = update;
                     $scope.$apply();
@@ -32,15 +31,14 @@ app.controller("updateCtrl", function ($scope, $location) {
             console.log(error);
         }
     });
-	
-	//$location.url('/getkey/?keyName=keySkipped');
-	$location.url('/getkey/?keyName=letsMTKey');
+
+    $location.url('/getkey/?keyName=letsMTKey');
 });
 
 app.controller("myPageCtrl", function ($scope, $location) {
     try {
-        console.log("Location: " + document.location);
-        console.log("Domain: " + document.domain);
+        //console.log("Location: " + document.location);
+        //console.log("Domain: " + document.domain);
     }
     catch (err) {
         console.log(err.message);
@@ -62,27 +60,25 @@ app.controller("myPageCtrl", function ($scope, $location) {
     $scope.website.samples = listOfWebsites();
     $scope.website.languagesReady = 'no';
     $scope.updateWebsite = function () {
-        if (!$scope.website.url || $scope.website.url.lenght == 0)
-        {
+        if (!$scope.website.url || $scope.website.url.lenght == 0) {
 
         }
-        else if ($scope.isActive('www'))
-        {
+        else if ($scope.isActive('www')) {
             $location.path('/website');//?embeddedStyle=noUI
             window.open($scope.website.base + "/Translate/WebsiteEmbedded?embeddedStyle=noUI&appId=presidency.desktop", "websiteFrame");
             $scope.website.frame = jQuery("#websiteFrame")[0].contentWindow;
         } else {
-             switch ($scope.website.status) {//initial|ready|loading|translating|loaded|translated
-                 case "initial":
-                     break;
-                 case "loading":
-                 case "translating":
+            switch ($scope.website.status) {//initial|ready|loading|translating|loaded|translated
+                case "initial":
+                    break;
+                case "loading":
+                case "translating":
                     $scope.website.untranslate();
                     setTimeout(function () { $scope.updateWebsite(); }, 500);
                     break;
-                 default:
+                default:
                     $scope.initWebsite();
-               }      
+            }
         }
     };
 
@@ -92,16 +88,14 @@ app.controller("myPageCtrl", function ($scope, $location) {
             setTimeout(function () { $scope.website.reset(); }, 500);
         } else {
             $scope.website.status = 'initial';
-            
+
         }
     };
-      
+
     $scope.initWebsite = function () {
         $scope.website.changeSystem();
         $scope.website.loadUrl(true);
     };
-
-  
 
     $scope.website.loadUrl = function (translateAfterLoad) {
         console.log("Es: loadURL + translate it:  " + $scope.website.url);
@@ -133,8 +127,7 @@ app.controller("myPageCtrl", function ($scope, $location) {
             $scope.website.loadUrl();
         }
     }
-    
-    
+
     initEvents();
 
     $scope.dialog = {};
@@ -146,14 +139,12 @@ app.controller("myPageCtrl", function ($scope, $location) {
             $location.path($scope.dialog.href);
         }
     };
-    $scope.routeMe = function (hash)
-    {
+    $scope.routeMe = function (hash) {
         $scope.dialog.href = hash;
-        if ((typeof $widget !== "undefined") && $widget.filePluginGetTranslationStatus() !== 'blank') {           
+        if ((typeof $widget !== "undefined") && $widget.filePluginGetTranslationStatus() !== 'blank') {
             $scope.dialog.showModal = 'show';
         }
-        else
-        {
+        else {
             $location.path(hash);
         }
     };
@@ -162,73 +153,31 @@ app.controller("myPageCtrl", function ($scope, $location) {
 app.controller('TranslateCtrl', function ($scope, $routeParams) {
     $scope.website.reset();
     $('#fileWidget').empty();
-    initTextWidget($scope);    
+    initTextWidget($scope);
 });
-
-function initTextWidget($scope, mustApply)
-{   
-    var textWidget = new Tilde.TranslatorWidget('#textWidget', {
-        _language: 'en',
-        _systemListUrl: 'https://hugo.lv/ws/Service.svc/json/GetSystemList',
-        _clientId: ($currentClientId === '') ? $publicClientId : $currentClientId,
-        _templateId: 'translatetext-template',
-        _appId: "presidency.desktop",
-        _landingView: true,
-        _getFilteredSystems: true,
-        _onWidgetLoaded: function () {
-
-            if ($scope.isActive('www') || $scope.isActive('website')) {
-                initLanguages($scope);
-            }
-            $(document)               
-               .keydown(function (e) {                
-                   if (isCharacterKeyPress(e) && $scope.isActive('text'))
-                   {
-                       $(".translateTextSource").click();
-                      
-                   }
-                   if (isCharacterKeyPress(e) && $scope.isActive('www') && !$("#url").is(":focus")) {
-                       $(".bigText input").focus();
-                   }
-               });
-        },
-        _onSystemChanged: function (id) {
-            $scope.website.system = id;
-        },
-        _replaceContainer: false
-    });
-}
-
-function isCharacterKeyPress(evt) {
-    if (typeof evt.which == "undefined") {
-        return true;
-    } else if (typeof evt.which == "number" && evt.which > 0) {
-        return !evt.ctrlKey && !evt.metaKey && !evt.altKey && evt.which != 8;
-    }
-    return false;
-}
 
 app.controller('DocumentCtrl', function ($scope, $routeParams) {
     $scope.website.reset();
     $scope.website.url = '';
     $('#textWidget').empty();
 
-    if (typeof $widget!=='undefined') { $widget.textPluginUnload() };
+    if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
 
     var fileWidget = new Tilde.TranslatorWidget('#fileWidget', {
         _language: 'en',
-        _systemListUrl: 'https://hugo.lv/ws/Service.svc/json/GetSystemList',
-        _uploadUrl: 'https://hugo.lv/ws/Files/Upload',
-        _deleteUrl: 'https://hugo.lv/ws/Files/Delete',
-        _downloadUrl: 'https://hugo.lv/Files/Download',
-        _translateUrl: 'https://hugo.lv/ws/Files/StartTranslation',
-        _previewUrl: 'https://hugo.lv/ws/Files/GetDocumentPreview',
-        _checkStatusUrl: 'https://hugo.lv/ws/Files/GetStatus',
-        _clientId: ($currentClientId === '') ? $publicClientId : $currentClientId,
+        _systemListUrl: 'https://janlogic.tilde.lv/ws/Service.svc/json/GetSystemList',
+        _uploadUrl: 'https://janlogic.tilde.lv/ws/Files/Upload',
+        _deleteUrl: 'https://janlogic.tilde.lv/ws/Files/Delete',
+        _downloadUrl: 'https://janlogic.tilde.lv/ws/Files/Download',
+        _translateUrl: 'https://janlogic.tilde.lv/ws/Files/StartTranslation',
+        _previewUrl: 'https://janlogic.tilde.lv/ws/Files/GetDocumentPreview',
+        _checkStatusUrl: 'https://janlogic.tilde.lv/ws/Files/GetStatus',
+        _clientId: parseClientKey($currentKey).clientid,
+        _appId: parseClientKey($currentKey).appid,
         _templateId: 'translatefile-template',
-        _appId: "presidency.desktop",
+        _systemSelectType: 'language',
         _landingView: true,
-        _getFilteredSystems: true,
+        _getFilteredSystems: false,
         _allowedFileTypes: [
             { ext: "doc", mime: "application/msword" },
             { ext: "docx", mime: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" },
@@ -237,11 +186,11 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
             { ext: "odt", mime: "application/vnd.oasis.opendocument.text" },
             { ext: "odp", mime: "application/vnd.oasis.opendocument.presentation" },
             { ext: "ods", mime: "application/vnd.oasis.opendocument.spreadsheet" },
-            { ext: "rtf", mime: "﻿application/rtf" },
+            { ext: "rtf", mime: "application/rtf" },
             { ext: "html", mime: "text/html" },
             { ext: "htm", mime: "text/html" },
-            { ext: "xhtml", mime: "﻿﻿application/xhtml" },
-            { ext: "xht", mime: "﻿application/xhtml+xml" },
+            { ext: "xhtml", mime: "application/xhtml" },
+            { ext: "xht", mime: "application/xhtml+xml" },
             { ext: "txt", mime: "text/plain" }
         ],
         _onWidgetLoaded: function () {
@@ -253,23 +202,22 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
         },
         _replaceContainer: false
     });
-
 });
 
 app.controller('websiteTranslatorCtrl', function ($scope, $routeParams) {
     $scope.website.reset();
-   
-    if (typeof $widget == "undefined") {        
-        initTextWidget($scope, true);        
+
+    if (typeof $widget == "undefined") {
+        initTextWidget($scope, true);
     }
     else {
         $scope.website.languagesReady = 'yes';
     }
-    
+
     $scope.website.systemUpdated = function () {
         jQuery("#websiteFrame")[0].contentWindow.postMessage(
-                   { "method": "changeSystem", "systemId": $scope.website.system},
-                     $scope.website.base);        
+                   { "method": "changeSystem", "systemId": $scope.website.system },
+                     $scope.website.base);
     };
     $scope.website.updateSystem = function (systemID) {
         if ($scope.website.system == systemID) return false;
@@ -281,33 +229,25 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams) {
 });
 
 app.controller('homeCtrl', function ($scope, $location) {
-    // check key from registry
-    //
+    //alert('$currentClientId: ' + $currentClientId);
 
-
-	//alert('$currentClientId: ' + $currentClientId + ', $keySkipped: ' + $keySkipped);
-	
-    if ($currentClientId.replace(/\s/g, '') === '' && !$keySkipped) {
+    if ($currentKey.replace(/\s/g, '') === '') {
         $location.url('/key');
     }
 
     $scope.clientid = '';
-    $scope.$watch('clientid', function (newValue, oldValue) {
-        //console.log('clientid: ' + newValue);
-        //$clientId = newValue;
-    });
     $scope.changeKey = function () {
         if ($scope.clientid.replace(/\s/g, '') !== '') {
-            $currentClientId = $scope.clientid.replace(/ /g, '');
-            $location.url('/setkey/?keyName=letsMTKey&key=' + $currentClientId);
+            // save to registry
+            $location.url('/setkey/?keyName=letsMTKey&key=' + $scope.clientid);
+            $currentKey = $scope.clientid;
         }
     }
     $scope.skipKey = function () {
-        //$location.url('/setkey/?keyName=keySkipped&key=1');
-		$location.url('/setkey/?keyName=letsMTKey&key=' + $publicClientId);
-		$currentClientId = $publicClientId;
-        $keySkipped = true;
+        $location.url('/setkey/?keyName=letsMTKey&key=' + $publicKey);
+        $currentKey = $publicKey;
     }
+    //$scope.$watch('clientid', function (newValue, oldValue) {});
     $scope.website.url = '';
     $scope.website.reset();
 });
@@ -319,7 +259,7 @@ app.directive('ngMessage', function ($window) {
                 if (event.originalEvent) event = event.originalEvent;
                 if (event.data && event.data.message) {
                     console.log("Tu: " + event.data.message);
-                 
+
                     switch (event.data.message) {
                         case "urlLoaded":
                             scope.website.url = event.data.url;
@@ -415,14 +355,67 @@ app.directive('hideBlink', function () {
 
 });
 
+function parseClientKey(key) {
+    // applicationid-u-xxxxxxxxxxxxxxxxxxxxxxxxxxx
+    var clientid = key.substr(key.indexOf('-u-') + 1).replace(/ /g, ''),
+        appid = key.replace(clientid, '').slice(0, -1).replace(/ /g, '');
+
+    return {
+        clientid: clientid,
+        appid: (appid === '') ? 'trtool.desktop' : appid
+    };
+}
+
+function initTextWidget($scope) {
+    var textWidget = new Tilde.TranslatorWidget('#textWidget', {
+        _language: 'en',
+        _systemListUrl: 'https://janlogic.tilde.lv/ws/Service.svc/json/GetSystemList',
+        _translationUrl: 'https://janlogic.tilde.lv/ws/Service.svc/json/Translate',
+        _clientId: parseClientKey($currentKey).clientid,
+        _appId: parseClientKey($currentKey).appid,
+        _templateId: 'translatetext-template',
+        _systemSelectType: 'language',
+        _landingView: true,
+        _getFilteredSystems: false,
+        _onWidgetLoaded: function () {
+            if ($scope.isActive('www') || $scope.isActive('website')) {
+                initLanguages($scope);
+            }
+            $(document)
+               .keydown(function (e) {
+                   if (isCharacterKeyPress(e) && $scope.isActive('text')) {
+                       $(".translateTextSource").click();
+
+                   }
+                   if (isCharacterKeyPress(e) && $scope.isActive('www') && !$("#url").is(":focus")) {
+                       $(".bigText input").focus();
+                   }
+               });
+        },
+        _onSystemChanged: function (id) {
+            $scope.website.system = id;
+        },
+        _replaceContainer: false
+    });
+}
+
+function isCharacterKeyPress(evt) {
+    if (typeof evt.which == "undefined") {
+        return true;
+    } else if (typeof evt.which == "number" && evt.which > 0) {
+        return !evt.ctrlKey && !evt.metaKey && !evt.altKey && evt.which != 8;
+    }
+    return false;
+}
+
 function listOfWebsites() {
     return [
         { "url": "www.letonika.lv", "title": "Letonika.lv", "description": "Online encyclopedia" },
         { "url": "www.lsm.lv", "title": "LSM.lv", "description": "Public news service" },
-        { "url": "www.diena.lv", "title": "Diena", "description": "Daily newspaper" },   
+        { "url": "www.diena.lv", "title": "Diena", "description": "Daily newspaper" },
         { "url": "www.db.lv", "title": "db.lv", "description": "Business news" },
         { "url": "www.delfi.lv", "title": "Delfi", "description": "News site" },
-        { "url": "www.tvnet.lv", "title": "TVNET ", "description": "News site" }     
+        { "url": "www.tvnet.lv", "title": "TVNET ", "description": "News site" }
     ];
 }
 
@@ -430,75 +423,58 @@ function initEvents() {
 
     $("body").bind('click', function (e) {
         if (e.which == 2) {
-            e.preventDefault();        
+            e.preventDefault();
         }
     });
 
 }
 
-function initLanguages($scope)
-    {
-    
-      $.each($widget.settings._systems, function (idx, sys) {       
-            if ($('.w .translateSourceLang option[value="' + sys.SourceLanguage.Code + '"]').length == 0) {               
-                $('.w .translateSourceLang').append($('<option>', {
-                    value: sys.SourceLanguage.Code,
-                    text: sys.SourceLanguage.Name.Text
-                }));
-            }
-        });
-       
-        // if only one, replace source select with block
-        if ($('.w .translateSourceLang option').length === 1) {
-            var srcSelect = $('.w .translateSourceLang', $widget.settings.container),
-                srcVal = srcSelect.val(),
-                srcText = srcSelect.text();
+function initLanguages($scope) {
 
-            srcSelect.replaceWith('<div class="translateSingleSourceLang" data-value="' + srcVal + '">' + srcText + '</div>');
-            loadTargetLangList(srcVal, null, null);
+    $.each($widget.settings._systems, function (idx, sys) {
+        if ($('.w .translateSourceLang option[value="' + sys.SourceLanguage.Code + '"]').length == 0) {
+            $('.w .translateSourceLang').append($('<option>', {
+                value: sys.SourceLanguage.Code,
+                text: sys.SourceLanguage.Name.Text
+            }));
         }
-        else {            
-            // default source lang
-            if ($widget.settings._defaultSourceLang !== null) {            
-                $('.w .translateSourceLang').val($widget.settings._defaultSourceLang);
-            }
+    });
 
-           $('.w .translateSourceLang').fancySelect({
-               triggerTemplate: function (el) {                   
-                   loadTargetLangList(el.val(), null, true);                
-                    return el.text();
+    $('.w .translateSourceLang').fancySelect({
+        triggerTemplate: function (el) {
+            loadTargetLangList(el.val(), null, true);
+            return el.text();
+        }
+    });
+
+    // default target lang        
+    if ($widget.settings._defaultTargetLang !== null) {
+
+        $('.w .translateTargetLang option[lang="' + $widget.settings._defaultTargetLang + '"]').val($widget.settings._defaultTargetLang);
+    }
+
+    $('.w .translateTargetLang').fancySelect({
+        triggerTemplate: function (el) {
+            if ($widget.activeSystemId !== el.val()) {
+                $widget.activeSystemId = el.val();
+                if ($widget.settings._onSystemChanged && typeof ($widget.settings._onSystemChanged) === "function") {
+                    $widget.settings._onSystemChanged($widget.activeSystemId);
                 }
-            });
-        }
-           
-        // default target lang        
-        if ($widget.settings._defaultTargetLang !== null) {
-          
-            $('.w .translateTargetLang option[lang="' + $widget.settings._defaultTargetLang + '"]').val($widget.settings._defaultTargetLang);
-        }
-
-        $('.w .translateTargetLang').fancySelect({
-            triggerTemplate: function (el) {               
-                if ($widget.activeSystemId !== el.val()) {
-                    $widget.activeSystemId = el.val();
-                    if ($widget.settings._onSystemChanged && typeof ($widget.settings._onSystemChanged) === "function") {
-                        $widget.settings._onSystemChanged($widget.activeSystemId);
-                    }   
-                }
-                return el.text();
             }
-        });
-            
-       setTimeout(function () {
-           $scope.website.languagesReady = 'yes';
-           $scope.$apply();
-       }, 0);        
+            return el.text();
+        }
+    });
+
+    setTimeout(function () {
+        $scope.website.languagesReady = 'yes';
+        $scope.$apply();
+    }, 0);
 }
 
 function loadTargetLangList(source, selTarget, putSystemId) {
     $('.w .translateTargetLang').empty();
 
-    $.each($widget.settings._systems, function (idx, sys) {       
+    $.each($widget.settings._systems, function (idx, sys) {
         if (sys.SourceLanguage.Code === source) {
             if (putSystemId) {
                 // check unique in lang attribute
@@ -533,7 +509,7 @@ function loadTargetLangList(source, selTarget, putSystemId) {
 
 }
 
-function setActiveSystem (systemId) {
+function setActiveSystem(systemId) {
     if (systemId === $widget.activeSystemId) { return; }
 
     var src = '', trg = '';
@@ -553,12 +529,7 @@ function setActiveSystem (systemId) {
 
 function getKey(key, value) {
     //alert('getKey(' + key + ', ' + value + ')');
-	if (key === 'letsMTKey') {
-        $currentClientId = value;
-    }
-    if (key === 'keySkipped') {
-        if (value === '1') {
-            $keySkipped = true;
-        }
+    if (key === 'letsMTKey') {
+        $currentKey = value;
     }
 }

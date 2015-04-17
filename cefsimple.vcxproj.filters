@@ -564,7 +564,19 @@
     <None Include="cefTLapp\res_tr2015\index.html">
       <Filter>cefTLapp\res</Filter>
     </None>
-    <None Include="cefTLapp\res\img\logo_large.svg" />
+    <None Include="..\desktop\templates\key.html" />
+    <None Include="..\desktop\img\logo_large.svg" />
+    <None Include="..\desktop\img\settings_letsmt-active.svg" />
+    <None Include="..\desktop\img\settings_letsmt.svg" />
+    <None Include="cefTLapp\res\templates\key.html">
+      <Filter>cefTLapp\res\js</Filter>
+    </None>
+    <None Include="cefTLapp\res\img\settings_letsmt.svg">
+      <Filter>cefTLapp\res\img</Filter>
+    </None>
+    <None Include="cefTLapp\res\img\settings_letsmt-active.svg">
+      <Filter>cefTLapp\res\img</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="cefclient.gyp" />

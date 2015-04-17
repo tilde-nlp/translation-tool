@@ -57,6 +57,8 @@ namespace {
 			{ "http://tlapp/img/text_letsmt-active.svg", IDS_IMG_TEXT_LETSMT_ACTIVE, "image/svg+xml" },	
 			{ "http://tlapp/img/web_letsmt.svg", IDS_IMG_WEB_LETSMT, "image/svg+xml" },
 			{ "http://tlapp/img/web_letsmt-active.svg", IDS_IMG_WEB_LETSMT_ACTIVE, "image/svg+xml" },
+			{ "http://tlapp/img/settings_letsmt.svg", IDS_IMG_SETTINGS_LETSMT, "image/svg+xml" },
+			{ "http://tlapp/img/settings_letsmt-active.svg", IDS_IMG_SETTINGS_LETSMT_ACTIVE, "image/svg+xml" },
 			{ "http://tlapp/img/logo_large.svg", IDS_IMG_LOGO, "image/svg+xml" },
 			//js
 			{ "http://tlapp/js/angular.min.js", IDS_JS_ANGULAR_MIN_JS, "text/javascript" },
@@ -72,6 +74,7 @@ namespace {
 			{ "http://tlapp/templates/translate-document.html", IDS_TEMPLATES_TRANSL_DOC_HTML, "text/html" },
 			{ "http://tlapp/templates/translate-text.html", IDS_TEMPLATES_TRANSL_TEXT_HTML, "text/html" },
 			{ "http://tlapp/templates/translate-website.html", IDS_TEMPLATES_TRANSL_WEB_HTML, "text/html" },
+			{ "http://tlapp/templates/key.html", IDS_TEMPLATES_KEY_HTML, "text/html" },
 			//text widget resources			
 			{ "http://tlapp/text-widget/translator.css", IDS_TEXT_WIDGET_WIDGET_CSS, "text/css" },
 			{ "http://tlapp/text-widget/translator.js", IDS_TEXT_WIDGET_CORE_JS, "text/javascript" }

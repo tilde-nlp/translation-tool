@@ -174,7 +174,7 @@ void TLappHandler::OnAddressChange(CefRefPtr<CefBrowser> browser,
 		StringToWString(a, keyName);
 		std::wstring wkey;
 		if (MultiReadSingleValue(L"Software\\Tilde\\TLapp", a.c_str(), wkey) == ERROR_SUCCESS)
-			frame->ExecuteJavaScript(L"getKey('" + wkey + L"')",url,0);
+			frame->ExecuteJavaScript(L"getKey('" + a + L"', '" + wkey + L"')", url, 0);
 	}
 	if (u.find("http://tlapp/#/setkey") != std::string::npos)
 	{

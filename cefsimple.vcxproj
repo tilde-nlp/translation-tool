@@ -624,8 +624,7 @@
     <ResourceCompile Include="cefTLapp\cefTLapp.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\Users\andis.lagzdins\Downloads\d41d8cd98f00b204e9800998ecf8427e.ico" />
-    <Image Include="cefTLapp\cefTLapp.ico" />
+    <Image Include="cefTLapp\small.ico" />
     <Image Include="cefTLapp\res\cefTLapp.ico" />
     <Image Include="cefTLapp\res\img\arrow.png" />
     <Image Include="cefTLapp\res\img\arrowWhite.png" />
@@ -636,17 +635,6 @@
     <Image Include="cefTLapp\res\img\mobile.png" />
     <Image Include="cefTLapp\res\img\tilde.png" />
     <Image Include="cefTLapp\res\small.ico" />
-    <Image Include="cefTLapp\res_tr2015\cefTLapp.ico" />
-    <Image Include="cefTLapp\res_tr2015\img\arrow.png" />
-    <Image Include="cefTLapp\res_tr2015\img\arrowWhite.png" />
-    <Image Include="cefTLapp\res_tr2015\img\arrowWhiteDown.png" />
-    <Image Include="cefTLapp\res_tr2015\img\hugo.png" />
-    <Image Include="cefTLapp\res_tr2015\img\landing.png" />
-    <Image Include="cefTLapp\res_tr2015\img\landingWhite.png" />
-    <Image Include="cefTLapp\res_tr2015\img\mobile.png" />
-    <Image Include="cefTLapp\res_tr2015\img\tilde.png" />
-    <Image Include="cefTLapp\res_tr2015\small.ico" />
-    <Image Include="cefTLapp\small.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="libcef_dll_wrapper.vcxproj">
@@ -676,52 +664,32 @@ call xcopy /efy "$(Configuration)\*.dll" "$(OutDir)"</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)copy_resources.stamp;$(OutDir)copy_executables.stamp;$(OutDir)copy_libraries.stamp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cefclient.gyp;%(AdditionalInputs)</AdditionalInputs>
     </CustomBuild>
-    <None Include="cefTLapp\res\css\index.css" />
-    <None Include="cefTLapp\res\img\doc_letsmt-active.svg" />
-    <None Include="cefTLapp\res\img\doc_letsmt.svg" />
-    <None Include="cefTLapp\res\img\logo_large.svg" />
-    <None Include="cefTLapp\res\img\text_letsmt-active.svg" />
-    <None Include="cefTLapp\res\img\text_letsmt.svg" />
-    <None Include="cefTLapp\res\img\web_letsmt-active.svg" />
-    <None Include="cefTLapp\res\img\web_letsmt.svg" />
-    <None Include="cefTLapp\res\index.html" />
-    <None Include="cefTLapp\res\js\angular-filter.js" />
-    <None Include="cefTLapp\res\js\angular-route.min.js" />
-    <None Include="cefTLapp\res\js\angular.min.js" />
-    <None Include="cefTLapp\res\js\jquery-2.1.1.min.js" />
-    <None Include="cefTLapp\res\js\myPageCtrl.js" />
-    <None Include="cefTLapp\res\js\myTranslatorApp.js" />
-    <None Include="cefTLapp\res\templates\about.html" />
-    <None Include="cefTLapp\res\templates\home.html" />
-    <None Include="cefTLapp\res\templates\mobileApplications.html" />
-    <None Include="cefTLapp\res\templates\translate-document.html" />
-    <None Include="cefTLapp\res\templates\translate-text.html" />
-    <None Include="cefTLapp\res\templates\translate-website.html" />
-    <None Include="cefTLapp\res\text-widget\translator.css" />
-    <None Include="cefTLapp\res\text-widget\translator.js" />
-    <None Include="cefTLapp\res_tr2015\css\index.css" />
-    <None Include="cefTLapp\res_tr2015\img\doc_letsmt-active.svg" />
-    <None Include="cefTLapp\res_tr2015\img\doc_letsmt.svg" />
-    <None Include="cefTLapp\res_tr2015\img\logo_large.svg" />
-    <None Include="cefTLapp\res_tr2015\img\text_letsmt-active.svg" />
-    <None Include="cefTLapp\res_tr2015\img\text_letsmt.svg" />
-    <None Include="cefTLapp\res_tr2015\img\web_letsmt-active.svg" />
-    <None Include="cefTLapp\res_tr2015\img\web_letsmt.svg" />
-    <None Include="cefTLapp\res_tr2015\index.html" />
-    <None Include="cefTLapp\res_tr2015\js\angular-filter.js" />
-    <None Include="cefTLapp\res_tr2015\js\angular-route.min.js" />
-    <None Include="cefTLapp\res_tr2015\js\angular.min.js" />
-    <None Include="cefTLapp\res_tr2015\js\jquery-2.1.1.min.js" />
-    <None Include="cefTLapp\res_tr2015\js\myPageCtrl.js" />
-    <None Include="cefTLapp\res_tr2015\js\myTranslatorApp.js" />
-    <None Include="cefTLapp\res_tr2015\templates\about.html" />
-    <None Include="cefTLapp\res_tr2015\templates\home.html" />
-    <None Include="cefTLapp\res_tr2015\templates\mobileApplications.html" />
-    <None Include="cefTLapp\res_tr2015\templates\translate-document.html" />
-    <None Include="cefTLapp\res_tr2015\templates\translate-text.html" />
-    <None Include="cefTLapp\res_tr2015\templates\translate-website.html" />
-    <None Include="cefTLapp\res_tr2015\text-widget\translator.css" />
-    <None Include="cefTLapp\res_tr2015\text-widget\translator.js" />
+    <None Include="..\desktop\index.html" />
+    <None Include="..\desktop\css\index.css" />
+    <None Include="..\desktop\img\logo_large.svg" />  
+    <None Include="..\desktop\img\doc_letsmt-active.svg" />
+    <None Include="..\desktop\img\doc_letsmt.svg" />
+    <None Include="..\desktop\img\settings_letsmt-active.svg" />
+    <None Include="..\desktop\img\settings_letsmt.svg" />
+    <None Include="..\desktop\img\text_letsmt-active.svg" />
+    <None Include="..\desktop\img\text_letsmt.svg" />
+    <None Include="..\desktop\img\web_letsmt-active.svg" />
+    <None Include="..\desktop\img\web_letsmt.svg" />  
+    <None Include="..\desktop\js\angular-filter.js" />
+    <None Include="..\desktop\js\angular-route.min.js" />
+    <None Include="..\desktop\js\angular.min.js" />
+    <None Include="..\desktop\js\jquery-2.1.1.min.js" />
+    <None Include="..\desktop\js\myPageCtrl.js" />
+    <None Include="..\desktop\js\myTranslatorApp.js" />
+    <None Include="..\desktop\templates\about.html" />
+    <None Include="..\desktop\templates\home.html" />
+    <None Include="..\desktop\templates\key.html" />
+    <None Include="..\desktop\templates\mobileApplications.html" />
+    <None Include="..\desktop\templates\translate-document.html" />
+    <None Include="..\desktop\templates\translate-text.html" />
+    <None Include="..\desktop\templates\translate-website.html" />
+    <None Include="..\desktop\text-widget\translator.css" />
+    <None Include="..\desktop\text-widget\translator.js" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

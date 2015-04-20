@@ -28,9 +28,7 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 
 IDS_MAIN_HTML           256                     "res\\index.html"
 IDS_CSS_INDEX           256                     "res\\css\\index.css"
-IDS_IMG_ARROW           256                     "res\\img\\arrowWhite.png"
-IDS_IMG_ARROW_RIGHT     256                     "res\\img\\arrow.png"
-IDS_IMG_ARROW_DOWN      256                     "res\\img\\arrowWhiteDown.png"
+IDS_IMG_ARROW           256                     "res\\img\\arrow-right.svg"
 IDS_IMG_DOC_LETSMT      256                     "res\\img\\doc_letsmt.svg"
 IDS_IMG_DOC_LETSMT_ACTIVE 256                   "res\\img\\doc_letsmt-active.svg"
 IDS_IMG_HUGO            256                     "res\\img\\hugo.png"

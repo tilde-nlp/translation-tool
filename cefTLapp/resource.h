@@ -10,7 +10,6 @@
 #define IDS_MAIN_HTML                   1000
 #define IDS_CSS_INDEX                   1001
 #define IDS_IMG_ARROW                   1002
-#define IDS_IMG_ARROW_DOWN              1003
 #define IDS_IMG_HUGO                    1004
 #define IDS_IMG_LANDING                 1005
 #define IDS_IMG_DOC_LETSMT              1006

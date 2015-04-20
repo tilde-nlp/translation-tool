@@ -627,8 +627,6 @@
     <Image Include="cefTLapp\small.ico" />
     <Image Include="cefTLapp\res\cefTLapp.ico" />
     <Image Include="cefTLapp\res\img\arrow.png" />
-    <Image Include="cefTLapp\res\img\arrowWhite.png" />
-    <Image Include="cefTLapp\res\img\arrowWhiteDown.png" />
     <Image Include="cefTLapp\res\img\hugo.png" />
     <Image Include="cefTLapp\res\img\landing.png" />
     <Image Include="cefTLapp\res\img\landingWhite.png" />
@@ -664,9 +662,10 @@ call xcopy /efy "$(Configuration)\*.dll" "$(OutDir)"</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)copy_resources.stamp;$(OutDir)copy_executables.stamp;$(OutDir)copy_libraries.stamp;%(Outputs)</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">cefclient.gyp;%(AdditionalInputs)</AdditionalInputs>
     </CustomBuild>
+    <None Include="..\desktop\img\arrow-right.svg" />
     <None Include="..\desktop\index.html" />
     <None Include="..\desktop\css\index.css" />
-    <None Include="..\desktop\img\logo_large.svg" />  
+    <None Include="..\desktop\img\logo_large.svg" />
     <None Include="..\desktop\img\doc_letsmt-active.svg" />
     <None Include="..\desktop\img\doc_letsmt.svg" />
     <None Include="..\desktop\img\settings_letsmt-active.svg" />
@@ -674,7 +673,7 @@ call xcopy /efy "$(Configuration)\*.dll" "$(OutDir)"</Command>
     <None Include="..\desktop\img\text_letsmt-active.svg" />
     <None Include="..\desktop\img\text_letsmt.svg" />
     <None Include="..\desktop\img\web_letsmt-active.svg" />
-    <None Include="..\desktop\img\web_letsmt.svg" />  
+    <None Include="..\desktop\img\web_letsmt.svg" />
     <None Include="..\desktop\js\angular-filter.js" />
     <None Include="..\desktop\js\angular-route.min.js" />
     <None Include="..\desktop\js\angular.min.js" />

@@ -448,7 +448,7 @@ form input[type='text'] {
 
 #websiteFrameContainer {
     position: fixed;
-    top: 65px;
+    top: 52px;
     bottom: 0px;
     right: 0;
     left: 160px;
@@ -500,7 +500,7 @@ form input[type='text'] {
     border: none;
     box-shadow: none;
     font-size: 47px;
-    width: 80%;
+    width: 90%;
 }
 
 .bigText input:focus {
@@ -781,6 +781,32 @@ form input[type='text'] {
     margin: 20px 20px 10px 0;
 }
 
+.text .translateDomainContainer,
+.file .translateDomainContainer {
+    position: absolute;
+    right: 1em;
+    top: 0.85em;
+}
+        
+.text .translateContainerLeft,
+.file .translateContainerLeft {
+    position: relative;
+}
+
+.text .translateResultClear,
+.file .docUploadNewDoc {
+    top: 0.5em;
+    right: 0.7em;
+    position: absolute;
+    z-index: 5;
+}
+
+.text .translateResultClear .clearLink,
+.file .docUploadNewDoc {
+    width: 0.3em;
+    height: 0.3em;
+}
+
 /*#endregion*/
 
 /*#region webpage translation*/
@@ -820,13 +846,11 @@ form input[type='text'] {
 #webWidget .url {
     float: left;
     border: 1px solid #ACB6BF;
-    border-right: none;
-    border-bottom-left-radius: 5px;
-    border-top-left-radius: 5px;
+    border-radius: 5px;
     padding: 7px 10px 8px 10px;
     font-weight: bold;
     font-size: 16px;
-    width: 60%;
+    width: 55%;
 }
 
 #webWidget .translateButton,
@@ -835,7 +859,7 @@ form input[type='text'] {
     float: left;
     border-radius: 0 5px 5px 0;
     width: 20px;
-    margin: 0;
+    margin: 0 0 0 -5px;
     padding: 5px;
     text-align: center;
     background-color: #273347;
@@ -848,6 +872,11 @@ form input[type='text'] {
     #webWidget .translateDomainContainer {
         float: left;
     }
+}
+
+#webWidget .translateProgress {
+    margin: 8px 0 0 8px;
+    float: left;
 }
 
 /*#endregion*/

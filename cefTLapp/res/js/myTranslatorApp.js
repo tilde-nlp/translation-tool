@@ -18,14 +18,6 @@ app.config(['$routeProvider',
                 templateUrl: 'templates/translate-text.html',
                 controller: 'TranslateCtrl'
             })
-            .when('/www', {
-                templateUrl: 'templates/translate-website.html',
-                controller: 'websiteTranslatorCtrl'
-            })
-            .when('/website', {
-                templateUrl: 'templates/translate-website.html',
-                controller: 'websiteTranslatorCtrl'
-            })
             .when('/webpage', {
                 templateUrl: 'templates/translate-website.html',
                 controller: 'WebCtrl'

@@ -1,6 +1,6 @@
 ﻿var $versionNumber = '1.22',
     $publicKey = 'trtool.desktop-u-c55bf80d-3eb5-4d07-975d-35e45b11bd7a',
-    $currentKey = 'trtool.desktop-u-c55bf80d-3eb5-4d07-975d-35e45b11bd7a';
+    $currentKey = '';
 
 app.controller("updateCtrl", function ($scope, $location) {
     $scope.version = $versionNumber;//possible values - text|website|  
@@ -32,7 +32,7 @@ app.controller("updateCtrl", function ($scope, $location) {
         }
     });
 
-    //$location.url('/getkey/?keyName=letsMTKey');
+    $location.url('/getkey/?keyName=letsMTKey');
 });
 
 app.controller("myPageCtrl", function ($scope, $location) {
@@ -57,85 +57,7 @@ app.controller("myPageCtrl", function ($scope, $location) {
         hideWebLanding();
         $('#webWidget .translateButton').click();
     }
-    /*
     
-    $scope.website.system = '';
-    $scope.website.base = "https://hugo.lv/en"
-    $scope.website.errorMsg = '';
-    $scope.website.freeze = false;
-    $scope.website.status = 'initial';
-    $scope.website.focus = false;
-    
-    $scope.website.languagesReady = 'no';
-    $scope.updateWebsite = function () {
-        if (!$scope.website.url || $scope.website.url.lenght == 0) {
-
-        }
-        else if ($scope.isActive('www')) {
-            $location.path('/website');//?embeddedStyle=noUI
-            window.open($scope.website.base + "/Translate/WebsiteEmbedded?embeddedStyle=noUI&appId=presidency.desktop", "websiteFrame");
-            $scope.website.frame = jQuery("#websiteFrame")[0].contentWindow;
-        } else {
-            switch ($scope.website.status) {//initial|ready|loading|translating|loaded|translated
-                case "initial":
-                    break;
-                case "loading":
-                case "translating":
-                    $scope.website.untranslate();
-                    setTimeout(function () { $scope.updateWebsite(); }, 500);
-                    break;
-                default:
-                    $scope.initWebsite();
-            }
-        }
-    };
-
-    $scope.website.reset = function () {
-        if ($scope.website.status == 'loading' || $scope.website.status == 'translating') {
-            $scope.website.untranslate();
-            setTimeout(function () { $scope.website.reset(); }, 500);
-        } else {
-            $scope.website.status = 'initial';
-
-        }
-    };
-
-    $scope.initWebsite = function () {
-        $scope.website.changeSystem();
-        $scope.website.loadUrl(true);
-    };
-
-    $scope.website.loadUrl = function (translateAfterLoad) {
-        console.log("Es: loadURL + translate it:  " + $scope.website.url);
-        $scope.website.status = 'loading';
-        $scope.website.frame.postMessage(
-            { "message": "loadUrl", "url": $scope.website.url, "translateAfterLoad": translateAfterLoad },
-            "*");
-    }
-
-    $scope.website.translate = function () {
-        console.log("Es: translate");
-        $scope.website.frame.postMessage({ "message": "translate", },
-            "*");
-    }
-
-    $scope.website.untranslate = function () {
-        console.log("Es: untranslate");
-        $scope.website.frame.postMessage({ "message": "untranslate", }, "*");
-    }
-
-    $scope.website.changeSystem = function () {
-        console.log("Es: change system to " + $scope.website.system);
-        jQuery("#websiteFrame")[0].contentWindow.postMessage({ "message": "changeSystem", "systemId": $scope.website.system },
-          "*");
-    }
-
-    $scope.loadURL = function () {
-        if ($event.which === 13) {
-            $scope.website.loadUrl();
-        }
-    }
-    */
     initEvents();
 
     $scope.dialog = {};
@@ -159,14 +81,11 @@ app.controller("myPageCtrl", function ($scope, $location) {
 });
 
 app.controller('TranslateCtrl', function ($scope, $routeParams) {
-    //$scope.website.reset();
     $('#fileWidget').empty();
     initTextWidget($scope);
 });
 
 app.controller('DocumentCtrl', function ($scope, $routeParams) {
-    //$scope.website.reset();
-    //$scope.website.url = '';
     $('#textWidget').empty();
 
     if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
@@ -214,8 +133,6 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
 
 app.controller('WebCtrl', function ($scope, $routeParams) {
     showWebLanding();
-    $scope.website.url = '';
-    //$scope.website.reset();
 
     $('#textWidget').empty();
 
@@ -243,33 +160,7 @@ app.controller('WebCtrl', function ($scope, $routeParams) {
     });
 });
 
-//app.controller('websiteTranslatorCtrl', function ($scope, $routeParams) {
-//    $scope.website.reset();
-
-//    if (typeof $widget == "undefined") {
-//        initTextWidget($scope, true);
-//    }
-//    else {
-//        $scope.website.languagesReady = 'yes';
-//    }
-
-//    $scope.website.systemUpdated = function () {
-//        jQuery("#websiteFrame")[0].contentWindow.postMessage(
-//                   { "method": "changeSystem", "systemId": $scope.website.system },
-//                     $scope.website.base);
-//    };
-//    $scope.website.updateSystem = function (systemID) {
-//        if ($scope.website.system == systemID) return false;
-//        $scope.website.system = systemID;
-//        setActiveSystem(systemID);
-//        return true;
-//    }
-//    jQuery("#url").click(function () { $(this).select(); });
-//});
-
 app.controller('homeCtrl', function ($scope, $location) {
-    //alert('$currentClientId: ' + $currentClientId);
-
     if ($currentKey.replace(/\s/g, '') === '') {
         $location.url('/key');
     }
@@ -286,64 +177,7 @@ app.controller('homeCtrl', function ($scope, $location) {
         $location.url('/setkey/?keyName=letsMTKey&key=' + $publicKey);
         $currentKey = $publicKey;
     }
-    //$scope.$watch('clientid', function (newValue, oldValue) {});
-    //$scope.website.url = '';
-    //$scope.website.reset();
 });
-
-//app.directive('ngMessage', function ($window) {
-//    return {
-//        link: function (scope) {
-//            angular.element($window).on('message', function (event) {
-//                if (event.originalEvent) event = event.originalEvent;
-//                if (event.data && event.data.message) {
-//                    console.log("Tu: " + event.data.message);
-
-//                    switch (event.data.message) {
-//                        case "urlLoaded":
-//                            scope.website.url = event.data.url;
-//                            console.log(event.data.url);
-//                            break;
-//                        case "startedLoading":
-//                            scope.website.status = 'loading';
-//                            break;
-//                        case "stoppedLoading":
-//                            //scope.website.status = 'loaded';
-//                            break;
-//                        case "systemChanged":
-//                            console.log("Tu: " + event.data.systemId);
-//                            if (scope.website.updateSystem(event.data.systemId)) console.log("Es: system changed");
-//                            scope.website.translate();
-//                            break;
-//                        case "translationStarted":
-//                            scope.website.status = 'translating';
-//                            break;
-//                        case "translationStopped":
-//                            scope.website.status = 'loaded';
-//                            break;
-//                        case "translated":
-//                            scope.website.status = 'translated';
-//                            break;
-//                        case "untranslated":
-//                            scope.website.status = 'loaded';
-//                            break;
-//                        case "ready":
-//                            //scope.initWebsite();
-//                            break;
-//                        case "error":
-//                            console.log("Tu: Error - " + event.data.description);
-//                            scope.website.errorMsg = event.data.description;
-//                            scope.website.status = 'error';
-//                            break;
-//                        default:
-//                    }
-//                    scope.$apply()
-//                }
-//                scope.$broadcast('ngMessage::message');
-//            });
-//        }
-//    }
-//});
 
 app.directive('fancybox', function ($compile, $timeout) {
     return {

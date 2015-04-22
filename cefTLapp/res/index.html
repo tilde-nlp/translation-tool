@@ -128,8 +128,8 @@
                 <a class="translateButton button" data-text="translateButton" data-title="translateButton"></a>
                 <a class="cancelButton button hide" data-text="cancelButton" data-title="cancelButton"></a>
                 <a class="restoreButton button hide" data-text="restoreButton" data-title="restoreButton"></a>
+                <div class="translateProgress hide"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
             </div>
-            <div class="translateProgress hide"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
         </div>
         <div id="websiteFrameContainer" class="hide">
             <iframe id="websiteFrame" name="websiteFrame" src="about:blank"></iframe>
@@ -180,36 +180,15 @@
     </div>
 
     <div class="vertical" id="container">
-        <!--<form novalidate class="right" ng-show="isActive('www') || isActive('website')" ng-submit="">
-            <div class="LanguageSelect w">
-                <div class="translateLanguageContainer" ng-show="website.languagesReady=='yes'">
-                    <div class="translateSourceSystemLabel">From</div>
-                    <select class="translateSourceLang"></select>
-                    <div class="translateTargetSystemLabel">to</div>
-                    <select class="translateTargetLang"></select>
-                </div>
-            </div>
-            <div id="address">
-                Address
-                <input type="text"
-                       id="url"
-                       ng-keyup="$scope.apply; $event.keyCode == 13 && updateWebsite(); "
-                       placeholder="Enter Address"
-                       ng-model="website.url"
-                       ng-disabled="false && website.status=='translating'"
-                       required focus-on="website.focus" />
-                <button ng-click="updateWebsite()" ng-show="website.status=='translated' || website.status=='error' || website.status=='translating' || website.status=='initial' || website.status=='ready' ||website.status=='loading' || website.status=='loaded'">Translate</button>
-            </div>
-        </form>-->
 
-        <div ng-hide="isActive('webpage___') || isActive('www')" ng-view></div>
+        <div ng-view></div>
 
         <div ng-show="isActive('webpage')" id="webpageLanding" class="restricted">
             <div class="bigText">
                 <div class="cursor blinker"></div>
                 <input type="text"
                        placeholder="Type web address here"
-                       ng-keyup="$event.keyCode == 13 && updateWebsite()"
+                       ng-keyup="$event.keyCode == 13 && translateWebsite()"
                        ng-model="website.url" hide-blink=".cursor.blinker">
             </div>
             <div id="websiteLinks">
@@ -222,17 +201,6 @@
                 </ul>
             </div>
         </div>
-        <!--
-        <div ng-show="isActive('website') && website.status!='initial'" id="websiteFrameContainer">
-            <div ng-show="website.status=='loading' || website.status=='translating' || website.status=='error'" class="infoMessage">
-                <center ng-show="website.status=='translating' || website.status=='error'">Translation in progress</center>
-                <center ng-show="website.status=='loading'">Loading in progress</center>
-                <center>
-                    <button ng-click="website.untranslate()">Cancel</button>
-                </center>
-            </div>
-            <iframe id="websiteFrame" name="websiteFrame" src="about:blank" frameborder="0"></iframe>
-        </div>-->
 
     </div>
     <div ng-show="isActive('home')" style="visibility:hidden;" id="textWidget"></div>

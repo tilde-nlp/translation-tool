@@ -43,7 +43,6 @@ namespace {
 			{ "http://tlapp/css/index.css", IDS_CSS_INDEX, "text/css" },
 			//images
 			{ "http://tlapp/img/arrow.png", IDS_IMG_ARROW_RIGHT, "image/png" },
-
 			{ "http://tlapp/img/arrow-right.svg", IDS_IMG_ARROW, "image/svg+xml" },
 			{ "http://tlapp/img/hugo.png", IDS_IMG_HUGO, "image/png" },
 			{ "http://tlapp/img/tilde.png", IDS_IMG_TILDE, "image/png" },

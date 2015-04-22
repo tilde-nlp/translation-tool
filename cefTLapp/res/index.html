@@ -7,7 +7,7 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
 
-    <link rel="stylesheet" type="text/css" href="css/index.css" />   
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
     <script src="js/jquery-2.1.1.min.js"></script>
 
     <!--text translation-->
@@ -106,6 +106,35 @@
             </div>
         </div>
     </script>
+    <script id="translateweb-template" type="text/html">
+        <div class="translateContainerHeader">
+            <div class="translateLangSelContainer">
+                <div class="translateSourceLangContainer">
+                    <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
+                    <select class="translateSourceLang"></select>
+                </div>
+                <div class="translateTargetLangContainer">
+                    <div data-text="targetSystem" class="translateTargetSystemLabel"></div>
+                    <select class="translateTargetLang"></select>
+                </div>
+                <div class="translateDomainContainer hide">
+                    <div data-text="systemDomain" class="translateDomainLabel"></div>
+                    <select class="translateDomain"></select>
+                </div>
+            </div>
+            <div class="addressContainer">
+                <div data-text="address" class="addressLabel"></div>
+                <input type="text" class="url" value="" placeholder="Enter Address" autofocus="autofocus" />
+                <a class="translateButton button" data-text="translateButton" data-title="translateButton"></a>
+                <a class="cancelButton button hide" data-text="cancelButton" data-title="cancelButton"></a>
+                <a class="restoreButton button hide" data-text="restoreButton" data-title="restoreButton"></a>
+            </div>
+            <div class="translateProgress hide"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+        </div>
+        <div id="websiteFrameContainer" class="hide">
+            <iframe id="websiteFrame" name="websiteFrame" src="about:blank"></iframe>
+        </div>
+    </script>
 
     <script src="js/angular.min.js"></script>
     <script src="js/angular-route.min.js"></script>
@@ -130,7 +159,7 @@
             <a tabindex="2" class="documentMenuItem" ng-class="{ active: isActive('document') }" href="#/document" title="Translate document">
                 <span>Documents</span>
             </a>
-            <a tabindex="3" class="websiteMenuItem" ng-click="routeMe('/www');" href="" ng-class="{ active: isActive('website') || isActive('www') }" title="Translate website">
+            <a tabindex="3" class="websiteMenuItem" ng-click="routeMe('/webpage');" href="" ng-class="{ active: isActive('website') || isActive('www') }" title="Translate website">
                 <span>Website</span>
             </a>
         </nav>
@@ -145,13 +174,13 @@
 
         <div class="footer">
             <div class="tilde" ng-hide="isActive('home') || isActive('about') || isActive('mobileApp')|| isActive('key')">
-                <span>Developed by <a class=" red" href="http://www.tilde.com" target="_blank">Tilde</a></span>    
+                <span>Developed by <a class=" red" href="http://www.tilde.com" target="_blank">Tilde</a></span>
             </div>
         </div>
     </div>
 
     <div class="vertical" id="container">
-        <form novalidate class="right" ng-show="isActive('www') || isActive('website')" ng-submit="">
+        <!--<form novalidate class="right" ng-show="isActive('www') || isActive('website')" ng-submit="">
             <div class="LanguageSelect w">
                 <div class="translateLanguageContainer" ng-show="website.languagesReady=='yes'">
                     <div class="translateSourceSystemLabel">From</div>
@@ -171,11 +200,11 @@
                        required focus-on="website.focus" />
                 <button ng-click="updateWebsite()" ng-show="website.status=='translated' || website.status=='error' || website.status=='translating' || website.status=='initial' || website.status=='ready' ||website.status=='loading' || website.status=='loaded'">Translate</button>
             </div>
-        </form>
+        </form>-->
 
-        <div ng-hide="isActive('website') || isActive('www')" ng-view></div>
-        
-        <div ng-show="isActive('www')" style="clear:both;" class="restricted">
+        <div ng-hide="isActive('webpage___') || isActive('www')" ng-view></div>
+
+        <div ng-show="isActive('webpage')" id="webpageLanding" class="restricted">
             <div class="bigText">
                 <div class="cursor blinker"></div>
                 <input type="text"
@@ -187,12 +216,13 @@
                 <div>Links to Latvian media and information resources:</div>
                 <ul>
                     <li ng-repeat="sample in website.samples">
-                        <a href="" ng-click="website.url=sample.url; updateWebsite();">{{sample.title}}</a>
+                        <a href="" ng-click="website.url=sample.url; translateWebsite();">{{sample.title}}</a>
                         <span>{{sample.description}}</span>
                     </li>
                 </ul>
             </div>
         </div>
+        <!--
         <div ng-show="isActive('website') && website.status!='initial'" id="websiteFrameContainer">
             <div ng-show="website.status=='loading' || website.status=='translating' || website.status=='error'" class="infoMessage">
                 <center ng-show="website.status=='translating' || website.status=='error'">Translation in progress</center>
@@ -200,9 +230,9 @@
                 <center>
                     <button ng-click="website.untranslate()">Cancel</button>
                 </center>
-            </div>          
+            </div>
             <iframe id="websiteFrame" name="websiteFrame" src="about:blank" frameborder="0"></iframe>
-        </div>
+        </div>-->
 
     </div>
     <div ng-show="isActive('home')" style="visibility:hidden;" id="textWidget"></div>
@@ -218,8 +248,8 @@
                 </div>
             </div>
         </div>
-        </div>
-    <div ng-controller="updateCtrl" ng-show="isActive('home') && update.type!=''">      
+    </div>
+    <div ng-controller="updateCtrl" ng-show="isActive('home') && update.type!=''">
         <div class="update" id="dialog">
             <div id="dialog-bg">
                 <div id="dialog-title">{{update.title}}</div>

@@ -1,4 +1,4 @@
-var app = angular.module("myTranslatorApp", ['ngRoute', 'angular.filter']);
+﻿var app = angular.module("myTranslatorApp", ['ngRoute', 'angular.filter']);
 app.config(['$routeProvider',
     function ($routeProvider, $filter) {
         $routeProvider
@@ -25,6 +25,10 @@ app.config(['$routeProvider',
             .when('/website', {
                 templateUrl: 'templates/translate-website.html',
                 controller: 'websiteTranslatorCtrl'
+            })
+            .when('/webpage', {
+                templateUrl: 'templates/translate-website.html',
+                controller: 'WebCtrl'
             })
             .when('/document', {
                 templateUrl: 'templates/translate-document.html',

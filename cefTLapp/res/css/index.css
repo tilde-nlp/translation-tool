@@ -40,6 +40,14 @@ h1 {
     text-align: center;
 }
 
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
 .vertical {
     height: 100%;
     float: left;
@@ -440,7 +448,7 @@ form input[type='text'] {
 
 #websiteFrameContainer {
     position: fixed;
-    top: 55px;
+    top: 65px;
     bottom: 0px;
     right: 0;
     left: 160px;
@@ -671,14 +679,14 @@ form input[type='text'] {
     background: linear-gradient(to bottom,#384760,#384760);
 }
 
-.cancelButton {
-    background-color: #FFF !important;
+#dialog .cancelButton {
+    background-color: #FFF;
     background-image: none;
     color: #2C384B;
 }
 
-.cancelButton:hover {
-    background-color: #FFF !important;
+#dialog .cancelButton:hover {
+    background-color: #FFF;
     background-image: none;
     color: #2C384B;
 }
@@ -696,6 +704,51 @@ form input[type='text'] {
 
 .white, #landingPage .contactUs .white {
     color: #FFF;
+}
+
+#textWidget.loading,
+#fileWidget.loading {
+    text-align: center;
+    margin-top: 200px;
+}
+
+#textWidget.loading > div,
+#fileWidget.loading > div {
+    width: 18px;
+    height: 18px;
+    background-color: #2C384B;
+    margin-left: 9px;
+    border-radius: 100%;
+    display: inline-block;
+    
+    -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+    /* Prevent first frame from flickering when animation starts */
+    -webkit-animation-fill-mode: both;
+}
+
+#textWidget.loading > div:first-child,
+#fileWidget.loading > div:first-child {
+    margin-left: 5px;
+}
+
+#textWidget.loading .bounce1,
+#fileWidget.loading .bounce1 {
+    -webkit-animation-delay: -0.32s;
+}
+
+#textWidget.loading .bounce2,
+#fileWidget.loading .bounce2 {
+    -webkit-animation-delay: -0.16s;
+}
+
+@-webkit-keyframes bouncedelay {
+    0%, 80%, 100% {
+        -webkit-transform: scale(0.0);
+    }
+
+    40% {
+        -webkit-transform: scale(1.0);
+    }
 }
 
 /*#region Enter key form*/
@@ -726,6 +779,75 @@ form input[type='text'] {
     padding: 10px;
     width: 155px;
     margin: 20px 20px 10px 0;
+}
+
+/*#endregion*/
+
+/*#region webpage translation*/
+
+#webpageLanding {
+    position: absolute;
+    top: 50px;
+    clear: both;
+}
+
+#webWidget .translateDomainLabel {
+    margin: 0.3em 0.5em 1em 0.3em;
+}
+
+#webWidget .translateContainerHeader {
+    padding: 9px 15px 0 39px;
+}
+
+#webWidget .translateLangSelContainer {
+    float: left;
+    width: 500px;
+    margin-top: 3px;
+}
+
+#webWidget .addressContainer {
+    float: right;
+    width: 50%;
+}
+
+#webWidget .addressLabel {
+    color: #ACB6BF;
+    float: left;
+    line-height: 34px;
+    margin-right: 5px;
+}
+
+#webWidget .url {
+    float: left;
+    border: 1px solid #ACB6BF;
+    border-right: none;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    padding: 7px 10px 8px 10px;
+    font-weight: bold;
+    font-size: 16px;
+    width: 60%;
+}
+
+#webWidget .translateButton,
+#webWidget .cancelButton,
+#webWidget .restoreButton {
+    float: left;
+    border-radius: 0 5px 5px 0;
+    width: 20px;
+    margin: 0;
+    padding: 5px;
+    text-align: center;
+    background-color: #273347;
+    background-image: none;
+    line-height: 25px;
+    cursor: pointer;
+}
+
+@media screen and (min-width:29em) {
+    #webWidget .translateDomainContainer {
+        float: left;
+    }
 }
 
 /*#endregion*/

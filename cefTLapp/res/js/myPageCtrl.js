@@ -1,6 +1,6 @@
-var $versionNumber = '1.22',
+﻿var $versionNumber = '1.22',
     $publicKey = 'trtool.desktop-u-c55bf80d-3eb5-4d07-975d-35e45b11bd7a',
-    $currentKey = '';
+    $currentKey = 'trtool.desktop-u-c55bf80d-3eb5-4d07-975d-35e45b11bd7a';
 
 app.controller("updateCtrl", function ($scope, $location) {
     $scope.version = $versionNumber;//possible values - text|website|  
@@ -32,7 +32,7 @@ app.controller("updateCtrl", function ($scope, $location) {
         }
     });
 
-    $location.url('/getkey/?keyName=letsMTKey');
+    //$location.url('/getkey/?keyName=letsMTKey');
 });
 
 app.controller("myPageCtrl", function ($scope, $location) {
@@ -48,16 +48,24 @@ app.controller("myPageCtrl", function ($scope, $location) {
         var active = ("/" + viewLocation === $location.path());
         return active;
     };
-
     $scope.website = {};
+    $scope.website.samples = listOfWebsites();
+    $scope.website.url = '';
+
+    $scope.translateWebsite = function () {
+        $('#webWidget .url').val($scope.website.url);
+        hideWebLanding();
+        $('#webWidget .translateButton').click();
+    }
+    /*
+    
     $scope.website.system = '';
     $scope.website.base = "https://hugo.lv/en"
-    $scope.website.url = '';
     $scope.website.errorMsg = '';
     $scope.website.freeze = false;
     $scope.website.status = 'initial';
     $scope.website.focus = false;
-    $scope.website.samples = listOfWebsites();
+    
     $scope.website.languagesReady = 'no';
     $scope.updateWebsite = function () {
         if (!$scope.website.url || $scope.website.url.lenght == 0) {
@@ -127,7 +135,7 @@ app.controller("myPageCtrl", function ($scope, $location) {
             $scope.website.loadUrl();
         }
     }
-
+    */
     initEvents();
 
     $scope.dialog = {};
@@ -151,31 +159,31 @@ app.controller("myPageCtrl", function ($scope, $location) {
 });
 
 app.controller('TranslateCtrl', function ($scope, $routeParams) {
-    $scope.website.reset();
+    //$scope.website.reset();
     $('#fileWidget').empty();
     initTextWidget($scope);
 });
 
 app.controller('DocumentCtrl', function ($scope, $routeParams) {
-    $scope.website.reset();
-    $scope.website.url = '';
+    //$scope.website.reset();
+    //$scope.website.url = '';
     $('#textWidget').empty();
 
     if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
 
     var fileWidget = new Tilde.TranslatorWidget('#fileWidget', {
         _language: 'en',
-        _systemListUrl: 'https://janlogic.tilde.lv/ws/Service.svc/json/GetSystemList',
-        _uploadUrl: 'https://janlogic.tilde.lv/ws/Files/Upload',
-        _deleteUrl: 'https://janlogic.tilde.lv/ws/Files/Delete',
-        _downloadUrl: 'https://janlogic.tilde.lv/ws/Files/Download',
-        _translateUrl: 'https://janlogic.tilde.lv/ws/Files/StartTranslation',
-        _previewUrl: 'https://janlogic.tilde.lv/ws/Files/GetDocumentPreview',
-        _checkStatusUrl: 'https://janlogic.tilde.lv/ws/Files/GetStatus',
+        _systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList',
+        _uploadUrl: 'https://letsmt.eu/ws/Files/Upload',
+        _deleteUrl: 'https://letsmt.eu/ws/Files/Delete',
+        _downloadUrl: 'https://letsmt.eu/ws/Files/Download',
+        _translateUrl: 'https://letsmt.eu/ws/Files/StartTranslation',
+        _previewUrl: 'https://letsmt.eu/ws/Files/GetDocumentPreview',
+        _checkStatusUrl: 'https://letsmt.eu/ws/Files/GetStatus',
         _clientId: parseClientKey($currentKey).clientid,
         _appId: parseClientKey($currentKey).appid,
         _templateId: 'translatefile-template',
-        _systemSelectType: 'language',
+        _systemSelectType: 'domain',
         _landingView: true,
         _getFilteredSystems: false,
         _allowedFileTypes: [
@@ -194,39 +202,70 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
             { ext: "txt", mime: "text/plain" }
         ],
         _onWidgetLoaded: function () {
+            $('#fileWidget').removeClass('loading');
             initLanguages($scope);
         },
         _onSystemChanged: function (id) {
-            $scope.website.system = id;
-            //console.log('_onSystemChanged(' + id + ')');
+            //$scope.website.system = id;
         },
         _replaceContainer: false
     });
 });
 
-app.controller('websiteTranslatorCtrl', function ($scope, $routeParams) {
-    $scope.website.reset();
+app.controller('WebCtrl', function ($scope, $routeParams) {
+    showWebLanding();
+    $scope.website.url = '';
+    //$scope.website.reset();
 
-    if (typeof $widget == "undefined") {
-        initTextWidget($scope, true);
-    }
-    else {
-        $scope.website.languagesReady = 'yes';
-    }
+    $('#textWidget').empty();
 
-    $scope.website.systemUpdated = function () {
-        jQuery("#websiteFrame")[0].contentWindow.postMessage(
-                   { "method": "changeSystem", "systemId": $scope.website.system },
-                     $scope.website.base);
-    };
-    $scope.website.updateSystem = function (systemID) {
-        if ($scope.website.system == systemID) return false;
-        $scope.website.system = systemID;
-        setActiveSystem(systemID);
-        return true;
-    }
-    jQuery("#url").click(function () { $(this).select(); });
+    if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
+
+    var webWidget = new Tilde.TranslatorWidget('#webWidget', {
+        _language: 'en',
+        _systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList',
+        _systemSelectType: 'domain',
+        _clientId: parseClientKey($currentKey).clientid,
+        _appId: parseClientKey($currentKey).appid,
+        _templateId: 'translateweb-template',
+        _getFilteredSystems: false,
+        _replaceContainer: false,
+        _apiIsInTheSameDomain: false,
+        _websiteTranslationUrl: 'https://readymt.tilde.com/Translate/WebsiteEmbedded?embeddedStyle=noUI',
+        _onWidgetLoaded: function () {
+            $('#webWidget .url').keyup(function () {
+                $('#webpageLanding .bigText input').val(this.value);
+            });
+        },
+        _onWebTranslateUrlLoaded: function (url) {
+            hideWebLanding();
+        }
+    });
 });
+
+//app.controller('websiteTranslatorCtrl', function ($scope, $routeParams) {
+//    $scope.website.reset();
+
+//    if (typeof $widget == "undefined") {
+//        initTextWidget($scope, true);
+//    }
+//    else {
+//        $scope.website.languagesReady = 'yes';
+//    }
+
+//    $scope.website.systemUpdated = function () {
+//        jQuery("#websiteFrame")[0].contentWindow.postMessage(
+//                   { "method": "changeSystem", "systemId": $scope.website.system },
+//                     $scope.website.base);
+//    };
+//    $scope.website.updateSystem = function (systemID) {
+//        if ($scope.website.system == systemID) return false;
+//        $scope.website.system = systemID;
+//        setActiveSystem(systemID);
+//        return true;
+//    }
+//    jQuery("#url").click(function () { $(this).select(); });
+//});
 
 app.controller('homeCtrl', function ($scope, $location) {
     //alert('$currentClientId: ' + $currentClientId);
@@ -248,63 +287,63 @@ app.controller('homeCtrl', function ($scope, $location) {
         $currentKey = $publicKey;
     }
     //$scope.$watch('clientid', function (newValue, oldValue) {});
-    $scope.website.url = '';
-    $scope.website.reset();
+    //$scope.website.url = '';
+    //$scope.website.reset();
 });
 
-app.directive('ngMessage', function ($window) {
-    return {
-        link: function (scope) {
-            angular.element($window).on('message', function (event) {
-                if (event.originalEvent) event = event.originalEvent;
-                if (event.data && event.data.message) {
-                    console.log("Tu: " + event.data.message);
+//app.directive('ngMessage', function ($window) {
+//    return {
+//        link: function (scope) {
+//            angular.element($window).on('message', function (event) {
+//                if (event.originalEvent) event = event.originalEvent;
+//                if (event.data && event.data.message) {
+//                    console.log("Tu: " + event.data.message);
 
-                    switch (event.data.message) {
-                        case "urlLoaded":
-                            scope.website.url = event.data.url;
-                            console.log(event.data.url);
-                            break;
-                        case "startedLoading":
-                            scope.website.status = 'loading';
-                            break;
-                        case "stoppedLoading":
-                            //scope.website.status = 'loaded';
-                            break;
-                        case "systemChanged":
-                            console.log("Tu: " + event.data.systemId);
-                            if (scope.website.updateSystem(event.data.systemId)) console.log("Es: system changed");
-                            scope.website.translate();
-                            break;
-                        case "translationStarted":
-                            scope.website.status = 'translating';
-                            break;
-                        case "translationStopped":
-                            scope.website.status = 'loaded';
-                            break;
-                        case "translated":
-                            scope.website.status = 'translated';
-                            break;
-                        case "untranslated":
-                            scope.website.status = 'loaded';
-                            break;
-                        case "ready":
-                            scope.initWebsite();
-                            break;
-                        case "error":
-                            console.log("Tu: Error - " + event.data.description);
-                            scope.website.errorMsg = event.data.description;
-                            scope.website.status = 'error';
-                            break;
-                        default:
-                    }
-                    scope.$apply()
-                }
-                scope.$broadcast('ngMessage::message');
-            });
-        }
-    }
-});
+//                    switch (event.data.message) {
+//                        case "urlLoaded":
+//                            scope.website.url = event.data.url;
+//                            console.log(event.data.url);
+//                            break;
+//                        case "startedLoading":
+//                            scope.website.status = 'loading';
+//                            break;
+//                        case "stoppedLoading":
+//                            //scope.website.status = 'loaded';
+//                            break;
+//                        case "systemChanged":
+//                            console.log("Tu: " + event.data.systemId);
+//                            if (scope.website.updateSystem(event.data.systemId)) console.log("Es: system changed");
+//                            scope.website.translate();
+//                            break;
+//                        case "translationStarted":
+//                            scope.website.status = 'translating';
+//                            break;
+//                        case "translationStopped":
+//                            scope.website.status = 'loaded';
+//                            break;
+//                        case "translated":
+//                            scope.website.status = 'translated';
+//                            break;
+//                        case "untranslated":
+//                            scope.website.status = 'loaded';
+//                            break;
+//                        case "ready":
+//                            //scope.initWebsite();
+//                            break;
+//                        case "error":
+//                            console.log("Tu: Error - " + event.data.description);
+//                            scope.website.errorMsg = event.data.description;
+//                            scope.website.status = 'error';
+//                            break;
+//                        default:
+//                    }
+//                    scope.$apply()
+//                }
+//                scope.$broadcast('ngMessage::message');
+//            });
+//        }
+//    }
+//});
 
 app.directive('fancybox', function ($compile, $timeout) {
     return {
@@ -369,15 +408,16 @@ function parseClientKey(key) {
 function initTextWidget($scope) {
     var textWidget = new Tilde.TranslatorWidget('#textWidget', {
         _language: 'en',
-        _systemListUrl: 'https://janlogic.tilde.lv/ws/Service.svc/json/GetSystemList',
-        _translationUrl: 'https://janlogic.tilde.lv/ws/Service.svc/json/Translate',
+        _systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList',
+        _translationUrl: 'https://letsmt.eu/ws/Service.svc/json/Translate',
         _clientId: parseClientKey($currentKey).clientid,
         _appId: parseClientKey($currentKey).appid,
         _templateId: 'translatetext-template',
-        _systemSelectType: 'language',
+        _systemSelectType: 'domain',
         _landingView: true,
         _getFilteredSystems: false,
         _onWidgetLoaded: function () {
+            $('#textWidget').removeClass('loading');
             if ($scope.isActive('www') || $scope.isActive('website')) {
                 initLanguages($scope);
             }
@@ -393,7 +433,7 @@ function initTextWidget($scope) {
                });
         },
         _onSystemChanged: function (id) {
-            $scope.website.system = id;
+            //$scope.website.system = id;
         },
         _replaceContainer: false
     });
@@ -406,6 +446,17 @@ function isCharacterKeyPress(evt) {
         return !evt.ctrlKey && !evt.metaKey && !evt.altKey && evt.which != 8;
     }
     return false;
+}
+
+function showWebLanding() {
+    $('#websiteFrameContainer').addClass('hide');
+    $('#webpageLanding').removeClass('hide');
+    $('#webpageLanding .bigText input').val('');
+}
+
+function hideWebLanding() {
+    $('#websiteFrameContainer').removeClass('hide');
+    $('#webpageLanding').addClass('hide');
 }
 
 function listOfWebsites() {
@@ -466,7 +517,7 @@ function initLanguages($scope) {
     });
 
     setTimeout(function () {
-        $scope.website.languagesReady = 'yes';
+        //$scope.website.languagesReady = 'yes';
         $scope.$apply();
     }, 0);
 }
@@ -533,3 +584,9 @@ function getKey(key, value) {
         $currentKey = value;
     }
 }
+
+$(document).ready(function () {
+    $('#webpageLanding .bigText input').keyup(function () {
+        $('#webWidget .url').val(this.value);
+    });
+});

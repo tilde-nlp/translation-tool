@@ -1,5 +1,5 @@
 ﻿var $versionNumber = '1.22',
-    $publicKey = 'trtool.desktop-u-c55bf80d-3eb5-4d07-975d-35e45b11bd7a',
+    $publicKey = 'tt-demo-u-0da5622e-98bc-470d-8e61-6e3ee6173cd4',
     $currentKey = '';
 
 app.controller("updateCtrl", function ($scope, $location) {
@@ -43,6 +43,14 @@ app.controller("myPageCtrl", function ($scope, $location) {
     catch (err) {
         console.log(err.message);
     }
+
+    $scope.keySkipped = false;
+    $scope.keyTitle = '';
+
+    $scope.keyIsChanged = function () {
+        $scope.keySkipped = ($currentKey === $publicKey && $currentKey !== '');
+        $scope.keyTitle = ($scope.keySkipped) ? 'Enter key' : 'Change key';
+    };
 
     $scope.isActive = function (viewLocation) {
         var active = ("/" + viewLocation === $location.path());
@@ -104,7 +112,7 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
         _templateId: 'translatefile-template',
         _systemSelectType: 'domain',
         _landingView: true,
-        _getFilteredSystems: false,
+        _getFilteredSystems: true,
         _allowedFileTypes: [
             { ext: "doc", mime: "application/msword" },
             { ext: "docx", mime: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" },
@@ -145,7 +153,7 @@ app.controller('WebCtrl', function ($scope, $routeParams) {
         _clientId: parseClientKey($currentKey).clientid,
         _appId: parseClientKey($currentKey).appid,
         _templateId: 'translateweb-template',
-        _getFilteredSystems: false,
+        _getFilteredSystems: true,
         _replaceContainer: false,
         _apiIsInTheSameDomain: false,
         _websiteTranslationUrl: 'https://readymt.tilde.com/Translate/WebsiteEmbedded?embeddedStyle=noUI',
@@ -172,11 +180,14 @@ app.controller('homeCtrl', function ($scope, $location) {
             $location.url('/setkey/?keyName=letsMTKey&key=' + $scope.clientid);
             $currentKey = $scope.clientid;
         }
+        $scope.keyIsChanged();
     }
     $scope.skipKey = function () {
         $location.url('/setkey/?keyName=letsMTKey&key=' + $publicKey);
         $currentKey = $publicKey;
+        $scope.keyIsChanged();
     }
+    $scope.toolTipClass = 'dontShow';
 });
 
 app.directive('fancybox', function ($compile, $timeout) {
@@ -249,7 +260,7 @@ function initTextWidget($scope) {
         _templateId: 'translatetext-template',
         _systemSelectType: 'domain',
         _landingView: true,
-        _getFilteredSystems: false,
+        _getFilteredSystems: true,
         _onWidgetLoaded: function () {
             $('#textWidget').removeClass('loading');
             if ($scope.isActive('www') || $scope.isActive('website')) {

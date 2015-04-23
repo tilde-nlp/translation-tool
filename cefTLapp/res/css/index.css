@@ -112,8 +112,17 @@ a.keyMenuItem {
     background-size: 17%;
 }
 
+a.keyMenuItem.skipped {
+    background-image: none;
+    background-color: #34A6DD;
+    margin: 15px;
+    padding: 12px 5px;
+    text-align: center;
+    color: #FFF;
+}
+
 nav a {
-    color: #7b8ea0;
+    color: #7B8EA0;
     text-decoration: none;
     vertical-align: middle;
     background-repeat: no-repeat;
@@ -751,6 +760,32 @@ form input[type='text'] {
     }
 }
 
+.text .translateDomainContainer,
+.file .translateDomainContainer {
+    position: absolute;
+    right: 1em;
+    top: 0.85em;
+}
+        
+.text .translateContainerLeft,
+.file .translateContainerLeft {
+    position: relative;
+}
+
+.text .translateResultClear,
+.file .docUploadNewDoc {
+    top: 0.5em;
+    right: 0.7em;
+    position: absolute;
+    z-index: 5;
+}
+
+.text .translateResultClear .clearLink,
+.file .docUploadNewDoc {
+    width: 0.3em;
+    height: 0.3em;
+}
+
 /*#region Enter key form*/
 
 #enterKey {
@@ -781,30 +816,36 @@ form input[type='text'] {
     margin: 20px 20px 10px 0;
 }
 
-.text .translateDomainContainer,
-.file .translateDomainContainer {
+.toolTip {
+    background-color: #E3332A;
     position: absolute;
-    right: 1em;
-    top: 0.85em;
-}
-        
-.text .translateContainerLeft,
-.file .translateContainerLeft {
-    position: relative;
+    border-radius: 5px;
+    padding: 10px 14px;
+    width: 210px;
+    margin: 70px 0 0 200px;
+    z-index: 10;
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity .1s linear;
 }
 
-.text .translateResultClear,
-.file .docUploadNewDoc {
-    top: 0.5em;
-    right: 0.7em;
+.toolTip:before {
+    content: '';
+    display: block;
     position: absolute;
-    z-index: 5;
+    top: -17px;
+    left: 15px;
+    bottom: 0;
+    border: 6px solid rgba(0, 0, 0, 0);
+    border-bottom-color: #E3332A;
+    width: 0;
+    height: 6px;
 }
 
-.text .translateResultClear .clearLink,
-.file .docUploadNewDoc {
-    width: 0.3em;
-    height: 0.3em;
+.toolTip.dontShow {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity .1s linear;
 }
 
 /*#endregion*/

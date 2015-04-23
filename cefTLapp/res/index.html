@@ -167,8 +167,8 @@
         <div id="promoSection"></div>
 
         <nav>
-            <a tabindex="1" class="keyMenuItem" ng-click="routeMe('/key');" ng-class="{ active: isActive('key') }" href="" title="Enter key">
-                <span>Change key</span>
+            <a tabindex="1" class="keyMenuItem" ng-click="routeMe('/key');" ng-class="{ skipped: keySkipped }" href="" title="Enter key">
+                <span>{{keyTitle}}</span>
             </a>
         </nav>
 

@@ -1,13 +1,14 @@
 ﻿<div id="landingPage" class="restricted">
     <div id="outer">
         <div id="inner">
-            <h1>Enter key</h1>
+            <h1>User key</h1>
 
             <textarea id="enterKey" placeholder="Enter key here" ng-model="clientid"></textarea>
 
             <div class="buttonBox">
                 <a id="btnKeyOk" href="" ng-click="changeKey();" class="button">Ok</a>
-                <a id="btnKeySkip" href="#/home" ng-click="skipKey();" class="button">Skip</a>
+                <a id="btnKeySkip" href="#/home" ng-click="skipKey();" ng-mouseleave="toolTipClass='dontShow'" ng-mouseenter="toolTipClass=''" class="button">Skip</a>
+                <div class="toolTip {{toolTipClass}}">Continue with publicly available translation systems</div>
             </div>
 
             <p class="tilde">

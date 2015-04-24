@@ -107,18 +107,28 @@ a.websiteMenuItem {
     background-image: url("../img/web_letsmt.svg");
 }
 
+.keyMenuItem a,
 a.keyMenuItem {
     background-image: url("../img/settings_letsmt.svg");
     background-size: 17%;
 }
 
-a.keyMenuItem.skipped {
+a.keyMenuItem.skipped, 
+li.keyMenuItem .skipped {
     background-image: none;
     background-color: #34A6DD;
     margin: 15px;
     padding: 12px 5px;
     text-align: center;
     color: #FFF;
+}
+
+li.keyMenuItem .skipped {
+    margin: 0;
+}
+
+#landingPage #inner .keyMenuItem.skipped a {
+    padding: 10px;
 }
 
 nav a {
@@ -133,6 +143,11 @@ nav a {
 
 nav a.keyMenuItem {
     background-position: 17px center;
+}
+
+#landingPage #inner .keyMenuItem.skipped {
+    background-image: none;
+    padding: 0;
 }
 
 nav a:hover, nav a:focus {
@@ -863,18 +878,18 @@ form input[type='text'] {
 }
 
 #webWidget .translateContainerHeader {
-    padding: 9px 15px 0 39px;
+    padding: 9px 0 0 39px;
 }
 
 #webWidget .translateLangSelContainer {
     float: left;
-    width: 500px;
+    width: 480px;
     margin-top: 3px;
 }
 
 #webWidget .addressContainer {
     float: right;
-    width: 50%;
+    width: 37%;
 }
 
 #webWidget .addressLabel {
@@ -891,7 +906,7 @@ form input[type='text'] {
     padding: 7px 10px 8px 10px;
     font-weight: bold;
     font-size: 16px;
-    width: 55%;
+    width: 44%;
 }
 
 #webWidget .translateButton,
@@ -899,7 +914,7 @@ form input[type='text'] {
 #webWidget .restoreButton {
     float: left;
     border-radius: 0 5px 5px 0;
-    width: 20px;
+    width: auto;
     margin: 0 0 0 -5px;
     padding: 5px;
     text-align: center;

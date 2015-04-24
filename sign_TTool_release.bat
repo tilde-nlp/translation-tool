@@ -7,8 +7,8 @@ set signature=b5fde1c49d5bda708e155914f0bf7d3e95910be9
 path %path%;%frameworkbin%;c:\blat262\full;
 echo %date% %time%>"%logfile%"
 
-set descr="Translation Tool 2015"
-set file="out\Release_setup\DISK1\translate2015.exe"
+set descr="Translation tool"
+set file="out\Release_setup\DISK1\TTool.exe"
  chktrust %file% -q
  if ERRORLEVEL 1	signcode.exe -sha1 %signature% -n %descr% -i %webpage% -t %timestamp% %file% >>"%logfile%"
  chktrust %file% >>"%logfile%"

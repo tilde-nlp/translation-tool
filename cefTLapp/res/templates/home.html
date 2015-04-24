@@ -12,14 +12,11 @@
                 <li>
                     <a tabindex="2" class="documentMenuItem" href="#/document" title="Translate document">Document</a>
                 </li>
-                <!--<li>
-                    <a tabindex="3" class="websiteMenuItem" href="#/www" title="Translate website">Website old</a>
-                </li>-->
                 <li>
                     <a tabindex="3" class="websiteMenuItem" href="#/webpage" title="Translate website">Website</a>
                 </li>
-                <li>
-                    <a tabindex="4" class="keyMenuItem" href="#/key" title="Settings">Enter key</a>
+                <li class="keyMenuItem" ng-class="{ skipped: keySkipped }">
+                    <a tabindex="4" href="#/key" ng-class="{ skipped: keySkipped }" title="Enter key">{{keyTitle}}</a>
                 </li>
             </ul>
             <p class="tilde">

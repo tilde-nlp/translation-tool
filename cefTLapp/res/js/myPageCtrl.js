@@ -1,6 +1,7 @@
-﻿var $versionNumber = '1.22',
+﻿var $versionNumber = '1.0',
     $publicKey = 'tt-demo-u-0da5622e-98bc-470d-8e61-6e3ee6173cd4',
-    $currentKey = '';
+    $currentKey = '',
+    keyChanged = false;
 
 app.controller("updateCtrl", function ($scope, $location) {
     $scope.version = $versionNumber;//possible values - text|website|  
@@ -45,11 +46,12 @@ app.controller("myPageCtrl", function ($scope, $location) {
     }
 
     $scope.keySkipped = false;
-    $scope.keyTitle = '';
+    $scope.keyTitle = 'Change key';
 
     $scope.keyIsChanged = function () {
         $scope.keySkipped = ($currentKey === $publicKey && $currentKey !== '');
         $scope.keyTitle = ($scope.keySkipped) ? 'Enter key' : 'Change key';
+        $keyChanged = true;
     };
 
     $scope.isActive = function (viewLocation) {
@@ -96,7 +98,13 @@ app.controller('TranslateCtrl', function ($scope, $routeParams) {
 app.controller('DocumentCtrl', function ($scope, $routeParams) {
     $('#textWidget').empty();
 
-    if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
+    if (typeof $widget !== 'undefined') {
+        if ($keyChanged) {
+            $widget.settings._systems = null;
+            $keyChanged = false;
+        }
+        $widget.textPluginUnload()
+    };
 
     var fileWidget = new Tilde.TranslatorWidget('#fileWidget', {
         _language: 'en',
@@ -128,6 +136,7 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
             { ext: "xht", mime: "application/xhtml+xml" },
             { ext: "txt", mime: "text/plain" }
         ],
+        _mimetypeFilter: false,
         _onWidgetLoaded: function () {
             $('#fileWidget').removeClass('loading');
             initLanguages($scope);
@@ -144,7 +153,13 @@ app.controller('WebCtrl', function ($scope, $routeParams) {
 
     $('#textWidget').empty();
 
-    if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
+    if (typeof $widget !== 'undefined') {
+        if ($keyChanged) {
+            $widget.settings._systems = null;
+            $keyChanged = false;
+        }
+        $widget.textPluginUnload()
+    };
 
     var webWidget = new Tilde.TranslatorWidget('#webWidget', {
         _language: 'en',
@@ -251,6 +266,12 @@ function parseClientKey(key) {
 }
 
 function initTextWidget($scope) {
+    if ($keyChanged) {
+        if (typeof $widget !== 'undefined') {
+            $widget.settings._systems = null;
+        }
+        $keyChanged = false;
+    }
     var textWidget = new Tilde.TranslatorWidget('#textWidget', {
         _language: 'en',
         _systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList',
@@ -266,16 +287,15 @@ function initTextWidget($scope) {
             if ($scope.isActive('www') || $scope.isActive('website')) {
                 initLanguages($scope);
             }
-            $(document)
-               .keydown(function (e) {
-                   if (isCharacterKeyPress(e) && $scope.isActive('text')) {
-                       $(".translateTextSource").click();
+            $(document).keydown(function (e) {
+                if (isCharacterKeyPress(e) && $scope.isActive('text')) {
+                    $(".translateTextSource").click();
 
-                   }
-                   if (isCharacterKeyPress(e) && $scope.isActive('www') && !$("#url").is(":focus")) {
-                       $(".bigText input").focus();
-                   }
-               });
+                }
+                if (isCharacterKeyPress(e) && $scope.isActive('www') && !$("#url").is(":focus")) {
+                    $(".bigText input").focus();
+                }
+            });
         },
         _onSystemChanged: function (id) {
             //$scope.website.system = id;

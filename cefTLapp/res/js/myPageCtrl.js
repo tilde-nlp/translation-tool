@@ -1,11 +1,11 @@
 ﻿var $versionNumber = '1.0',
     $publicKey = 'tt-demo-u-0da5622e-98bc-470d-8e61-6e3ee6173cd4',
     $currentKey = '',
-    keyChanged = false;
+    $keyChanged = false;
 
 app.controller("updateCtrl", function ($scope, $location) {
     $scope.version = $versionNumber;//possible values - text|website|  
-    $scope.url = 'https://saas.tilde.com/bb7_updateinfo/downloads/translate2015updates.js';//possible values - mobile|about
+    $scope.url = 'https://saas.tilde.com/bb7_updateinfo/downloads/ttoolupdates.js';//possible values - mobile|about
     $scope.update = {
         type: '',
         title: '',
@@ -184,6 +184,8 @@ app.controller('WebCtrl', function ($scope, $routeParams) {
 });
 
 app.controller('homeCtrl', function ($scope, $location) {
+    $scope.keyIsChanged();
+
     if ($currentKey.replace(/\s/g, '') === '') {
         $location.url('/key');
     }
@@ -447,6 +449,7 @@ function getKey(key, value) {
     //alert('getKey(' + key + ', ' + value + ')');
     if (key === 'letsMTKey') {
         $currentKey = value;
+        $keyChanged = true;
     }
 }
 

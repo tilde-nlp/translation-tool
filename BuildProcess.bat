@@ -2,7 +2,7 @@ SET processName=BuildProcess.bat
 set sendto=janis.teselskis@tilde.lv
 rem set sendto=evita.kornejeva@tilde.lv
 set WaitingTime=120
-set BuildProject="TToolSetup.ism"
+set BuildProject="Translator2015Setup.ism"
 set ProductVersion=1.0.0
 set ISPath2013="c:\program files\installshield\2013 SP1 SAB\system\"
 

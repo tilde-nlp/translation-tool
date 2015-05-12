@@ -150,7 +150,7 @@ nav a.keyMenuItem {
     padding: 0;
 }
 
-nav a:hover, nav a:focus {
+nav a:hover, nav a:focus, nav a.active {
     background-color: #161F2E;
 }
 
@@ -613,7 +613,7 @@ form input[type='text'] {
 }
 
 #dialog {
-    width: 400px;
+    width: 420px;
     height: 190px;
     background-color: rgba(0,0,0,0.30);
     padding: 3px;
@@ -635,7 +635,7 @@ form input[type='text'] {
 
 #dialog-bg {
     background-color: #FBFBFB;
-    width: 400px;
+    width: 420px;
     height: 189px;
     margin-left: auto;
     margin-right: auto;
@@ -645,7 +645,7 @@ form input[type='text'] {
 #dialog-title {
     width: 400px;
     height: 30px;
-    padding-top: 12px;
+    padding: 12px 10px 0 10px;
     background-color: #FFFFFF;
     background: linear-gradient(to bottom,#FFFFFF,#E9E9E9);
     border-top-left-radius: 7px;
@@ -660,7 +660,7 @@ form input[type='text'] {
 }
 
 #dialog-description {
-    width: 360px;
+    width: 380px;
     margin-left: auto;
     margin-right: auto;
     padding-left: 20px;
@@ -736,8 +736,13 @@ form input[type='text'] {
     margin-top: 200px;
 }
 
+#webWidget.loading {
+    margin: 20px 0 0 38px;
+}
+
 #textWidget.loading > div,
-#fileWidget.loading > div {
+#fileWidget.loading > div,
+#webWidget.loading > div {
     width: 18px;
     height: 18px;
     background-color: #2C384B;
@@ -751,17 +756,20 @@ form input[type='text'] {
 }
 
 #textWidget.loading > div:first-child,
-#fileWidget.loading > div:first-child {
+#fileWidget.loading > div:first-child,
+#webWidget.loading > div:first-child {
     margin-left: 5px;
 }
 
 #textWidget.loading .bounce1,
-#fileWidget.loading .bounce1 {
+#fileWidget.loading .bounce1,
+#webWidget.loading .bounce1 {
     -webkit-animation-delay: -0.32s;
 }
 
 #textWidget.loading .bounce2,
-#fileWidget.loading .bounce2 {
+#fileWidget.loading .bounce2,
+#webWidget.loading .bounce2 {
     -webkit-animation-delay: -0.16s;
 }
 
@@ -773,32 +781,6 @@ form input[type='text'] {
     40% {
         -webkit-transform: scale(1.0);
     }
-}
-
-.text .translateDomainContainer,
-.file .translateDomainContainer {
-    position: absolute;
-    right: 1em;
-    top: 0.85em;
-}
-        
-.text .translateContainerLeft,
-.file .translateContainerLeft {
-    position: relative;
-}
-
-.text .translateResultClear,
-.file .docUploadNewDoc {
-    top: 0.5em;
-    right: 0.7em;
-    position: absolute;
-    z-index: 5;
-}
-
-.text .translateResultClear .clearLink,
-.file .docUploadNewDoc {
-    width: 0.3em;
-    height: 0.3em;
 }
 
 /*#region Enter key form*/
@@ -878,7 +860,7 @@ form input[type='text'] {
 }
 
 #webWidget .translateContainerHeader {
-    padding: 9px 0 0 39px;
+    padding: 9px 0 0 21px;
 }
 
 #webWidget .translateLangSelContainer {
@@ -903,9 +885,9 @@ form input[type='text'] {
     float: left;
     border: 1px solid #ACB6BF;
     border-radius: 5px;
-    padding: 7px 10px 8px 10px;
+    padding: 7px 10px 6px 10px;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 17px;
     width: 44%;
 }
 
@@ -916,7 +898,7 @@ form input[type='text'] {
     border-radius: 0 5px 5px 0;
     width: auto;
     margin: 0 0 0 -5px;
-    padding: 5px;
+    padding: 5px 8px;
     text-align: center;
     background-color: #273347;
     background-image: none;
@@ -933,6 +915,11 @@ form input[type='text'] {
 #webWidget .translateProgress {
     margin: 8px 0 0 8px;
     float: left;
+}
+
+.text .translateProgress {
+    height: auto;
+    margin-top: 5px;
 }
 
 /*#endregion*/

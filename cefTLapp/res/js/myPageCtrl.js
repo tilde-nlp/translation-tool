@@ -1,7 +1,8 @@
 ﻿var $versionNumber = '1.0',
     $publicKey = 'tt-demo-u-0da5622e-98bc-470d-8e61-6e3ee6173cd4',
     $currentKey = '',
-    $keyChanged = false;
+    $keyChanged = false,
+    $systemList = null;
 
 app.controller("updateCtrl", function ($scope, $location) {
     $scope.version = $versionNumber;//possible values - text|website|  
@@ -106,6 +107,10 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
         $widget.textPluginUnload()
     };
 
+    if (typeof $widget !== 'undefined') {
+        Tilde.TranslatorWidget.prototype.onSystemChangedHandlers = [];
+    }
+
     var fileWidget = new Tilde.TranslatorWidget('#fileWidget', {
         _language: 'en',
         _systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList',
@@ -139,7 +144,6 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
         _mimetypeFilter: false,
         _onWidgetLoaded: function () {
             $('#fileWidget').removeClass('loading');
-            initLanguages($scope);
         },
         _onSystemChanged: function (id) {
             //$scope.website.system = id;
@@ -161,6 +165,10 @@ app.controller('WebCtrl', function ($scope, $routeParams) {
         $widget.textPluginUnload()
     };
 
+    if (typeof $widget !== 'undefined') {
+        Tilde.TranslatorWidget.prototype.onSystemChangedHandlers = [];
+    }
+
     var webWidget = new Tilde.TranslatorWidget('#webWidget', {
         _language: 'en',
         _systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList',
@@ -173,6 +181,7 @@ app.controller('WebCtrl', function ($scope, $routeParams) {
         _apiIsInTheSameDomain: false,
         _websiteTranslationUrl: 'https://readymt.tilde.com/Translate/WebsiteEmbedded?embeddedStyle=noUI',
         _onWidgetLoaded: function () {
+            $('#webWidget').removeClass('loading');
             $('#webWidget .url').keyup(function () {
                 $('#webpageLanding .bigText input').val(this.value);
             });
@@ -274,6 +283,11 @@ function initTextWidget($scope) {
         }
         $keyChanged = false;
     }
+
+    if (typeof $widget !== 'undefined') {
+        Tilde.TranslatorWidget.prototype.onSystemChangedHandlers = [];
+    }
+
     var textWidget = new Tilde.TranslatorWidget('#textWidget', {
         _language: 'en',
         _systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList',
@@ -286,15 +300,12 @@ function initTextWidget($scope) {
         _getFilteredSystems: true,
         _onWidgetLoaded: function () {
             $('#textWidget').removeClass('loading');
-            if ($scope.isActive('www') || $scope.isActive('website')) {
-                initLanguages($scope);
-            }
             $(document).keydown(function (e) {
                 if (isCharacterKeyPress(e) && $scope.isActive('text')) {
                     $(".translateTextSource").click();
 
                 }
-                if (isCharacterKeyPress(e) && $scope.isActive('www') && !$("#url").is(":focus")) {
+                if (isCharacterKeyPress(e) && $scope.isActive('webpage') && !$("#url").is(":focus")) {
                     $(".bigText input").focus();
                 }
             });
@@ -345,48 +356,6 @@ function initEvents() {
         }
     });
 
-}
-
-function initLanguages($scope) {
-
-    $.each($widget.settings._systems, function (idx, sys) {
-        if ($('.w .translateSourceLang option[value="' + sys.SourceLanguage.Code + '"]').length == 0) {
-            $('.w .translateSourceLang').append($('<option>', {
-                value: sys.SourceLanguage.Code,
-                text: sys.SourceLanguage.Name.Text
-            }));
-        }
-    });
-
-    $('.w .translateSourceLang').fancySelect({
-        triggerTemplate: function (el) {
-            loadTargetLangList(el.val(), null, true);
-            return el.text();
-        }
-    });
-
-    // default target lang        
-    if ($widget.settings._defaultTargetLang !== null) {
-
-        $('.w .translateTargetLang option[lang="' + $widget.settings._defaultTargetLang + '"]').val($widget.settings._defaultTargetLang);
-    }
-
-    $('.w .translateTargetLang').fancySelect({
-        triggerTemplate: function (el) {
-            if ($widget.activeSystemId !== el.val()) {
-                $widget.activeSystemId = el.val();
-                if ($widget.settings._onSystemChanged && typeof ($widget.settings._onSystemChanged) === "function") {
-                    $widget.settings._onSystemChanged($widget.activeSystemId);
-                }
-            }
-            return el.text();
-        }
-    });
-
-    setTimeout(function () {
-        //$scope.website.languagesReady = 'yes';
-        $scope.$apply();
-    }, 0);
 }
 
 function loadTargetLangList(source, selTarget, putSystemId) {

@@ -54,7 +54,7 @@ var uiResources = {
 if (typeof (Tilde) === 'undefined') Tilde = {};
 
 Tilde.TranslatorWidgetDefaultOptions = {
-    _systemListUrl: 'https://hugo.lv/ws/Service.svc/json/GetSystemList',
+    _systemListUrl: 'https://yoursite/ws/Service.svc/json/GetSystemList',
     _apiIsInTheSameDomain: false, //is API WS in the same domain as the page that contains the widget
     _jsonType: 'json', //jsonp or json
     _appId: 'unknown', //appid of widget - used to get systems and translations
@@ -79,7 +79,8 @@ Tilde.TranslatorWidgetDefaultOptions = {
     _onGetSystemListError: null, //on system load ajax error callback function
     _onSystemsLoaded: null, //system list is successfully loaded
     _onSystemChanged: null, //system id is changed
-    _onWidgetLoaded: null //on widget fully loaded callback function
+    _onWidgetLoaded: null, //on widget fully loaded callback function
+    _loginUrl: null // where to redirect if http status 401 (not authorized) is received
 };
 
 Tilde.TranslatorWidget = function (container, options) {
@@ -1163,7 +1164,7 @@ uiResources = $.extend(true, uiResources, {
 /* tilde.translator.widget.TRANSLATETEXT.js */
 
 $.extend(Tilde.TranslatorWidgetDefaultOptions, {
-    _translationUrl: 'https://hugo.lv/ws/Service.svc/json/Translate',
+    _translationUrl: 'https://yoursite/ws/Service.svc/json/Translate',
     _textSource: '.translateTextSource', // source container <textarea>
     _textResult: '.translateTextResult', // target container <div>
     _landingView: false, // intro box with tooltip
@@ -1217,7 +1218,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
         $widget.textPluginSetTempText();
 
-        $widget.onSystemChangedHandlers = [$widget.textPluginTranslate];
+        $widget.onSystemChangedHandlers.push($widget.textPluginTranslate);
         if (typeof ($widget.termCorpusChangedHandlers) !== "undefined") {
             $widget.termCorpusChangedHandlers.push($widget.textPluginTranslate);
         }
@@ -1831,6 +1832,10 @@ Tilde.TextTranslator.prototype = {
     },
 
     onSuccess: function (result) {
+        if (result.status == 401 && $widget.settings._loginUrl) {
+            window.location = $widget.settings._loginUrl;
+        }
+
         var id = this.id;
         var cursor = this.obj.pta.obj;
 
@@ -3936,12 +3941,12 @@ uiResources = $.extend(true, uiResources, {
 /* tilde.translator.widget.TRANSLATEFILE.js */
 
 $.extend(Tilde.TranslatorWidgetDefaultOptions, {
-    _uploadUrl: 'https://hugo.lv/ws/Files/Upload',
-    _deleteUrl: 'https://hugo.lv/ws/Files/Delete',
-    _downloadUrl: 'https://hugo.lv/ws/Files/Download',
-    _translateUrl: 'https://hugo.lv/ws/Files/StartTranslation',
-    _previewUrl: 'https://hugo.lv/ws/Files/GetDocumentPreview',
-    _checkStatusUrl: 'https://hugo.lv/ws/Files/GetStatus',
+    _uploadUrl: 'https://yoursite/ws/Files/Upload',
+    _deleteUrl: 'https://yoursite/ws/Files/Delete',
+    _downloadUrl: 'https://yoursite/ws/Files/Download',
+    _translateUrl: 'https://yoursite/ws/Files/StartTranslation',
+    _previewUrl: 'https://yoursite/ws/Files/GetDocumentPreview',
+    _checkStatusUrl: 'https://yoursite/ws/Files/GetStatus',
     _landingView: false, //intro box with tooltip
     _allowedFileTypes: [{ ext: "txt", mime: "text/plain" }], //file translation types
     _showAllowedFileInfo: false, //show list of supported file types
@@ -3957,7 +3962,8 @@ $.extend(Tilde.TranslatorWidgetDefaultOptions, {
     _onDocTranslationCancel: null, //callback function on document cancel translation 
     _onDocTranslationStop: null, //callback function on document translation stop
     _onDocTranslationFinished: null, //callback function on document finished translation 
-    _onDocTranslationError: null //callback function on document error translation
+    _onDocTranslationError: null, //callback function on document error translation
+    _onDocTranslationProgress: null // Callback function on document translation progress; 1st parameter is translated percentage
 });
 
 $.extend(Tilde.TranslatorWidget.prototype, {
@@ -4056,12 +4062,12 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             }
         });
 
-        $widget.onSystemChangedHandlers = [function (systemId) {
+        $widget.onSystemChangedHandlers.push(function (systemId) {
             if ($('.buttonDownDoc').length === 1 && !$('.buttonDownDoc').hasClass('hide')) {
                 $widget.filePluginUploadNew();
             }
             $widget.filePluginSetTempTextResult();
-        }];
+        });
     },
 
     filePluginUploadOnSubmit: function () {
@@ -4226,6 +4232,11 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             },
             error: function (response, status, error) {
                 //error
+
+                if (response.status == 401 && $widget.settings._loginUrl) {
+                    window.location = $widget.settings._loginUrl;
+                }
+
                 if (response.status == 403) {
                     var errorMsg = uiResources[$widget.settings._language]['E_UNAUTHORIZED'];
                 }
@@ -4361,6 +4372,9 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                     if (typeof (console) !== "undefined") {
                         console.error('error while deleting: ' + response.error);
                     }
+                    if (response.status == 401 && $widget.settings._loginUrl) {
+                        window.location = $widget.settings._loginUrl;
+                    }
                     $widget.enableSystemChange();
                 }
             });
@@ -4414,6 +4428,10 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
                 if (response.reload) {
                     $('.buttonCancelDoc').removeClass('hide');
+
+                    if ($widget.settings._onDocTranslationProgress && typeof $widget.settings._onDocTranslationProgress === 'function') {
+                        $widget.settings._onDocTranslationProgress(completed);
+                    }
 
                     setTimeout(function () {
                         $widget.filePluginTranslateProgress(docid);
@@ -4472,7 +4490,10 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                             $('.translateContainerRight').removeClass('docProgress');
                             $('#translProgress').html('');
                         },
-                        error: function () {
+                        error: function (response) {
+                            if (response.status == 401 && $widget.settings._loginUrl) {
+                                window.location = $widget.settings._loginUrl;
+                            }
                             //error
                             $('.infoMessageBox').html(uiResources[$widget.settings._language]['docPreviewError']).removeClass('hide');
                             $('.translateContainerRight').removeClass('docProgress');
@@ -4481,9 +4502,12 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                     });
                 }
             },
-            error: function () {
+            error: function (response) {
                 if ($widget.settings._warnWhenRunningAway) {
                     $(window).unbind('beforeunload.warn');
+                }
+                if (response.status == 401 && $widget.settings._loginUrl) {
+                    window.location = $widget.settings._loginUrl;
                 }
                 $('.docUploadNewDoc').removeClass('hide');
                 $('.infoMessageBox').html(uiResources[$widget.settings._language]['docTranslFailed']).removeClass('hide');
@@ -4615,14 +4639,14 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         });
 
         // when system is changed in UI, inform  translate widget in iframe
-        $widget.onSystemChangedHandlers = [function (systemId) {
+        $widget.onSystemChangedHandlers.push(function (systemId) {
             if ($widget.translateWeb_systemSuggestedByIframe == systemId) {
                 //if system change was initiated by iframe, don't loop the event back to iframe
                 $widget.translateWeb_systemSuggestedByIframe = null;
             } else {
                 $widget.translateWeb_sendMessageToIframe({ "message": "changeSystem", "systemId": $widget.activeSystemId });
             }
-        }];
+        });
 
         // start translation when translate button is pressed (and load the entered url, if it was not loaded before)
         $widget.translateWeb_translateButton.click(function () {
@@ -4648,116 +4672,119 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         });
 
         // handle messages received from iframe
-        window.addEventListener("message", function (event) {
-            if ($widget.settings._debug) {
-                console.info("Message received from iframe:" + JSON.stringify(event.data));
-            }
-
-            if (event.data && event.data.message) {
-                switch (event.data.message) {
-                    case "ready":
-                        // set default system, right after web translation widget in iframe is loaded
-                        $widget.translateWeb_sendMessageToIframe({ "message": "changeSystem", "systemId": $widget.activeSystemId });
-                        break;
-                    case "urlLoaded":
-                        // webpage finished loading, set the full url in address box
-                        $widget.translateWeb_Url.val(event.data.url);
-                        $widget.translateWeb_translateButton.removeClass("hide");
-                        $widget.translateWeb_translateButton.attr('data-disabled', false);
-                        break;
-                    case "startedLoading":
-                        // show spinner
-                        $widget.translateWeb_spinner.removeClass("hide");
-                        $widget.translateWeb_cancelButton.addClass("hide");
-                        $widget.translateWeb_restoreButton.addClass("hide");
-                        $widget.translateWeb_translateButton.addClass("hide");
-                        break;
-                    case "stoppedLoading":
-                        if (!$widget.translateWeb_translating) {
-                            // if not translating right after page load
-                            $widget.enableSystemChange();
-                            $widget.translateWeb_cancelButton.addClass("hide");
-                            $widget.translateWeb_restoreButton.addClass("hide");
-                            $widget.translateWeb_translateButton.removeClass("hide");
-                            $widget.translateWeb_translateButton.attr('data-disabled', false);
-                            $widget.translateWeb_spinner.addClass("hide");
-                        }
-                        break;
-                    case "systemChanged":
-                        // if initiated by language of the loaded webpage being different
-                        // than source language of currently selected  system
-                        // we should change the system in UI and warn the user about the fact
-                        if (event.data.auto && event.data.changed) {
-                            $widget.translateWeb_systemSuggestedByIframe = event.data.systemId;
-                            $widget.setActiveSystem(event.data.systemId);
-
-                            // one of those must exist
-                            $('.translateSourceLangContainer .fancy-select .trigger', $widget.settings.container).addClass("attention");
-                            $('.translateSourceLangContainer .translateSingleSourceLang', $widget.settings.container).addClass("attention");
-                            $('.translateSystemContainer .fancy-select .trigger', $widget.settings.container).addClass("attention");
-
-                            setTimeout(function () {
-                                $('.translateSourceLangContainer .fancy-select .trigger', $widget.settings.container).removeClass("attention");
-                                $('.translateSourceLangContainer .translateSingleSourceLang', $widget.settings.container).removeClass("attention");
-                                $('.translateSystemContainer .fancy-select .trigger', $widget.settings.container).removeClass("attention");
-                            }, 5000);
-                        }
-                        break;
-                    case "translationStarted":
-                        // disable system change, show cancel button
-                        $widget.disableSystemChange();
-                        $widget.translateWeb_translateButton.addClass("hide");
-                        $widget.translateWeb_cancelButton.removeClass("hide");
-                        $widget.translateWeb_cancelButton.attr('data-disabled', false);
-                        $widget.translateWeb_spinner.removeClass("hide");
-                        $widget.translateWeb_translating = true;
-                        break;
-                    case "translationStopped":
-                        $widget.translateWeb_translating = false;
-                        $widget.translateWeb_spinner.addClass("hide");
-                        break;
-                    case "translated":
-                        // show restore button
-                        $widget.translateWeb_cancelButton.addClass("hide");
-                        $widget.translateWeb_restoreButton.removeClass("hide");
-                        $widget.translateWeb_restoreButton.attr('data-disabled', false);
-                        break;
-                    case "untranslated":
-                        // enable system change, show translate button
-                        $widget.enableSystemChange();
-                        $widget.translateWeb_cancelButton.addClass("hide");
-                        $widget.translateWeb_restoreButton.addClass("hide");
-                        $widget.translateWeb_translateButton.removeClass("hide");
-                        $widget.translateWeb_translateButton.attr('data-disabled', false);
-                        break;
-                    case "error":
-                        // enable system change, show translate button
-                        $widget.enableSystemChange();
-                        $widget.translateWeb_cancelButton.addClass("hide");
-                        $widget.translateWeb_restoreButton.addClass("hide");
-                        $widget.translateWeb_translateButton.removeClass("hide");
-                        $widget.translateWeb_translateButton.attr('data-disabled', false);
-                        if (console) {
-                            console.error(event.data.description);
-                        }
-                        if (!event.data.shownInUI) {
-                            alert(event.data.description);
-                        }
-                        break;
-                    case "warning":
-                        if (console) {
-                            console.warn(event.data.description);
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }, false);
+        window.removeEventListener("message", $widget.translateWeb_initIframeMsg);
+        window.addEventListener("message", $widget.translateWeb_initIframeMsg, false);
 
         $widget.translateWeb_IframeLastScrollWidth = null;
         $widget.translateWeb_IframeLastScrollHeight = null;
         $widget.translateWeb_resizeLayout();
+    },
+
+    translateWeb_initIframeMsg: function (event) {
+        if ($widget.settings._debug) {
+            console.info("Message received from iframe:" + JSON.stringify(event.data));
+        }
+
+        if (event.data && event.data.message) {
+            switch (event.data.message) {
+                case "ready":
+                    // set default system, right after web translation widget in iframe is loaded
+                    $widget.translateWeb_sendMessageToIframe({ "message": "changeSystem", "systemId": $widget.activeSystemId });
+                    break;
+                case "urlLoaded":
+                    // webpage finished loading, set the full url in address box
+                    $widget.translateWeb_Url.val(event.data.url);
+                    $widget.translateWeb_translateButton.removeClass("hide");
+                    $widget.translateWeb_translateButton.attr('data-disabled', false);
+                    break;
+                case "startedLoading":
+                    // show spinner
+                    $widget.translateWeb_spinner.removeClass("hide");
+                    $widget.translateWeb_cancelButton.addClass("hide");
+                    $widget.translateWeb_restoreButton.addClass("hide");
+                    $widget.translateWeb_translateButton.addClass("hide");
+                    break;
+                case "stoppedLoading":
+                    if (!$widget.translateWeb_translating) {
+                        // if not translating right after page load
+                        $widget.enableSystemChange();
+                        $widget.translateWeb_cancelButton.addClass("hide");
+                        $widget.translateWeb_restoreButton.addClass("hide");
+                        $widget.translateWeb_translateButton.removeClass("hide");
+                        $widget.translateWeb_translateButton.attr('data-disabled', false);
+                        $widget.translateWeb_spinner.addClass("hide");
+                    }
+                    break;
+                case "systemChanged":
+                    // if initiated by language of the loaded webpage being different
+                    // than source language of currently selected  system
+                    // we should change the system in UI and warn the user about the fact
+                    if (event.data.auto && event.data.changed) {
+                        $widget.translateWeb_systemSuggestedByIframe = event.data.systemId;
+                        $widget.setActiveSystem(event.data.systemId);
+
+                        // one of those must exist
+                        $('.translateSourceLangContainer .fancy-select .trigger', $widget.settings.container).addClass("attention");
+                        $('.translateSourceLangContainer .translateSingleSourceLang', $widget.settings.container).addClass("attention");
+                        $('.translateSystemContainer .fancy-select .trigger', $widget.settings.container).addClass("attention");
+
+                        setTimeout(function () {
+                            $('.translateSourceLangContainer .fancy-select .trigger', $widget.settings.container).removeClass("attention");
+                            $('.translateSourceLangContainer .translateSingleSourceLang', $widget.settings.container).removeClass("attention");
+                            $('.translateSystemContainer .fancy-select .trigger', $widget.settings.container).removeClass("attention");
+                        }, 5000);
+                    }
+                    break;
+                case "translationStarted":
+                    // disable system change, show cancel button
+                    $widget.disableSystemChange();
+                    $widget.translateWeb_translateButton.addClass("hide");
+                    $widget.translateWeb_cancelButton.removeClass("hide");
+                    $widget.translateWeb_cancelButton.attr('data-disabled', false);
+                    $widget.translateWeb_spinner.removeClass("hide");
+                    $widget.translateWeb_translating = true;
+                    break;
+                case "translationStopped":
+                    $widget.translateWeb_translating = false;
+                    $widget.translateWeb_spinner.addClass("hide");
+                    break;
+                case "translated":
+                    // show restore button
+                    $widget.translateWeb_cancelButton.addClass("hide");
+                    $widget.translateWeb_restoreButton.removeClass("hide");
+                    $widget.translateWeb_restoreButton.attr('data-disabled', false);
+                    break;
+                case "untranslated":
+                    // enable system change, show translate button
+                    $widget.enableSystemChange();
+                    $widget.translateWeb_cancelButton.addClass("hide");
+                    $widget.translateWeb_restoreButton.addClass("hide");
+                    $widget.translateWeb_translateButton.removeClass("hide");
+                    $widget.translateWeb_translateButton.attr('data-disabled', false);
+                    break;
+                case "error":
+                    // enable system change, show translate button
+                    $widget.enableSystemChange();
+                    $widget.translateWeb_cancelButton.addClass("hide");
+                    $widget.translateWeb_restoreButton.addClass("hide");
+                    $widget.translateWeb_translateButton.removeClass("hide");
+                    $widget.translateWeb_translateButton.attr('data-disabled', false);
+                    if (console) {
+                        console.error(event.data.description);
+                    }
+                    if (!event.data.shownInUI) {
+                        alert(event.data.description);
+                    }
+                    break;
+                case "warning":
+                    if (console) {
+                        console.warn(event.data.description);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     },
 
     translateWeb_loadUrl: function () {
@@ -4801,7 +4828,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 $widget.translateWeb_IframeLastScrollHeight = null;
             }
             $widget.translateWeb_IframeContainer.css("position", "static");
-        } else {
+        } else if (typeof $widget.translateWeb_IframeContainer !== "undefined") {
             $widget.translateWeb_IframeContainer.css("height", "");
             $widget.translateWeb_IframeContainer.css("width", "");
             $widget.translateWeb_IframeContainer.css("position", "");

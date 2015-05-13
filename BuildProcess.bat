@@ -18,11 +18,11 @@ pause
 attrib -R /S
 dir *.dll /s /b /x >files1.txt
 dir *.exe /s /b /x >>files1.txt
-generateSigner.pl files1.txt sign_TTool_files.bat
+generateSigner.pl files1.txt sign_Translator2015_files.bat
 rem del files1.txt
 
 echo Jâparaksta Translation tool setup faili. > SignMM.txt
-echo Parakstîðanas fails: "E:\6\LetsMT!\Translator2015\Sources\sign_TTool_files.bat" >> SignMM.txt
+echo Parakstîðanas fails: "E:\6\LetsMT!\Translator2015\Sources\sign_Translator2015_files.bat" >> SignMM.txt
 echo Gaidîðu %WaitingTime% minûtes >> SignMM.txt
 if DEFINED sendto blat.exe SignMM.txt -t %sendto% -f codesigner@tilde.lv -subject "Please sign Translation tool setup files" -server pastnieks
 
@@ -47,7 +47,7 @@ REM CD ..\..
 
 path %path%;Precious\Mail;
 echo Jâparaksta Translation tool relîzes faili. > SignMM.txt
-echo Parakstîðanas fails: "E:\6\LetsMT!\Translator2015\Sources\sign_TTool_release.bat" >> SignMM.txt
+echo Parakstîðanas fails: "E:\6\LetsMT!\Translator2015\Sources\sign_Translator_2015_release.bat" >> SignMM.txt
 echo Gaidîðu %WaitingTime% minûtes >> SignMM.txt
 if DEFINED sendto blat.exe SignMM.txt -t %sendto% -f codesigner@tilde.lv -subject "Please sign Translation tool release files" -server pastnieks
 

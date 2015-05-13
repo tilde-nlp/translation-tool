@@ -343,7 +343,7 @@
 		<col def="S0">ISDotNetInstallerArgsCommit</col>
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
-		<row><td>Translator2015.exe</td><td>{4B9F59CD-5AA1-4111-A697-3A2341127908}</td><td>INSTALLDIR</td><td>8</td><td/><td>translator2015.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ttool2015.exe</td><td>{4B9F59CD-5AA1-4111-A697-3A2341127908}</td><td>INSTALLDIR</td><td>8</td><td/><td>translator2015.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>cef_100_pak</td><td>{444CDDC7-41EE-441D-9C47-93288022B0F8}</td><td>INSTALLDIR</td><td>8</td><td/><td>cef_100_percent.pak</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>cef_200_pak</td><td>{24A3BDAC-9485-4B99-82A5-E2E94B8C185B}</td><td>INSTALLDIR</td><td>8</td><td/><td>cef_200_percent.pak</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>cef_pak</td><td>{7348485E-138A-47B5-9CFE-E41B79A13987}</td><td>INSTALLDIR</td><td>8</td><td/><td>cef.pak</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -938,7 +938,7 @@
 szInstallDir = Session.Property("INSTALLDIR") 
 
 dim strlPath
-strlPath = szInstallDir &amp; "\Translator2015.exe"
+strlPath = szInstallDir &amp; "\ttool2015.exe"
 
 
 
@@ -976,7 +976,7 @@ Next </td><td>0</td><td/></row>
 szInstallDir = Session.Property("INSTALLDIR") 
 
 dim strlPath
-strlPath = szInstallDir &amp; "\Translator2015.exe"
+strlPath = szInstallDir &amp; "\ttool2015.exe"
 
 
 
@@ -1803,7 +1803,7 @@ Next </td><td>0</td><td/></row>
 	<table name="FeatureComponents">
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
-		<row><td>InstallAlways</td><td>Translator2015.exe</td></row>
+		<row><td>InstallAlways</td><td>ttool2015.exe</td></row>
 		<row><td>InstallAlways</td><td>cef_100_pak</td></row>
 		<row><td>InstallAlways</td><td>cef_200_pak</td></row>
 		<row><td>InstallAlways</td><td>cef_pak</td></row>
@@ -1842,7 +1842,7 @@ Next </td><td>0</td><td/></row>
 		<row><td>libegl.dll1</td><td>libEGL.dll</td><td>libEGL.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\libEGL.dll</td><td>1</td><td/></row>
 		<row><td>libglesv2.dll1</td><td>libGLESv2.dll</td><td>LIBGLE~1.DLL|libGLESv2.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\libGLESv2.dll</td><td>1</td><td/></row>
 		<row><td>pdf.dll</td><td>pdf.dll</td><td>pdf.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\pdf.dll</td><td>1</td><td/></row>
-		<row><td>translator2015.exe</td><td>Translator2015.exe</td><td>TRANSL~1.EXE|Translator2015.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\Translator2015.exe</td><td>1</td><td/></row>
+		<row><td>translator2015.exe</td><td>ttool2015.exe</td><td>TRANSL~1.EXE|ttool2015.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\ttool2015.exe</td><td>1</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -1990,7 +1990,7 @@ Next </td><td>0</td><td/></row>
 		<col def="S0">FTPLocation</col>
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
-		<row><td>Translator2015.exe</td><td/><td/><td>_4E7B14DC_72AF_42A7_B38A_A751A9AE6E13_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ttool2015.exe</td><td/><td/><td>_4E7B14DC_72AF_42A7_B38A_A751A9AE6E13_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>cef_100_pak</td><td/><td/><td>_607408DE_A833_43DC_A7EE_CE06F5EBF0C5_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>cef_200_pak</td><td/><td/><td>_6B0AD0F1_E6CB_4B6B_8F29_C12BD75052CF_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>cef_pak</td><td/><td/><td>_849DE5F6_02D9_4697_9410_406D8590C048_FILTER</td><td/><td/><td/><td/></row>
@@ -3874,8 +3874,8 @@ Next </td><td>0</td><td/></row>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;ISProjectFolder&gt;\cefTLapp\res\cefTLapp.ico</td><td>0</td></row>
-		<row><td>Translator2015.exe_29603B18454D4E52BD27BBB1D96E3FDD.exe</td><td/><td>&lt;ISProjectFolder&gt;\out\Release_setup\Translator2015.exe</td><td>0</td></row>
-		<row><td>Translator2015.exe_31B097FBFFE6454E804855D1CAE1EB3C.exe</td><td/><td>&lt;ISProjectFolder&gt;\out\Release_setup\Translator2015.exe</td><td>0</td></row>
+		<row><td>ttool2015.exe_29603B18454D4E52BD27BBB1D96E3FDD.exe</td><td/><td>&lt;ISProjectFolder&gt;\out\Release_setup\ttool2015.exe</td><td>0</td></row>
+		<row><td>ttool2015.exe_31B097FBFFE6454E804855D1CAE1EB3C.exe</td><td/><td>&lt;ISProjectFolder&gt;\out\Release_setup\ttool2015.exe</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -4317,7 +4317,7 @@ QQAuADEAAQBQAFQA
 		<row><td>ARPURLINFOABOUT</td><td>##ID_STRING1##</td><td/></row>
 		<row><td>AgreeToLicense</td><td>No</td><td/></row>
 		<row><td>ApplicationUsers</td><td>AllUsers</td><td/></row>
-		<row><td>CloseRunningApp</td><td>Translator2015.exe</td><td/></row>
+		<row><td>CloseRunningApp</td><td>ttool2015.exe</td><td/></row>
 		<row><td>DWUSINTERVAL</td><td>30</td><td/></row>
 		<row><td>DWUSLINK</td><td>CE9BA0584EBBA0DFAEACE7EF89CC978FAE6B808F79DBE78FCECBA0B8E9DB80DF197C771F99AC</td><td/></row>
 		<row><td>DefaultUIFont</td><td>Tahoma8</td><td/></row>
@@ -4332,7 +4332,7 @@ QQAuADEAAQBQAFQA
 		<row><td>ISCHECKFORPRODUCTUPDATES</td><td>1</td><td/></row>
 		<row><td>ISENABLEDWUSFINISHDIALOG</td><td/><td/></row>
 		<row><td>ISSHOWMSILOG</td><td/><td/></row>
-		<row><td>ISTerminateProcesses</td><td>Translator2015.exe</td><td/></row>
+		<row><td>ISTerminateProcesses</td><td>ttool2015.exe</td><td/></row>
 		<row><td>ISVROOT_PORT_NO</td><td>0</td><td/></row>
 		<row><td>IS_COMPLUS_PROGRESSTEXT_COST</td><td>##IDS_COMPLUS_PROGRESSTEXT_COST##</td><td/></row>
 		<row><td>IS_COMPLUS_PROGRESSTEXT_INSTALL</td><td>##IDS_COMPLUS_PROGRESSTEXT_INSTALL##</td><td/></row>
@@ -4537,8 +4537,8 @@ QQAuADEAAQBQAFQA
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>Translator2015.exe</td><td>ProgramMenuFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>Translator2015.exe</td><td>[INSTALLDIR]Translator2015.exe</td><td/><td/><td/><td>Translator2015.exe_31B097FBFFE6454E804855D1CAE1EB3C.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>Translator2015.exe1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>Translator2015.exe</td><td>[INSTALLDIR]Translator2015.exe</td><td/><td/><td/><td>Translator2015.exe_29603B18454D4E52BD27BBB1D96E3FDD.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>ttool2015.exe</td><td>ProgramMenuFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>ttool2015.exe</td><td>[INSTALLDIR]ttool2015.exe</td><td/><td/><td/><td>ttool2015.exe_31B097FBFFE6454E804855D1CAE1EB3C.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>ttool2015.exe1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME1##</td><td>ttool2015.exe</td><td>[INSTALLDIR]ttool2015.exe</td><td/><td/><td/><td>ttool2015.exe_29603B18454D4E52BD27BBB1D96E3FDD.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

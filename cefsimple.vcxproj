@@ -320,7 +320,7 @@
       <ImportLibrary>$(OutDir)lib\$(TargetName).lib</ImportLibrary>
       <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
       <OptimizeReferences>true</OptimizeReferences>
-      <OutputFile>$(OutDir)Translator2015.exe</OutputFile>
+      <OutputFile>$(OutDir)ttool2015.exe</OutputFile>
       <Profile>true</Profile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>

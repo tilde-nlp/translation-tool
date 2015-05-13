@@ -1,8 +1,7 @@
 SET processName=BuildProcess.bat
 set sendto=janis.teselskis@tilde.lv
-rem set sendto=evita.kornejeva@tilde.lv
 set WaitingTime=120
-set BuildProject="Translator2015Setup.ism"
+set BuildProject="TTool2015Setup.ism"
 set ProductVersion=1.0.0
 set ISPath2013="c:\program files\installshield\2013 SP1 SAB\system\"
 
@@ -18,11 +17,11 @@ pause
 attrib -R /S
 dir *.dll /s /b /x >files1.txt
 dir *.exe /s /b /x >>files1.txt
-generateSigner.pl files1.txt sign_Translator2015_files.bat
+generateSigner.pl files1.txt sign_ttool_files.bat
 rem del files1.txt
 
 echo Jâparaksta Translation tool setup faili. > SignMM.txt
-echo Parakstîðanas fails: "E:\6\LetsMT!\Translator2015\Sources\sign_Translator2015_files.bat" >> SignMM.txt
+echo Parakstîðanas fails: "E:\6\LetsMT!\Translator2015\Sources\sign_ttool_files.bat" >> SignMM.txt
 echo Gaidîðu %WaitingTime% minûtes >> SignMM.txt
 if DEFINED sendto blat.exe SignMM.txt -t %sendto% -f codesigner@tilde.lv -subject "Please sign Translation tool setup files" -server pastnieks
 
@@ -47,7 +46,7 @@ REM CD ..\..
 
 path %path%;Precious\Mail;
 echo Jâparaksta Translation tool relîzes faili. > SignMM.txt
-echo Parakstîðanas fails: "E:\6\LetsMT!\Translator2015\Sources\sign_Translator_2015_release.bat" >> SignMM.txt
+echo Parakstîðanas fails: "E:\6\LetsMT!\Translator2015\Sources\sign_ttool_release.bat" >> SignMM.txt
 echo Gaidîðu %WaitingTime% minûtes >> SignMM.txt
 if DEFINED sendto blat.exe SignMM.txt -t %sendto% -f codesigner@tilde.lv -subject "Please sign Translation tool release files" -server pastnieks
 

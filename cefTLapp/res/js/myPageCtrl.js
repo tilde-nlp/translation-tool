@@ -1,5 +1,6 @@
 ﻿var $versionNumber = '1.0',
-    $publicKey = 'tt-demo-u-0da5622e-98bc-470d-8e61-6e3ee6173cd4',
+    $publicAppid = 'tt-demo',
+    $publicKey = $publicAppid + '-u-0da5622e-98bc-470d-8e61-6e3ee6173cd4',
     $currentKey = '',
     $keyChanged = false,
     $systemList = null;
@@ -192,29 +193,66 @@ app.controller('WebCtrl', function ($scope, $routeParams) {
     });
 });
 
-app.controller('homeCtrl', function ($scope, $location) {
+app.controller('homeCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location) {
     $scope.keyIsChanged();
-
+    $scope.keyIsValid = true;
+    $scope.ajaxProgress = false;
     if ($currentKey.replace(/\s/g, '') === '') {
         $location.url('/key');
     }
 
     $scope.clientid = '';
     $scope.changeKey = function () {
-        if ($scope.clientid.replace(/\s/g, '') !== '') {
-            // save to registry
-            $location.url('/setkey/?keyName=letsMTKey&key=' + $scope.clientid);
-            $currentKey = $scope.clientid;
+        if ($scope.clientid !== '') {
+            // validate
+            $scope.ajaxProgress = true;
+            $http({
+                method: 'GET',
+                url: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList',
+                headers: {
+                    'client-id': parseClientKey($scope.clientid).clientid
+                },
+                params: {
+                    appID: parseClientKey($scope.clientid).appid,
+                    uiLanguageID: 'en',
+                    options: 'filter'
+                }
+            }).
+            success(function (data) {
+                if (data.System.length > 0) {
+                    $scope.keyIsValid = true;
+                    // save to registry & change page
+                    $location.url('/setkey/?keyName=letsMTKey&key=' + $scope.clientid);
+                    $currentKey = $scope.clientid;
+                }
+                else {
+                    $scope.keyIsValid = false;
+                    $('#enterKey').addClass('keyInvalid');
+                }
+                $scope.ajaxProgress = false;
+            }).
+            error(function (data) {
+                $scope.keyIsValid = false;
+                $('#enterKey').addClass('keyInvalid');
+                $scope.ajaxProgress = false;
+            });
         }
         $scope.keyIsChanged();
     }
+    $scope.$watch('clientid', function (newValue, oldValue) {
+        $scope.clientid = $scope.clientid.replace(/\s/g, '');
+        if ($scope.clientid === '') {
+            $scope.keyIsValid = true;
+            $('#enterKey').removeClass('keyInvalid');
+        }
+    });
     $scope.skipKey = function () {
         $location.url('/setkey/?keyName=letsMTKey&key=' + $publicKey);
         $currentKey = $publicKey;
         $scope.keyIsChanged();
     }
     $scope.toolTipClass = 'dontShow';
-});
+}]);
 
 app.directive('fancybox', function ($compile, $timeout) {
     return {
@@ -265,6 +303,25 @@ app.directive('hideBlink', function () {
 
 });
 
+app.directive('keyMaxlength', function () {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        link: function (scope, elem, attrs, ctrl) {
+            attrs.$set("ngTrim", "false");
+            var maxlength = parseInt(attrs.keyMaxlength, 10);
+            ctrl.$parsers.push(function (value) {
+                if (value.length > maxlength) {
+                    value = value.substr(0, maxlength);
+                    ctrl.$setViewValue(value);
+                    ctrl.$render();
+                }
+                return value;
+            });
+        }
+    };
+});
+
 function parseClientKey(key) {
     // applicationid-u-xxxxxxxxxxxxxxxxxxxxxxxxxxx
     var clientid = key.substr(key.indexOf('-u-') + 1).replace(/ /g, ''),
@@ -272,7 +329,7 @@ function parseClientKey(key) {
 
     return {
         clientid: clientid,
-        appid: (appid === '') ? 'trtool.desktop' : appid
+        appid: (appid === '') ? $publicAppid : appid
     };
 }
 

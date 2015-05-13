@@ -740,9 +740,15 @@ form input[type='text'] {
     margin: 20px 0 0 38px;
 }
 
+.ajaxProgress {
+    float: left;
+    margin: 5px 5px 0 0;
+}
+
 #textWidget.loading > div,
 #fileWidget.loading > div,
-#webWidget.loading > div {
+#webWidget.loading > div,
+.ajaxProgress > div {
     width: 18px;
     height: 18px;
     background-color: #2C384B;
@@ -755,21 +761,31 @@ form input[type='text'] {
     -webkit-animation-fill-mode: both;
 }
 
+.ajaxProgress > div {
+    background-color: #FFF;
+    width: 10px;
+    height: 10px;
+    margin-left: 4px;
+}
+
 #textWidget.loading > div:first-child,
 #fileWidget.loading > div:first-child,
-#webWidget.loading > div:first-child {
+#webWidget.loading > div:first-child,
+.ajaxProgress > div:first-child {
     margin-left: 5px;
 }
 
 #textWidget.loading .bounce1,
 #fileWidget.loading .bounce1,
-#webWidget.loading .bounce1 {
+#webWidget.loading .bounce1,
+.ajaxProgress .bounce1 {
     -webkit-animation-delay: -0.32s;
 }
 
 #textWidget.loading .bounce2,
 #fileWidget.loading .bounce2,
-#webWidget.loading .bounce2 {
+#webWidget.loading .bounce2,
+.ajaxProgress .bounce2 {
     -webkit-animation-delay: -0.16s;
 }
 
@@ -786,7 +802,7 @@ form input[type='text'] {
 /*#region Enter key form*/
 
 #enterKey {
-    border: none;
+    border: 4px solid #FFF;
     margin-left: 1px;
     padding: 4px 8px;
     font-family: inherit;
@@ -794,8 +810,12 @@ form input[type='text'] {
     font-weight: bold;
     color: #273347;
     resize: none;
-    width: 353px;
+    width: 345px;
     height: 80px;
+}
+
+#enterKey.keyInvalid {
+    border: 4px solid #E3332A;
 }
 
 .button {
@@ -843,6 +863,13 @@ form input[type='text'] {
     opacity: 0;
     visibility: hidden;
     -webkit-transition: opacity .1s linear;
+}
+
+#landingPage #inner .keyError {
+    color: #E3332A;
+    float: left;
+    clear: left;
+    margin: 5px 0 0 0;
 }
 
 /*#endregion*/

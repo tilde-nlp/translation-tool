@@ -3,12 +3,20 @@
         <div id="inner">
             <h1>User key</h1>
 
-            <textarea id="enterKey" placeholder="Enter key here" ng-model="clientid"></textarea>
+            <textarea id="enterKey" placeholder="Enter key here" ng-model="clientid" key-maxlength="80"></textarea>
 
-            <div class="buttonBox">
+            <div class="buttonBox clearfix">
                 <a id="btnKeyOk" href="" ng-click="changeKey();" class="button">Ok</a>
                 <a id="btnKeySkip" href="#/home" ng-click="skipKey();" ng-mouseleave="toolTipClass='dontShow'" ng-mouseenter="toolTipClass=''" class="button">Skip</a>
                 <div class="toolTip {{toolTipClass}}">Continue with publicly available translation systems</div>
+            </div>
+
+            <div class="ajaxProgress" ng-show="ajaxProgress">
+                <div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>
+            </div>
+
+            <div class="keyError" ng-show="!keyIsValid">
+                <span>The user key is not valid. Please re-enter your key</span>
             </div>
 
             <p class="tilde">

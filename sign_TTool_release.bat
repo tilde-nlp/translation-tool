@@ -8,7 +8,7 @@ path %path%;%frameworkbin%;c:\blat262\full;
 echo %date% %time%>"%logfile%"
 
 set descr="Translation tool"
-set file="out\Release_setup\DISK1\TTool.exe"
+set file="out\Release_setup\DISK1\TTool2015.exe"
  chktrust %file% -q
  if ERRORLEVEL 1	signcode.exe -sha1 %signature% -n %descr% -i %webpage% -t %timestamp% %file% >>"%logfile%"
  chktrust %file% >>"%logfile%"

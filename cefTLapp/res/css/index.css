@@ -472,11 +472,15 @@ form input[type='text'] {
 
 #websiteFrameContainer {
     position: fixed;
-    top: 52px;
+    top: 95px;
     bottom: 0px;
     right: 0;
     left: 160px;
     background-color: white;
+}
+
+.wakeMessageShown #websiteFrameContainer {
+    top: 140px;
 }
 
 #websiteFrame {
@@ -527,12 +531,24 @@ form input[type='text'] {
     width: 90%;
 }
 
+.bigText input[disabled="disabled"] {
+    background-color: #FFF;
+}
+
+.bigText input[disabled="disabled"]::-webkit-input-placeholder {
+    color: #EBEBEB;
+}
+
 .bigText input:focus {
     color: #2C384B;
     padding-left: 29px;
 }
 
-.blinker {
+.bigText .cursor {
+    background-color: #EBEBEB;
+}
+
+.bigText .cursor.blinker {
     background-color: #273347;
     -webkit-animation: blinker 1s steps(1,start) infinite;
 }
@@ -878,8 +894,16 @@ form input[type='text'] {
 
 #webpageLanding {
     position: absolute;
-    top: 50px;
+    top: 130px;
     clear: both;
+}
+
+#webpageLanding #disableLinks {
+    width: 550px;
+    height: 250px;
+    position: absolute;
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 #webWidget .translateDomainLabel {
@@ -892,13 +916,13 @@ form input[type='text'] {
 
 #webWidget .translateLangSelContainer {
     float: left;
-    width: 480px;
-    margin-top: 3px;
+    width: 100%;
+    margin-top: 10px;
 }
 
 #webWidget .addressContainer {
-    float: right;
-    width: 37%;
+    float: left;
+    width: 100%;
 }
 
 #webWidget .addressLabel {
@@ -915,7 +939,16 @@ form input[type='text'] {
     padding: 7px 10px 6px 10px;
     font-weight: bold;
     font-size: 17px;
-    width: 44%;
+    width: calc(100% - 240px);
+}
+
+#webWidget .url[disabled="disabled"] {
+    border: 1px solid #E9E9E9;
+    background-color: #F7F7F7;
+}
+
+#webWidget .url[disabled="disabled"]::-webkit-input-placeholder {
+    color: #E9E9E9;
 }
 
 #webWidget .translateButton,
@@ -923,7 +956,8 @@ form input[type='text'] {
 #webWidget .restoreButton {
     float: left;
     border-radius: 0 5px 5px 0;
-    width: auto;
+    width: 100px;
+    min-width: 100px;
     margin: 0 0 0 -5px;
     padding: 5px 8px;
     text-align: center;
@@ -933,6 +967,10 @@ form input[type='text'] {
     cursor: pointer;
 }
 
+#webWidget .translateButton[data-disabled="true"] {
+    background-color: #E9E9E9;
+}
+
 @media screen and (min-width:29em) {
     #webWidget .translateDomainContainer {
         float: left;
@@ -940,8 +978,9 @@ form input[type='text'] {
 }
 
 #webWidget .translateProgress {
-    margin: 8px 0 0 8px;
+    margin: 8px 0 0 18px;
     float: left;
+    height: auto;
 }
 
 .text .translateProgress {

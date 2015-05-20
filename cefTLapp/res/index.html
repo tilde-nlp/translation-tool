@@ -19,7 +19,19 @@
         <div class="layoutRow text">
             <div class="layoutCell translateContainerHeader">
                 <div class="rightBackground"></div>
-                <div class="translateHeaderLeft">
+                <div class="standbyContainer">
+                    <div class="wakeMessage sysStandby clearfix hide">
+                        <span class="messageText" data-html="resumeInfo"></span>
+                        <a class="wakeupSystemButton">
+                            <span class="btnText" data-text="resume"></span>
+                        </a>
+                    </div>
+                    <div class="wakeMessage sysWaking clearfix hide">
+                        <div class="watchContainer"><div class="watch"><div class="tik"></div><div class="tak"></div></div></div>
+                        <span class="messageText" data-text="startingInfo"></span>
+                    </div>
+                </div>
+                <div class="translateControlsContainer">
                     <div class="translateLanguageContainer">
                         <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
                         <select class="translateSourceLang"></select>
@@ -33,8 +45,6 @@
                         <div data-text="systemDomain" class="translateDomainLabel"></div>
                         <select class="translateDomain"></select>
                     </div>
-                </div>
-                <div class="translateHeaderRight">
                     <div class="translateProgress hide">
                         <div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>
                     </div>
@@ -64,6 +74,18 @@
         <div class="layoutRow file">
             <div class="layoutCell translateContainerHeader">
                 <div class="rightBackground"></div>
+                <div class="standbyContainer">
+                    <div class="wakeMessage sysStandby clearfix hide">
+                        <span class="messageText" data-html="resumeInfo"></span>
+                        <a class="wakeupSystemButton">
+                            <span class="btnText" data-text="resume"></span>
+                        </a>
+                    </div>
+                    <div class="wakeMessage sysWaking clearfix hide">
+                        <div class="watchContainer"><div class="watch"><div class="tik"></div><div class="tak"></div></div></div>
+                        <span class="messageText" data-text="startingInfo"></span>
+                    </div>
+                </div>
                 <div class="translateHeaderLeft">
                     <div class="translateLanguageContainer">
                         <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
@@ -73,10 +95,6 @@
                         <select class="translateTargetLang"></select>
                     </div>
                     <a data-title="swapLanguage" class="swapLanguage hide"></a>
-                    <div class="translateDomainContainer hide">
-                        <div data-text="systemDomain" class="translateDomainLabel"></div>
-                        <select class="translateDomain"></select>
-                    </div>
                     <a data-text="translateButton" class="translateButton hide"></a>
                     <div class="translateProgress left hide">
                         <div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>
@@ -85,9 +103,12 @@
                 <div class="translateHeaderRight">
                     <a data-text="docDownload" class="buttonDownDoc hide"></a>
                     <a data-text="docCancel" class="buttonCancelDoc hide"></a>
-
                     <div class="docTranslateContent"><div class="transFileMeta hide"></div></div>
                     <div data-text="docAppleLimited" class="uploadNotSupported error hide"></div>
+                    <div class="translateDomainContainer hide">
+                        <div data-text="systemDomain" class="translateDomainLabel"></div>
+                        <select class="translateDomain"></select>
+                    </div>
                     <div class="uploadedDocumentName hide"></div>
                 </div>
             </div>
@@ -109,7 +130,26 @@
         </div>
     </script>
     <script id="translateweb-template" type="text/html">
+        <div class="standbyContainer">
+            <div class="wakeMessage sysStandby clearfix hide">
+                <span class="messageText" data-html="resumeInfo"></span>
+                <a class="wakeupSystemButton">
+                    <span class="btnText" data-text="resume"></span>
+                </a>
+            </div>
+            <div class="wakeMessage sysWaking clearfix hide">
+                <div class="watchContainer"><div class="watch"><div class="tik"></div><div class="tak"></div></div></div>
+                <span class="messageText" data-text="startingInfo"></span>
+            </div>
+        </div>
         <div class="translateContainerHeader">
+            <div class="addressContainer">
+                <input type="text" class="url" value="" placeholder="Enter Address" autofocus="autofocus" />
+                <a class="translateButton button" data-text="translateButton" data-title="translateButton"></a>
+                <a class="cancelButton button hide" data-text="cancelButton" data-title="cancelButton"></a>
+                <a class="restoreButton button hide" data-text="restoreButton" data-title="restoreButton"></a>
+                <div class="translateProgress hide"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+            </div>
             <div class="translateLangSelContainer">
                 <div class="translateSourceLangContainer">
                     <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
@@ -123,13 +163,6 @@
                     <div data-text="systemDomain" class="translateDomainLabel"></div>
                     <select class="translateDomain"></select>
                 </div>
-            </div>
-            <div class="addressContainer">
-                <input type="text" class="url" value="" placeholder="Enter Address" autofocus="autofocus" />
-                <a class="translateButton button" data-text="translateButton" data-title="translateButton"></a>
-                <a class="cancelButton button hide" data-text="cancelButton" data-title="cancelButton"></a>
-                <a class="restoreButton button hide" data-text="restoreButton" data-title="restoreButton"></a>
-                <div class="translateProgress hide"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
             </div>
         </div>
         <div id="websiteFrameContainer" class="hide">
@@ -194,6 +227,7 @@
             </div>
             <div id="websiteLinks">
                 <div>Links to Latvian media and information resources:</div>
+                <div id="disableLinks" class="hide"></div>
                 <ul>
                     <li ng-repeat="sample in website.samples">
                         <a href="" ng-click="website.url=sample.url; translateWebsite();">{{sample.title}}</a>

@@ -684,7 +684,7 @@ Tilde.TranslatorWidget.prototype = {
     $ = window.jQuery || window.Zepto || window.$;
 
     $.fn.fancySelect = function (opts) {
-        var settings, clicking = false;
+        var settings, clicking = false, clickingEvenHarder = false;
         if (opts == null) {
             opts = {};
         }
@@ -747,6 +747,11 @@ Tilde.TranslatorWidget.prototype = {
             };
             sel.on('blur.fs', function () {
                 if (clicking) return;
+                if (clickingEvenHarder && !clicking) {
+                    clickingEvenHarder = false;
+                    sel.focus();
+                    return;
+                }
                 if (trigger.hasClass('open')) {
                     return trigger.trigger('close.fs');
                 }
@@ -858,8 +863,20 @@ Tilde.TranslatorWidget.prototype = {
                 options.find('.selected').removeClass('selected');
                 clicked.addClass('selected');
                 trigger.addClass('selected');
+                var something = sel.val(clicked.data('raw-value')).trigger('change.fs').trigger('blur.fs').trigger('focus.fs');
                 clicking = false;
-                return sel.val(clicked.data('raw-value')).trigger('change.fs').trigger('blur.fs').trigger('focus.fs');
+                clickingEvenHarder = false;
+                return something;
+            });
+            options.on('mousedown', function () {
+                clickingEvenHarder = true;
+            });
+            options.on('mouseup', function () {
+                if (clickingEvenHarder) {
+                    clickingEvenHarder = false;
+                    sel.focus();
+                }
+                clicking = false;
             });
             options.on('mousedown.fs', 'li', function () {
                 clicking = true;
@@ -4604,8 +4621,14 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 extraParams += "%3f";
             }
             extraParams += "appId%3d" + $widget.settings._appId;
+            if ($widget.settings._clientId) {
+                extraParams += "%26clientId%3d" + $widget.settings._clientId;
+            }
             if ($widget.settings._allowedSystemStatuses) {
                 extraParams += "%26allowedSystemStatuses%3d" + encodeURIComponent(encodeURIComponent($widget.settings._allowedSystemStatuses));
+            }
+            if ($widget.settings._getFilteredSystems) {
+                extraParams += "%26filterSystemsByAppId%3dtrue";
             }
         }
         else {
@@ -4616,9 +4639,14 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 extraParams += "?";
             }
             extraParams += "appId=" + $widget.settings._appId;
-
+            if ($widget.settings._clientId) {
+                extraParams += "&clientId=" + $widget.settings._clientId;
+            }
             if ($widget.settings._allowedSystemStatuses) {
                 extraParams += "&allowedSystemStatuses=" + encodeURIComponent($widget.settings._allowedSystemStatuses);
+            }
+            if ($widget.settings._getFilteredSystems) {
+                extraParams += "&filterSystemsByAppId=true";
             }
         }
         $widget.settings._websiteTranslationUrl += extraParams;
@@ -4650,6 +4678,9 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
         // start translation when translate button is pressed (and load the entered url, if it was not loaded before)
         $widget.translateWeb_translateButton.click(function () {
+            if ($widget.translateWeb_translateButton.attr('data-disabled') === 'true') {
+                return false;
+            }
             $widget.translateWeb_translateButton.attr('data-disabled', true);
             $widget.disableSystemChange();
             var message = { "message": "loadUrl", "url": $widget.translateWeb_Url.val(), "translateAfterLoad": true };
@@ -4849,3 +4880,339 @@ uiResources = $.extend(true, uiResources, {
         "restoreButton": "Restore"
     }
 });
+///#source 1 1 /widget_plugins/extendsys/extendsys.resources.js
+/* UI texts, some whitespace, and some punctuation */
+
+uiResources = $.extend(true, uiResources, {
+    'en': {
+        "resume": "Resume",
+        "resumeInfo": "The system <span data-value='system'></span> is in stand-by mode. Please click RESUME if you want to translate using this system. System resuming may take up to 10 minutes.",
+        "startingInfo": "The system is starting. This may take up to 10 minutes.",
+        "deleteHistory": "Are you sure you want to delete this file?",
+        "deleteHistoryError": "Error while deleting!"
+    }
+});
+///#source 1 1 /widget_plugins/extendsys/tilde.translator.widget.extendsys.js
+/* tilde.translator.widget.EXTENDSYS.js */
+
+$.extend(Tilde.TranslatorWidgetDefaultOptions, {
+    _enableSystemStandby: false,
+    _sysWakeCheckInterval: 30000, // 30 sec
+    _showTranslationHistory: false,
+    _deleteHistoryFileUrl: 'AjaxActions.aspx',
+    _translationHistoryUrl: 'FileTranslateList.aspx',
+    _onTranslationDisabled: null,
+    _onTranslationEnabled: null
+});
+
+$.extend(Tilde.TranslatorWidget.prototype, {
+
+    historyExpandStateArray: [],
+
+    extendsysPluginInit: function () {
+        if ($widget.settings._systemSelectType === 'system') {
+            $widget.sortSystemsByStatuses();
+        }
+        $widget.showSystemStatuses();
+        $widget.onSystemChangedHandlers.push($widget.showSelectedSystemStatus);
+
+        $(document).on('click', '.wakeupSystemButton', function () {
+            $widget.showSystemWaking(true);
+        });
+
+        $(document).on('click', '#translHistory .toggleArea', function () {
+            if (!$(this).parent('.transItem').hasClass('deleting')) {
+                var details = $(this).parent('.transItem').next('.detailsContent');
+                if (details.hasClass("expanded")) {
+                    details.removeClass("expanded").slideUp();
+                }
+                else {
+                    details.addClass("expanded").slideDown();
+                }
+                $widget.saveHistoryExpandState();
+            }
+        });
+    },
+
+    checkSystemStatus: function () {
+        $widget.getActiveSystemStatus(function (status) {
+            if (status === 'running') {
+                $widget.setSystemMetaValue($widget.activeSystemId, 'status', 'running');
+                if ($widget.settings._systemSelectType === 'system') {
+                    $widget.sortSystemsByStatuses();
+                }
+                $widget.showSystemStatuses();
+                $widget.showSelectedSystemStatus();
+            }
+            else {
+                setTimeout(function () {
+                    $widget.checkSystemStatus();
+                }, $widget.settings._sysWakeCheckInterval);
+            }
+        });
+    },
+
+    getActiveSystemStatus: function (cb) {
+        var params = {
+            appID: $widget.settings._appId,
+            uiLanguageID: $widget.settings._language
+        }
+        if ($widget.settings._getFilteredSystems) {
+            params["options"] = "filter";
+        }
+
+        $.ajax({
+            dataType: $widget.settings.jsonType,
+            headers: $widget.getAuthHeaders(),
+            url: $widget.settings._systemListUrl,
+            data: params,
+            success: function (data) {
+                var status = '';
+                $.each(data.System, function (idx, sys) {
+                    if (sys.ID === $widget.activeSystemId) {
+                        status = $widget.getSystemMetaValue(sys.Metadata, 'status');
+                    }
+                });
+
+                if (cb && typeof (cb) === "function") {
+                    cb(status);
+                }
+            }
+        });
+    },
+
+    showSystemStatuses: function () {
+        $.each($widget.settings._systems, function (idx, sys) {
+            var status = $widget.getSystemMetaValue(sys.Metadata, 'status'),
+                opt = null;
+            if ($widget.settings._systemSelectType === 'system') {
+                opt = $widget.fancySystem.nextAll('.options').find('li[data-raw-value="' + sys.ID + '"]');
+            }
+            else if ($widget.settings._systemSelectType === 'domain') {
+                opt = $widget.fancyDomain.nextAll('.options').find('li[data-raw-value="' + sys.ID + '"]');
+            }
+            opt.attr('data-sys-status', status);
+        });
+        $widget.showSelectedSystemStatus();
+    },
+
+    sortSystemsByStatuses: function () {
+        // custom sort in order: 1. running, 2. standby 3. all other status
+        // equal statuses are sorted alfabetically
+        $widget.settings._systems.sort(function (a, b) {
+            var asort = 3, bsort = 3,
+                astat = $widget.getSystemMetaValue(a.Metadata, 'status'),
+                bstat = $widget.getSystemMetaValue(b.Metadata, 'status');
+
+            if (astat === 'running')
+                asort = 1;
+            else if (astat === 'standby')
+                asort = 2;
+
+            if (bstat === 'running')
+                bsort = 1;
+            else if (bstat === 'standby')
+                bsort = 2;
+
+            if (asort === bsort) {
+                return a.Title.Text > b.Title.Text ? 1 : -1;
+            }
+            else {
+                return asort > bsort ? 1 : -1;
+            }
+        });
+
+        $widget.fancySystem.empty();
+
+        $.each($widget.settings._systems, function (idx, sys) {
+            $widget.fancySystem.append($("<option/>", { value: sys.ID, text: sys.Title.Text }));
+        });
+
+        $widget.fancySystem.trigger('update.fs');
+    },
+
+    showSelectedSystemStatus: function () {
+        var elem = null,
+            title = '';
+        if ($widget.settings._systemSelectType === 'system') {
+            elem = ('.translateSystemContainer');
+            title = $('.fancy-select li.selected', elem).text();
+        }
+        else if ($widget.settings._systemSelectType === 'domain') {
+            elem = ('.translateDomainContainer');
+        }
+
+        var status = $('.fancy-select li.selected', elem).attr('data-sys-status');
+
+        if ($widget.settings._systemSelectType === 'system') {
+            $widget.fancySystem.nextAll('.trigger').attr('data-sys-status', status);
+        }
+
+        // if system is in status 'standby' or 'queuingtransl', show message boxes
+        $('.wakeMessage').addClass('hide');
+        if (status === 'standby') {
+            $('.wakeMessage.sysStandby span[data-value="system"]').text(title);
+            $('.wakeMessage.sysStandby').removeClass('hide');
+            $widget.disableTranslation();
+            $widget.settings.container.addClass('wakeMessageShown');
+        }
+        else if (status === 'queuingtransl') {
+            $('.wakeMessage.sysWaking').removeClass('hide');
+            $widget.disableTranslation();
+            $widget.settings.container.addClass('wakeMessageShown');
+        }
+        else {
+            $widget.enableTranslation();
+            $widget.settings.container.removeClass('wakeMessageShown');
+        }
+
+        // show system metadata in UI
+        var system = $widget.getActiveSystemObj();
+        if (system != null) {
+            var perm = 'Public';
+            if ($widget.getSystemMetaValue(system.Metadata, 'public') === 'false') {
+                perm = 'Private';
+            }
+            $('.systemInfoBox').removeClass('hide');
+            $('.systemInfoBox .sysLang').text(system.SourceLanguage.Name.Text + '-' + system.TargetLanguage.Name.Text);
+            $('.systemInfoBox .sysAccess').removeClass('public').removeClass('private').addClass(perm.toLowerCase()).text(perm);
+        }
+        else {
+            $('.systemInfoBox').addClass('hide');
+            $widget.disableTranslation();
+        }
+    },
+
+    showSystemWaking: function (ajax) {
+        $widget.setSystemMetaValue($widget.activeSystemId, 'status', 'queuingtransl');
+        $widget.showSystemStatuses();
+        $widget.showSelectedSystemStatus();
+
+        if (ajax) {
+            $.ajax({
+                dataType: $widget.settings.jsonType,
+                url: $widget.settings._translationUrl,
+                headers: $widget.getAuthHeaders(),
+                data: {
+                    appid: $widget.settings._appId,
+                    text: '~',
+                    systemid: $widget.activeSystemId
+                },
+                error: function (response) {
+                    if (response.responseJSON.ErrorCode === '21') {
+                        $widget.checkSystemStatus();
+                    }
+                }
+            });
+        }
+        else {
+            $widget.checkSystemStatus();
+        }
+    },
+
+    disableTranslation: function () {
+        $('.translateButton, .translateTextTempSourceContainer').attr('data-disabled', true);
+        $('.translateButton .btnRoundCorners').addClass('buttonDisabled');
+        $('.file .translateContainerLeft').attr('data-disabled', true);
+        $('.qq-upload-button input').attr('disabled', 'disabled');
+
+        if ($widget.settings._landingView) {
+            $('.fakeCursor').removeClass('blink').addClass('disabled');
+        }
+
+        if ($widget.textPluginSetTempText && typeof ($widget.textPluginSetTempText) === "function") {
+            $widget.textPluginSetTempText();
+        }
+
+        if ($widget.settings._onTranslationDisabled && typeof ($widget.settings._onTranslationDisabled) === "function") {
+            $widget.settings._onTranslationDisabled();
+        }
+
+        $('.translateResultClear').addClass('hide');
+    },
+
+    enableTranslation: function () {
+        $('.translateButton, .translateTextTempSourceContainer').attr('data-disabled', false);
+        $('.translateButton .btnRoundCorners').removeClass('buttonDisabled');
+        $('.file, .translateContainerLeft').attr('data-disabled', false);
+        $('.qq-upload-button input').removeAttr('disabled');
+
+        if ($widget.settings._landingView) {
+            $('.fakeCursor').addClass('blink').removeClass('disabled');
+        }
+
+        if ($widget.settings._onTranslationEnabled && typeof ($widget.settings._onTranslationEnabled) === "function") {
+            $widget.settings._onTranslationEnabled();
+        }
+    },
+
+    showTranslatedFiles: function () {
+        $.ajax({
+            url: $widget.settings._translationHistoryUrl,
+            data: { type: "history" },
+            success: function (response) {
+                var $content = $($.parseHTML(response)).find('#trListContent').html();
+                $('#translHistory').removeClass('loading').html($content);
+                $widget.loadHistoryExpandState();
+            },
+            error: function (response) {
+                console.error($(response.responseText).text());
+            }
+        });
+    },
+
+    deleteTranslFile: function (id) {
+        var $el = $('#translHistory #' + id);
+        if ($el.find('.transItem').hasClass('deleting')) {
+            return;
+        }
+
+        if (confirm(uiResources[$widget.settings._language]['deleteHistory'])) {
+            var orgStatClass = $el.find('.ftransIcon').attr('class'),
+                orgStatName = $el.find('.transStatus').html();
+
+            $el.find('.transItem').addClass('deleting');
+            $el.find('.ftransIcon').attr('class', 'ftransIcon deleting');
+            $el.find('.transStatus').html('deleting...');
+
+            $.ajax({
+                type: 'POST',
+                url: $widget.settings._deleteHistoryFileUrl,
+                data: {
+                    action: 'DELETE TRANSLATED FILE',
+                    docId: id
+                },
+                success: function (response) {
+                    if (response.search(/\$SUCCESS\$/g) !== -1) {
+                        $el.fadeOut(function () {
+                            $widget.showTranslatedFiles();
+                        });
+                    }
+                    else {
+                        $el.find('.transItem').removeClass('deleting');
+                        $el.find('.ftransIcon').attr('class', orgStatClass);
+                        $el.find('.transStatus').html(orgStatName);
+                        console.error(response.replace(/\$ERROR\$/g, ''));
+                        alert(uiResources[$widget.settings._language]['deleteHistoryError']);
+                    }
+                }
+            });
+        }
+    },
+
+    saveHistoryExpandState: function () {
+        $widget.historyExpandStateArray = [];
+        $('#translHistory .expanded').each(function () {
+            $widget.historyExpandStateArray.push($(this).parent('div').attr('id'));
+        });
+    },
+
+    loadHistoryExpandState: function () {
+        for (var i = 0; i < $widget.historyExpandStateArray.length; i++) {
+            $('#translHistory div[id=' + $widget.historyExpandStateArray[i] + '] .detailsContent').addClass('expanded').show();
+        }
+    }
+
+});
+
+Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.extendsysPluginInit);

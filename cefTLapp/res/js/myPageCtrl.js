@@ -1,6 +1,7 @@
 ﻿var $versionNumber = '1.0',
     $publicAppid = 'tt-demo',
-    $publicKey = $publicAppid + '-u-0da5622e-98bc-470d-8e61-6e3ee6173cd4',
+    //$publicKey = $publicAppid + '-u-0da5622e-98bc-470d-8e61-6e3ee6173cd4',
+    $publicKey = $publicAppid + '-u-da8f9331-f2f3-4d92-af76-ad2bc25a482a',
     $currentKey = '',
     $keyChanged = false,
     $systemList = null;
@@ -114,13 +115,15 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
 
     var fileWidget = new Tilde.TranslatorWidget('#fileWidget', {
         _language: 'en',
-        _systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList',
-        _uploadUrl: 'https://letsmt.eu/ws/Files/Upload',
-        _deleteUrl: 'https://letsmt.eu/ws/Files/Delete',
-        _downloadUrl: 'https://letsmt.eu/ws/Files/Download',
-        _translateUrl: 'https://letsmt.eu/ws/Files/StartTranslation',
-        _previewUrl: 'https://letsmt.eu/ws/Files/GetDocumentPreview',
-        _checkStatusUrl: 'https://letsmt.eu/ws/Files/GetStatus',
+        _systemListUrl: 'https://mtdevlogic.tilde.lv/ws/Service.svc/json/GetSystemList',
+        _translationUrl: 'https://mtdevlogic.tilde.lv/ws/Service.svc/json/Translate',
+        _uploadUrl: 'https://mtdevlogic.tilde.lv/ws/Files/Upload',
+        _deleteUrl: 'https://mtdevlogic.tilde.lv/ws/Files/Delete',
+        _downloadUrl: 'https://mtdevlogic.tilde.lv/ws/Files/Download',
+        _translateUrl: 'https://mtdevlogic.tilde.lv/ws/Files/StartTranslation',
+        _previewUrl: 'https://mtdevlogic.tilde.lv/ws/Files/GetDocumentPreview',
+        _checkStatusUrl: 'https://mtdevlogic.tilde.lv/ws/Files/GetStatus',
+        _allowedSystemStatuses: 'running,queuingtransl,standby',
         _clientId: parseClientKey($currentKey).clientid,
         _appId: parseClientKey($currentKey).appid,
         _templateId: 'translatefile-template',
@@ -146,9 +149,6 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
         _onWidgetLoaded: function () {
             $('#fileWidget').removeClass('loading');
         },
-        _onSystemChanged: function (id) {
-            //$scope.website.system = id;
-        },
         _replaceContainer: false
     });
 });
@@ -172,7 +172,9 @@ app.controller('WebCtrl', function ($scope, $routeParams) {
 
     var webWidget = new Tilde.TranslatorWidget('#webWidget', {
         _language: 'en',
-        _systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList',
+        _systemListUrl: 'https://mtdevlogic.tilde.lv/ws/Service.svc/json/GetSystemList',
+        _translationUrl: 'https://mtdevlogic.tilde.lv/ws/Service.svc/json/Translate',
+        _allowedSystemStatuses: 'running,queuingtransl,standby',
         _systemSelectType: 'domain',
         _clientId: parseClientKey($currentKey).clientid,
         _appId: parseClientKey($currentKey).appid,
@@ -180,7 +182,7 @@ app.controller('WebCtrl', function ($scope, $routeParams) {
         _getFilteredSystems: true,
         _replaceContainer: false,
         _apiIsInTheSameDomain: false,
-        _websiteTranslationUrl: 'https://readymt.tilde.com/Translate/WebsiteEmbedded?embeddedStyle=noUI',
+        _websiteTranslationUrl: 'https://readymtdevlogic.tilde.lv/Translate/WebsiteEmbedded?embeddedStyle=noUI',
         _onWidgetLoaded: function () {
             $('#webWidget').removeClass('loading');
             $('#webWidget .url').keyup(function () {
@@ -189,6 +191,18 @@ app.controller('WebCtrl', function ($scope, $routeParams) {
         },
         _onWebTranslateUrlLoaded: function (url) {
             hideWebLanding();
+        },
+        _onTranslationDisabled: function () {
+            $('.addressContainer .url').attr('disabled', 'disabled');
+            $('.bigText .cursor').removeClass('blinker').addClass('disabled');
+            $('.bigText input').attr('disabled', 'disabled');
+            $('#webpageLanding #disableLinks').removeClass('hide');
+        },
+        _onTranslationEnabled: function () {
+            $('.addressContainer .url').removeAttr('disabled');
+            $('.bigText .cursor').addClass('blinker').addClass('disabled');
+            $('.bigText input').removeAttr('disabled');
+            $('#webpageLanding #disableLinks').addClass('hide');
         }
     });
 });
@@ -347,8 +361,9 @@ function initTextWidget($scope) {
 
     var textWidget = new Tilde.TranslatorWidget('#textWidget', {
         _language: 'en',
-        _systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList',
-        _translationUrl: 'https://letsmt.eu/ws/Service.svc/json/Translate',
+        _systemListUrl: 'https://mtdevlogic.tilde.lv/ws/Service.svc/json/GetSystemList',
+        _translationUrl: 'https://mtdevlogic.tilde.lv/ws/Service.svc/json/Translate',
+        _allowedSystemStatuses: 'running,queuingtransl,standby',
         _clientId: parseClientKey($currentKey).clientid,
         _appId: parseClientKey($currentKey).appid,
         _templateId: 'translatetext-template',
@@ -360,7 +375,6 @@ function initTextWidget($scope) {
             $(document).keydown(function (e) {
                 if (isCharacterKeyPress(e) && $scope.isActive('text')) {
                     $(".translateTextSource").click();
-
                 }
                 if (isCharacterKeyPress(e) && $scope.isActive('webpage') && !$("#url").is(":focus")) {
                     $(".bigText input").focus();

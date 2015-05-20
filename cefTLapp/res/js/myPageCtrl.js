@@ -1,7 +1,11 @@
-﻿var $versionNumber = '1.0',
+﻿var $versionNumber = '1.1',
     $publicAppid = 'tt-demo',
-    //$publicKey = $publicAppid + '-u-0da5622e-98bc-470d-8e61-6e3ee6173cd4',
-    $publicKey = $publicAppid + '-u-da8f9331-f2f3-4d92-af76-ad2bc25a482a',
+    //$apiUrl = 'https://mtdevlogic.tilde.lv/ws',
+    //$webIframeUrl = 'https://readymtdevlogic.tilde.lv',
+    //$publicKey = $publicAppid + '-u-da8f9331-f2f3-4d92-af76-ad2bc25a482a', // test
+    $apiUrl = 'https://letsmt.eu/ws',
+    $webIframeUrl = 'https://readymt.tilde.com',
+    $publicKey = $publicAppid + '-u-0da5622e-98bc-470d-8e61-6e3ee6173cd4', // live
     $currentKey = '',
     $keyChanged = false,
     $systemList = null;
@@ -115,14 +119,14 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
 
     var fileWidget = new Tilde.TranslatorWidget('#fileWidget', {
         _language: 'en',
-        _systemListUrl: 'https://mtdevlogic.tilde.lv/ws/Service.svc/json/GetSystemList',
-        _translationUrl: 'https://mtdevlogic.tilde.lv/ws/Service.svc/json/Translate',
-        _uploadUrl: 'https://mtdevlogic.tilde.lv/ws/Files/Upload',
-        _deleteUrl: 'https://mtdevlogic.tilde.lv/ws/Files/Delete',
-        _downloadUrl: 'https://mtdevlogic.tilde.lv/ws/Files/Download',
-        _translateUrl: 'https://mtdevlogic.tilde.lv/ws/Files/StartTranslation',
-        _previewUrl: 'https://mtdevlogic.tilde.lv/ws/Files/GetDocumentPreview',
-        _checkStatusUrl: 'https://mtdevlogic.tilde.lv/ws/Files/GetStatus',
+        _systemListUrl: $apiUrl + '/Service.svc/json/GetSystemList',
+        _translationUrl: $apiUrl + '/Service.svc/json/Translate',
+        _uploadUrl: $apiUrl + '/Files/Upload',
+        _deleteUrl: $apiUrl + '/Files/Delete',
+        _downloadUrl: $apiUrl + '/Files/Download',
+        _translateUrl: $apiUrl + '/Files/StartTranslation',
+        _previewUrl: $apiUrl + '/Files/GetDocumentPreview',
+        _checkStatusUrl: $apiUrl + '/Files/GetStatus',
         _allowedSystemStatuses: 'running,queuingtransl,standby',
         _clientId: parseClientKey($currentKey).clientid,
         _appId: parseClientKey($currentKey).appid,
@@ -172,8 +176,8 @@ app.controller('WebCtrl', function ($scope, $routeParams) {
 
     var webWidget = new Tilde.TranslatorWidget('#webWidget', {
         _language: 'en',
-        _systemListUrl: 'https://mtdevlogic.tilde.lv/ws/Service.svc/json/GetSystemList',
-        _translationUrl: 'https://mtdevlogic.tilde.lv/ws/Service.svc/json/Translate',
+        _systemListUrl: $apiUrl + '/Service.svc/json/GetSystemList',
+        _translationUrl: $apiUrl + '/Service.svc/json/Translate',
         _allowedSystemStatuses: 'running,queuingtransl,standby',
         _systemSelectType: 'domain',
         _clientId: parseClientKey($currentKey).clientid,
@@ -182,7 +186,8 @@ app.controller('WebCtrl', function ($scope, $routeParams) {
         _getFilteredSystems: true,
         _replaceContainer: false,
         _apiIsInTheSameDomain: false,
-        _websiteTranslationUrl: 'https://readymtdevlogic.tilde.lv/Translate/WebsiteEmbedded?embeddedStyle=noUI',
+        _websiteTranslationUrl: $webIframeUrl + '/Translate/WebsiteEmbedded?embeddedStyle=noUI',
+        _webLangAutodetect: false,
         _onWidgetLoaded: function () {
             $('#webWidget').removeClass('loading');
             $('#webWidget .url').keyup(function () {
@@ -361,8 +366,8 @@ function initTextWidget($scope) {
 
     var textWidget = new Tilde.TranslatorWidget('#textWidget', {
         _language: 'en',
-        _systemListUrl: 'https://mtdevlogic.tilde.lv/ws/Service.svc/json/GetSystemList',
-        _translationUrl: 'https://mtdevlogic.tilde.lv/ws/Service.svc/json/Translate',
+        _systemListUrl: $apiUrl + '/Service.svc/json/GetSystemList',
+        _translationUrl: $apiUrl + '/Service.svc/json/Translate',
         _allowedSystemStatuses: 'running,queuingtransl,standby',
         _clientId: parseClientKey($currentKey).clientid,
         _appId: parseClientKey($currentKey).appid,

@@ -409,9 +409,6 @@ Tilde.TranslatorWidget.prototype = {
                         srcLang = $('.translateSingleSourceLang', $widget.settings.container).attr('data-value');
                     }
                     $widget.loadDomainList(srcLang, el.val());
-                    //if (!$widget.settings._doc_translation) {
-                    //    $widget.translateText(true);
-                    //}
                     return el.text();
                 }
             });
@@ -4577,7 +4574,8 @@ Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.
 $.extend(Tilde.TranslatorWidgetDefaultOptions, {
     _websiteTranslationUrl: 'http://localhost:53130/Translate/WebsiteEmbedded?embeddedStyle=noUI', // address of website translation page (that uses TranslateProxy)
     _debug: false, // should debug information be logged to console
-    _onWebTranslateUrlLoaded: null // callback on web page loaded
+    _onWebTranslateUrlLoaded: null, // callback on web page loaded
+    _webLangAutodetect: true // after page is loaded auto detect language and change active system  
 });
 
 $.extend(Tilde.TranslatorWidget.prototype, {
@@ -4751,19 +4749,25 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                     // than source language of currently selected  system
                     // we should change the system in UI and warn the user about the fact
                     if (event.data.auto && event.data.changed) {
-                        $widget.translateWeb_systemSuggestedByIframe = event.data.systemId;
-                        $widget.setActiveSystem(event.data.systemId);
+                        if ($widget.settings._webLangAutodetect) {
+                            $widget.translateWeb_systemSuggestedByIframe = event.data.systemId;
+                            $widget.setActiveSystem(event.data.systemId);
 
-                        // one of those must exist
-                        $('.translateSourceLangContainer .fancy-select .trigger', $widget.settings.container).addClass("attention");
-                        $('.translateSourceLangContainer .translateSingleSourceLang', $widget.settings.container).addClass("attention");
-                        $('.translateSystemContainer .fancy-select .trigger', $widget.settings.container).addClass("attention");
+                            // one of those must exist
+                            $('.translateSourceLangContainer .fancy-select .trigger', $widget.settings.container).addClass("attention");
+                            $('.translateSourceLangContainer .translateSingleSourceLang', $widget.settings.container).addClass("attention");
+                            $('.translateSystemContainer .fancy-select .trigger', $widget.settings.container).addClass("attention");
 
-                        setTimeout(function () {
-                            $('.translateSourceLangContainer .fancy-select .trigger', $widget.settings.container).removeClass("attention");
-                            $('.translateSourceLangContainer .translateSingleSourceLang', $widget.settings.container).removeClass("attention");
-                            $('.translateSystemContainer .fancy-select .trigger', $widget.settings.container).removeClass("attention");
-                        }, 5000);
+                            setTimeout(function () {
+                                $('.translateSourceLangContainer .fancy-select .trigger', $widget.settings.container).removeClass("attention");
+                                $('.translateSourceLangContainer .translateSingleSourceLang', $widget.settings.container).removeClass("attention");
+                                $('.translateSystemContainer .fancy-select .trigger', $widget.settings.container).removeClass("attention");
+                            }, 5000);
+                        }
+                        else {
+                            $widget.translateWeb_systemSuggestedByIframe = $widget.activeSystemId;
+                            $widget.translateWeb_sendMessageToIframe({ "message": "changeSystem", "systemId": $widget.activeSystemId });
+                        }
                     }
                     break;
                 case "translationStarted":
@@ -5035,11 +5039,11 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         var elem = null,
             title = '';
         if ($widget.settings._systemSelectType === 'system') {
-            elem = ('.translateSystemContainer');
+            elem = $('.translateSystemContainer');
             title = $('.fancy-select li.selected', elem).text();
         }
         else if ($widget.settings._systemSelectType === 'domain') {
-            elem = ('.translateDomainContainer');
+            elem = $('.translateDomainContainer');
         }
 
         var status = $('.fancy-select li.selected', elem).attr('data-sys-status');

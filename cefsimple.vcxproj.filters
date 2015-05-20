@@ -19,24 +19,6 @@
     <Filter Include="cefTLapp">
       <UniqueIdentifier>{87a95ae0-5c3c-4c28-a0e7-1d6dea6a511b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="cefTLapp\res">
-      <UniqueIdentifier>{a0e72b07-2d09-4b86-8153-6a0f7a89fa33}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cefTLapp\res\css">
-      <UniqueIdentifier>{28319c0e-52c8-4208-be34-36788d3e73b5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cefTLapp\res\img">
-      <UniqueIdentifier>{f9974839-bc9b-4f96-884b-1cd1bf6ea7fb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cefTLapp\res\js">
-      <UniqueIdentifier>{6ce9040c-98c2-44e6-8408-5c85341d2fdd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cefTLapp\res\templates">
-      <UniqueIdentifier>{98bd4c79-204c-4a90-9e69-a6615c47fccd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="cefTLapp\res\text-widget">
-      <UniqueIdentifier>{bc01ac99-aa0a-4751-aa11-d587df8bb978}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\cef_base.h">
@@ -418,15 +400,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="cefTLapp\res\img\arrow.png" />
-    <Image Include="cefTLapp\res\img\hugo.png" />
-    <Image Include="cefTLapp\res\img\landingWhite.png" />
-    <Image Include="cefTLapp\res\img\mobile.png" />
-    <Image Include="cefTLapp\res\img\tilde.png" />
     <Image Include="cefTLapp\small.ico" />
     <Image Include="cefTLapp\res\small.ico" />
     <Image Include="cefTLapp\res\cefTLapp.ico" />
-    <Image Include="cefTLapp\res\img\landing.png" />
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="cefTLapp\compatibility.manifest">
@@ -435,35 +411,6 @@
     <Manifest Include="cefTLapp\cefTLapp.exe.manifest">
       <Filter>cefTLapp</Filter>
     </Manifest>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\desktop\templates\key.html" />
-    <None Include="..\desktop\img\logo_large.svg" />
-    <None Include="..\desktop\img\settings_letsmt-active.svg" />
-    <None Include="..\desktop\img\settings_letsmt.svg" />
-    <None Include="..\desktop\index.html" />
-    <None Include="..\desktop\css\index.css" />
-    <None Include="..\desktop\img\doc_letsmt-active.svg" />
-    <None Include="..\desktop\img\doc_letsmt.svg" />
-    <None Include="..\desktop\img\text_letsmt-active.svg" />
-    <None Include="..\desktop\img\text_letsmt.svg" />
-    <None Include="..\desktop\img\web_letsmt-active.svg" />
-    <None Include="..\desktop\img\web_letsmt.svg" />
-    <None Include="..\desktop\js\angular-filter.js" />
-    <None Include="..\desktop\js\angular-route.min.js" />
-    <None Include="..\desktop\js\angular.min.js" />
-    <None Include="..\desktop\js\jquery-2.1.1.min.js" />
-    <None Include="..\desktop\js\myPageCtrl.js" />
-    <None Include="..\desktop\js\myTranslatorApp.js" />
-    <None Include="..\desktop\templates\about.html" />
-    <None Include="..\desktop\templates\home.html" />
-    <None Include="..\desktop\templates\mobileApplications.html" />
-    <None Include="..\desktop\templates\translate-document.html" />
-    <None Include="..\desktop\templates\translate-text.html" />
-    <None Include="..\desktop\templates\translate-website.html" />
-    <None Include="..\desktop\text-widget\translator.css" />
-    <None Include="..\desktop\text-widget\translator.js" />
-    <None Include="..\desktop\img\arrow-right.svg" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="cefclient.gyp" />

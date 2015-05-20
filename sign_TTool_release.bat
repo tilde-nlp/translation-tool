@@ -1,5 +1,5 @@
 set webpage=http://www.tilde.com/
-set version=1.0.0.0
+set version=1.1.0.0
 set logfile=signfile.log
 set frameworkbin=C:\Program Files\Microsoft.NET\SDK\v1.1\Bin
 set timestamp=http://timestamp.verisign.com/scripts/timstamp.dll

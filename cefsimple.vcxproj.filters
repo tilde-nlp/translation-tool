@@ -398,11 +398,13 @@
     <ClCompile Include="ClientHandler.cpp">
       <Filter>cefTLapp</Filter>
     </ClCompile>
+    <ClCompile Include="cefTLapp\resource_util_win_wiki.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="cefTLapp\small.ico" />
-    <Image Include="cefTLapp\res\small.ico" />
     <Image Include="cefTLapp\res\cefTLapp.ico" />
+    <Image Include="cefTLapp\res\small.ico" />
+    <Image Include="cefTLapp\res_wiki\small.ico" />
+    <Image Include="cefTLapp\res_wiki\large.ico" />
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="cefTLapp\compatibility.manifest">
@@ -416,8 +418,19 @@
     <CustomBuild Include="cefclient.gyp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="cefTLapp\cefTLapp.rc">
+    <ResourceCompile Include="cefTLapp\ttoolResources.rc">
       <Filter>cefTLapp</Filter>
     </ResourceCompile>
+    <ResourceCompile Include="cefTLapp\wikiResources.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="cefTLapp\res_wiki\index.html" />
+    <None Include="cefTLapp\res_wiki\style.css" />
+    <None Include="cefTLapp\res_wiki\javascript.js" />
+    <None Include="cefTLapp\res_wiki\templates\home.html" />
+    <None Include="cefTLapp\res_wiki\templates\translate-document.html" />
+    <None Include="cefTLapp\res_wiki\templates\translate-text.html" />
+    <None Include="cefTLapp\res_wiki\templates\translate-website.html" />
   </ItemGroup>
 </Project>

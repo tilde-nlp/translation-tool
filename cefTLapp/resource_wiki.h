@@ -1,18 +1,20 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by wikiResources.rc
+// Used by cefTLapp.rc
 //
 #define IDI_CEFTLAPP                    96
 #define IDI_SMALL                       97
 #define IDS_APP_TITLE                   98
 #define IDC_CEFCLIENT                   99
-#define IDS_MAIN_HTML                   100
-#define IDS_CSS_INDEX                   101
-#define IDS_JS_INDEX                    102
-#define IDS_TEMPLATES_HOME_HTML         103
-#define IDS_TEMPLATES_TRANSL_DOC_HTML   104
-#define IDS_TEMPLATES_TRANSL_TEXT_HTML  105
-#define IDS_TEMPLATES_TRANSL_WEB_HTML   106
+
+#define IDS_MAIN_HTML					100
+#define IDS_CSS_INDEX					101
+#define IDS_JS_INDEX					102
+#define IDS_TEMPLATES_HOME_HTML			103
+#define IDS_TEMPLATES_TRANSL_DOC_HTML	104
+#define IDS_TEMPLATES_TRANSL_TEXT_HTML	105
+#define IDS_TEMPLATES_TRANSL_WEB_HTML	106
+
 
 // Next default values for new objects
 // 

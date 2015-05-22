@@ -811,7 +811,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="cefTLapp\resource_util.h" />
-    <ClInclude Include="cefTLapp\resource_wiki.h" />
+    <ClInclude Include="cefTLapp\resource_wiki.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_setup|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="ClientHandler.h" />
     <ClInclude Include="ClientV8ExtensionHandler.h" />
     <ClInclude Include="include\cef_base.h" />
@@ -942,6 +944,7 @@
     </ClCompile>
     <ClCompile Include="cefTLapp\resource_util_win_wiki.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_setup|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="cefTLapp\TLapp_handler.cpp" />
     <ClCompile Include="cefTLapp\cefTLapp_win.cpp" />
@@ -960,6 +963,7 @@
     </ResourceCompile>
     <ResourceCompile Include="cefTLapp\wikiResources.rc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_setup|Win32'">true</ExcludedFromBuild>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>

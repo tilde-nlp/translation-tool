@@ -378,6 +378,7 @@
     <ClInclude Include="ClientHandler.h">
       <Filter>cefTLapp</Filter>
     </ClInclude>
+    <ClInclude Include="cefTLapp\resource_wiki.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cefTLapp\cefTLapp_win.cpp">

@@ -6,11 +6,12 @@
 #include "cefTLapp/TLapp_handler.h"
 #include "cefTLapp/TLapp_app.h"
 #include "include/cef_sandbox_win.h"
-#if defined(WIKI)
+#include "ceftlapp/resource_wiki.h"
+/*#if defined(WIKI)
 #include "ceftlapp/resource_wiki.h"
 #else
 #include "ceftlapp/resource.h"
-#endif
+#endif*/
 #include "ClientHandler.h"
 #include "ClientV8ExtensionHandler.h"
 

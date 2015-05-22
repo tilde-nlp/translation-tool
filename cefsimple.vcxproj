@@ -810,12 +810,12 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="cefTLapp\resource.h">
+    <ClInclude Include="cefTLapp\resource_wiki.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Wiki_setup|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Wiki|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="cefTLapp\resource_util.h" />
-    <ClInclude Include="cefTLapp\resource_wiki.h">
+    <ClInclude Include="cefTLapp\resource.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_setup|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClInclude>
@@ -938,11 +938,11 @@
     <ClInclude Include="cefTLapp\TLapp_handler.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cefTLapp\resource_util_win.cpp">
+    <ClCompile Include="cefTLapp\resource_util_win_wiki.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Wiki|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Wiki_setup|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="cefTLapp\resource_util_win_wiki.cpp">
+    <ClCompile Include="cefTLapp\resource_util_win.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_setup|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -957,11 +957,11 @@
     <Manifest Include="cefTLapp\compatibility.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="cefTLapp\ttoolResources.rc">
+    <ResourceCompile Include="cefTLapp\wikiResources.rc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Wiki|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Wiki_setup|Win32'">true</ExcludedFromBuild>
     </ResourceCompile>
-    <ResourceCompile Include="cefTLapp\wikiResources.rc">
+    <ResourceCompile Include="cefTLapp\ttoolResources.rc">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_setup|Win32'">true</ExcludedFromBuild>
     </ResourceCompile>

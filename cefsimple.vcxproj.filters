@@ -360,9 +360,6 @@
     <ClInclude Include="include\wrapper\cef_zip_archive.h">
       <Filter>include\wrapper</Filter>
     </ClInclude>
-    <ClInclude Include="cefTLapp\resource.h">
-      <Filter>cefTLapp</Filter>
-    </ClInclude>
     <ClInclude Include="cefTLapp\TLapp_app.h">
       <Filter>cefTLapp</Filter>
     </ClInclude>
@@ -379,6 +376,7 @@
       <Filter>cefTLapp</Filter>
     </ClInclude>
     <ClInclude Include="cefTLapp\resource_wiki.h" />
+    <ClInclude Include="cefTLapp\resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cefTLapp\cefTLapp_win.cpp">

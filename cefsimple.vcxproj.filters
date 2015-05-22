@@ -423,7 +423,6 @@
     <ResourceCompile Include="cefTLapp\wikiResources.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
     <None Include="cefTLapp\res_wiki\index.html" />
     <None Include="cefTLapp\res_wiki\style.css" />
     <None Include="cefTLapp\res_wiki\javascript.js" />

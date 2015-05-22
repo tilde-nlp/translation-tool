@@ -810,7 +810,10 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="cefTLapp\resource.h" />
+    <ClInclude Include="cefTLapp\resource.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Wiki_setup|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Wiki|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="cefTLapp\resource_util.h" />
     <ClInclude Include="cefTLapp\resource_wiki.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_setup|Win32'">true</ExcludedFromBuild>
@@ -1018,7 +1021,6 @@ call xcopy /efy "$(Configuration)\*.dll" "$(OutDir)"</Command>
     <None Include="cefTLapp\res_wiki\templates\translate-document.html" />
     <None Include="cefTLapp\res_wiki\templates\translate-text.html" />
     <None Include="cefTLapp\res_wiki\templates\translate-website.html" />
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

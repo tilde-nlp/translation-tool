@@ -8,7 +8,7 @@
 #include "include/cef_sandbox_win.h"
 #if defined(WIKI)
 #include "ceftlapp/resource_wiki.h"
-#elif defined(TTOOL)
+#else
 #include "ceftlapp/resource.h"
 #endif
 #include "ClientHandler.h"

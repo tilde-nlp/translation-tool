@@ -5531,7 +5531,7 @@ app.config(['$routeProvider',
 ]);
 ///#source 1 1 /js/myPageCtrl.js
 var $versionNumber = '1.0',
-    $publicAppid = 'freme',
+    $publicAppid = 'wikiapp',
     $apiUrl = 'https://letsmt.eu/ws',
     $webIframeUrl = 'https://readymt.tilde.com',
     $currentKey = $publicAppid + '-u-918f738b-7413-405d-acda-577ac8825db2'; // live;

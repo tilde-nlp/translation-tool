@@ -991,8 +991,8 @@ call xcopy /efy "Release\*.dll" "$(OutDir)"</Command>
 call xcopy /efy "Release\*.exe" "$(OutDir)"
 call xcopy /efy "Release\*.dll" "$(OutDir)"</Command>
       <Command Condition="'$(Configuration)|$(Platform)'=='Wiki_setup|Win32'">call xcopy /efy "Resources\*" "$(OutDir)"
-call xcopy /efy "Release\*.exe" "$(OutDir)"
-call xcopy /efy "Release\*.dll" "$(OutDir)"</Command>
+call xcopy /efy "Release_setup\*.exe" "$(OutDir)"
+call xcopy /efy "Release_setup\*.dll" "$(OutDir)"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">copy_resources, and also copy_executables, and also copy_libraries</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Wiki|Win32'">copy_resources, and also copy_executables, and also copy_libraries</Message>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release_setup|Win32'">copy_resources, and also copy_executables, and also copy_libraries</Message>

@@ -1826,19 +1826,19 @@ Next </td><td>0</td><td/></row>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
-		<row><td>cef.pak</td><td>cef_pak</td><td>cef.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Wiki_setup\cef.pak</td><td>1</td><td/></row>
-		<row><td>cef_100_percent.pak</td><td>cef_100_pak</td><td>CEF_10~1.PAK|cef_100_percent.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Wiki_setup\cef_100_percent.pak</td><td>1</td><td/></row>
-		<row><td>cef_200_percent.pak</td><td>cef_200_pak</td><td>CEF_20~1.PAK|cef_200_percent.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Wiki_setup\cef_200_percent.pak</td><td>1</td><td/></row>
-		<row><td>d3dcompiler_43.dll1</td><td>d3dcompiler_43.dll</td><td>D3DCOM~1.DLL|d3dcompiler_43.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Wiki_setup\d3dcompiler_43.dll</td><td>1</td><td/></row>
-		<row><td>d3dcompiler_46.dll1</td><td>d3dcompiler_46.dll</td><td>D3DCOM~1.DLL|d3dcompiler_46.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Wiki_setup\d3dcompiler_46.dll</td><td>1</td><td/></row>
-		<row><td>en_us.pak</td><td>en_us</td><td>en-US.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Wiki_setup\locales\en-US.pak</td><td>1</td><td/></row>
-		<row><td>ffmpegsumo.dll1</td><td>ffmpegsumo.dll</td><td>FFMPEG~1.DLL|ffmpegsumo.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Wiki_setup\ffmpegsumo.dll</td><td>1</td><td/></row>
-		<row><td>icudtl.dat</td><td>icudtl</td><td>icudtl.dat</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Wiki_setup\icudtl.dat</td><td>1</td><td/></row>
-		<row><td>libcef.dll1</td><td>libcef.dll</td><td>libcef.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Wiki_setup\libcef.dll</td><td>1</td><td/></row>
-		<row><td>libegl.dll1</td><td>libEGL.dll</td><td>libEGL.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Wiki_setup\libEGL.dll</td><td>1</td><td/></row>
-		<row><td>libglesv2.dll1</td><td>libGLESv2.dll</td><td>LIBGLE~1.DLL|libGLESv2.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Wiki_setup\libGLESv2.dll</td><td>1</td><td/></row>
-		<row><td>pdf.dll</td><td>pdf.dll</td><td>pdf.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Wiki_setup\pdf.dll</td><td>1</td><td/></row>
-		<row><td>wikitrans.exe</td><td>wikitrans.exe</td><td>TRANSL~1.EXE|wikitrans.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Wiki_setup\wikitrans.exe</td><td>1</td><td/></row>
+		<row><td>cef.pak</td><td>cef_pak</td><td>cef.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\cef.pak</td><td>1</td><td/></row>
+		<row><td>cef_100_percent.pak</td><td>cef_100_pak</td><td>CEF_10~1.PAK|cef_100_percent.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\cef_100_percent.pak</td><td>1</td><td/></row>
+		<row><td>cef_200_percent.pak</td><td>cef_200_pak</td><td>CEF_20~1.PAK|cef_200_percent.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\cef_200_percent.pak</td><td>1</td><td/></row>
+		<row><td>d3dcompiler_43.dll1</td><td>d3dcompiler_43.dll</td><td>D3DCOM~1.DLL|d3dcompiler_43.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\d3dcompiler_43.dll</td><td>1</td><td/></row>
+		<row><td>d3dcompiler_46.dll1</td><td>d3dcompiler_46.dll</td><td>D3DCOM~1.DLL|d3dcompiler_46.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\d3dcompiler_46.dll</td><td>1</td><td/></row>
+		<row><td>en_us.pak</td><td>en_us</td><td>en-US.pak</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\locales\en-US.pak</td><td>1</td><td/></row>
+		<row><td>ffmpegsumo.dll1</td><td>ffmpegsumo.dll</td><td>FFMPEG~1.DLL|ffmpegsumo.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\ffmpegsumo.dll</td><td>1</td><td/></row>
+		<row><td>icudtl.dat</td><td>icudtl</td><td>icudtl.dat</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\icudtl.dat</td><td>1</td><td/></row>
+		<row><td>libcef.dll1</td><td>libcef.dll</td><td>libcef.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\libcef.dll</td><td>1</td><td/></row>
+		<row><td>libegl.dll1</td><td>libEGL.dll</td><td>libEGL.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\libEGL.dll</td><td>1</td><td/></row>
+		<row><td>libglesv2.dll1</td><td>libGLESv2.dll</td><td>LIBGLE~1.DLL|libGLESv2.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\libGLESv2.dll</td><td>1</td><td/></row>
+		<row><td>pdf.dll</td><td>pdf.dll</td><td>pdf.dll</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\pdf.dll</td><td>1</td><td/></row>
+		<row><td>wikitrans.exe</td><td>wikitrans.exe</td><td>TRANSL~1.EXE|wikitrans.exe</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;ISProjectFolder&gt;\out\Release_setup\wikitrans.exe</td><td>1</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -3870,8 +3870,8 @@ Next </td><td>0</td><td/></row>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;ISProjectFolder&gt;\cefTLapp\res_wiki\large.ico</td><td>0</td></row>
-		<row><td>wikitrans.exe_29603B18454D4E52BD27BBB1D96E3FDD.exe</td><td/><td>&lt;ISProjectFolder&gt;\out\Wiki_setup\wikitrans.exe</td><td>0</td></row>
-		<row><td>wikitrans.exe_31B097FBFFE6454E804855D1CAE1EB3C.exe</td><td/><td>&lt;ISProjectFolder&gt;\out\Wiki_setup\wikitrans.exe</td><td>0</td></row>
+		<row><td>wikitrans.exe_29603B18454D4E52BD27BBB1D96E3FDD.exe</td><td/><td>&lt;ISProjectFolder&gt;\out\Release_setup\wikitrans.exe</td><td>0</td></row>
+		<row><td>wikitrans.exe_31B097FBFFE6454E804855D1CAE1EB3C.exe</td><td/><td>&lt;ISProjectFolder&gt;\out\Release_setup\wikitrans.exe</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">

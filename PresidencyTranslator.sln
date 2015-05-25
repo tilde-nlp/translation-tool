@@ -268,7 +268,6 @@ Global
 		{7C9E5C92-04E6-4EC2-9A96-B71EB67E93B0}.Wiki_setup|Any CPU.Build.0 = Debug|Any CPU
 		{7C9E5C92-04E6-4EC2-9A96-B71EB67E93B0}.Wiki_setup|ARM.ActiveCfg = Debug|Any CPU
 		{7C9E5C92-04E6-4EC2-9A96-B71EB67E93B0}.Wiki_setup|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{7C9E5C92-04E6-4EC2-9A96-B71EB67E93B0}.Wiki_setup|Mixed Platforms.Build.0 = Debug|Any CPU
 		{7C9E5C92-04E6-4EC2-9A96-B71EB67E93B0}.Wiki_setup|Win32.ActiveCfg = Debug|Any CPU
 		{7C9E5C92-04E6-4EC2-9A96-B71EB67E93B0}.Wiki_setup|x64.ActiveCfg = Debug|Any CPU
 		{7C9E5C92-04E6-4EC2-9A96-B71EB67E93B0}.Wiki_setup|x86.ActiveCfg = Debug|Any CPU
@@ -305,7 +304,6 @@ Global
 		{72645290-39CF-4F3B-BF5B-109945D869C9}.Wiki_setup|Any CPU.ActiveCfg = Debug|Any CPU
 		{72645290-39CF-4F3B-BF5B-109945D869C9}.Wiki_setup|ARM.ActiveCfg = Debug|Any CPU
 		{72645290-39CF-4F3B-BF5B-109945D869C9}.Wiki_setup|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{72645290-39CF-4F3B-BF5B-109945D869C9}.Wiki_setup|Mixed Platforms.Build.0 = Debug|Any CPU
 		{72645290-39CF-4F3B-BF5B-109945D869C9}.Wiki_setup|Win32.ActiveCfg = Debug|Any CPU
 		{72645290-39CF-4F3B-BF5B-109945D869C9}.Wiki_setup|x64.ActiveCfg = Debug|Any CPU
 		{72645290-39CF-4F3B-BF5B-109945D869C9}.Wiki_setup|x86.ActiveCfg = Debug|Any CPU
@@ -345,7 +343,6 @@ Global
 		{4CA809E9-3133-4860-89B1-431D8F9CFAFD}.Wiki_setup|Any CPU.Build.0 = Debug|Any CPU
 		{4CA809E9-3133-4860-89B1-431D8F9CFAFD}.Wiki_setup|ARM.ActiveCfg = Debug|Any CPU
 		{4CA809E9-3133-4860-89B1-431D8F9CFAFD}.Wiki_setup|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{4CA809E9-3133-4860-89B1-431D8F9CFAFD}.Wiki_setup|Mixed Platforms.Build.0 = Debug|Any CPU
 		{4CA809E9-3133-4860-89B1-431D8F9CFAFD}.Wiki_setup|Win32.ActiveCfg = Debug|Any CPU
 		{4CA809E9-3133-4860-89B1-431D8F9CFAFD}.Wiki_setup|x64.ActiveCfg = Debug|Any CPU
 		{4CA809E9-3133-4860-89B1-431D8F9CFAFD}.Wiki_setup|x86.ActiveCfg = Debug|Any CPU

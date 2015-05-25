@@ -1,7 +1,8 @@
 SET processName=BuildProcess.bat
 set sendto=janis.teselskis@tilde.lv
 set WaitingTime=120
-set BuildProject="TTool2015Setup.ism"
+set BuildProject="WikiTransSetup.ism"
+rem set BuildProject="TTool2015Setup.ism"
 set ProductVersion=1.0
 set ISPath2013="c:\program files\installshield\2013 SP1 SAB\system\"
 
@@ -11,7 +12,8 @@ mkdir out
 cd out
 mkdir Release_setup
 cd..
-XCOPY "..\binaries"  "out\Release_setup" /E /S
+rem XCOPY "..\binaries"  "out\Release_setup" /E /S
+XCOPY "..\binaries"  "out\Wiki_setup" /E /S
 
 pause
 attrib -R /S

@@ -2357,7 +2357,7 @@ Next </td><td>0</td><td/></row>
 		<col key="yes" def="s72">Property</col>
 		<col def="L255">Value</col>
 		<row><td>PT</td><td>IncludeActionHelp</td><td>1</td></row>
-		<row><td>PT</td><td>SetupFileName</td><td>Translate2015</td></row>
+		<row><td>PT</td><td>SetupFileName</td><td>WikiTransSetup</td></row>
 	</table>
 
 	<table name="ISRelease">

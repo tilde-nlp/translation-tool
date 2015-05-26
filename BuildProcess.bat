@@ -18,7 +18,6 @@ attrib -R /S
 dir *.dll /s /b /x >files1.txt
 dir *.exe /s /b /x >>files1.txt
 generateSigner.pl files1.txt sign_ttool_files.bat
-rem del files1.txt
 
 echo Jâparaksta Translation tool setup faili. > SignMM.txt
 echo Parakstîðanas fails: "E:\6\LetsMT!\Translator2015\Sources\sign_ttool_files.bat" >> SignMM.txt
@@ -33,16 +32,11 @@ SET /a COUNT=1
 	IF NOT EXIST "sign.log" GOTO TOP1  
 :END1
 
-
-rem COPY %BuildProject% "D.ism"
 echo building %BuildProject% comp
 RMDIR "%temp%\COMP" /S
 %ISPath2013%isCmdBld.exe  -p %BuildProject%  -b "%temp%\COMP" -o "\\projekti\valsis\ValSis\Builds\ISM\Merge Modules"   -e Y -x -y  %ProductVersion%
 
 XCOPY "%temp%\COMP\PT\A.1\DiskImages"  "out\Release_setup" /E
-REM CD Release\DISK1
-REM for %%F in (*.ico) do echo ICON=%%F>>autorun.inf
-REM CD ..\..
 
 path %path%;Precious\Mail;
 echo Jâparaksta Translation tool relîzes faili. > SignMM.txt

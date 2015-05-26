@@ -11,7 +11,7 @@ mkdir out
 cd out
 mkdir Release_setup
 cd..
-XCOPY "..\binaries"  "out\Release" /E /S
+XCOPY "..\binaries"  "out\Release_setup" /E /S
 
 pause
 attrib -R /S

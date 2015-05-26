@@ -173,7 +173,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Wiki_setup|Win32'">
     <IntDir>$(OutDir)obj\$(ProjectName)\</IntDir>
-    <OutDir>out\$(Configuration)\</OutDir>
+    <OutDir>out\Release_setup</OutDir>
     <LinkIncremental>false</LinkIncremental>
     <EmbedManifest>true</EmbedManifest>
     <TargetName>$(ProjectName)</TargetName>

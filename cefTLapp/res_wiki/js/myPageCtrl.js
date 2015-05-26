@@ -226,18 +226,19 @@ app.directive('focusOn', function ($timeout) {
 })
 
 app.directive('hideBlink', function () {
-
     var link = function (scope, element, attributes) {
         var target = attributes.hideBlink ? attributes.hideBlink : element;
-        element.bind('focus', function () { angular.element(target).addClass('hidden'); });
-        element.bind('blur', function () { angular.element(target).removeClass('hidden'); });
+        element.bind('focus', function () {
+            $(target).addClass('hidden');
+        });
+        element.bind('blur', function () {
+            $(target).removeClass('hidden');
+        });
     };
-
     return {
         restrict: 'A',
         link: link
     };
-
 });
 
 function parseClientKey(key) {

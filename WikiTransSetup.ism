@@ -4372,11 +4372,11 @@ QQAuADEAAQBQAFQA
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>ProductCode</td><td>{F81EA931-A232-4B25-1111-D52F1B826FF5}</td><td/></row>
+		<row><td>ProductCode</td><td>{Z92EA931-A252-4B45-1111-D54F6B826FF5}</td><td/></row>
 		<row><td>ProductID</td><td>none</td><td/></row>
 		<row><td>ProductLanguage</td><td>1033</td><td/></row>
 		<row><td>ProductName</td><td>Wikipedia Translator</td><td/></row>
-		<row><td>ProductVersion</td><td>1.04.01</td><td/></row>
+		<row><td>ProductVersion</td><td>1.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4387,7 +4387,7 @@ QQAuADEAAQBQAFQA
 		<row><td>SHOWLAUNCHPROGRAM</td><td>0</td><td/></row>
 		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;INSTALLDIR;</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
-		<row><td>UpgradeCode</td><td>{8CB3E327-9563-49D1-123E-DB8B0C83D0CD}</td><td/></row>
+		<row><td>UpgradeCode</td><td>{9CB3U327-9563-49D1-223E-DB8B0V83D0CD}</td><td/></row>
 		<row><td>_IsMaintenance</td><td>Reinstall</td><td/></row>
 		<row><td>_IsSetupTypeMin</td><td>Typical</td><td/></row>
 	</table>

@@ -2,7 +2,7 @@ SET processName=BuildProcess.bat
 set sendto=janis.teselskis@tilde.lv
 set WaitingTime=120
 set BuildProject="WikiTransSetup.ism"
-set ProductVersion=1.1
+set ProductVersion=1.0
 set ISPath2013="c:\program files\installshield\2013 SP1 SAB\system\"
 
 

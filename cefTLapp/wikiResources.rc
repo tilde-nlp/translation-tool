@@ -100,8 +100,8 @@ LANGUAGE LANG_LATVIAN, SUBLANG_DEFAULT
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,1,0,0
- PRODUCTVERSION 1,1,0,0
+ FILEVERSION 1,0,0,0
+ PRODUCTVERSION 1,0,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -118,12 +118,12 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "Tilde SIA"
             VALUE "FileDescription", "Wiki translator"
-            VALUE "FileVersion", "1.1"
+            VALUE "FileVersion", "1.0"
             VALUE "InternalName", "WikiTrans.rc"
             VALUE "LegalCopyright", "© Tilde SIA, 2015"
             VALUE "OriginalFilename", "WikiTrans.rc"
             VALUE "ProductName", "Wiki translator"
-            VALUE "ProductVersion", "1.1"
+            VALUE "ProductVersion", "1.0"
         END
     END
     BLOCK "VarFileInfo"

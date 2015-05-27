@@ -3,7 +3,7 @@ set version=1.0
 set logfile=signfile.log
 set frameworkbin=C:\Program Files\Microsoft.NET\SDK\v1.1\Bin
 set timestamp=http://timestamp.verisign.com/scripts/timstamp.dll
-set signature=b5fde1c49d5bda708e155914f0bf7d3e95910be9
+set signature=28c9ebee71acc5bb0bed8f55f3e57955efd15c39
 path %path%;%frameworkbin%;c:\blat262\full;
 echo %date% %time%>"%logfile%"
 

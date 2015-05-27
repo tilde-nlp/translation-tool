@@ -2361,7 +2361,7 @@ Next </td><td>0</td><td/></row>
 		<col key="yes" def="s72">Property</col>
 		<col def="L255">Value</col>
 		<row><td>PT</td><td>IncludeActionHelp</td><td>1</td></row>
-		<row><td>PT</td><td>SetupFileName</td><td>Translate2015</td></row>
+		<row><td>PT</td><td>SetupFileName</td><td>TToolSetup</td></row>
 	</table>
 
 	<table name="ISRelease">
@@ -4380,7 +4380,7 @@ QQAuADEAAQBQAFQA
 		<row><td>ProductID</td><td>none</td><td/></row>
 		<row><td>ProductLanguage</td><td>1033</td><td/></row>
 		<row><td>ProductName</td><td>Translation Tool</td><td/></row>
-		<row><td>ProductVersion</td><td>1.04.01</td><td/></row>
+		<row><td>ProductVersion</td><td>1.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>

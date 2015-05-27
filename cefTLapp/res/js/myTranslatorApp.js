@@ -2,17 +2,9 @@
 app.config(['$routeProvider',
     function ($routeProvider, $filter) {
         $routeProvider
-            .when('/about', {
-                templateUrl: 'templates/about.html',
-                controller: 'myPageCtrl'
-            })
             .when('/home', {
                 templateUrl: 'templates/home.html',
                 controller: 'homeCtrl'
-            })
-            .when('/mobileApp', {
-                templateUrl: 'templates/mobileApplications.html',
-                controller: 'myPageCtrl'
             })
             .when('/text', {
                 templateUrl: 'templates/translate-text.html',

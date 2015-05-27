@@ -2444,7 +2444,7 @@ Next </td><td>0</td><td/></row>
 		<col key="yes" def="s72">ISProductConfiguration_</col>
 		<col key="yes" def="s72">Name</col>
 		<col def="s0">Value</col>
-		<row><td>A.1</td><td>PT</td><td>SetupIcon</td><td>&lt;ISProjectFolder&gt;\cefTLapp\res\cefTLapp.ico,0</td></row>
+		<row><td>A.1</td><td>PT</td><td>SetupIcon</td><td>&lt;ISProjectFolder&gt;\cefTLapp\res\large.ico,0</td></row>
 	</table>
 
 	<table name="ISReleasePublishInfo">
@@ -3873,7 +3873,7 @@ Next </td><td>0</td><td/></row>
 		<col def="V0">Data</col>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
-		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;ISProjectFolder&gt;\cefTLapp\res\cefTLapp.ico</td><td>0</td></row>
+		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;ISProjectFolder&gt;\cefTLapp\res\large.ico</td><td>0</td></row>
 		<row><td>ttool2015.exe_29603B18454D4E52BD27BBB1D96E3FDD.exe</td><td/><td>&lt;ISProjectFolder&gt;\out\Release_setup\ttool2015.exe</td><td>0</td></row>
 		<row><td>ttool2015.exe_31B097FBFFE6454E804855D1CAE1EB3C.exe</td><td/><td>&lt;ISProjectFolder&gt;\out\Release_setup\ttool2015.exe</td><td>0</td></row>
 	</table>

@@ -608,8 +608,6 @@ form input[type='text'] {
 }
 
 #dialog.update {
-    margin-top: 1%;
-    margin-left: 20%;
     z-index: 99999;
 }
 
@@ -658,13 +656,13 @@ form input[type='text'] {
     width: 360px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 20px;
+    margin-top: 30px;
     text-align: center;
 }
 
 .dialogButton {
     display: inline-block;
-    width: 80px;
+    width: 95px;
     padding: 0 1em;
     text-decoration: none;
     color: #FFF;

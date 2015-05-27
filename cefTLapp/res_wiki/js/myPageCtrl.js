@@ -6,7 +6,7 @@
 
 app.controller("updateCtrl", function ($scope, $location) {
     $scope.version = $versionNumber;//possible values - text|website|  
-    $scope.url = 'https://saas.tilde.com/bb7_updateinfo/downloads/wikiappupdates.js';//possible values - mobile|about
+    $scope.url = 'https://letsmt.eu/downloads/wikiappupdates.js';//possible values - mobile|about
     $scope.update = {
         type: '',
         title: '',

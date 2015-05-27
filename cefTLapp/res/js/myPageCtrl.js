@@ -1,4 +1,4 @@
-﻿var $versionNumber = '1.1',
+﻿var $versionNumber = '1.0',
     $publicAppid = 'tt-demo',
     //$apiUrl = 'https://mtdevlogic.tilde.lv/ws',
     //$webIframeUrl = 'https://readymtdevlogic.tilde.lv',
@@ -12,7 +12,7 @@
 
 app.controller("updateCtrl", function ($scope, $location) {
     $scope.version = $versionNumber;//possible values - text|website|  
-    $scope.url = 'https://saas.tilde.com/bb7_updateinfo/downloads/ttoolupdates.js';//possible values - mobile|about
+    $scope.url = 'https://letsmt.eu/downloads/ttoolupdates.js';//possible values - mobile|about
     $scope.update = {
         type: '',
         title: '',

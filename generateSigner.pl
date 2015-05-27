@@ -14,7 +14,7 @@ print FOUT "path %path%;%frameworkbin%;c:\\blat262\\full;\n";
 print FOUT "echo %date% %time%>\"%logfile%\"\n";
 
 print FOUT "\nset descr=\"TranslationTool\"\n";
-print FOUT "set file=\"out\Release_setup\ttool2015.exe\"\n";
+print FOUT "set file=\"out\\Release_setup\\ttool2015.exe\"\n";
 print FOUT "chktrust %file% -q\n";
 print FOUT "if ERRORLEVEL 1	signcode.exe -sha1 %signature% -n %descr% -i %webpage% -t %timestamp% %file% >>\"%logfile%\"\n";
 print FOUT "chktrust %file% >>\"%logfile%\"\n";	

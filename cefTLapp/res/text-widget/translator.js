@@ -30,13 +30,13 @@ var uiResources = {
         "systemLoadError": "Error while loading systems"
     },
     'lv': {
-        "sourceSystem": "Tulkošanas virziens",
-        "targetSystem": "Uz",
+        "sourceSystem": "No",
+        "targetSystem": "uz",
         "systemSelect": "System",
         "swapLanguage": "Apgriezt",
         "translateButton": "Tulkot",
         "systemDomain": "Domēns",
-        "systemLoadError": "Neizdevās ielādēt tulkošanas sitēmas"
+        "systemLoadError": "Neizdevās ielādēt tulkošanas sistēmas"
     },
     'ru': {
         "sourceSystem": "Направление перевода",
@@ -4311,6 +4311,8 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         var uploadId = $('#hidUploadTempId').val();
         if (typeof (uploadId) == 'undefined') { uploadId = ''; }
 
+        this.filePluginDeleteFileOnServer();
+
         $('.docUploadNewDoc').addClass('hide');
         $('.buttonDownDoc').removeAttr('href').addClass('hide');
         $('#hidTranslRealFilename').remove();
@@ -4348,10 +4350,6 @@ $.extend(Tilde.TranslatorWidget.prototype, {
     },
 
     filePluginDeleteFile: function () {
-
-        var uploadId = $('#hidUploadTempId').val();
-        if (typeof (uploadId) == 'undefined') { uploadId = ''; }
-
         $('.docUploadNewDoc').click();
 
         $('.docTranslateContent').after($('<input>', {
@@ -4365,6 +4363,12 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
         this.filePluginSetTempTextResult();
 
+        this.filePluginDeleteFileOnServer();
+    },
+
+    filePluginDeleteFileOnServer: function () {
+        var uploadId = $('#hidUploadTempId').val();
+        if (typeof (uploadId) == 'undefined') { uploadId = ''; }
         if (uploadId.length > 0) {
             $.ajax({
                 type: 'POST',
@@ -4394,7 +4398,6 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             });
         }
     },
-
     filePluginTranslateProgress: function (docid) {
         if ($('#hidStopTranslation').val() === 'true') {
             return;
@@ -4808,7 +4811,18 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                         console.error(event.data.description);
                     }
                     if (!event.data.shownInUI) {
-                        alert(event.data.description);
+                        // check wake up case
+                        if (event.data.description.indexOf("system is starting") !== -1) {
+                            if ($widget.showSystemWaking && typeof ($widget.showSystemWaking) === "function") {
+                                $widget.showSystemWaking(false);
+                            }
+                            else {
+                                alert(event.data.description);
+                            }
+                        }
+                        else {
+                            alert(event.data.description);
+                        }
                     }
                     break;
                 case "warning":
@@ -4882,6 +4896,12 @@ uiResources = $.extend(true, uiResources, {
         "loadButton": "Load webpage",
         "cancelButton": "Cancel",
         "restoreButton": "Restore"
+    },
+    'lv': {
+        "address": "Adrese",
+        "loadButton": "Ielādēt lapu",
+        "cancelButton": "Atcelt",
+        "restoreButton": "Atjaunot"
     }
 });
 ///#source 1 1 /widget_plugins/extendsys/extendsys.resources.js
@@ -5064,6 +5084,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             $('.wakeMessage.sysWaking').removeClass('hide');
             $widget.disableTranslation();
             $widget.settings.container.addClass('wakeMessageShown');
+            $widget.checkSystemStatus();
         }
         else {
             $widget.enableTranslation();

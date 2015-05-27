@@ -1,11 +1,11 @@
 ﻿var $versionNumber = '1.0',
     $publicAppid = 'tt-demo',
-    //$apiUrl = 'https://mtdevlogic.tilde.lv/ws',
-    //$webIframeUrl = 'https://readymtdevlogic.tilde.lv',
-    //$publicKey = $publicAppid + '-u-da8f9331-f2f3-4d92-af76-ad2bc25a482a', // test
-    $apiUrl = 'https://letsmt.eu/ws',
-    $webIframeUrl = 'https://readymt.tilde.com',
-    $publicKey = $publicAppid + '-u-0da5622e-98bc-470d-8e61-6e3ee6173cd4', // live
+    $apiUrl = 'https://mtdevlogic.tilde.lv/ws',
+    $webIframeUrl = 'https://readymtdevlogic.tilde.lv',
+    $publicKey = $publicAppid + '-u-da8f9331-f2f3-4d92-af76-ad2bc25a482a', // test
+    //$apiUrl = 'https://letsmt.eu/ws',
+    //$webIframeUrl = 'https://readymt.tilde.com',
+    //$publicKey = $publicAppid + '-u-0da5622e-98bc-470d-8e61-6e3ee6173cd4', // live
     $currentKey = '',
     $keyChanged = false,
     $systemList = null;

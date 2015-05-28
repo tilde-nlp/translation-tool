@@ -419,6 +419,11 @@ div.fancy-select ul.options li.hover {
     right: 0.7em;
     position: absolute;
     z-index: 5;
+
+    -moz-transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    -webkit-transition: all 200ms ease-in-out;
+    transition: all 200ms ease-in-out;
 }
 
 .text .translateResultClear .clearText {
@@ -586,10 +591,13 @@ div.fancy-select ul.options li.hover {
 .text .intro .translateTextSource {
     overflow: hidden;
     min-height: 200px;
+    padding-left: 38px;
 }
 
 .text .intro .translateTextTemp {
     color: #828993;
+    min-height: 210px;
+    margin-left: 5px;
 }
 
 .text .fakeCursor {
@@ -1286,6 +1294,7 @@ $r: 10; $d: $r * 2; $t: 4000;
 
 .text .intro .translateTextTemp[data-disabled="true"] {
     color: #EBEBEB;
+    cursor: default;
 }
 
 .clearfix:after {

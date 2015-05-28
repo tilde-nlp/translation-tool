@@ -5,7 +5,7 @@ open (FIN, "<:encoding(UTF8)", $ARGV[0]);
 open (FOUT, ">:encoding(UTF8)", $ARGV[1]);
 
 print FOUT "set webpage=http://www.tilde.com/\n";
-print FOUT "set version=1.0\n";
+print FOUT "set version=1.1\n";
 print FOUT "set logfile=signfile.log\n";
 print FOUT "set frameworkbin=C:\\Program Files\\Microsoft.NET\\SDK\\v1.1\\Bin\n";
 print FOUT "set timestamp=http://timestamp.verisign.com/scripts/timstamp.dll\n";

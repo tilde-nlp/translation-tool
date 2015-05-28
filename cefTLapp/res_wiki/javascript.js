@@ -5549,7 +5549,7 @@ app.config(['$routeProvider',
     }
 ]);
 ///#source 1 1 /js/myPageCtrl.js
-var $versionNumber = '1.0',
+var $versionNumber = '1.1',
     $publicAppid = 'wikiapp',
     $apiUrl = 'https://letsmt.eu/ws',
     $webIframeUrl = 'https://readymt.tilde.com',
@@ -5682,6 +5682,10 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
         _mimetypeFilter: false,
         _onWidgetLoaded: function () {
             $('#fileWidget').removeClass('loading');
+        },
+        _onScrollBarWidthChanged: function (sbwidth) {
+            var margin = (sbwidth > 0) ? (sbwidth - 7) : 0;
+            $('.backGroundSource, .translateResultClear').css('margin-right', margin + 'px');
         },
         _replaceContainer: false
     });
@@ -5829,6 +5833,10 @@ function initTextWidget($scope) {
                     $(".bigText input").focus();
                 }
             });
+        },
+        _onScrollBarWidthChanged: function (sbwidth) {
+            var margin = (sbwidth > 0) ? (sbwidth - 7) : 0;
+            $('.backGroundSource, .translateResultClear').css('margin-right', margin + 'px');
         },
         _replaceContainer: false
     });

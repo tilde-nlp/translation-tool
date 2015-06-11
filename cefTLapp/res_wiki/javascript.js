@@ -5549,7 +5549,7 @@ app.config(['$routeProvider',
     }
 ]);
 ///#source 1 1 /js/myPageCtrl.js
-var $versionNumber = '1.1',
+var $versionNumber = '1.2',
     $publicAppid = 'wikiapp',
     $apiUrl = 'https://letsmt.eu/ws',
     $webIframeUrl = 'https://readymt.tilde.com',
@@ -5864,7 +5864,7 @@ function hideWebLanding() {
 
 function listOfWebsites() {
     return [
-        { "url": "en.wikipedia.org/", "title": "Wikipedia", "description": "Brīvā enciklopēdija" }
+        { "id": "wiki", "url": "en.wikipedia.org/", "title": "Wikipedia", "description": "Brīvā enciklopēdija" }
     ];
 }
 

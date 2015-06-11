@@ -166,7 +166,7 @@
         </div>
     </script>
 
-    <title>Translation tool</title>
+    <title>Vikipēdijas tulkotājs</title>
 </head>
 <body ng-app="myTranslatorApp" ng-controller="myPageCtrl" ng-message>
 
@@ -182,8 +182,8 @@
             <a tabindex="2" class="documentMenuItem" ng-class="{ active: isActive('document') }" href="#/document" title="Tulkot dokumentu">
                 <span>Dokuments</span>
             </a>
-            <a tabindex="3" class="websiteMenuItem" ng-click="routeMe('/webpage');" href="" ng-class="{ active: isActive('webpage') }" title="Tulkot tīmekļa vietni">
-                <span>Tīmekļa vietne</span>
+            <a tabindex="3" class="websiteMenuItem" ng-click="routeMe('/webpage');" href="" ng-class="{ active: isActive('webpage') }" title="Vikipēdija">
+                <span>Vikipēdija</span>
             </a>
         </nav>
 
@@ -212,8 +212,10 @@
                 <div id="disableLinks" class="hide"></div>
                 <ul>
                     <li ng-repeat="sample in website.samples">
-                        <a href="" ng-click="website.url=sample.url; translateWebsite();">{{sample.title}}</a>
-                        <span>{{sample.description}}</span>
+                        <div ng-class="sample.id">
+                            <a href="" ng-click="website.url=sample.url; translateWebsite();">{{sample.title}}</a>
+                            <span>{{sample.description}}</span>
+                        </div>
                     </li>
                 </ul>
             </div>

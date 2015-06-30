@@ -657,7 +657,7 @@
       <ImportLibrary>$(OutDir)lib\$(TargetName).lib</ImportLibrary>
       <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
       <OptimizeReferences>true</OptimizeReferences>
-      <OutputFile>$(OutDir)wikiTrans.exe</OutputFile>
+      <OutputFile>$(OutDir)mtpro.exe</OutputFile>
       <Profile>true</Profile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
@@ -720,7 +720,7 @@
       <ImportLibrary>$(OutDir)lib\$(TargetName).lib</ImportLibrary>
       <MapFileName>$(OutDir)$(TargetName).map</MapFileName>
       <OptimizeReferences>true</OptimizeReferences>
-      <OutputFile>$(OutDir)wikiTrans.exe</OutputFile>
+      <OutputFile>$(OutDir)mtpro.exe</OutputFile>
       <Profile>true</Profile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>

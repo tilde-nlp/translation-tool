@@ -12,7 +12,7 @@
   </settings>
   <!--The order of the <file> elements determines the order of the files in the bundle.-->
   <files>
-    <file>/css/index.css</file>
-    <file>/text-widget/translator.css</file>
+    <file>css/index.css</file>
+    <file>text-widget/translator.css</file>
   </files>
 </bundle>

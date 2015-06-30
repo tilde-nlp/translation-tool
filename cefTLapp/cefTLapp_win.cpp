@@ -8,6 +8,8 @@
 #include "include/cef_sandbox_win.h"
 #if defined(WIKI)
 #include "ceftlapp/resource_wiki.h"
+#elif defined(MTPRO)
+#include "ceftlapp/resource_mtpro.h"
 #else
 #include "ceftlapp/resource.h"
 #endif

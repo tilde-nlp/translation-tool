@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+
+    <link href="style.css" rel="stylesheet" />
+    <script src="javascript.js"></script>
+
+    <!-- TEMPLATE -->
+    <script id="translatetext-template" type="text/html">
+        <div class="layoutRow text">
+            <div class="layoutCell translateContainerHeader">
+                <div class="rightBackground"></div>
+                <div class="standbyContainer">
+                    <div class="wakeMessage sysStandby clearfix hide">
+                        <span class="messageText" data-html="resumeInfo"></span>
+                        <a class="wakeupSystemButton">
+                            <span class="btnText" data-text="resume"></span>
+                        </a>
+                    </div>
+                    <div class="wakeMessage sysWaking clearfix hide">
+                        <div class="watchContainer"><div class="watch"><div class="tik"></div><div class="tak"></div></div></div>
+                        <span class="messageText" data-text="startingInfo"></span>
+                    </div>
+                </div>
+                <div class="translateControlsContainer">
+                    <div class="translateLanguageContainer">
+                        <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
+                        <select class="translateSourceLang"></select>
+                        <select class="translateSystem hide"></select>
+                        <div data-text="targetSystem" class="translateTargetSystemLabel"></div>
+                        <select class="translateTargetLang"></select>
+                    </div>
+                    <a data-title="swapLanguage" class="swapLanguage hide"></a>
+                    <a data-text="translateButton" class="translateButton hide"></a>
+                    <div class="translateDomainContainer hide">
+                        <div data-text="systemDomain" class="translateDomainLabel"></div>
+                        <select class="translateDomain"></select>
+                    </div>
+                    <div class="translateProgress hide">
+                        <div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layoutRow text">
+            <div class="layoutCell translateContainerBody mainContent">
+                <div class="translateContainerLeft borderBoxSizing">
+                    <div class="fakeCursor blink hide"></div>
+                    <div class="translateTextSourceContainer borderBoxSizing">
+                        <div class="backGroundSource borderBoxSizing"></div>
+                        <textarea rows="10" cols="2" maxlength="10000" id="sourceText" class="translateTextSource borderBoxSizing" spellcheck="false"></textarea>
+                        <div data-text="sourceTextTooltip" class="translateTextTempSourceContainer translateTextTemp borderBoxSizing"></div>
+                    </div>
+                    <div class="translateResultClear hide">
+                        <div class="clearLink"></div>
+                    </div>
+                </div>
+                <div class="translateContainerRight borderBoxSizing">
+                    <div data-text="targetTextTooltip" class="translateTextResult borderBoxSizing"></div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="translatefile-template" type="text/html">
+        <div class="layoutRow file">
+            <div class="layoutCell translateContainerHeader">
+                <div class="rightBackground"></div>
+                <div class="standbyContainer">
+                    <div class="wakeMessage sysStandby clearfix hide">
+                        <span class="messageText" data-html="resumeInfo"></span>
+                        <a class="wakeupSystemButton">
+                            <span class="btnText" data-text="resume"></span>
+                        </a>
+                    </div>
+                    <div class="wakeMessage sysWaking clearfix hide">
+                        <div class="watchContainer"><div class="watch"><div class="tik"></div><div class="tak"></div></div></div>
+                        <span class="messageText" data-text="startingInfo"></span>
+                    </div>
+                </div>
+                <div class="translateHeaderLeft">
+                    <div class="translateLanguageContainer">
+                        <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
+                        <select class="translateSourceLang"></select>
+                        <select class="translateSystem hide"></select>
+                        <div data-text="targetSystem" class="translateTargetSystemLabel"></div>
+                        <select class="translateTargetLang"></select>
+                    </div>
+                    <a data-title="swapLanguage" class="swapLanguage hide"></a>
+                    <a data-text="translateButton" class="translateButton hide"></a>
+                    <div class="translateProgress left hide">
+                        <div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>
+                    </div>
+                </div>
+                <div class="translateHeaderRight">
+                    <a data-text="docDownload" class="buttonDownDoc hide"></a>
+                    <a data-text="docCancel" class="buttonCancelDoc hide"></a>
+                    <div class="docTranslateContent"><div class="transFileMeta hide"></div></div>
+                    <div data-text="docAppleLimited" class="uploadNotSupported error hide"></div>
+                    <div class="translateDomainContainer hide">
+                        <div data-text="systemDomain" class="translateDomainLabel"></div>
+                        <select class="translateDomain"></select>
+                    </div>
+                    <div class="uploadedDocumentName hide"></div>
+                </div>
+            </div>
+        </div>
+        <div class="layoutRow file">
+            <div class="layoutCell translateContainerBody mainContent">
+                <div class="translateContainerLeft borderBoxSizing">
+                    <div class="infoMessageBox error hide"></div>
+                    <a data-text="docUpload" class="docUploadNewDocument hide"></a>
+                    <div id="docUploadFile" class="borderBoxSizing"></div>
+                    <div id="docSourcePreview" class="hide"></div>
+                    <a data-title="docUploadNewDoc" class="docUploadNewDoc hide"></a>
+                </div>
+                <div class="translateContainerRight borderBoxSizing">
+                    <div data-text="docTempTarget" class="docTempTarget"></div>
+                    <div class="translateResult hide"></div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <title>MTPro translator</title>
+</head>
+<body ng-app="myTranslatorApp" ng-controller="myPageCtrl" ng-message>
+
+    <div id="header" class="vertical">
+        <a href="" ng-click="routeMe('/home');">
+            <div id="logoSection"></div>
+        </a>
+
+        <nav>
+            <a tabindex="1" class="textMenuItem" ng-click="routeMe('/text');" ng-class="{ active: isActive('text') }" href="" title="Translate text">
+                <span>Text</span>
+            </a>
+            <a tabindex="2" class="documentMenuItem" ng-class="{ active: isActive('document') }" href="#/document" title="Translate document">
+                <span>Documents</span>
+            </a>
+        </nav>
+
+        <div id="promoSection"></div>
+
+        <nav>
+            <a tabindex="1" class="keyMenuItem" ng-click="routeMe('/key');" ng-class="{ skipped: keySkipped }" href="" title="Enter key">
+                <span>{{keyTitle}}</span>
+            </a>
+        </nav>
+
+        <div class="footer">
+            <div class="tilde" ng-hide="isActive('home') || isActive('about') || isActive('mobileApp')|| isActive('key')">
+                <span>Developed by <a class=" red" href="http://www.tilde.com" target="_blank">Tilde</a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="vertical" id="container">
+
+        <div ng-view></div>
+
+        <div ng-show="isActive('webpage')" id="webpageLanding" class="restricted">
+            <div class="bigText">
+                <div class="cursor blinker"></div>
+                <input type="text"
+                       placeholder="Type web address here"
+                       ng-keyup="$event.keyCode == 13 && translateWebsite()"
+                       ng-model="website.url" hide-blink=".cursor.blinker">
+            </div>
+            <div id="websiteLinks">
+                <div>Links to Latvian media and information resources:</div>
+                <div id="disableLinks" class="hide"></div>
+                <ul>
+                    <li ng-repeat="sample in website.samples">
+                        <a href="" ng-click="website.url=sample.url; translateWebsite();">{{sample.title}}</a>
+                        <span>{{sample.description}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <div ng-show="isActive('home')" style="visibility:hidden;" id="textWidget"></div>
+
+    <div id="modalConfirmation" ng-class="{modal: dialog.showModal=='show'}">
+        <div id="dialog">
+            <div id="dialog-bg">
+                <div id="dialog-title">Are you sure you want to exit document translation?</div>
+                <div id="dialog-description">Your translation will not be saved.</div>
+                <div id="dialog-buttons">
+                    <a href="" ng-click="dialog.navigate(true);" class="dialogButton">Yes</a>
+                    <a href="" ng-click="dialog.navigate(false);" class="dialogButton cancelButton">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-controller="updateCtrl" ng-show="isActive('home') && update.type!=''">
+        <div class="update" id="dialog">
+            <div id="dialog-bg">
+                <div id="dialog-title">{{update.title}}</div>
+                <div id="dialog-description">{{update.description}}</div>
+                <div id="dialog-buttons">
+                    <a href="{{update.url}}" target="_blank" ng-click="update.type=''" class="dialogButton">{{update.yes}}</a>
+                    <a href="" ng-click="update.type=''" class="dialogButton cancelButton">{{update.no}}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

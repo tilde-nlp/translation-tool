@@ -377,6 +377,7 @@
     </ClInclude>
     <ClInclude Include="cefTLapp\resource_wiki.h" />
     <ClInclude Include="cefTLapp\resource.h" />
+    <ClInclude Include="cefTLapp\resource_mtpro.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cefTLapp\cefTLapp_win.cpp">
@@ -398,12 +399,15 @@
       <Filter>cefTLapp</Filter>
     </ClCompile>
     <ClCompile Include="cefTLapp\resource_util_win_wiki.cpp" />
+    <ClCompile Include="cefTLapp\resource_util_win_mtpro.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="cefTLapp\res\cefTLapp.ico" />
     <Image Include="cefTLapp\res\small.ico" />
     <Image Include="cefTLapp\res_wiki\small.ico" />
     <Image Include="cefTLapp\res_wiki\large.ico" />
+    <Image Include="cefTLapp\res_mtpro\large.ico" />
+    <Image Include="cefTLapp\res_mtpro\small.ico" />
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="cefTLapp\compatibility.manifest">
@@ -421,6 +425,7 @@
       <Filter>cefTLapp</Filter>
     </ResourceCompile>
     <ResourceCompile Include="cefTLapp\wikiResources.rc" />
+    <ResourceCompile Include="cefTLapp\mtproResources.rc" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cefTLapp\res_wiki\index.html" />
@@ -430,5 +435,10 @@
     <None Include="cefTLapp\res_wiki\templates\translate-document.html" />
     <None Include="cefTLapp\res_wiki\templates\translate-text.html" />
     <None Include="cefTLapp\res_wiki\templates\translate-website.html" />
+    <None Include="cefTLapp\res_mtpro\index.html" />
+    <None Include="cefTLapp\res_mtpro\javascript.js" />
+    <None Include="cefTLapp\res_mtpro\javascript.js.bundle" />
+    <None Include="cefTLapp\res_mtpro\style.css" />
+    <None Include="cefTLapp\res_mtpro\style.css.bundle" />
   </ItemGroup>
 </Project>

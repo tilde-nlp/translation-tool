@@ -17,7 +17,7 @@ pause
 attrib -R /S
 dir *.dll /s /b /x >files1.txt
 dir *.exe /s /b /x >>files1.txt
-generateSigner_wiki.pl files1.txt sign_wiki_files.bat
+generateSigner_mtpro.pl files1.txt sign_mtpro_files.bat
 
 echo Jâparaksta MTPro translator setup faili. > SignMM.txt
 echo Parakstîðanas fails: "E:\6\LetsMT!\Translator2015\Sources\sign_mtpro_files.bat" >> SignMM.txt

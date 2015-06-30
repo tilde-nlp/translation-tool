@@ -4376,7 +4376,7 @@ QQAuADEAAQBQAFQA
 		<row><td>PROGMSG_IIS_ROLLBACKAPPPOOLS</td><td>##IDS_PROGMSG_IIS_ROLLBACKAPPPOOLS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
-		<row><td>ProductCode</td><td>{F81EA931-A232-4B25-1111-D52F1B826FF5}</td><td/></row>
+		<row><td>ProductCode</td><td>{K50XC831-6C32-4B95-1231-D52F1V8268F5}</td><td/></row>
 		<row><td>ProductID</td><td>none</td><td/></row>
 		<row><td>ProductLanguage</td><td>1033</td><td/></row>
 		<row><td>ProductName</td><td>Translation Tool</td><td/></row>
@@ -4391,7 +4391,7 @@ QQAuADEAAQBQAFQA
 		<row><td>SHOWLAUNCHPROGRAM</td><td>0</td><td/></row>
 		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;INSTALLDIR;</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
-		<row><td>UpgradeCode</td><td>{8CB3E327-9563-49D1-123E-DB8B0C83D0CD}</td><td/></row>
+		<row><td>UpgradeCode</td><td>{0HN7J947-0573-49K1-173E-DB8K5C93D3CF}</td><td/></row>
 		<row><td>_IsMaintenance</td><td>Reinstall</td><td/></row>
 		<row><td>_IsSetupTypeMin</td><td>Typical</td><td/></row>
 	</table>

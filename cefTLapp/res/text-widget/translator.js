@@ -1818,14 +1818,16 @@ Tilde.TextTranslator.prototype = {
                             onAjaxError: this.options.onAjaxError
                         },
                         dataType: this.options.jsonType,
+                        type: 'POST',
+                        contentType: 'application/json',
                         url: this.options._translationUrl,
                         headers: $widget.getAuthHeaders(),
-                        data: {
-                            appid: this.options._appId,
+                        data: JSON.stringify({
+                            appID: this.options._appId,
                             text: cursor.translation,
-                            systemid: $widget.activeSystemId,
+                            systemID: $widget.activeSystemId,
                             options: ($widget.termCorpusId && $widget.getSelectedTermCorpusStatus() == "Ready") ? "termCorpusId=" + $widget.termCorpusId : null
-                        },
+                        }),
                         success: this.onSuccess,
                         error: this.onSuccess
                     });

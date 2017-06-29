@@ -28,7 +28,13 @@
 .verticalLine {
     border-left: 1px solid #e8eaec;
     position: absolute;
-    top: 220px;
+    top: 208px;
     bottom: 0px;
     left: 50%;
+}
+
+@media (max-width: 464px) {
+    .verticalLine {
+        display: none;
+    }
 }

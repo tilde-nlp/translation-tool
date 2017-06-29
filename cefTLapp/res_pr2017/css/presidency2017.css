@@ -59,8 +59,6 @@ div#main_logo a {
     font-size: 1.75rem;
     line-height: 1;
     color: black;
-    padding-top:30px;
-    padding-bottom:30px;
     text-align: left;
     font-weight: normal;
     -webkit-user-select: none;  
@@ -69,6 +67,13 @@ div#main_logo a {
     user-select: none;
     white-space: nowrap;
     cursor: default;
+}
+#main_title_link, #main_title_link:hover, #main_title_link:focus, #main_title_link:active {
+    text-decoration: none;
+    color: black;
+    height: 100%;
+    padding-top: 1.8rem;
+    padding-bottom: 1.8rem;
 }
 
 #dropdown_button {
@@ -167,9 +172,8 @@ div#main_logo a {
 
 .section {
     background-color: white;
-    width: 100%;
+    width: 100% !important;
 }
-
 
 .gray_section  {
      background-color: #e8eaec;
@@ -189,10 +193,9 @@ div#main_logo a {
     text-align: left;
     margin-bottom: 0;
     margin-top: 0;
-    margin-left: 20px;
+    margin-left: 1.25rem;
     padding-bottom: 0.8rem;
     color: #0092ff;
-
 }
 
 /*text widget*/
@@ -237,7 +240,7 @@ div.fancy-select div.trigger {
 
 #translation_types li {
     margin-right: 40px;
-    margin-left: 20px;
+    margin-left: 1.25rem;
     margin-top: 4px;
     padding-left: 0;
 }
@@ -389,8 +392,22 @@ div.fancy-select div.trigger {
     color: black;
 }
 
+article p {
+    margin-top: 1.7rem;
+    font-size: 1rem;
+    margin-left: 1.25rem;
+}
 
+article a, article a:focus, article a:hover, article a:active {
+    font-weight: 600;
+    color: #0092ff;
+}
 
+.info_images {
+    margin-left: 1.25rem;
+    margin-top: 5rem;
+    display: table;
+}
 .white_top {
     border-top: 1px solid white;
 }

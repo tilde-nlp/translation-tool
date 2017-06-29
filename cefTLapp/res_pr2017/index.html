@@ -42,7 +42,7 @@
                 </div>
                 <div class="col-sm-3 col-xs-8" id="main_title">
                     <div id="main_title">
-                        <h1>Translate 2017</h1>
+                        <h1><a href=" #" id="main_title_link" ng-click="routeMe('/text');">Translate 2017</a></h1>
                     </div>
                 </div>
                 <div class="col-sm-2 col-sm-offset-6 col-xs-4" id="main_menu">
@@ -183,7 +183,8 @@
         </div>
    </div>
         <!--FOOTER-->
-    <div class="verticalLine">      
+    <div class="verticalLine" ng-show="isActive('text')">      
+        
     </div>
         <div class="section footer">
             <div class="container">

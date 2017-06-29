@@ -8,144 +8,25 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
-
-
-    
     <script src="js/jquery-2.1.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <!--<link rel="stylesheet" type="text/css" href="css/index.css" />-->
     <!--text translation-->
-    <!----><link href="text-widget/translator.css" rel="stylesheet" />
+    <!---->
+    <link href="text-widget/translator.css" rel="stylesheet" />
     <script src="text-widget/translator.js"></script>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">    
     <!--<script src="text-widget/recentlangs.resources.js"></script>
     <script src="text-widget/tilde.translator.widget.recentlangs.js"></script>-->
     <!--2017-->
     <link rel="stylesheet" type="text/css" href="css/presidency2017.css" />
-    <!-- TEMPLATE -->
-    <script id="translatetext-template" type="text/html">
-        <div class="section gray_section">
-            <div class="container">
-                <div class="row">
-                    <div class="sub_menu">
-                        <!---->
-                        <!--<div class="translateContainerHeader">-->
-                        <!--<div class="translateHeaderLeft">-->
-                        <!--<div class="translateLanguageContainer">-->
-                        <div class="col-sm-2 translate_column_height">
-                            <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
-                            <select class="translateSourceLang"></select>
-                            <!--<select class="translateSystem"></select>-->
-                        </div>
-                        <div class="col-sm-1 col-sm-offset-3 translate_column_height">
-                            <a data-title="swapLanguage" class="swapLanguage hide"></a>
-                        </div>
-                        <div class="col-sm-2 translate_column_height">
-                            <div data-text="targetSystem" class="translateTargetSystemLabel"></div>
-                            <select class="translateTargetLang"></select>
-                        </div>
-                        <div class="col-sm-3 col-sm-offset-1 translate_column_height" id="translate_button_div">
-                            <a data-text="translateButton" class="translateButton"></a>
-                        </div>
-                        
-                        </div>
-                    </div>
-                    </div>
-                    <!---->
-                    <!--<div class="translateHeaderRight">
-                        <div class="translateDomainContainer hide">
-                            <div data-text="systemDomain" class="translateDomainLabel"></div>
-                            <select class="translateDomain"></select>
-                        </div>
-                        <div class="translateResultClear hide">
-                            <div data-text="clearTranslation" class="clearText"></div>
-                            <div class="clearLink"></div>
-                        </div>-->
-                    <!--<div class="col-sm-2">
-                                <div class="translateProgress hide">
-                                    <div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>-->
-                    <div class="section" id="widget_section">
-                        <div class="container">
-                            <div class="row text">
-                                <div class="translateContainerBody mainContent">
-                                    <div class="translateContainerLeft borderBoxSizing col-sm-6">
-
-                                        <div class="translateTextSourceContainer borderBoxSizing">
-                                            <div class="backGroundSource borderBoxSizing"></div>
-                                            <textarea rows="10" cols="2" maxlength="10000" id="sourceText" class="translateTextSource borderBoxSizing" spellcheck="false"></textarea>
-                                            <div data-text="sourceTextTooltip" class="translateTextTempSourceContainer translateTextTemp borderBoxSizing"></div>
-                                        </div>
-                                    </div>
-                                    <div class="translateContainerRight borderBoxSizing col-sm-6">
-                                        <div data-text="targetTextTooltip" class="translateTextResult borderBoxSizing"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--</div>-->
-    </script>
-    <script id="translatefile-template" type="text/html">
-        <div class="layoutRow file">
-            <div class="layoutCell translateContainerHeader">
-                <div class="translateHeaderLeft">
-                    <div class="translateLanguageContainer">
-                        <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
-                        <select class="translateSourceLang"></select>
-                        <select class="translateSystem hide"></select>
-                        <div data-text="targetSystem" class="translateTargetSystemLabel"></div>
-                        <select class="translateTargetLang"></select>
-                    </div>
-                    <a data-title="swapLanguage" class="swapLanguage hide"></a>
-                    <a data-text="translateButton" class="translateButton hide"></a>
-                    <div class="translateProgress left hide">
-                        <div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>
-                    </div>
-                </div>
-                <div class="translateHeaderRight">
-                    <a data-text="docDownload" class="buttonDownDoc hide"></a>
-                    <a data-text="docCancel" class="buttonCancelDoc hide"></a>
-                    <div class="translateDomainContainer hide">
-                        <div data-text="systemDomain" class="translateDomainLabel"></div>
-                        <select class="translateDomain"></select>
-                    </div>
-                    <div class="docTranslateContent"><div class="transFileMeta hide"></div></div>
-                    <div data-text="docAppleLimited" class="uploadNotSupported error hide"></div>
-                    <a data-title="docUploadNewDoc" class="docUploadNewDoc hide"></a>
-                    <div class="uploadedDocumentName hide"></div>
-                </div>
-            </div>
-        </div>
-        <div class="layoutRow file">
-            <div class="layoutCell translateContainerBody mainContent">
-                <div class="translateContainerLeft borderBoxSizing">
-                    <div class="infoMessageBox error hide"></div>
-                    <a data-text="docUpload" class="docUploadNewDocument hide"></a>
-                    <div id="docUploadFile" class="borderBoxSizing"></div>
-                    <div id="docSourcePreview" class="hide"></div>
-                </div>
-                <div class="translateContainerRight borderBoxSizing">
-                    <div data-text="docTempTarget" class="docTempTarget"></div>
-                    <div class="translateResult hide"></div>
-                </div>
-            </div>
-        </div>
-    </script>
-
     <script src="js/angular.min.js"></script>
     <script src="js/angular-route.min.js"></script>
     <script src="js/angular-filter.js"></script>
-
     <script src="js/myTranslatorApp.js"></script>
     <script src="js/myPageCtrl.js"></script>
-
     <title>Translate 2017</title>
 </head>
 <body ng-app="myTranslatorApp" ng-controller="myPageCtrl" ng-message>
@@ -154,7 +35,6 @@
     <div class="section">
         <div class="container">
             <div class="row" id="main">
-
                 <div class="col-sm-1">
                     <a href=" #" id="main_logo" ng-click="routeMe('/text');">
                     </a>
@@ -300,9 +180,9 @@
                 </a>
             </div>-->
         </div>
-        </div>
+   </div>
         <!--FOOTER-->
-        <div class="section">
+        <div class="section footer">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-6">
@@ -340,5 +220,5 @@
             </div>
         </div>-->
 
-<body>
+</body>
 </html>

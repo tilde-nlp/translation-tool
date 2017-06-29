@@ -11,8 +11,8 @@ app.config(['$routeProvider',
               templateUrl: 'templates/home.html',
               controller: 'homeCtrl'
           })*/
-          .when('/mobileApp', {
-              templateUrl: 'templates/mobileApplications.html',
+          .when('/contactUs', {
+              templateUrl: 'templates/contactUs.html',
               controller: 'myPageCtrl'
           })
         .when('/text', {

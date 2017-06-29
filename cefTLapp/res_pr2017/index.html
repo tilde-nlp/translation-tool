@@ -35,21 +35,21 @@
     <div class="section">
         <div class="container">
             <div class="row" id="main">
-                <div class="col-sm-1">
+                <div class="col-sm-1 hidden-xs">
                     <a href=" #" id="main_logo" ng-click="routeMe('/text');">
                     </a>
                 </div>
-                <div class="col-sm-3" id="main_title">
+                <div class="col-sm-3 col-xs-8" id="main_title">
                     <div id="main_title">
                         <h1>Translate 2017</h1>
                     </div>
                 </div>
-                <div class="col-sm-2 col-sm-offset-6" id="main_menu">
+                <div class="col-sm-2 col-sm-offset-6 col-xs-4" id="main_menu">
                     <div class="dropdown">
                         <button id="dropdown_button" class="btn btn-primary btn-block dropdown-toggle menu_text" type="button" data-toggle="dropdown">Menu</button>
                         <ul class="dropdown-menu">
-                            <li><a href="" ng-click="routeMe('/about');">About Translate 2017</a></li>
-                            <li><a href="" ng-click="routeMe('/mobileApp');">Get the Mobile App</a></li>
+                            <li class="dropdown-menu-first"><a href="" ng-click="routeMe('/about');">About Translate 2017</a></li>
+                            <li class="dropdown-menu-last"><a href="" ng-click="routeMe('/mobileApp');">Get the Mobile App</a></li>
                         </ul>
                     </div>
                 </div>
@@ -65,21 +65,21 @@
     <div class="section gray_section" id="translation_type_section">
         <div class="container">
             <div class="row" id="transl_types">
-                <div class="col-sm-12">
+                <div class="col-sm-12 col-xs-12">
                     <div id="translation_types">
                         <ul class="list-inline">
-                            <li id="transl_text">
-                                <a ng-click="routeMe('/text');" ng-class="{ active: isActive('text') }" href="" title="Translate text" class="lang_text active">
+                            <li>
+                                <a ng-click="routeMe('/text');" ng-class="{ active: isActive('text') }" href="" title="Translate text" class="lang_text active" id="transl_text">
                                     Translate text
                                 </a>
                             </li>
-                            <!--<li id="transl_document">
-                                <a ng-class="{ active: isActive('document') }" href="#/document" title="Translate document" class="lang_text">
+                            <!--<li>
+                                <a ng-class="{ active: isActive('document') }" href="#/document" title="Translate document" class="lang_text" id="transl_document">
                                     Translate documents
                                 </a>
                             </li>
-                            <li id="transl_website">
-                                <a ng-click="routeMe('/www');" href="" ng-class="{ active: isActive('website') || isActive('www')  }" title="Translate website" class="lang_text">
+                            <li>
+                                <a ng-click="routeMe('/www');" href="" ng-class="{ active: isActive('website') || isActive('www')  }" title="Translate website" class="lang_text" id="transl_website">
                                     Translate website
                                 </a>
                             </li>-->
@@ -185,10 +185,10 @@
         <div class="section footer">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 col-xs-8">
                         <p class="footer_text footer_etranslation">Powered by <a class="footer_link" href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eTranslation" target="_blank">eTranslation</a>, the EU's automated translation service</p>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 col-xs-4">
                         <p class="footer_text footer_tilde">Developed by <a class="footer_link" href="https://www.tilde.com" target="_blank">Tilde</a></p>
                     </div>
                 </div>

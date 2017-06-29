@@ -22,6 +22,7 @@
     <script src="text-widget/tilde.translator.widget.recentlangs.js"></script>-->
     <!--2017-->
     <link rel="stylesheet" type="text/css" href="css/presidency2017.css" />
+    <link rel="stylesheet" type="text/css" href="css/text-widget.css" />
     <script src="js/angular.min.js"></script>
     <script src="js/angular-route.min.js"></script>
     <script src="js/angular-filter.js"></script>
@@ -29,8 +30,8 @@
     <script src="js/myPageCtrl.js"></script>
     <title>Translate 2017</title>
 </head>
-<body ng-app="myTranslatorApp" ng-controller="myPageCtrl" ng-message>
-    <div class="contain">
+<body ng-app="myTranslatorApp" ng-controller="myPageCtrl" ng-message  >
+    <div class="contain"  style="height:100%;">
     <!--MENU-->
     <div class="section">
         <div class="container">
@@ -90,7 +91,7 @@
         </div>
     </div>
  
-    <div ng-hide="isActive('website') || isActive('www')" ng-view>
+    <div ng-hide="isActive('website') || isActive('www')" ng-view class="viewarea">
 
             <!--WIDGET-->
             <!--<div class="vertical" id="header">
@@ -182,6 +183,8 @@
         </div>
    </div>
         <!--FOOTER-->
+    <div class="verticalLine">      
+    </div>
         <div class="section footer">
             <div class="container">
                 <div class="row">

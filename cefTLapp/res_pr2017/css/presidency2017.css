@@ -337,10 +337,6 @@ div.fancy-select div.trigger {
     text-decoration: none;
 }
 
-#sourceText, .translateTextTempSourceContainer, .mt-translation {
-    height: auto;
-}
-
 /*/text widget*/
 .footer_text {
     font-size: 0.7rem;
@@ -366,8 +362,5 @@ div.fancy-select div.trigger {
     color: black;
 }
 
-.footer{
-    position:absolute;
-    bottom:10px;
-}
+
 

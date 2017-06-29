@@ -1,15 +1,19 @@
 ﻿
-<div style="height: 100%; margin: 0;">
-    <div style="display: table; height: 100%; width: 100%;">
-        <div style="display: table;  height: 100%;  width: 100%;" id="textWidget">Loading...</div>
+<div style="height:100%;" >
+    <div style="height:100%; margin: 0;">
+        <div style="height: 100%;  width: 100%;" id="textWidget">Loading...</div>
     </div>
 </div>
 
 <script id="translatetext-template" type="text/html">
-    <div class="section gray_section">
+    <div class="section gray_section" style="height:100%;">
         <div class="container">
             <div class="row">
-                <div class="sub_menu">                  
+                <div class="sub_menu">
+                    <!---->
+                    <!--<div class="translateContainerHeader">-->
+                    <!--<div class="translateHeaderLeft">-->
+                    <!--<div class="translateLanguageContainer">-->
                     <div class="col-sm-2 translate_column_height">
                         <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
                         <select class="translateSourceLang"></select>
@@ -29,20 +33,37 @@
                 </div>
             </div>
         </div>
+        <!---->
+        <!--<div class="translateHeaderRight">
+        <div class="translateDomainContainer hide">
+            <div data-text="systemDomain" class="translateDomainLabel"></div>
+            <select class="translateDomain"></select>
+        </div>
+        <div class="translateResultClear hide">
+            <div data-text="clearTranslation" class="clearText"></div>
+            <div class="clearLink"></div>
+        </div>-->
+        <!--<div class="col-sm-2">
+                    <div class="translateProgress hide">
+                        <div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>
+                    </div>
+                </div>
 
+            </div>
+
+        </div>-->
         <div class="section" id="widget_section">
-            <div class="container">
-                <div class="row text">
-                    <div class="translateContainerBody mainContent">
-                        <div class="translateContainerLeft borderBoxSizing col-sm-6">
-
+            <div class="container" style="height:100%;display:table;">
+                <div class="row text" style="display:table-row; height:100%;">
+                    <div class="translateContainerBody mainContent" style="position:relative; height:100%; display:table-cell;">
+                        <div class="translateContainerLeft borderBoxSizing col-sm-6" style="height:100%; position:relative;">
                             <div class="translateTextSourceContainer borderBoxSizing">
                                 <div class="backGroundSource borderBoxSizing"></div>
                                 <textarea rows="10" cols="2" maxlength="10000" id="sourceText" class="translateTextSource borderBoxSizing" spellcheck="false"></textarea>
                                 <div data-text="sourceTextTooltip" class="translateTextTempSourceContainer translateTextTemp borderBoxSizing"></div>
                             </div>
                         </div>
-                        <div class="translateContainerRight borderBoxSizing col-sm-6">
+                        <div class="translateContainerRight borderBoxSizing col-sm-6" style="height:100%; position:relative; ">
                             <div data-text="targetTextTooltip" class="translateTextResult borderBoxSizing"></div>
                         </div>
                     </div>

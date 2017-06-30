@@ -320,7 +320,7 @@ div.fancy-select div.trigger {
 }
 
 .text .translateTextTempSourceContainer, .translateTextSource, .translateTextResult {
-    font-size: 1rem;
+    font-size: 1em;
     position: relative;
     font-style: italic;
 }
@@ -350,9 +350,9 @@ div.fancy-select div.trigger {
     background: none;
     background-color: #0092ff;
     color: #fff;
-    border-radius: 0;
-    font-size: 1.25rem;
-    padding: 0.3rem 0.2rem;
+    border-radius: 3px;
+    font-size: 19px;
+    padding: 7px 15px;
     margin: 0;
     margin-right: 35px;
     display: inline;

@@ -67,6 +67,7 @@ div#main {
 #main_menu .dropdown {
     position: absolute;
     right: 0;
+    top: 10%;
 }
 
 #dropdown_button {
@@ -88,7 +89,7 @@ div#main {
     border: solid 1px #0092ff;
     background-color: white;
     border-radius: 0;
-    top: 70%;
+    top: 66px;
     left: auto;
     right: 1px;
     padding-top: 0;
@@ -211,6 +212,14 @@ div#main {
     text-decoration: none;
 }
 
+.text .translateContainerLeft {
+    margin-left: 0;
+}
+
+.text .translateContainerRight {
+    margin-right: 0;
+}
+
 div.fancy-select div.trigger {
     padding: 0;
     margin: 0;
@@ -222,8 +231,6 @@ div.fancy-select div.trigger {
 
 #translation_types {
     display: flex;
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
     text-align: left;
     justify-content: flex-start;
 }
@@ -318,6 +325,19 @@ div.fancy-select div.trigger {
     height: 300px;
 }
 
+.translateTextSource, .text .translateTextTempSourceContainer {
+    padding-left: 0px !important;
+}
+
+.text .translateTextResult.translateTextTemp {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.text .translateTextResult, .text .translateTextSource {
+    text-align: justify;
+}
+
 .text .translateTextTempSourceContainer, .translateTextSource, .translateTextResult {
     font-size: 1em;
     position: relative;
@@ -402,7 +422,7 @@ article a, article a:focus, article a:hover, article a:active {
 }
 
 .info_images {
-    margin-left: 15px;
+    margin-left: 0px;
     margin-top: 96px;
 }
 .white_top {
@@ -417,18 +437,21 @@ article a, article a:focus, article a:hover, article a:active {
     padding-right: 0;
 }
 
-@media (max-width: 400px) {
-    #main_logo {
-        padding-left: 3px;
-        background: none;
+@media (max-width: 845px) {
+    .row {
+        margin-left: 10px;
+        margin-right: 10px;
     }
-    #main_title h1 {
-        font-size: 1.4rem;
+
+    .text .translateTextTempSourceContainer {
+        margin-left: 10px;
     }
-    #dropdown_button {
-        margin-left: 0px;
+
+    .text .translateTextResult.translateTextTemp {
+        margin-right: 10px;
     }
 }
+
 @media (max-width: 767px) {
     .footer_text {
         font-size: 0.6rem;
@@ -437,6 +460,36 @@ article a, article a:focus, article a:hover, article a:active {
         margin-right: 0;
         vertical-align: bottom;
         padding-bottom: 0;
+    }
+
+    .translate_column_height {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .translateSourceSystemLabel, .translateTargetSystemLabel {
+        margin-right: 5px;
+    }
+}
+
+@media (max-width: 465px) {
+    #dropdown_button {
+        font-size: 0;
+        width: 26px;
+        height: 26px;
+        padding: 0px;
+        margin-top: 37px
+    }
+}
+
+@media (max-width: 400px) {
+    #main_logo {
+        padding-left: 3px;
+        background: none;
+    }
+
+    #dropdown_button {
+        margin-left: 0px;
     }
 }
 
@@ -485,5 +538,109 @@ article a, article a:focus, article a:hover, article a:active {
 
     div.fancy-select div.trigger {
         display: none
+    }
+}
+
+@media (min-width: 360px) {
+    @media (min-height: 400px) {
+        #widget_section .translateTextSource {
+            min-height: 150px;
+        }
+    }
+
+    @media (min-height: 500px) {
+        #widget_section .translateTextSource {
+            min-height: 250px;
+        }
+    }
+
+    @media (min-height: 600px) {
+        #widget_section .translateTextSource {
+            min-height: 350px;
+        }
+    }
+
+    @media (min-height: 700px) {
+        #widget_section .translateTextSource {
+            min-height: 450px;
+        }
+    }
+
+    @media (min-height: 800px) {
+        #widget_section .translateTextSource {
+            min-height: 550px;
+        }
+    }
+
+    @media (min-height: 900px) {
+        #widget_section .translateTextSource {
+            min-height: 650px;
+        }
+    }
+
+    @media (min-height: 1000px) {
+        #widget_section .translateTextSource {
+            min-height: 750px;
+        }
+    }
+
+    @media (min-height: 1100px) {
+        #widget_section .translateTextSource {
+            min-height: 850px;
+        }
+    }
+
+    @media (min-height: 1200px) {
+        #widget_section .translateTextSource {
+            min-height: 950px;
+        }
+    }
+
+    @media (min-height: 1300px) {
+        #widget_section .translateTextSource {
+            min-height: 1050px;
+        }
+    }
+
+    @media (min-height: 1400px) {
+        #widget_section .translateTextSource {
+            min-height: 1150px;
+        }
+    }
+
+    @media (min-height: 1500px) {
+        #widget_section .translateTextSource {
+            min-height: 1250px;
+        }
+    }
+
+    @media (min-height: 2000px) {
+        #widget_section .translateTextSource {
+            min-height: 1750px;
+        }
+    }
+}
+
+/*IE only*/
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    #main_title a {
+        padding-left: 100px;
+        background-position: -106px center;
+    }
+
+    #translation_types li a {
+        background-position: -56px center;
+    }
+}
+
+/*Safari only*/
+@media screen and (min-color-index:0) and (-webkit-min-device-pixel-ratio:0) {
+    _::-webkit-full-page-media, _:future, :root #main_title a {
+        padding-left: 110px;
+        background-position: -117px center;
+    }
+
+    _::-webkit-full-page-media, _:future, :root #translation_types li a {
+        background-position: -56px center;
     }
 }

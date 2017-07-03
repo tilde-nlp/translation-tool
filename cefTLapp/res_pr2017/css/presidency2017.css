@@ -322,7 +322,8 @@ div.fancy-select div.trigger {
 }
 
 .translateTextSourceContainer {
-    height: 300px;
+    height: 300px !important;
+    overflow: hidden;
 }
 
 .translateTextSource, .text .translateTextTempSourceContainer {
@@ -543,80 +544,80 @@ article a, article a:focus, article a:hover, article a:active {
 
 @media (min-width: 360px) {
     @media (min-height: 400px) {
-        #widget_section .translateTextSource {
-            min-height: 150px;
+        .translateTextSourceContainer {
+            min-height: 150px !important;
         }
     }
 
     @media (min-height: 500px) {
-        #widget_section .translateTextSource {
-            min-height: 250px;
+        .translateTextSourceContainer {
+            min-height: 250px !important;
         }
     }
 
     @media (min-height: 600px) {
-        #widget_section .translateTextSource {
-            min-height: 350px;
+        .translateTextSourceContainer {
+            min-height: 350px !important;
         }
     }
 
     @media (min-height: 700px) {
-        #widget_section .translateTextSource {
-            min-height: 450px;
+        .translateTextSourceContainer {
+            min-height: 450px !important;
         }
     }
 
     @media (min-height: 800px) {
-        #widget_section .translateTextSource {
-            min-height: 550px;
+        .translateTextSourceContainer {
+            min-height: 550px !important;
         }
     }
 
     @media (min-height: 900px) {
-        #widget_section .translateTextSource {
-            min-height: 650px;
+        .translateTextSourceContainer {
+            min-height: 650px !important;
         }
     }
 
     @media (min-height: 1000px) {
-        #widget_section .translateTextSource {
-            min-height: 750px;
+        .translateTextSourceContainer {
+            min-height: 750px !important;
         }
     }
 
     @media (min-height: 1100px) {
-        #widget_section .translateTextSource {
-            min-height: 850px;
+        .translateTextSourceContainer {
+            min-height: 850px !important;
         }
     }
 
     @media (min-height: 1200px) {
-        #widget_section .translateTextSource {
-            min-height: 950px;
+        .translateTextSourceContainer {
+            min-height: 950px !important;
         }
     }
 
     @media (min-height: 1300px) {
-        #widget_section .translateTextSource {
-            min-height: 1050px;
+        .translateTextSourceContainer {
+            min-height: 1050px !important;
         }
     }
 
     @media (min-height: 1400px) {
-        #widget_section .translateTextSource {
-            min-height: 1150px;
+        .translateTextSourceContainer {
+            min-height: 1150px !important;
         }
     }
 
     @media (min-height: 1500px) {
-        #widget_section .translateTextSource {
-            min-height: 1250px;
+        .translateTextSourceContainer {
+            min-height: 1250px !important;
         }
     }
 
     @media (min-height: 2000px) {
-        #widget_section .translateTextSource {
-            min-height: 1750px;
+        .translateTextSourceContainer {
+            min-height: 1750px !important;
         }
     }
 }

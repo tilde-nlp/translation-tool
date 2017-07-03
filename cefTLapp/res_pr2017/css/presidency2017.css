@@ -286,7 +286,7 @@ div.fancy-select div.trigger {
 .text .translateContainerRight {
     float: right;
     background-color: #ffffff;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .translateSourceSystemLabel, .translateTargetSystemLabel {
@@ -320,9 +320,8 @@ div.fancy-select div.trigger {
     margin-right: 10px;
     margin-top: 0;
 }
-
-.translateTextSourceContainer {
-    height: 300px !important;
+.text .translateTextSourceContainer {
+    height: 300px;
     overflow: hidden;
 }
 
@@ -337,6 +336,7 @@ div.fancy-select div.trigger {
 
 .text .translateTextResult, .text .translateTextSource {
     text-align: justify;
+    overflow: auto;
 }
 
 .text .translateTextTempSourceContainer, .translateTextSource, .translateTextResult {
@@ -451,6 +451,14 @@ article a, article a:focus, article a:hover, article a:active {
     .text .translateTextResult.translateTextTemp {
         margin-right: 10px;
     }
+
+    #widget_section .container {
+        width: 100%;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 }
 
 @media (max-width: 767px) {
@@ -521,127 +529,151 @@ article a, article a:focus, article a:hover, article a:active {
         box-shadow: none;
     }
 
-        div.fancy-select ul.options li {
-            display: inline;
-            padding-left: 0.8rem;
-            padding-right: 0.8rem;
-            margin-right: 0.4rem;
-            margin-left: 0.4rem;
-        }
+    div.fancy-select ul.options li {
+        display: inline;
+        padding-left: 0.8rem;
+        padding-right: 0.8rem;
+        margin-right: 0.4rem;
+        margin-left: 0.4rem;
+    }
 
-        div.fancy-select ul.options li:active, div.fancy-select ul.options li:hover, div.fancy-select ul.options li:focus {
-            background: none;
-        }
+    div.fancy-select ul.options li:active, div.fancy-select ul.options li:hover, div.fancy-select ul.options li:focus {
+        background: none;
+    }
 
-        div.fancy-select ul.options li.selected {
-            color: #0092ff;
-        }
+    div.fancy-select ul.options li.selected {
+        color: #0092ff;
+    }
 
     div.fancy-select div.trigger {
         display: none
     }
 }
 
-@media (min-width: 360px) {
+@media (max-width: 463px) {
+    .translateTextSourceContainer {
+        border-bottom: solid 1px #e8eaec;
+    }
+}
+
     @media (min-height: 400px) {
-        .translateTextSourceContainer {
+        .text .translateTextSourceContainer, .translateTextResult {
             min-height: 150px !important;
+            height: 150px;
         }
     }
 
     @media (min-height: 500px) {
-        .translateTextSourceContainer {
+        .text .translateTextSourceContainer, .translateTextResult {
             min-height: 250px !important;
+            height: 250px;
         }
     }
 
     @media (min-height: 600px) {
-        .translateTextSourceContainer {
+        .text .translateTextSourceContainer, .translateTextResult {
             min-height: 350px !important;
+            height: 350px;
         }
     }
 
     @media (min-height: 700px) {
-        .translateTextSourceContainer {
+        .text .translateTextSourceContainer, .translateTextResult {
             min-height: 450px !important;
+            height: 450px;
         }
     }
 
     @media (min-height: 800px) {
-        .translateTextSourceContainer {
+        .text .translateTextSourceContainer, .translateTextResult {
             min-height: 550px !important;
+            height: 550px;
         }
     }
 
     @media (min-height: 900px) {
-        .translateTextSourceContainer {
+        .text .translateTextSourceContainer, .translateTextResult {
             min-height: 650px !important;
+            height: 650px;
         }
     }
 
     @media (min-height: 1000px) {
-        .translateTextSourceContainer {
+        .text .translateTextSourceContainer, .translateTextResult {
             min-height: 750px !important;
+            height: 750px;
         }
     }
 
     @media (min-height: 1100px) {
-        .translateTextSourceContainer {
+        .text .translateTextSourceContainer, .translateTextResult {
             min-height: 850px !important;
+            height: 850px;
         }
     }
 
     @media (min-height: 1200px) {
-        .translateTextSourceContainer {
+        .text .translateTextSourceContainer, .translateTextResult {
             min-height: 950px !important;
+            height: 950px;
         }
     }
 
     @media (min-height: 1300px) {
-        .translateTextSourceContainer {
+        .text .translateTextSourceContainer, .translateTextResult {
             min-height: 1050px !important;
+            height: 1050px;
         }
     }
 
     @media (min-height: 1400px) {
-        .translateTextSourceContainer {
+        .text .translateTextSourceContainer, .translateTextResult {
             min-height: 1150px !important;
+            height: 1150px;
         }
     }
 
     @media (min-height: 1500px) {
-        .translateTextSourceContainer {
+        .text .translateTextSourceContainer, .translateTextResult {
             min-height: 1250px !important;
+            height: 1250px;
         }
     }
 
     @media (min-height: 2000px) {
-        .translateTextSourceContainer {
+        .text .translateTextSourceContainer, .translateTextResult {
             min-height: 1750px !important;
+            height: 1750px;
         }
     }
-}
 
-/*IE only*/
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-    #main_title a {
-        padding-left: 100px;
-        background-position: -106px center;
-    }
 
-    #translation_types li a {
-        background-position: -56px center;
+@media (max-width: 464px) {
+    .text .translateTextSourceContainer, .translateTextResult {
+        height: auto;
     }
 }
 
-/*Safari only*/
-@media screen and (min-color-index:0) and (-webkit-min-device-pixel-ratio:0) {
-    _::-webkit-full-page-media, _:future, :root #main_title a {
-        padding-left: 110px;
-        background-position: -117px center;
+    /*IE only*/
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        #main_title a {
+            padding-left: 100px;
+            background-position: -106px center;
+        }
+
+        #translation_types li a {
+            background-position: -56px center;
+        }
     }
 
-    _::-webkit-full-page-media, _:future, :root #translation_types li a {
-        background-position: -56px center;
+    /*Safari only*/
+    @media screen and (min-color-index:0) and (-webkit-min-device-pixel-ratio:0) {
+        _::-webkit-full-page-media, _:future, :root #main_title a {
+            padding-left: 110px;
+            background-position: -117px center;
+        }
+
+        _::-webkit-full-page-media, _:future, :root #translation_types li a {
+            background-position: -56px center;
+        }
     }
-}

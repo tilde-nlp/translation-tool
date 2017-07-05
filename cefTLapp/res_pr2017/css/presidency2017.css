@@ -664,7 +664,7 @@ article a, article a:focus, article a:hover, article a:active {
         }
     }
 
-    /*Safari only*/
+/*Safari only
     @media screen and (min-color-index:0) and (-webkit-min-device-pixel-ratio:0) {
         _::-webkit-full-page-media, _:future, :root #main_title a {
             padding-left: 110px;
@@ -674,4 +674,4 @@ article a, article a:focus, article a:hover, article a:active {
         _::-webkit-full-page-media, _:future, :root #translation_types li a {
             background-position: -56px center;
         }
-    }
+    }*/

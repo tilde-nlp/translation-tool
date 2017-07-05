@@ -34,6 +34,7 @@ div#main {
 }
 
 #main_title h1 {
+    height: 5rem;
     align-self: center;
     font-size: 1.75rem;
     line-height: 1;
@@ -550,12 +551,6 @@ article a, article a:focus, article a:hover, article a:active {
     }
 }
 
-@media (max-width: 463px) {
-    .translateTextSourceContainer {
-        border-bottom: solid 1px #e8eaec;
-    }
-}
-
     @media (min-height: 400px) {
         .text .translateTextSourceContainer, .translateTextResult {
             min-height: 150px !important;
@@ -647,13 +642,16 @@ article a, article a:focus, article a:hover, article a:active {
         }
     }
 
-
-@media (max-width: 464px) {
+@media (max-width: 463px) {
     .text .translateTextSourceContainer, .translateTextResult {
-        height: auto;
+        min-height: 10px !important;
+        height: 100px;
+    }
+
+    .translateTextSourceContainer {
+        border-bottom: solid 1px #e8eaec;
     }
 }
-
     /*IE only*/
     @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
         #main_title a {

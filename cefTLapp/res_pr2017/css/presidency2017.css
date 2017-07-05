@@ -410,6 +410,10 @@ div.fancy-select div.trigger {
 }
 
 /*/text widget*/
+.footer {
+    padding-top: 5px;
+}
+
 .footer_text {
     font-size: 0.7rem;
     text-align: left;
@@ -669,11 +673,23 @@ article a, article a:focus, article a:hover, article a:active {
 @media (max-width: 463px) {
     .text .translateTextSourceContainer, .translateTextResult {
         min-height: 10px !important;
-        height: 100px;
+        height: 180px;
+    }
+    
+    .text .translateTextSourceContainer {
+        margin-left: 10px;
+    }
+    
+    .text .translateContainerLeft, .text .translateContainerRight {
+        height: 190px !important;
     }
 
-    .translateTextSourceContainer {
+    .translateContainerLeft {
         border-bottom: solid 1px #e8eaec;
+    }
+
+    .contain:after {
+        height: 0 !important;
     }
 }
     /*IE only*/

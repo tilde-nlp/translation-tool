@@ -298,6 +298,11 @@ div.fancy-select div.trigger {
     margin-right: 0.6rem;
 }
 
+.translateTargetSystemLabel {
+    margin-left: 0.3rem;
+}
+
+
 .translateSourceSystemLabel {
     margin-left: 0px;
 }
@@ -386,6 +391,22 @@ div.fancy-select div.trigger {
     background-color: #0092ff;
     color: #fff;
     text-decoration: none;
+}
+
+.backGroundSource .classMTsource, .translateTextResult .mt-translation {
+    padding-left: 0px !important;
+}
+
+.backGroundSource {
+    text-align: justify !important;
+    padding-right: 2em !important;
+    font-style: italic;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }
 
 /*/text widget*/
@@ -489,6 +510,9 @@ article a, article a:focus, article a:hover, article a:active {
         height: 26px;
         padding: 0px;
         margin-top: 37px
+    }
+    .translateTargetSystemLabel {
+        margin-left: 0px;
     }
 }
 

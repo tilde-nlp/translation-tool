@@ -3,12 +3,20 @@
 
 var uiResources = {
     'en': {
-        "sourceSystem": "From: ",
+        "sourceSystem": "From:",
         "targetSystem": "To:",
         "swapLanguage": "Reverse",
         "translateButton": "Translate",
         "systemDomain": "Domain",
         "systemLoadError": "Error while loading systems"
+    },
+    'ee': {
+        "sourceSystem": "Tere tulemast!:",
+        "targetSystem": "Tere tulemast!:",
+        "swapLanguage": "Tere tulemast!",
+        "translateButton": "Tere tulemast!",
+        "systemDomain": "Domain",
+        "systemLoadError": "Tere tulemast!"
     },
     'fr': {
         "sourceSystem": "From",
@@ -846,9 +854,9 @@ Tilde.TranslatorWidget.prototype = {
                     if (!opt.prop('disabled') && (opt.val() || settings.includeBlank)) {
                         optHtml = settings.optionTemplate(opt);
                         if (opt.prop('selected')) {
-                            return options.append("<li data-raw-value=\"" + (opt.val()) + "\" class=\"selected\">" + optHtml + "</li>");
+                            return options.append("<li data-raw-value=\"" + (opt.val()) + "\" class=\"selected\">" + angular.element($("#my_translator_app")).scope().localize(optHtml) + "</li>");
                         } else {
-                            return options.append("<li data-raw-value=\"" + (opt.val()) + "\">" + optHtml + "</li>");
+                            return options.append("<li data-raw-value=\"" + (opt.val()) + "\">" + angular.element($("#my_translator_app")).scope().localize(optHtml) + "</li>");
                         }
                     }
                 });
@@ -1070,6 +1078,12 @@ uiResources = $.extend(true, uiResources, {
         "sourceTextTooltip": "Enter the text you would like to translate...",
         "noInternet": "No internet connection",
         "targetTextTooltip": "Machine translation results help to understand the meaning of a source text, but do not equal translation by a human."
+    },
+    'ee': {
+        "clearTranslation": "Tere tulemast!",
+        "sourceTextTooltip": "Tere tulemast!",
+        "noInternet": "Tere tulemast!",
+        "targetTextTooltip": "Tere tulemast!"
     },
     'fr': {
         "clearTranslation": "Clear",
@@ -3623,6 +3637,26 @@ uiResources = $.extend(true, uiResources, {
         "docAppleLimited": "File upload on iOS devices is limited.",
         "docTranslInProgress": "Document translation is in progress. If you leave the page, the translation will be lost.",
     },
+    'ee': {
+        "docTempTarget": "Tere tulemast!",
+        "docDownload": "Tere tulemast!",
+        "docCancel": "Tere tulemast!",
+        "docUploadTooltip": "Tere tulemast!",
+        "docUploadMsgType": "Tere tulemast!",
+        "docUploadMsgSize": "Tere tulemast!",
+        "docUploadMsgEmpty": "Tere tulemast!",
+        "docUploadMsgWordcnt": "Tere tulemast!",
+        "docUploadFilename": "Tere tulemast!",
+        "docUploadFilesize": "Tere tulemast!",
+        "docUploadWordcount": "Tere tulemast!",
+        "docUploadFailed": "Tere tulemast!",
+        "docTranslFailed": "Tere tulemast!",
+        "docUploadNewDoc": "Tere tulemast!",
+        "docStarting": "Tere tulemast!",
+        "docPreviewError": "Tere tulemast!",
+        "docAppleLimited": "Tere tulemast!",
+        "docTranslInProgress": "Tere tulemast!",
+    },
     'lv': {
         "docTempTarget": "Dokumentu mašīntulkošanas rezultāti ļauj saprast teksta nozīmi, bet nevar aizstāt cilvēka radītu tulkojumu.",
         "docDownload": "Atvērt",
@@ -3674,6 +3708,15 @@ uiResources = $.extend(true, uiResources, {
         "E_FORMAT_TRACK_CHANGES": "Could not translate because track changes was turned on. Changes must first be accepted.",
         "E_UNKNOWN_ERROR": "An unknown error occurred.",
         "E_UNAUTHORIZED": "Document translation was denied."
+    },
+    'ee': {
+        "E_DEFAULT_ERROR": "Tere tulemast!",
+        "E_UNKNOWN_FILE_TYPE": "Tere tulemast!",
+        "E_CANNOT_READ_FILE": "Tere tulemast!",
+        "E_FAILED_IN_TRANSLATION": "Tere tulemast!",
+        "E_FORMAT_TRACK_CHANGES": "Tere tulemast!",
+        "E_UNKNOWN_ERROR": "Tere tulemast!",
+        "E_UNAUTHORIZED": "Tere tulemast!"
     },
     'lv': {
         "E_DEFAULT_ERROR": "Tulkojot radās kļūda.",

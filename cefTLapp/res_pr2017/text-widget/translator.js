@@ -1212,9 +1212,9 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             if (backgroundSource.scrollTop != translateTextSource.scrollTop) {
                 backgroundSource.scrollTop = translateTextSource.scrollTop;
             }
-
+            
             if (!window.Tilde.targetScrollingTime || new Date().getTime() - window.Tilde.targetScrollingTime > 200) {
-                var translateContainerRight = $('.translateContainerRight')[0];
+                var translateContainerRight = $('.translateTextResult')[0];
                 if (translateContainerRight.scrollTop != translateTextSource.scrollTop) {
                     window.Tilde.sourceScrollingTime = new Date().getTime();
                     translateContainerRight.scrollTop = translateTextSource.scrollTop;

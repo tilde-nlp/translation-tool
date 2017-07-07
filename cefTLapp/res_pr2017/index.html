@@ -70,30 +70,31 @@
     </script>
 </head>
 <body ng-app="myTranslatorApp" ng-controller="myPageCtrl" ng-message id="my_translator_app">
-    <select ng-options="language | translate for language in languages" ng-model="language" ng-change="updateLanguage()"></select>
     <div class="contain">
     <!--MENU-->
     <div class="section">
         <div class="container">
             <div class="row" id="main">
-                <div class="col-sm-5 col-xs-8 no_padding_left">
+                <div class="col-sm-5 col-xs-7 no_padding_left">
                     <div id="main_title">
                         <h1><a href=" #" id="main_logo" ng-click="routeMe('/text');">Translate 2017</a></h1>
                     </div>
                 </div>                    
-                <div class="col-sm-2 col-sm-offset-5 col-xs-4 no_padding_right" id="main_menu">
-                    <div class="dropdown">
-                        <button id="dropdown_button" class="btn btn-primary btn-block dropdown-toggle menu_text" type="button" data-toggle="dropdown" translate="{{ 'MENU' | translate }}"></button>
-                        <ul class="dropdown-menu">
-                            <li class="dropdown-menu-first"><a href="" ng-click="routeMe('/about');" translate="{{ 'MENU_ABOUT' | translate }}"></a></li>
-                            <li class="dropdown-menu-last"><a href="" ng-click="routeMe('/contactUs');" translate="{{ 'MENU_CONTACT' | translate }}"></a></li>
-                        </ul>
-                    </div>
-                    <div id="language_selection">
-                        <!--<button class="btn lang_select menu_text menu_active">EN</button><!----\><button class="btn lang_select menu_text">EE</button>-->
+                <div class="col-sm-4 col-sm-offset-3 col-xs-5 no_padding_right" id="main_menu">
+                    <div class="menu_wrapper">
+                        <div class="dropdown">
+                            <button id="dropdown_button" class="btn btn-primary btn-block dropdown-toggle menu_text" type="button" data-toggle="dropdown" translate="{{ 'MENU' | translate }}"></button>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-menu-first"><a href="" ng-click="routeMe('/about');" translate="{{ 'MENU_ABOUT' | translate }}"></a></li>
+                                <li class="dropdown-menu-last"><a href="" ng-click="routeMe('/contactUs');" translate="{{ 'MENU_CONTACT' | translate }}"></a></li>
+                            </ul>
+                        </div>
+                        <div id="language_selection">
+                            <button class="btn lang_select menu_text" ng-class="{ active: language === languages[0] }" ng-model="language" ng-click="language=languages[0];updateLanguage()">EN</button>
+                            <button class="btn lang_select menu_text" ng-class="{ active: language === languages[1] }" ng-model="language" ng-click="language=languages[1];updateLanguage()">EE</button>
+                        </div>
                     </div>
                 </div>
-                    
             </div>
         </div>
     </div>
@@ -111,7 +112,7 @@
                                 <a ng-class="{ active: isActive('document') }" href="#/document" title="Translate document" class="lang_text" id="transl_document">{{ 'DOC' | translate }}
                                 </a>
                             </li>
-                            <li>
+                            <!--<li>
                                 <a ng-click="routeMe('/www');" href="" ng-class="{ active: isActive('website') || isActive('www')  }" title="Translate website" class="lang_text" id="transl_website" translate="{{ 'WEB' | translate }}"></a>
                             </li>-->
                         </ul>

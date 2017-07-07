@@ -158,8 +158,8 @@ app.controller("myPageCtrl", function ($scope, $location, $translate) {
 
     $scope.localize = function (word) {
         var Estonian = {}
-        Estonian["English"] = "Tere tulemast!";
-        Estonian["Estonian"] = "Tere tulemast!";
+        Estonian["English"] = "Īnglise";
+        Estonian["Estonian"] = "Eesti";
 
         if ($scope.language === 'ee') {
             return (Estonian[word]);

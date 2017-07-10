@@ -464,6 +464,28 @@ article a, article a:focus, article a:hover, article a:active {
     padding-right: 0;
 }
 
+.translateResultClear {
+    position: absolute;
+    right: 5px;
+    top: 0;
+    z-index: 10;
+    padding-top: 0.7em;
+}
+.clearText {
+    color: transparent !important;
+    font-size: 0px;
+    /*
+    float: right;
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiI…JNMCAwaDI0djI0SDB6IiAgICAgZmlsbD0ibm9uZSIgICAgIGlkPSJwYXRoNCIgLz48L3N2Zz4=);
+    background-repeat: no-repeat;
+    padding-left: 26px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-top: 5px;
+    margin-right: 5px;  
+    font-size: 0px;*/
+}
+
 @media (max-width: 845px) {
     .row {
         margin-left: 10px;

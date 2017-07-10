@@ -63,13 +63,13 @@ div#main {
     display: flex;
     justify-content: center;
     height: 107px;
-}*/
+}
 
 #main_menu .dropdown {
     position: absolute;
     right: 0;
     top: 10%;
-}
+}*/
 
 #dropdown_button {
     align-self: center;
@@ -83,6 +83,18 @@ div#main {
     background-size: 26px 26px;
     color: black;
     margin-top: 31px;
+    margin-left: 0;
+}
+
+.menu_wrapper {
+    float:right;
+}
+
+
+
+.dropdown {
+    width: 120px;
+    float: left;
 }
 
 .dropdown-menu {
@@ -137,6 +149,9 @@ div#main {
 
 #language_selection {
     float: left;
+    padding-top:6px;
+    padding-bottom:6px;
+    margin-top: 31px;
 }
 
 .lang_select {
@@ -149,9 +164,13 @@ div#main {
     background: none;
 }
 
-.menu_active {
+#language_selection .active {
     color: #0092ff !important;
 
+}
+
+#language_selection button.active, #language_selection button:target, #language_selection button:active {
+    box-shadow: none;
 }
 
 .menu_text {
@@ -432,6 +451,9 @@ div.fancy-select div.trigger {
 .footer_link {
     font-weight: 600;
     text-decoration: none;
+}
+
+.footer_link, .footer_link:focus, .footer_link:hover, footer_link:active {
     color: black;
 }
 
@@ -443,7 +465,7 @@ div.fancy-select div.trigger {
     text-align: justify;
 }
 
-article a, article a:focus, article a:hover, article a:active {
+.article a, article a:focus, article a:hover, article a:active {
     font-weight: 600;
     color: #0092ff;
 }
@@ -737,3 +759,7 @@ article a, article a:focus, article a:hover, article a:active {
             background-position: -56px center;
         }
     }*/
+
+button.lang_select:focus {
+    outline: none;
+}

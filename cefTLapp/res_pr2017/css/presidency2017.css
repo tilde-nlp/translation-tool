@@ -18,7 +18,7 @@ div#main {
 
 #main_logo {
     height: 107px;
-    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyMS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiDQoJIHZpZXdCb3g9IjAgMCAxNjAgMjEwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAxNjAgMjEwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KCS5zdDB7ZmlsbDojMDA5MkZGO30NCgkuc3Qxe2ZpbGw6IzE3OTFGRjt9DQo8L3N0eWxlPg0KPGcgaWQ9IlB1YmxpYyI+DQoJPGcgaWQ9IkluZGV4IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTMwLjAwMDAwMCwgLTMwLjAwMDAwMCkiPg0KCQk8ZyBpZD0iSGVhZGVyIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMzAuMDAwMDAwLCAzMC4wMDAwMDApIj4NCgkJCTxnIGlkPSJMb2dvIj4NCgkJCQk8cGF0aCBpZD0iRmlsbC0xIiBjbGFzcz0ic3QxIiBkPSJNMTE3LjUsMTcyLjRjMC0yMC43LTE2LjgtMzcuNi0zNy41LTM3LjZjLTIwLjcsMC0zNy41LDE2LjktMzcuNSwzNy42UzU5LjMsMjEwLDgwLDIxMA0KCQkJCQlDMTAwLjcsMjEwLDExNy41LDE5My4xLDExNy41LDE3Mi40Ii8+DQoJCQkJPHBhdGggaWQ9IkVVMjAxNy5lZSIgY2xhc3M9InN0MSIgZD0iTTE2LjUsMTEyLjR2NS44SDBWOTEuOGgxNi4zdjUuOEg2djQuNGg5LjR2NS43SDZ2NC43SDE2LjV6IE0xOS4zLDEwOS43VjkxLjhoNnYxNy4zDQoJCQkJCWMwLDIsMC45LDMuNyw0LjEsMy43YzMuMiwwLDQuMS0xLjcsNC4xLTMuN1Y5MS44aDZ2MTcuOGMwLDUuNi00LjQsOS0xMC4xLDlTMTkuMywxMTUuMywxOS4zLDEwOS43eiBNNDIuNCwxMTMuOGw4LjgtOS4yDQoJCQkJCWMxLjUtMS42LDIuNy0zLjEsMi43LTQuN2MwLTEuNy0xLjEtMi44LTIuOC0yLjhjLTEuOCwwLTMuMiwxLjItMy45LDIuOWwtNS4xLTNjMS43LTMuOSw1LjItNS44LDguOS01LjhjNC43LDAsOC45LDMuMSw4LjksOC40DQoJCQkJCWMwLDMuMi0xLjcsNS45LTQuMSw4LjNsLTQuNCw0LjRoOC44djUuOEg0Mi40VjExMy44eiBNNjIsMTA1YzAtOC4xLDMuOS0xMy43LDEwLjctMTMuN2M2LjgsMCwxMC43LDUuNiwxMC43LDEzLjcNCgkJCQkJYzAsOC4xLTMuOSwxMy43LTEwLjcsMTMuN0M2NS45LDExOC43LDYyLDExMy4xLDYyLDEwNXogTTc3LjQsMTA1YzAtNS4xLTEuNS03LjgtNC43LTcuOGMtMy4yLDAtNC43LDIuNy00LjcsNy44DQoJCQkJCWMwLDUuMSwxLjUsNy44LDQuNyw3LjhDNzUuOSwxMTIuOCw3Ny40LDExMC4xLDc3LjQsMTA1eiBNMTE0LjgsOTEuOHY1bC04LjYsMjEuM2gtNi40bDguMy0yMC42aC05Ljd2LTUuOEgxMTQuOHogTTExMi4yLDExNS4xDQoJCQkJCWMwLTIsMS42LTMuNiwzLjYtMy42YzIsMCwzLjYsMS42LDMuNiwzLjZjMCwyLTEuNiwzLjYtMy42LDMuNkMxMTMuOSwxMTguNywxMTIuMiwxMTcuMSwxMTIuMiwxMTUuMXogTTE0MC4zLDExMi40djUuOGgtMTYuNQ0KCQkJCQlWOTEuOGgxNi4zdjUuOGgtMTAuM3Y0LjRoOS40djUuN2gtOS40djQuN0gxNDAuM3ogTTE2MCwxMTIuNHY1LjhoLTE2LjVWOTEuOGgxNi4zdjUuOGgtMTAuM3Y0LjRoOS40djUuN2gtOS40djQuN0gxNjB6DQoJCQkJCSBNOTAuMiw5MS44aDUuM3YyNi40aC02di0yMGwtMy45LDEuMUw4NCw5NC4xTDkwLjIsOTEuOHoiLz4NCgkJCQk8cGF0aCBpZD0iRmlsbC0zIiBjbGFzcz0ic3QxIiBkPSJNNDIuNSwzNy42YzAsMjAuNywxNi44LDM3LjYsMzcuNSwzNy42YzIwLjcsMCwzNy41LTE2LjksMzcuNS0zNy42QzExNy41LDE2LjksMTAwLjcsMCw4MCwwDQoJCQkJCUM1OS4zLDAsNDIuNSwxNi45LDQyLjUsMzcuNiIvPg0KCQkJPC9nPg0KCQk8L2c+DQoJPC9nPg0KPC9nPg0KPC9zdmc+DQo=');
+    background-image: url('../img/EU2017.svg');
     background-repeat: no-repeat;
     background-size: contain;
     background-position: left center;
@@ -34,6 +34,7 @@ div#main {
 }
 
 #main_title h1 {
+    height: 5rem;
     align-self: center;
     font-size: 1.75rem;
     line-height: 1;
@@ -297,6 +298,11 @@ div.fancy-select div.trigger {
     margin-right: 0.6rem;
 }
 
+.translateTargetSystemLabel {
+    margin-left: 0.3rem;
+}
+
+
 .translateSourceSystemLabel {
     margin-left: 0px;
 }
@@ -387,7 +393,27 @@ div.fancy-select div.trigger {
     text-decoration: none;
 }
 
+.backGroundSource .classMTsource, .translateTextResult .mt-translation {
+    padding-left: 0px !important;
+}
+
+.backGroundSource {
+    text-align: justify !important;
+    padding-right: 2em !important;
+    font-style: italic;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
 /*/text widget*/
+.footer {
+    padding-top: 5px;
+}
+
 .footer_text {
     font-size: 0.7rem;
     text-align: left;
@@ -436,6 +462,28 @@ article a, article a:focus, article a:hover, article a:active {
 
 .no_padding_right {
     padding-right: 0;
+}
+
+.translateResultClear {
+    position: absolute;
+    right: 5px;
+    top: 0;
+    z-index: 10;
+    padding-top: 0.7em;
+}
+.clearText {
+    color: transparent !important;
+    font-size: 0px;
+    /*
+    float: right;
+    background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiI…JNMCAwaDI0djI0SDB6IiAgICAgZmlsbD0ibm9uZSIgICAgIGlkPSJwYXRoNCIgLz48L3N2Zz4=);
+    background-repeat: no-repeat;
+    padding-left: 26px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-top: 5px;
+    margin-right: 5px;  
+    font-size: 0px;*/
 }
 
 @media (max-width: 845px) {
@@ -488,6 +536,9 @@ article a, article a:focus, article a:hover, article a:active {
         height: 26px;
         padding: 0px;
         margin-top: 37px
+    }
+    .translateTargetSystemLabel {
+        margin-left: 0px;
     }
 }
 
@@ -547,12 +598,6 @@ article a, article a:focus, article a:hover, article a:active {
 
     div.fancy-select div.trigger {
         display: none
-    }
-}
-
-@media (max-width: 463px) {
-    .translateTextSourceContainer {
-        border-bottom: solid 1px #e8eaec;
     }
 }
 
@@ -647,13 +692,28 @@ article a, article a:focus, article a:hover, article a:active {
         }
     }
 
-
-@media (max-width: 464px) {
+@media (max-width: 463px) {
     .text .translateTextSourceContainer, .translateTextResult {
-        height: auto;
+        min-height: 10px !important;
+        height: 180px;
+    }
+    
+    .text .translateTextSourceContainer {
+        margin-left: 10px;
+    }
+    
+    .text .translateContainerLeft, .text .translateContainerRight {
+        height: 190px !important;
+    }
+
+    .translateContainerLeft {
+        border-bottom: solid 1px #e8eaec;
+    }
+
+    .contain:after {
+        height: 0 !important;
     }
 }
-
     /*IE only*/
     @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
         #main_title a {
@@ -666,7 +726,7 @@ article a, article a:focus, article a:hover, article a:active {
         }
     }
 
-    /*Safari only*/
+/*Safari only
     @media screen and (min-color-index:0) and (-webkit-min-device-pixel-ratio:0) {
         _::-webkit-full-page-media, _:future, :root #main_title a {
             padding-left: 110px;
@@ -676,4 +736,4 @@ article a, article a:focus, article a:hover, article a:active {
         _::-webkit-full-page-media, _:future, :root #translation_types li a {
             background-position: -56px center;
         }
-    }
+    }*/

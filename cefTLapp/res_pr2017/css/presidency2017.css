@@ -432,9 +432,6 @@ div.fancy-select div.trigger {
 .footer_link {
     font-weight: 600;
     text-decoration: none;
-}
-
-.footer_link, .footer_link:focus, .footer_link:hover, footer_link:active {
     color: black;
 }
 
@@ -446,7 +443,7 @@ div.fancy-select div.trigger {
     text-align: justify;
 }
 
-.article a, article a:focus, article a:hover, article a:active {
+article a, article a:focus, article a:hover, article a:active {
     font-weight: 600;
     color: #0092ff;
 }

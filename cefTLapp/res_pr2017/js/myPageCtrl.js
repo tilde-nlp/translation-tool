@@ -36,7 +36,7 @@ app.controller("updateCtrl", function ($scope) {
 
 
 
-app.controller("myPageCtrl", function ($scope, $location, $translate) {
+app.controller("myPageCtrl", function ($scope, $location) {
     try {
         console.log("Location: " + document.location);
         console.log("Domain: " + document.domain);
@@ -151,29 +151,6 @@ app.controller("myPageCtrl", function ($scope, $location, $translate) {
         else {
             $location.path(hash);
         }
-    };
-
-    $scope.language = 'en';
-    $scope.languages = ['en', 'ee'];
-
-    $scope.localize = function (word) {
-        var Estonian = {}
-        Estonian["English"] = "Tere tulemast!";
-        Estonian["Estonian"] = "Tere tulemast!";
-
-        if ($scope.language === 'ee') {
-            return (Estonian[word]);
-        }
-
-        return word;
-    }
-
-    $scope.updateLanguage = function () {
-        $translate.use($scope.language);
-        $widget.settings._language = $scope.language
-        $widget.retrieveSystemData(function () {
-            $widget.initPlugins();
-        });
     };
 });
 

@@ -7,14 +7,14 @@ app.config(['$routeProvider',
             templateUrl: 'templates/about.html',
             controller: 'myPageCtrl'
         })
-          /*.when('/home', {
-              templateUrl: 'templates/home.html',
-              controller: 'homeCtrl'
-          })*/
-          .when('/contactUs', {
-              templateUrl: 'templates/contactUs.html',
-              controller: 'myPageCtrl'
-          })
+        /*.when('/home', {
+            templateUrl: 'templates/home.html',
+            controller: 'homeCtrl'
+        })*/
+        .when('/contactUs', {
+            templateUrl: 'templates/contactUs.html',
+            controller: 'myPageCtrl'
+        })
         .when('/text', {
             templateUrl: 'templates/translate-text.html',
             controller: 'TranslateCtrl'

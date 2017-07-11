@@ -3710,7 +3710,7 @@ uiResources = $.extend(true, uiResources, {
         "E_UNAUTHORIZED": "Document translation was denied."
     },
     'ee': {
-        ""E_DEFAULT_ERROR": "Tõlkimisel ilmnes tõrge.",
+        "E_DEFAULT_ERROR": "Tõlkimisel ilmnes tõrge.",
         "E_UNKNOWN_FILE_TYPE": "Tundmatu failitüüp.",
         "E_CANNOT_READ_FILE": "Faili ei saa lugeda, fail võib olla rikutud.",
         "E_FAILED_IN_TRANSLATION": "Tõlkimisel ilmnes tõrge.",

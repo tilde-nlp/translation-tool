@@ -1081,7 +1081,7 @@ uiResources = $.extend(true, uiResources, {
     },
     'ee': {
         "clearTranslation": "Tühjenda",
-        "sourceTextTooltip": "Sisestage tekst, mida soovite tõlkida...",
+        "sourceTextTooltip": "Sisestage soovitud tekst...",
         "noInternet": "No internet connection",
         "targetTextTooltip": "Masintõlge aitab teksti sisust aru saada, kuid ei asenda inimtõlget."
     },
@@ -3710,13 +3710,13 @@ uiResources = $.extend(true, uiResources, {
         "E_UNAUTHORIZED": "Document translation was denied."
     },
     'ee': {
-        "E_DEFAULT_ERROR": "Tõlkimisel ilmnes tõrge.",
-        "E_UNKNOWN_FILE_TYPE": "Tundmatu failitüüp.",
-        "E_CANNOT_READ_FILE": "Faili ei saa lugeda, fail võib olla rikutud.",
-        "E_FAILED_IN_TRANSLATION": "Tõlkimisel ilmnes tõrge.",
-        "E_FORMAT_TRACK_CHANGES": "Ei saanud tõlkida, kuna muutuste jälitus oli sisse lülitatud. Esmalt tuleb muudatused aktsepteerida.",
-        "E_UNKNOWN_ERROR": "Ilmnes tundmatu tõrge.",
-        "E_UNAUTHORIZED": "Dokumendi tõlkimine on keelatud."
+        "E_DEFAULT_ERROR": "Tere tulemast!",
+        "E_UNKNOWN_FILE_TYPE": "Tere tulemast!",
+        "E_CANNOT_READ_FILE": "Tere tulemast!",
+        "E_FAILED_IN_TRANSLATION": "Tere tulemast!",
+        "E_FORMAT_TRACK_CHANGES": "Tere tulemast!",
+        "E_UNKNOWN_ERROR": "Tere tulemast!",
+        "E_UNAUTHORIZED": "Tere tulemast!"
     },
     'lv': {
         "E_DEFAULT_ERROR": "Tulkojot radās kļūda.",

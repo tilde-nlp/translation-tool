@@ -3,12 +3,20 @@
 
 var uiResources = {
     'en': {
-        "sourceSystem": "From: ",
+        "sourceSystem": "From:",
         "targetSystem": "To:",
         "swapLanguage": "Reverse",
         "translateButton": "Translate",
         "systemDomain": "Domain",
         "systemLoadError": "Error while loading systems"
+    },
+    'ee': {
+        "sourceSystem": "Lähtekeel:",
+        "targetSystem": "Sihtkeel:",
+        "swapLanguage": "Vastupidi",
+        "translateButton": "Tõlgi",
+        "systemDomain": "Domain",
+        "systemLoadError": "Süsteemide laadimise tõrge"
     },
     'fr': {
         "sourceSystem": "From",
@@ -846,9 +854,9 @@ Tilde.TranslatorWidget.prototype = {
                     if (!opt.prop('disabled') && (opt.val() || settings.includeBlank)) {
                         optHtml = settings.optionTemplate(opt);
                         if (opt.prop('selected')) {
-                            return options.append("<li data-raw-value=\"" + (opt.val()) + "\" class=\"selected\">" + optHtml + "</li>");
+                            return options.append("<li data-raw-value=\"" + (opt.val()) + "\" class=\"selected\">" + angular.element($("#my_translator_app")).scope().localize(optHtml) + "</li>");
                         } else {
-                            return options.append("<li data-raw-value=\"" + (opt.val()) + "\">" + optHtml + "</li>");
+                            return options.append("<li data-raw-value=\"" + (opt.val()) + "\">" + angular.element($("#my_translator_app")).scope().localize(optHtml) + "</li>");
                         }
                     }
                 });
@@ -1070,6 +1078,12 @@ uiResources = $.extend(true, uiResources, {
         "sourceTextTooltip": "Enter the text you would like to translate...",
         "noInternet": "No internet connection",
         "targetTextTooltip": "Machine translation results help to understand the meaning of a source text, but do not equal translation by a human."
+    },
+    'ee': {
+        "clearTranslation": "Tühjenda",
+        "sourceTextTooltip": "Sisestage tekst, mida soovite tõlkida...",
+        "noInternet": "No internet connection",
+        "targetTextTooltip": "Masintõlge aitab teksti sisust aru saada, kuid ei asenda inimtõlget."
     },
     'fr': {
         "clearTranslation": "Clear",
@@ -3623,6 +3637,26 @@ uiResources = $.extend(true, uiResources, {
         "docAppleLimited": "File upload on iOS devices is limited.",
         "docTranslInProgress": "Document translation is in progress. If you leave the page, the translation will be lost.",
     },
+    'ee': {
+        "docTempTarget": "Masintõlge aitab teksti sisust aru saada, kuid ei asenda inimtõlget.",
+        "docDownload": "Laadi alla",
+        "docCancel": "Tühista",
+        "docUploadTooltip": "Laadi dokument üles",
+        "docUploadMsgType": "Faili \"{file}\" vorming on tundmatu. Tõlketugi on olemas järgmiste failivormingute puhul: {extensions}.",
+        "docUploadMsgSize": "Fail \"{file}\" on liiga suur. Faili lubatud maksimummaht on {sizeLimit}.",
+        "docUploadMsgEmpty": "Fail \"{file}\" on tühi. Valige andmeid sisaldav fail.",
+        "docUploadMsgWordcnt": "Ühe tõlke suurim lubatud sõnaarv ({wordCount}) on ületatud.",
+        "docUploadFilename": "Dokumendi pealkiri:",
+        "docUploadFilesize": "Dokumendi suurus:",
+        "docUploadWordcount": "Sõnade arv:",
+        "docUploadFailed": "Faili üleslaadimine nurjus.",
+        "docTranslFailed": "Dokumendi tõlkimine nurjus. Proovige uuesti.",
+        "docUploadNewDoc": "Kustuta",
+        "docStarting": "Algab dokumendi tõlkimine...",
+        "docPreviewError": "Dokumendi eelvaate loomine nurjus.",
+        "docAppleLimited": "Failide üleslaadimine iOS-seadmetest on piiratud.",
+        "docTranslInProgress": "Dokumendi tõlkimine on pooleli. Kui lehelt lahkute, läheb tõlge kaotsi.",
+    },
     'lv': {
         "docTempTarget": "Dokumentu mašīntulkošanas rezultāti ļauj saprast teksta nozīmi, bet nevar aizstāt cilvēka radītu tulkojumu.",
         "docDownload": "Atvērt",
@@ -3674,6 +3708,15 @@ uiResources = $.extend(true, uiResources, {
         "E_FORMAT_TRACK_CHANGES": "Could not translate because track changes was turned on. Changes must first be accepted.",
         "E_UNKNOWN_ERROR": "An unknown error occurred.",
         "E_UNAUTHORIZED": "Document translation was denied."
+    },
+    'ee': {
+        "E_DEFAULT_ERROR": "Tõlkimisel ilmnes tõrge.",
+        "E_UNKNOWN_FILE_TYPE": "Tundmatu failitüüp.",
+        "E_CANNOT_READ_FILE": "Faili ei saa lugeda, fail võib olla rikutud.",
+        "E_FAILED_IN_TRANSLATION": "Tõlkimisel ilmnes tõrge.",
+        "E_FORMAT_TRACK_CHANGES": "Ei saanud tõlkida, kuna muutuste jälitus oli sisse lülitatud. Esmalt tuleb muudatused aktsepteerida.",
+        "E_UNKNOWN_ERROR": "Ilmnes tundmatu tõrge.",
+        "E_UNAUTHORIZED": "Dokumendi tõlkimine on keelatud."
     },
     'lv': {
         "E_DEFAULT_ERROR": "Tulkojot radās kļūda.",

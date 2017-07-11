@@ -11,12 +11,12 @@ var uiResources = {
         "systemLoadError": "Error while loading systems"
     },
     'ee': {
-        "sourceSystem": "Tere tulemast!:",
-        "targetSystem": "Tere tulemast!:",
-        "swapLanguage": "Tere tulemast!",
-        "translateButton": "Tere tulemast!",
+        "sourceSystem": "Lähtekeel:",
+        "targetSystem": "Sihtkeel:",
+        "swapLanguage": "Vastupidi",
+        "translateButton": "Tõlgi",
         "systemDomain": "Domain",
-        "systemLoadError": "Tere tulemast!"
+        "systemLoadError": "Süsteemide laadimise tõrge"
     },
     'fr': {
         "sourceSystem": "From",
@@ -1080,10 +1080,10 @@ uiResources = $.extend(true, uiResources, {
         "targetTextTooltip": "Machine translation results help to understand the meaning of a source text, but do not equal translation by a human."
     },
     'ee': {
-        "clearTranslation": "Tere tulemast!",
-        "sourceTextTooltip": "Tere tulemast!",
-        "noInternet": "Tere tulemast!",
-        "targetTextTooltip": "Tere tulemast!"
+        "clearTranslation": "Tühjenda",
+        "sourceTextTooltip": "Sisestage soovitud tekst...",
+        "noInternet": "No internet connection",
+        "targetTextTooltip": "Masintõlge aitab teksti sisust aru saada, kuid ei asenda inimtõlget."
     },
     'fr': {
         "clearTranslation": "Clear",
@@ -3638,24 +3638,24 @@ uiResources = $.extend(true, uiResources, {
         "docTranslInProgress": "Document translation is in progress. If you leave the page, the translation will be lost.",
     },
     'ee': {
-        "docTempTarget": "Tere tulemast!",
-        "docDownload": "Tere tulemast!",
-        "docCancel": "Tere tulemast!",
-        "docUploadTooltip": "Tere tulemast!",
-        "docUploadMsgType": "Tere tulemast!",
-        "docUploadMsgSize": "Tere tulemast!",
-        "docUploadMsgEmpty": "Tere tulemast!",
-        "docUploadMsgWordcnt": "Tere tulemast!",
-        "docUploadFilename": "Tere tulemast!",
-        "docUploadFilesize": "Tere tulemast!",
-        "docUploadWordcount": "Tere tulemast!",
-        "docUploadFailed": "Tere tulemast!",
-        "docTranslFailed": "Tere tulemast!",
-        "docUploadNewDoc": "Tere tulemast!",
-        "docStarting": "Tere tulemast!",
-        "docPreviewError": "Tere tulemast!",
-        "docAppleLimited": "Tere tulemast!",
-        "docTranslInProgress": "Tere tulemast!",
+        "docTempTarget": "Masintõlge aitab teksti sisust aru saada, kuid ei asenda inimtõlget.",
+        "docDownload": "Laadi alla",
+        "docCancel": "Tühista",
+        "docUploadTooltip": "Laadi dokument üles",
+        "docUploadMsgType": "Faili \"{file}\" vorming on tundmatu. Tõlketugi on olemas järgmiste failivormingute puhul: {extensions}.",
+        "docUploadMsgSize": "Fail \"{file}\" on liiga suur. Faili lubatud maksimummaht on {sizeLimit}.",
+        "docUploadMsgEmpty": "Fail \"{file}\" on tühi. Valige andmeid sisaldav fail.",
+        "docUploadMsgWordcnt": "Ühe tõlke suurim lubatud sõnaarv ({wordCount}) on ületatud.",
+        "docUploadFilename": "Dokumendi pealkiri:",
+        "docUploadFilesize": "Dokumendi suurus:",
+        "docUploadWordcount": "Sõnade arv:",
+        "docUploadFailed": "Faili üleslaadimine nurjus.",
+        "docTranslFailed": "Dokumendi tõlkimine nurjus. Proovige uuesti.",
+        "docUploadNewDoc": "Kustuta",
+        "docStarting": "Algab dokumendi tõlkimine...",
+        "docPreviewError": "Dokumendi eelvaate loomine nurjus.",
+        "docAppleLimited": "Failide üleslaadimine iOS-seadmetest on piiratud.",
+        "docTranslInProgress": "Dokumendi tõlkimine on pooleli. Kui lehelt lahkute, läheb tõlge kaotsi.",
     },
     'lv': {
         "docTempTarget": "Dokumentu mašīntulkošanas rezultāti ļauj saprast teksta nozīmi, bet nevar aizstāt cilvēka radītu tulkojumu.",

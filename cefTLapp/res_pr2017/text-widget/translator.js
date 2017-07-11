@@ -3776,7 +3776,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
         // landing intro box
         if ($widget.settings._landingView) {
-            $widget.filePluginShowIntro();
+            //$widget.filePluginShowIntro();
         }
 
         var extArray = [];
@@ -4066,7 +4066,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
         // landing intro box
         if ($widget.settings._landingView) {
-            $widget.filePluginShowIntro();
+           //$widget.filePluginShowIntro();
         }
     },
 

@@ -5,48 +5,57 @@
 </div>
  
 <script id="translatefile-template" type="text/html">
-    <div class="layoutRow file">
-        <div class="layoutCell translateContainerHeader">
-            <div class="translateHeaderLeft">
-                <div class="translateLanguageContainer">
-                    <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
-                    <select class="translateSourceLang"></select>
-                    <select class="translateSystem hide"></select>
-                    <div data-text="targetSystem" class="translateTargetSystemLabel"></div>
-                    <select class="translateTargetLang"></select>
+    <div class="section gray_section">
+        <div class="container">
+            <div class="row white_top">
+                <div class="sub_menu">
+                    <!---->
+                    <!--<div class="translateContainerHeader">-->
+                    <!--<div class="translateHeaderLeft">-->
+                    <!--<div class="translateLanguageContainer">-->
+                    <div class="col-sm-2 translate_column_height col-xs-5 no_padding_left">
+                        <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
+                        <select class="translateSourceLang"></select>
+                        <!--<select class="translateSystem"></select>-->
+                    </div>
+                    <div class="col-sm-1 col-sm-offset-3 translate_column_height col-xs-2">
+                        <a data-title="swapLanguage" class="swapLanguage hide"></a>
+                    </div>
+                    <div class="col-sm-2 translate_column_height col-xs-5">
+                        <div data-text="targetSystem" class="translateTargetSystemLabel"></div>
+                        <select class="translateTargetLang"></select>
+                    </div>
+                    <div class="col-sm-3 col-sm-offset-1 translate_column_height hidden-xs" id="translate_button_div">
+                        <a data-text="translateButton" class="translateButton"></a>
+                    </div>
+
                 </div>
-                <a data-title="swapLanguage" class="swapLanguage hide"></a>
-                <a data-text="translateButton" class="translateButton hide"></a>
-                <div class="translateProgress left hide">
-                    <div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div>
-                </div>
-            </div>
-            <div class="translateHeaderRight">
-                <a data-text="docDownload" class="buttonDownDoc hide"></a>
-                <a data-text="docCancel" class="buttonCancelDoc hide"></a>
-                <div class="translateDomainContainer hide">
-                    <div data-text="systemDomain" class="translateDomainLabel"></div>
-                    <select class="translateDomain"></select>
-                </div>
-                <div class="docTranslateContent"><div class="transFileMeta hide"></div></div>
-                <div data-text="docAppleLimited" class="uploadNotSupported error hide"></div>
-                <a data-title="docUploadNewDoc" class="docUploadNewDoc hide"></a>
-                <div class="uploadedDocumentName hide"></div>
             </div>
         </div>
     </div>
-    <div class="layoutRow file">
-        <div class="layoutCell translateContainerBody mainContent">
-            <div class="translateContainerLeft borderBoxSizing">
-                <div class="infoMessageBox error hide"></div>
-                <a data-text="docUpload" class="docUploadNewDocument hide"></a>
-                <div id="docUploadFile" class="borderBoxSizing"></div>
-                <div id="docSourcePreview" class="hide"></div>
-            </div>
-            <div class="translateContainerRight borderBoxSizing">
-                <div data-text="docTempTarget" class="docTempTarget"></div>
-                <div class="translateResult hide"></div>
+
+    <div class="section" id="widget_section">
+        <div class="container no_padding_left no_padding_right" style="height:100%;display:table;">
+            <div class="row file" style="display:table-row; height:100%;">
+
+                
+
+                <div class="translateContainerBody mainContent col-sm-12 col-xs-12 no_padding_left no_padding_right" style="position:relative; height:100%; display:table-cell;">
+                    <div class="translateContainerLeft borderBoxSizing col-sm-6 no_padding_left no_padding_right" style="height:100%; position:relative;">
+                        <div class="infoMessageBox error hide"></div>
+                        <div data-text="docAppleLimited" class="uploadNotSupported error hide"></div>
+                        <a data-text="docUpload" class="docUploadNewDocument hide"></a>
+                        <div id="docUploadFile" class="borderBoxSizing"></div>
+                        <div id="docSourcePreview" class="hide"></div>
+                    </div>
+                    <div class="translateContainerRight borderBoxSizing col-sm-6 no_padding_right" style="height:100%; position:relative;">
+                        <div data-text="docTempTarget" class="docTempTarget"></div>
+                        <div class="translateResult hide"></div>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
+    <div class="verticalLine">
     </div>
 </script>

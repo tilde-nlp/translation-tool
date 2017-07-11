@@ -152,7 +152,7 @@ button.lang_select:focus {
     float: left;
     padding-top: 6px;
     padding-bottom: 6px;
-    margin-top: 31px;
+    margin-top: 32px;
 }
 
 .lang_select {
@@ -660,98 +660,98 @@ div.fancy-select div.trigger {
 }
 
     @media (min-height: 400px) {
-        .text .translateTextSourceContainer, .translateTextResult {
+        .translateContainerLeft, .translateContainerRight {
             min-height: 150px !important;
             height: 150px;
         }
     }
 
     @media (min-height: 500px) {
-        .text .translateTextSourceContainer, .translateTextResult {
+        .translateContainerLeft, .translateContainerRight {
             min-height: 250px !important;
             height: 250px;
         }
     }
 
     @media (min-height: 600px) {
-        .text .translateTextSourceContainer, .translateTextResult {
+        .translateContainerLeft, .translateContainerRight {
             min-height: 350px !important;
             height: 350px;
         }
     }
 
     @media (min-height: 700px) {
-        .text .translateTextSourceContainer, .translateTextResult {
+        .translateContainerLeft, .translateContainerRight {
             min-height: 450px !important;
             height: 450px;
         }
     }
 
     @media (min-height: 800px) {
-        .text .translateTextSourceContainer, .translateTextResult {
+        .translateContainerLeft, .translateContainerRight {
             min-height: 550px !important;
             height: 550px;
         }
     }
 
     @media (min-height: 900px) {
-        .text .translateTextSourceContainer, .translateTextResult {
+        .translateContainerLeft, .translateContainerRight {
             min-height: 650px !important;
             height: 650px;
         }
     }
 
     @media (min-height: 1000px) {
-        .text .translateTextSourceContainer, .translateTextResult {
+        .translateContainerLeft, .translateContainerRight {
             min-height: 750px !important;
             height: 750px;
         }
     }
 
     @media (min-height: 1100px) {
-        .text .translateTextSourceContainer, .translateTextResult {
+        .translateContainerLeft, .translateContainerRight {
             min-height: 850px !important;
             height: 850px;
         }
     }
 
     @media (min-height: 1200px) {
-        .text .translateTextSourceContainer, .translateTextResult {
+        .translateContainerLeft, .translateContainerRight {
             min-height: 950px !important;
             height: 950px;
         }
     }
 
     @media (min-height: 1300px) {
-        .text .translateTextSourceContainer, .translateTextResult {
+        .translateContainerLeft, .translateContainerRight {
             min-height: 1050px !important;
             height: 1050px;
         }
     }
 
     @media (min-height: 1400px) {
-        .text .translateTextSourceContainer, .translateTextResult {
+        .translateContainerLeft, .translateContainerRight {
             min-height: 1150px !important;
             height: 1150px;
         }
     }
 
     @media (min-height: 1500px) {
-        .text .translateTextSourceContainer, .translateTextResult {
+        .translateContainerLeft, .translateContainerRight {
             min-height: 1250px !important;
             height: 1250px;
         }
     }
 
     @media (min-height: 2000px) {
-        .text .translateTextSourceContainer, .translateTextResult {
+        .translateContainerLeft, .translateContainerRight {
             min-height: 1750px !important;
             height: 1750px;
         }
     }
 
 @media (max-width: 463px) {
-    .text .translateTextSourceContainer, .translateTextResult {
+    .translateContainerLeft, .translateContainerRight {
         min-height: 10px !important;
         height: 180px;
     }

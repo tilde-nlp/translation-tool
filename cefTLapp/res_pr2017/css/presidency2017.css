@@ -461,10 +461,10 @@ article a, article a:focus, article a:hover, article a:active {
     margin-bottom: 40px;
 }
 
+
 .info_images img {
-    height: 100%;
-    width: 100%;
-    object-fit: contain;
+    max-width: 100%;
+    height: auto;
 }
 
 .white_top {

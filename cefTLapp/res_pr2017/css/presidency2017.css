@@ -138,12 +138,15 @@ div#main {
     color: black;
     background-color: none;
 }
+
 #dropdown_button:hover {
     color: black;
     background-color: none;
 }
 
-
+button.lang_select:focus {
+    outline: none !important;
+}
 
 #language_selection {
     float: left;

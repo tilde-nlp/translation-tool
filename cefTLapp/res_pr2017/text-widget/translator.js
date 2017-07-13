@@ -717,7 +717,8 @@ Tilde.TranslatorWidget.prototype = {
             updateTriggerText = function () {
                 var triggerHtml;
                 triggerHtml = settings.triggerTemplate(sel.find(':selected'));
-                return trigger.html(triggerHtml);
+                console.log(triggerHtml);
+                return trigger.html(angular.element($("#my_translator_app")).scope().localize(triggerHtml));
             };
             sel.on('blur.fs', function () {
                 if (trigger.hasClass('open')) {
@@ -3803,10 +3804,10 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             template: '<div class="qq-uploader">' +
                       ' <div class="qq-upload-drop-area"></div>' +
                       '	<div href="#" class="qq-upload-button">' +
-                      '  <div class="qq-upload-button-image"></div>' +
-                      '  <div class="qq-upload-button-text">' +
+                      //'  <div class="qq-upload-button-image"></div>' +
+                      //'  <div class="qq-upload-button-text">' +
                       '     <span>' + uiResources[$widget.settings._language]['docUploadTooltip'] + '</span>' +
-                      '  </div>' +
+                      //'  </div>' +
                       ' </div>' +
                 	  '	<ul class="qq-upload-list hide"></ul>' +
                 	  '</div>',

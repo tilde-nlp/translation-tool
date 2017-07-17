@@ -3909,7 +3909,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
     filePluginTranslate: function () {
         $widget.disableTranslation();
-        $('.translateButton, .docUploadNewDoc').addClass('hide');
+        $('.translateButton, .docUploadNewDoc'); //.addClass('hide');
 
         $('.buttonCancelDoc').removeClass('hide');
         $('.docTempTarget').addClass('hide');
@@ -3935,6 +3935,11 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         var authHeaders = {};
 
         if ($widget.settings._clientId !== null) {
+
+
+            var fileName = $('[name = "file"]');
+    console.log(fileName);
+
             authHeaders = {
                 'client-id': $widget.settings._clientId
             }

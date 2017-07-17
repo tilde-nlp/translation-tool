@@ -120,119 +120,128 @@
                 </div>
             </div>
         </div>
-        <div class="section">
-            <div class="container">
-                <div class="row">
-                    <div id="web_logo" class="col-sm-2">
-                        <img src="img/EU2017.svg" ng-click="routeMe('/text')" />
-                        </div>
-                    <div id="web_menu" class="col-sm-6">
+        <div class="section" id="web_section" ng-show="isActive('website') || isActive('www')">
+            <div class="container no_padding_left no_padding_right">
+                <div class="row" id="web_menu">
+                    <div id="web_logo" class="col-sm-1 col-sm-1 no_padding_left no_padding_right">
+                        <img src="img/EU2017.svg" ng-click="routeMe('/text')" alt="EU2017.EE" />
+                    </div>
+                    <div id="web_main" class="col-sm-6 col-sm-offset-1 no_padding_left no_padding_right">
                         <form novalidate class="right" ng-show="isActive('www') || isActive('website')" ng-submit="">
-                            <div id="address">
-                                Address
+                            <div id="address" class="input-group">
                                 <input type="text"
                                        id="url"
+                                       class="form-control"
                                        ng-keyup="$scope.apply; $event.keyCode == 13 && updateWebsite(); "
                                        placeholder="Type web address here..."
                                        ng-model="website.url"
                                        ng-disabled="false && website.status=='translating'"
                                        required focus-on="website.focus" />
-                                <button ng-click="updateWebsite()" ng-show="website.status=='translated' || website.status=='error' || website.status=='translating' || website.status=='initial' || website.status=='ready' ||website.status=='loading' || website.status=='loaded'">Translate</button>
+                                <span class="input-group-btn input-space">
+                                    <button ng-click="updateWebsite()" ng-show="website.status=='translated' || website.status=='error' || website.status=='translating' || website.status=='initial' || website.status=='ready' ||website.status=='loading' || website.status=='loaded'" class="btn btn-default web_button">Translate</button>
+                                </span>
+                                <div ng-show="website.status=='loading' || website.status=='translating' || website.status=='error'" class="infoMessage">
+                                    <center ng-show="website.status=='translating' || website.status=='error'">Translation in progress</center>
+                                    <center ng-show="website.status=='loading'">Loading in progress</center>
+                                    <center>
+                                        <button ng-click="website.untranslate()">Cancel</button>
+                                    </center>
+                                </div>
+
                             </div>
                             <div class="LanguageSelect w">
                                 <div class="translateLanguageContainer" ng-show="website.languagesReady=='yes'">
-                                    <div class="col-sm-2 translate_column_height col-xs-4 no_padding_left">
+                                    <div class="col-sm-2 translate_column_height col-xs-4 no_padding_left web_transl_types">
                                         <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
                                         <select class="translateSourceLang"></select>
                                         <!--<select class="translateSystem"></select>-->
                                     </div>
-                                    <div class="col-sm-1 col-sm-offset-3 translate_column_height col-xs-1">
+                                    <div class="col-sm-1 col-sm-offset-3 translate_column_height col-xs-1 web_transl_types">
                                         <a data-title="swapLanguage" class="swapLanguage hide"></a>
                                     </div>
-                                    <div class="col-sm-2 translate_column_height col-xs-offset-1 col-xs-3">
+                                    <div class="col-sm-2 translate_column_height col-xs-offset-1 col-xs-3 web_transl_types">
                                         <div data-text="targetSystem" class="translateTargetSystemLabel"></div>
                                         <select class="translateTargetLang"></select>
                                     </div>
                                 </div>
                             </div>
                         </form>
-                        </div>
-                    <div id="web_transl_types" class="col-sm-4">
+                    </div>
+                    <div id="web_transl_types" class="col-sm-3 col-sm-offset-1">
                         <ul>
                             <li>
-                                <a ng-click="routeMe('/text');" ng-class="{ active: isActive('text') }" href="" title="Translate text" class="transl_type transl_text" translate="{{ 'TEXT' | translate }}"></a>
+                                <a ng-click="routeMe('/text');" ng-class="{ active: isActive('text') }" href="" title="Translate text" class="transl_text" translate="{{ 'TEXT' | translate }}"></a>
                             </li>
                             <li>
-                                <a ng-class="{ active: isActive('document') }" href="#/document" title="Translate document" class="transl_type transl_document" translate="{{ 'DOC' | translate }}"></a>
+                                <a ng-class="{ active: isActive('document') }" href="#/document" title="Translate document" class="transl_document" translate="{{ 'DOC' | translate }}"></a>
                             </li>
                             <li>
-                                <a ng-click="routeMe('/www');" href="" ng-class="{ active: isActive('website') || isActive('www')  }" title="Translate website" class="transl_type transl_website" translate="{{ 'WEB' | translate }}"></a>
+                                <a ng-click="routeMe('/www');" href="" ng-class="{ active: isActive('website') || isActive('www')  }" title="Translate website" class="transl_website" translate="{{ 'WEB' | translate }}"></a>
                             </li>
                         </ul>
-                        </div>
                     </div>
                 </div>
             </div>
-                        <div ng-hide="isActive('website') || isActive('www')" ng-view></div>
+        </div>
+        <div ng-hide="isActive('website') || isActive('www')" ng-view></div>
 
-                        <div ng-show="isActive('website') && website.status!='initial'" id="websiteFrameContainer">
-                            <div ng-show="website.status=='loading' || website.status=='translating' || website.status=='error'" class="infoMessage">
-                                <center ng-show="website.status=='translating' || website.status=='error'">Translation in progress</center>
-                                <center ng-show="website.status=='loading'">Loading in progress</center>
-                                <center>
-                                    <button ng-click="website.untranslate()">Cancel</button>
-                                </center>
-                            </div>
-                            <iframe id="websiteFrame" name="websiteFrame" src="about:blank" frameborder="0"></iframe>
-                        </div>
+        <div ng-show="isActive('website') && website.status!='initial'" id="websiteFrameContainer">
+            <!--<div ng-show="website.status=='loading' || website.status=='translating' || website.status=='error'" class="infoMessage">
+                <center ng-show="website.status=='translating' || website.status=='error'">Translation in progress</center>
+                <center ng-show="website.status=='loading'">Loading in progress</center>
+                <center>
+                    <button ng-click="website.untranslate()">Cancel</button>
+                </center>
+            </div>-->
+            <iframe id="websiteFrame" name="websiteFrame" src="about:blank" frameborder="0"></iframe>
+        </div>
 
-                    </div>
+    </div>
 
-                    <div ng-show="isActive('home')" style="visibility:hidden;" id="textWidget"></div>
+    <div ng-show="isActive('home')" style="visibility:hidden;" id="textWidget"></div>
 
-                    <!--<div class="tilde" ng-hide="isActive('home') || isActive('about') || isActive('mobileApp')">
-                        Developed by <a class=" red" href="http://www.tilde.com" target="_blank">
-                            Tilde
-                        </a>
-                    </div>-->
-                    <!--<div id="modalConfirmation" ng-class="{modal: dialog.showModal=='show'}">
-                        <div id="dialog">
-                            <div id="dialog-bg">
-                                <div id="dialog-title">Are you sure you want to exit document translation?</div>
-                                <div id="dialog-description">Your translation will not be saved.</div>
-                                <div id="dialog-buttons">
-                                    <a href="" ng-click="dialog.navigate(true);" class="dialogButton">Yes</a>
-                                    <a href="" ng-click="dialog.navigate(false);" class="dialogButton cancelButton">Cancel</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
-                    <div ng-controller="updateCtrl" ng-show="isActive('home') && update.type!=''">
-                        <div class="update" id="dialog">
-                            <div id="dialog-bg">
-                                <div id="dialog-title">{{update.title}}</div>
-                                <div id="dialog-description">{{update.description}}</div>
-                                <div id="dialog-buttons">
-                                    <a href="{{update.url}}" target="_blank" ng-click="update.type=''" class="dialogButton">{{update.yes}}</a>
-                                    <a href="" ng-click="update.type=''" class="dialogButton cancelButton">{{update.no}}</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <!--<div class="tilde" ng-hide="isActive('home') || isActive('about') || isActive('mobileApp')">
+        Developed by <a class=" red" href="http://www.tilde.com" target="_blank">
+            Tilde
+        </a>
+    </div>-->
+    <!--<div id="modalConfirmation" ng-class="{modal: dialog.showModal=='show'}">
+        <div id="dialog">
+            <div id="dialog-bg">
+                <div id="dialog-title">Are you sure you want to exit document translation?</div>
+                <div id="dialog-description">Your translation will not be saved.</div>
+                <div id="dialog-buttons">
+                    <a href="" ng-click="dialog.navigate(true);" class="dialogButton">Yes</a>
+                    <a href="" ng-click="dialog.navigate(false);" class="dialogButton cancelButton">Cancel</a>
                 </div>
-                <!--FOOTER-->
-                <div class="section footer">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-6 col-xs-8 no_padding_left">
-                                <p class="footer_text footer_etranslation" translate="{{ 'POWERED' | translate }}">
-                                </p>
-                            </div>
-                            <div class="col-sm-6 col-xs-4 no_padding_right">
-                                <p class="footer_text footer_tilde" translate="{{ 'DEVELOPED' | translate }}"></p>
-                            </div>
-                        </div>
-                    </div>
+            </div>
+        </div>
+    </div>-->
+    <div ng-controller="updateCtrl" ng-show="isActive('home') && update.type!=''">
+        <div class="update" id="dialog">
+            <div id="dialog-bg">
+                <div id="dialog-title">{{update.title}}</div>
+                <div id="dialog-description">{{update.description}}</div>
+                <div id="dialog-buttons">
+                    <a href="{{update.url}}" target="_blank" ng-click="update.type=''" class="dialogButton">{{update.yes}}</a>
+                    <a href="" ng-click="update.type=''" class="dialogButton cancelButton">{{update.no}}</a>
                 </div>
+            </div>
+        </div>
+    </div>
+    <!--FOOTER-->
+    <div class="section footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-xs-8 no_padding_left">
+                    <p class="footer_text footer_etranslation" translate="{{ 'POWERED' | translate }}">
+                    </p>
+                </div>
+                <div class="col-sm-6 col-xs-4 no_padding_right">
+                    <p class="footer_text footer_tilde" translate="{{ 'DEVELOPED' | translate }}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -3859,7 +3859,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
                     if ($('#hidTranslRealFilename').length == 0) {
                         $('.docTranslateContent').after($('<input>', {
-                            type: 'hidden',
+                            //type: 'hidden',
                             id: 'hidTranslRealFilename',
                             value: filename
                         }));
@@ -3947,7 +3947,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             headers: authHeaders,
             data: {
                 systemid: $widget.activeSystemId,
-                filename: $('.transFileMeta .qq-upload-file').text(),
+                filename: $('.qq-upload-file').text(),
                 tmpname: $('#hidTranslRealFilename').val(),
                 translimit: $widget.settings._docMaxWordCount
             },

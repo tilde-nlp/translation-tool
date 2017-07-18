@@ -462,6 +462,11 @@ div.fancy-select div.trigger {
 
 /*/text widget*/
 /*doc widget*/
+
+#hidTranslRealFilename {
+    display: none !important;
+}
+
 .file .qq-upload-button-text, .file .docTempTarget {
     font-size: 14px;
     text-align: center;
@@ -484,7 +489,7 @@ div.fancy-select div.trigger {
 }
 
 .file qq-upload-drop-area, .file .qq-upload-button {
-    top: 20% !important;
+    top: 20px !important;
     padding-top: 88px !important;
     padding-bottom: 64px;
 }
@@ -504,10 +509,14 @@ div.fancy-select div.trigger {
 
 .file .translateResult, .file .docTempTarget {
     position: absolute;
-    top: 20%;
-    padding-top: 88px;
     padding-bottom: 64px;
 }
+
+.file .docTempTarget {
+    top: 20px;
+    padding-top: 88px;
+}
+
 /*/doc widget*/
 .footer {
     padding-top: 5px;
@@ -872,7 +881,7 @@ _:-ms-lang(x), #main_title {
         height: 0 !important;
     }
 
-    .file .translateResult, .file .docTempTarget, .file .qq-upload-button {
+    .file .docTempTarget, .file .qq-upload-button {
         top: 20px !important;
     }
 

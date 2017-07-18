@@ -120,10 +120,11 @@
                 </div>
             </div>
         </div>
+        <!--WEB-->
         <div class="section" id="web_section" ng-show="isActive('website') || isActive('www')">
             <div class="container no_padding_left no_padding_right">
                 <div class="row" id="web_menu">
-                    <div id="web_logo" class="col-sm-1 col-sm-1 no_padding_left no_padding_right">
+                    <div id="web_logo" class="col-sm-1 no_padding_left no_padding_right">
                         <img src="img/EU2017.svg" ng-click="routeMe('/text')" alt="EU2017.EE" />
                     </div>
                     <div id="web_main" class="col-sm-6 col-sm-offset-1 no_padding_left no_padding_right">
@@ -147,7 +148,6 @@
                                         <button ng-click="website.untranslate()">Cancel</button>
                                     </center>
                                 </div>
-
                             </div>
                             <div class="LanguageSelect w">
                                 <div class="translateLanguageContainer" ng-show="website.languagesReady=='yes'">
@@ -174,9 +174,6 @@
                             </li>
                             <li>
                                 <a ng-class="{ active: isActive('document') }" href="#/document" title="Translate document" class="transl_document" translate="{{ 'DOC' | translate }}"></a>
-                            </li>
-                            <li>
-                                <a ng-click="routeMe('/www');" href="" ng-class="{ active: isActive('website') || isActive('www')  }" title="Translate website" class="transl_website" translate="{{ 'WEB' | translate }}"></a>
                             </li>
                         </ul>
                     </div>
@@ -230,7 +227,7 @@
         </div>
     </div>
     <!--FOOTER-->
-    <div class="section footer">
+    <div ng-hide="isActive('website') || isActive('www')" class="section footer">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6 col-xs-8 no_padding_left">

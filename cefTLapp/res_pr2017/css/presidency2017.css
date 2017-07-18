@@ -521,7 +521,7 @@ div.fancy-select div.trigger {
 }
 
 #web_menu {
-    height: 102px;
+    height: 83px;
     margin-top: 15px;
 }
 
@@ -530,6 +530,7 @@ div.fancy-select div.trigger {
     width: 60px;
     height: 80px;
     cursor: pointer;
+    margin-top: -6px;
 }
 
 #web_main #url {
@@ -583,12 +584,13 @@ div.fancy-select div.trigger {
     }
 
 .web_transl_types {
-    padding-top: 23px;
+    padding-top: 16px;
 }
 
 #web_transl_types li {
     list-style-type: none;
-    margin-bottom: 10px;
+    margin-bottom: 16px;
+    margin-top: 4px;
 }
 
     #web_transl_types li a {
@@ -606,6 +608,20 @@ div.fancy-select div.trigger {
 #web_transl_types a:focus, #web_transl_types a:active, #web_transl_types a:hover, #web_transl_types a.active {
     color: #0092ff !important;
     text-decoration: none;
+}
+
+#web_main .translateSourceLang, #web_main .translateTargetLang {
+    opacity: 1 !important;
+}
+
+#websiteFrame {
+    position: absolute;
+    bottom: 0;
+    top: 115px;
+    left: 0;
+    right: 0;
+    height: calc(100% - 115px);
+    width: 100%;
 }
 
 /*/web widget*/
@@ -681,7 +697,7 @@ div.fancy-select div.trigger {
 
 .translateResultClear {
     position: absolute;
-    right: 5px;
+    right: 20px;
     top: 0;
     z-index: 10;
     padding-top: 0.7em;

@@ -1267,7 +1267,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             // since line height for scrollbar and normal div does not match there
         } else {
             $('.translateTextSource').on('scroll', sourceScrolled);
-            $('.translateContainerRight').on('scroll', targetScrolled);
+            $('.translateTextResult').on('scroll', targetScrolled);
             if (navigator.userAgent.indexOf("Android") > -1 && navigator.userAgent.indexOf("Version/") > -1) {
                 $('.translateContainerRight').bind('touchstart', function () { $(':focus').blur(); });
             }

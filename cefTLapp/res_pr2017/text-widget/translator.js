@@ -531,7 +531,7 @@ Tilde.TranslatorWidget.prototype = {
 
     swapSystemLanguages: function () {
         var src = '', trg = '';
-
+        
         // get active source and target
         $.each($widget.settings._systems, function (idx, sys) {
             if (sys.ID === $widget.activeSystemId) {
@@ -663,7 +663,7 @@ Tilde.TranslatorWidget.prototype = {
             opts = {};
         }
         settings = $.extend({
-            useNativeSelect: true,
+            useNativeSelect: false,
             includeBlank: false,
             optionTemplate: function (optionEl) {
                 return optionEl.text();
@@ -717,7 +717,7 @@ Tilde.TranslatorWidget.prototype = {
             updateTriggerText = function () {
                 var triggerHtml;
                 triggerHtml = settings.triggerTemplate(sel.find(':selected'));
-                console.log(triggerHtml);
+                //console.log(triggerHtml);
                 return trigger.html(angular.element($("#my_translator_app")).scope().localize(triggerHtml));
             };
             sel.on('blur.fs', function () {
@@ -3742,12 +3742,12 @@ uiResources = $.extend(true, uiResources, {
 /* tilde.translator.widget.TRANSLATEFILE.js */
 
 $.extend(Tilde.TranslatorWidgetDefaultOptions, {
-    _uploadUrl: 'https://hugo.lv/Files/Upload',
-    _deleteUrl: 'https://hugo.lv/Files/Delete',
-    _downloadUrl: 'https://hugo.lv/Files/Download',
-    _translateUrl: 'https://hugo.lv/Files/StartTranslation',
-    _previewUrl: 'https://hugo.lv/Files/GetDocumentPreview',
-    _checkStatusUrl: 'https://hugo.lv/Files/GetStatus',
+    _uploadUrl: 'https://letsmt.eu/Files/Upload',
+    _deleteUrl: 'https://letsmt.eu/Files/Delete',
+    _downloadUrl: 'https://letsmt.eu/Files/Download',
+    _translateUrl: 'https://letsmt.eu/Files/StartTranslation',
+    _previewUrl: 'https://letsmt.eu/Files/GetDocumentPreview',
+    _checkStatusUrl: 'https://letsmt.eu/Files/GetStatus',
     _landingView: false, //intro box with tooltip
     _allowedFileTypes: [{ ext: "txt", mime: "text/plain" }], //file translation types
     _uploadSizeLimit: 1024 * 1024 * 15, //doc translate upload size limit (default 15MB)

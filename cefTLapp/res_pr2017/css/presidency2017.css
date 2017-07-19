@@ -583,6 +583,10 @@ div.fancy-select div.trigger {
         color: white !important;
     }
 
+#web_main .swapLanguage {
+    margin-right: 0px;
+}
+
 .web_transl_types {
     padding-top: 16px;
 }
@@ -611,7 +615,7 @@ div.fancy-select div.trigger {
 }
 
 #web_main .translateSourceLang, #web_main .translateTargetLang {
-    opacity: 1 !important;
+    display: none;
 }
 
 #websiteFrame {

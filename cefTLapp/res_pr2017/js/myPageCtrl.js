@@ -17,7 +17,7 @@ app.controller("updateCtrl", function ($scope) {
         jsonpCallback: "applicationUpdates",
         success: function (data) {
             jQuery.each(data, function (i, update) {
-                console.log($scope.version.match(update.forVersion));
+                //console.log($scope.version.match(update.forVersion));
                 if ($scope.version.match(update.forVersion)) {
                     $scope.update = update;
                     $scope.$apply();
@@ -52,7 +52,7 @@ app.controller("myPageCtrl", function ($scope, $location, $translate) {
 
     $scope.website = {};
     $scope.website.system = '';
-    $scope.website.base = "https://hugo.lv/en"
+    $scope.website.base = "https://hugo.lv/en";
     $scope.website.url = '';
     $scope.website.errorMsg = '';
     $scope.website.freeze = false;

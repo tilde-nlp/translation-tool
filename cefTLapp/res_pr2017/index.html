@@ -124,10 +124,10 @@
         <div class="section" id="web_section" ng-show="isActive('website') || isActive('www')">
             <div class="container no_padding_left no_padding_right">
                 <div class="row" id="web_menu">
-                    <div id="web_logo" class="col-sm-1 no_padding_left no_padding_right">
-                        <img src="img/EU2017.svg" ng-click="routeMe('/text')" alt="EU2017.EE" />
+                    <div id="web_logo" class="col-sm-1 col-xs-1 no_padding_left no_padding_right">
+                        <img src="img/EU2017.svg" ng-click="routeMe('/text')" alt="EU2017.EE" title="EU Presidency Translator" />
                     </div>
-                    <div id="web_main" class="col-sm-6 col-sm-offset-1 no_padding_left no_padding_right">
+                    <div id="web_main" class="col-sm-6 col-sm-offset-1 col-xs-7 no_padding_left no_padding_right">
                         <form novalidate class="right" ng-show="isActive('www') || isActive('website')" ng-submit="">
                             <div id="address" class="input-group">
                                 <input type="text"
@@ -139,15 +139,9 @@
                                        ng-disabled="false && website.status=='translating'"
                                        required focus-on="website.focus" />
                                 <span class="input-group-btn input-space">
-                                    <button ng-click="updateWebsite()" ng-show="website.status=='translated' || website.status=='error' || website.status=='translating' || website.status=='initial' || website.status=='ready' ||website.status=='loading' || website.status=='loaded'" class="btn btn-default web_button">Translate</button>
+                                    <button ng-click="updateWebsite()" ng-show="website.status=='translated' || website.status=='error' || website.status=='loading' || website.status=='translating' || website.status=='initial' || website.status=='ready' || website.status=='loaded'" class="btn btn-default web_button">Translate</button>
                                 </span>
-                                <div ng-show="website.status=='loading' || website.status=='translating' || website.status=='error'" class="infoMessage">
-                                    <center ng-show="website.status=='translating' || website.status=='error'">Translation in progress</center>
-                                    <center ng-show="website.status=='loading'">Loading in progress</center>
-                                    <center>
-                                        <button ng-click="website.untranslate()">Cancel</button>
-                                    </center>
-                                </div>
+
                             </div>
                             <div class="LanguageSelect w">
                                 <div class="translateLanguageContainer" ng-show="website.languagesReady=='yes'">
@@ -167,7 +161,7 @@
                             </div>
                         </form>
                     </div>
-                    <div id="web_transl_types" class="col-sm-3 col-sm-offset-1">
+                    <div id="web_transl_types" class="col-sm-3 col-sm-offset-1 col-xs-4">
                         <ul>
                             <li>
                                 <a ng-click="routeMe('/text');" ng-class="{ active: isActive('text') }" href="" title="Translate text" class="transl_text" translate="{{ 'TEXT' | translate }}"></a>
@@ -180,7 +174,7 @@
                 </div>
             </div>
         </div>
-        <div ng-hide="isActive('website') || isActive('www')" ng-view></div>
+       
 
         <div ng-show="isActive('website') && website.status!='initial'" id="websiteFrameContainer">
             <!--<div ng-show="website.status=='loading' || website.status=='translating' || website.status=='error'" class="infoMessage">
@@ -192,7 +186,7 @@
             </div>-->
             <iframe id="websiteFrame" name="websiteFrame" src="about:blank" frameborder="0"></iframe>
         </div>
-
+        <div ng-hide="isActive('website') || isActive('www')" ng-view></div>
     </div>
 
     <div ng-show="isActive('home')" style="visibility:hidden;" id="textWidget"></div>

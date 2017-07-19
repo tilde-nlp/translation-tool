@@ -26,7 +26,8 @@
                         <select class="translateTargetLang"></select>
                     </div>
                     <div class="col-sm-2 col-sm-offset-1 translate_column_height col-xs-3" id="translate_button_div">
-                        <a data-text="translateButton" class="translateButton"></a>
+                        <a data-text="docDownload" class="buttonDownDoc hide"></a>
+                        <a data-text="translateButton" class="translateButton hide"></a>
                     </div>
 
                 </div>
@@ -46,15 +47,14 @@
                             <div class="infoMessageBox error hide"></div>
                             <div class="docTranslateContent"><div class="transFileMeta hide"></div></div>
                             <div data-text="infoMessageBox docAppleLimited" class="uploadNotSupported error hide"></div>
-                            <a data-text="docUpload" class="docUploadNewDocument hide"></a>
+                            <a data-title="docCancel" class="buttonCancelDoc hide"></a>
+                            <a data-title="docUploadNewDoc" class="docUploadNewDoc hide"></a>
+                            <!--<a data-text="docUpload" class="docUploadNewDocument hide"></a>-->
                             <div id="docUploadFile" class="borderBoxSizing"></div>
                             <div id="docSourcePreview" class="hide"></div>
                         </div>
                     </div>
                     <div class="translateContainerRight borderBoxSizing col-sm-6 no_padding_left no_padding_right" style="position:relative;">
-                        <a data-text="docDownload" class="buttonDownDoc hide"></a>
-                        <a data-text="docCancel" class="buttonCancelDoc hide"></a>
-                        <a data-title="docUploadNewDoc" class="docUploadNewDoc hide"></a>
                         <div class="translate_doc_wrapper">
                             <div data-text="docTempTarget" class="docTempTarget"></div>
                             <div class="translateResult hide"></div>

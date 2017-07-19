@@ -3620,7 +3620,7 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
 uiResources = $.extend(true, uiResources, {
     'en': {
         "docTempTarget": "Machine translation results for documents help to understand the meaning of a source text, but do not equal translation by a human.",
-        "docDownload": "Download full translation",
+        "docDownload": "Download",
         "docCancel": "Cancel",
         "docUploadTooltip": "Upload document here to get a full translation",
         "docUploadMsgType": "The file {file} format is not recognized. Translation is supported for these document formats: {extensions}.",

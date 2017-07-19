@@ -424,7 +424,7 @@ div.fancy-select div.trigger {
     padding-right: 0;
 }
 
-.translateButton {
+.translateButton, .buttonDownDoc {
     background: none;
     background-color: #0092ff;
     color: #fff;
@@ -437,15 +437,37 @@ div.fancy-select div.trigger {
     line-height: 1.5;
 }
 
-    .translateButton:hover {
+    .translateButton:hover, .translateButton:focus, .translateButton:active, .buttonDownDoc:hover, .buttonDownDoc:focus, .buttonDownDoc:active {
         background: none;
         background-color: #0092ff;
         color: #fff;
         text-decoration: none;
     }
 
+.file .buttonCancelDoc {
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 2em;
+    vertical-align: middle;
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNC4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDQzMzYzKSAgLS0+DQo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjE5MS4zNHB4IiBoZWlnaHQ9IjE5MS4zNHB4IiB2aWV3Qm94PSIwIDAgMTkxLjM0IDE5MS4zNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTkxLjM0IDE5MS4zNCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8Zz4NCgk8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNOTUuMDY1LDY4LjUzNGw1NC4zMzktNTQuNDY4bDI3LjI5OCwyNy4xN2wtNTQuNDY4LDU0LjQ2OGw1NC40NjgsNTQuNDY5bC0yNy4yOTgsMjcuMTY4bC01NC4zMzktNTQuNDY4DQoJCUw0MC41OTYsMTc3LjM0bC0yNy4xNjgtMjcuMTY5bDU0LjMzOC01NC40NjhMMTMuNDI4LDQxLjIzNWwyNy4xNjgtMjcuMTY5TDk1LjA2NSw2OC41MzR6Ii8+DQo8L2c+DQo8L3N2Zz4NCg==');
+    background-size: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ACB6BF;
+    padding: 0.7em 0.438em 0.438em 0.7em;
+    margin-top: 0.2em;
+    float: right;
+    cursor: pointer;
+    margin: 0;
+    margin-top: 0.2em;
+}
+
 .backGroundSource .classMTsource, .translateTextResult .mt-translation {
     padding-left: 0px !important;
+}
+
+.file .progressImage > div {
+    background-color: #0092ff;
 }
 
 .backGroundSource {
@@ -503,7 +525,6 @@ div.fancy-select div.trigger {
 }
 
 .translate_doc_wrapper {
-    margin-top: 10%;
     height: 100%;
 }
 

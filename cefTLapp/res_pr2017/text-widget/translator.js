@@ -128,6 +128,24 @@ Tilde.TranslatorWidget.prototype = {
         }
     },
 
+    getAuthHeaders: function () {
+        var authHeaders = {};
+
+        if ($widget.settings._clientId !== null) {
+            authHeaders = {
+                'client-id': $widget.settings._clientId
+            }
+        }
+
+        if (!$widget.settings._apiIsInTheSameDomain) {
+            var websiteAuthCookie = $widget.readCookie("smts");
+            if (websiteAuthCookie) {
+                authHeaders["website-auth-cookie"] = websiteAuthCookie;
+            }
+        }
+        return authHeaders;
+    },
+
     retrieveSystemData: function (cbLoaded) {
         if ($widget.settings._systems !== null) {
             $widget.systemLoadComplete($widget.settings._systems);
@@ -580,6 +598,17 @@ Tilde.TranslatorWidget.prototype = {
         //if ($widget.fancyDomain) $widget.fancyDomain.trigger('enable').trigger('update.fs');
     },
 
+    readCookie: function (name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    },
+
     loadTargetLangList: function (source, selTarget, putSystemId) {
         $('.translateTargetLang', $widget.settings.container).empty();
 
@@ -869,7 +898,6 @@ Tilde.TranslatorWidget.prototype = {
             return copyOptionsToList();
         });
     };
-
 }).call(this);
 ///#source 1 1 ../../widget_core/tilde.translator.widget.library.js
 /* tilde.translator.widget.LIBRARY.js */
@@ -4187,6 +4215,17 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 }
                 else if (response.status === 'completed') {
                     var down = $widget.settings._downloadUrl + '?docid=' + encodeURIComponent(docid) + '&filename=' + encodeURIComponent(response.filename);
+
+                    var authHeders = $widget.getAuthHeaders();
+                    if (authHeders) {
+                        if (authHeders["client-id"]) {
+                            down += "&clientId=" + encodeURIComponent(authHeders["client-id"]);
+                        }
+                        if (authHeders["website-auth-cookie"]) {
+                            down += "&websiteAuthCookie=" + encodeURIComponent(authHeders["website-auth-cookie"]);
+                        }
+                    }
+
                     $('.buttonDownDoc').attr('href', down).attr('target', '_blank').removeClass('hide');
                     $('.buttonDelDoc').addClass('hide');
                     $('.buttonCancelDoc').addClass('hide');

@@ -230,7 +230,8 @@ button.lang_select:focus {
 }
 
 .infoMessageBox {
-    margin-top: -20px;
+    margin-top: -10px;
+    font-size: 0.9rem !important;
 }
 
 /*text widget*/

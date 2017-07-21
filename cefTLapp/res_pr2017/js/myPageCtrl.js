@@ -52,7 +52,7 @@ app.controller("myPageCtrl", function ($scope, $location, $translate) {
 
     $scope.website = {};
     $scope.website.system = '';
-    $scope.website.base = "https://hugo.lv/en";
+    $scope.website.base = "https://readymt.tilde.com"; //https://hugo.lv/en";
     $scope.website.url = '';
     $scope.website.errorMsg = '';
     $scope.website.freeze = false;
@@ -64,14 +64,15 @@ app.controller("myPageCtrl", function ($scope, $location, $translate) {
         if (!$scope.website.url || $scope.website.url.lenght == 0) {
 
         }
-        else if ($scope.isActive('www')) {
+        else if ($scope.isActive('www') || $scope.website.status === 'initial') {
             $location.path('/website');//?embeddedStyle=noUI
-            window.open($scope.website.base + "/Translate/WebsiteEmbedded?embeddedStyle=noUI&appId=presidency.desktop", "websiteFrame");
+            window.open($scope.website.base + "/Translate/WebsiteEmbedded?embeddedStyle=noUI&appId=Tilde|EU Presidency|Web", "websiteFrame");
             $scope.website.frame = jQuery("#websiteFrame")[0].contentWindow;
         } else {
             switch ($scope.website.status) {//initial|ready|loading|translating|loaded|translated
-                case "initial":
-                    break;
+                /*case "initial":
+                    $scope.initWebsite();
+                    break;*/
                 case "loading":
                 case "translating":
                     $scope.website.untranslate();
@@ -273,8 +274,8 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
 });
 
 app.controller('websiteTranslatorCtrl', function ($scope, $routeParams) {
+    //updateTriggerText();
     $scope.website.reset();
-
     if (typeof $widget == "undefined") {
         initTextWidget($scope, true);
     }
@@ -285,7 +286,7 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams) {
     $scope.website.systemUpdated = function () {
         jQuery("#websiteFrame")[0].contentWindow.postMessage(
                    { "method": "changeSystem", "systemId": $scope.website.system },
-                     $scope.website.base);
+                   $scope.website.base);
     };
     $scope.website.updateSystem = function (systemID) {
         if ($scope.website.system == systemID) return false;
@@ -309,7 +310,9 @@ app.directive('ngMessage', function ($window) {
                 if (event.originalEvent) event = event.originalEvent;
                 if (event.data && event.data.message) {
                     console.log("Tu: " + event.data.message);
-
+                    //console.log("RRR " + event.data.url);
+                    //console.log("RRR " + event.data.systemId);
+                        
                     switch (event.data.message) {
                         case "urlLoaded":
                             scope.website.url = event.data.url;
@@ -427,7 +430,6 @@ function initEvents() {
 }
 
 function initLanguages($scope) {
-
     $.each($widget.settings._systems, function (idx, sys) {
         if ($('.w .translateSourceLang option[value="' + sys.SourceLanguage.Code + '"]').length == 0) {
             $('.w .translateSourceLang').append($('<option>', {
@@ -488,6 +490,7 @@ function loadTargetLangList(source, selTarget, putSystemId) {
     $('.w .translateTargetLang').empty();
 
     $.each($widget.settings._systems, function (idx, sys) {
+        //console.log('RRR: ' + sys.SourceLanguage.Code);
         if (sys.SourceLanguage.Code === source) {
             if (putSystemId) {
                 // check unique in lang attribute

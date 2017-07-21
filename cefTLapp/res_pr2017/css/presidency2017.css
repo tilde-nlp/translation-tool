@@ -513,6 +513,11 @@ div.fancy-select div.trigger {
 /*/doc widget*/
 
 /*web widget*/
+.web_container {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
 #web_section {
     border-bottom: 5px solid #0092ff;
     -webkit-box-shadow: 0 3px 6px -4px black;
@@ -534,7 +539,7 @@ div.fancy-select div.trigger {
 }
 
 #web_main #url {
-    border-radius: 3px;
+    border-radius: 3px !important;
     border-color: black;
     color: black;
     font-size: 12px;
@@ -569,7 +574,7 @@ div.fancy-select div.trigger {
     height: 31px;
     box-shadow: none;
     border: 1px solid #0092ff;
-    border-radius: 3px;
+    border-radius: 3px !important;
     color: white;
     font-size: 1rem;
     font-weight: bold;
@@ -625,13 +630,16 @@ div.fancy-select div.trigger {
 #websiteFrame {
     position: absolute;
     bottom: 0;
-    top: 115px;
+    top: 102px;
     left: 0;
     right: 0;
     height: calc(100% - 115px);
     width: 100%;
 }
 
+.no-ui#letsmt-translate-page-content #letsmt-translate-page-iframe-container {
+    top: 0 !important;
+}
 /*/web widget*/
 .footer {
     padding-top: 5px;
@@ -757,13 +765,28 @@ _:-ms-lang(x), #main_title {
     }
 }
 
-@media (max-width: 809px) {
+@media (max-width: 898px) {
+    .web_transl_types {
+        margin-right: 0px;
+    }
+
+    #web_menu .options li {
+        margin-left: 0;
+        padding-left: 0;
+    }
+
     #web_transl_types .transl_type_long {
         display: none;
     }
 
     #web_transl_types .transl_type_short {
         display: inline !important;
+    }
+}
+
+@media (max-width: 800px) {
+    #web_main .translateSourceSystemLabel {
+        margin-right: 0.3rem;
     }
 }
 

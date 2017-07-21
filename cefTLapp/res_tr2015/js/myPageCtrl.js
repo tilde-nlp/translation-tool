@@ -52,7 +52,7 @@ app.controller("myPageCtrl", function ($scope, $location) {
 
     $scope.website = {};
     $scope.website.system = '';
-    $scope.website.base = "https://hugo.lv/en"
+    $scope.website.base = "https://hugo.lv/en";
     $scope.website.url = '';
     $scope.website.errorMsg = '';
     $scope.website.freeze = false;
@@ -66,7 +66,7 @@ app.controller("myPageCtrl", function ($scope, $location) {
         }
         else if ($scope.isActive('www')) {
             $location.path('/website');//?embeddedStyle=noUI
-            window.open($scope.website.base + "/Translate/WebsiteEmbedded?embeddedStyle=noUI&appId=presidency.desktop", "websiteFrame");
+            window.open($scope.website.base + "/Translate/WebsiteEmbedded?embeddedStyle=noUI&appId=Tilde|EU Presidency|Web", "websiteFrame");
             $scope.website.frame = jQuery("#websiteFrame")[0].contentWindow;
         } else {
             switch ($scope.website.status) {//initial|ready|loading|translating|loaded|translated

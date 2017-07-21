@@ -701,6 +701,7 @@ Tilde.TranslatorWidget.prototype = {
             }
             sel.wrap('<div class="fancy-select">');
             wrapper = sel.parent();
+            
             if (sel.data('class')) {
                 wrapper.addClass(sel.data('class'));
             }

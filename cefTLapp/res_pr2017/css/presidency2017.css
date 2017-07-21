@@ -641,6 +641,17 @@ div.fancy-select div.trigger {
     top: 0 !important;
 }
 /*/web widget*/
+/*SDL Trados plugin*/
+    #plugin_title {
+        font-weight: bold;
+    }
+
+#plugin_text li {
+    list-style-image: url('../img/Checkmark.svg');
+}
+
+/*/SDL Trados plugin*/
+
 .footer {
     padding-top: 5px;
     padding-left: 15px;

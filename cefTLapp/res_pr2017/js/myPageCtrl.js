@@ -176,6 +176,16 @@ app.controller("myPageCtrl", function ($scope, $location, $translate) {
             $widget.initPlugins();
         });
     };
+
+    $scope.rulesVisible = false;
+    $scope.rulesAgreed = false;
+    $scope.pluginURL = "http://tildecom-test.tilde.lv/sites/default/files/downloads/Tilde.MTProvider.msi";
+    $scope.getPlugin = function () {
+        var downloadLink = angular.element('<a></a>');
+        downloadLink.attr('href', $scope.pluginURL);
+        downloadLink.attr('target', '_blank');
+        downloadLink[0].click();
+    };
 });
 
 app.controller('TranslateCtrl', function ($scope, $routeParams) {

@@ -230,6 +230,7 @@ Tilde.TranslatorWidget.prototype = {
         }
 
         if ($widget.settings._systemSelectType === 'language' || $widget.settings._systemSelectType === 'domain') {
+            
             // bind source lang list
             $.each($widget.settings._systems, function (idx, sys) {
                 if ($('.translateSourceLang option[value="' + sys.SourceLanguage.Code + '"]', $widget.settings.container).length == 0) {
@@ -256,6 +257,7 @@ Tilde.TranslatorWidget.prototype = {
                 }
 
                 $widget.fancySource = $('.translateSourceLang', $widget.settings.container);
+                
                 $widget.fancySource.fancySelect({
                     useNativeSelect: !$widget.settings._useFancySelect,
                     triggerTemplate: function (el) {
@@ -265,8 +267,13 @@ Tilde.TranslatorWidget.prototype = {
                 });
             }
 
+
             // swap system source and target
             if ($widget.settings._swapLanguages) {
+                $('#webSwapLanguage').on('click', function () {
+                    $widget.swapSystemLanguages();
+                });
+
                 $('.swapLanguage', $widget.settings.container).on('click', function () {
                     $widget.swapSystemLanguages();
                 });
@@ -325,6 +332,7 @@ Tilde.TranslatorWidget.prototype = {
             }
 
             $widget.fancyTarget = $('.translateTargetLang', $widget.settings.container);
+
             $widget.fancyTarget.fancySelect({
                 useNativeSelect: !$widget.settings._useFancySelect,
                 triggerTemplate: function (el) {
@@ -490,8 +498,9 @@ Tilde.TranslatorWidget.prototype = {
 
     setActiveSystem: function (systemId) {
         if (systemId === $widget.activeSystemId) { return; }
-
+        
         var src = '', trg = '';
+        
         $.each($widget.settings._systems, function (idx, sys) {
             if (sys.ID === systemId) {
                 src = sys.SourceLanguage.Code;
@@ -502,9 +511,10 @@ Tilde.TranslatorWidget.prototype = {
         $('.translateSourceLang option[value="' + src + '"]', $widget.settings.container).attr('selected', 'selected');
 
         if ($widget.fancySource !== null) {
+            alert(JSON.stringify($widget.fancySource, null, 4));
             $widget.fancySource.trigger('update.fs');
         }
-
+        
         $widget.loadTargetLangList(src, trg, true);
     },
 
@@ -531,7 +541,7 @@ Tilde.TranslatorWidget.prototype = {
 
     swapSystemLanguages: function () {
         var src = '', trg = '';
-        
+
         // get active source and target
         $.each($widget.settings._systems, function (idx, sys) {
             if (sys.ID === $widget.activeSystemId) {
@@ -542,6 +552,7 @@ Tilde.TranslatorWidget.prototype = {
 
         // find reverse
         $.each($widget.settings._systems, function (idx, sys) {
+
             if (sys.SourceLanguage.Code === trg && sys.TargetLanguage.Code === src) {
                 $widget.setActiveSystem(sys.ID);
             }
@@ -675,9 +686,11 @@ Tilde.TranslatorWidget.prototype = {
         return this.each(function () {
             var copyOptionsToList, disabled, options, sel, trigger, updateTriggerText, wrapper;
             sel = $(this);
+
             if (sel.hasClass('fancified') || sel[0].tagName !== 'SELECT') {
                 return;
             }
+
             sel.addClass('fancified');
             if (settings.useNativeSelect) {
                 sel.css({
@@ -721,6 +734,7 @@ Tilde.TranslatorWidget.prototype = {
                 //console.log(triggerHtml);
                 return trigger.html(angular.element($("#my_translator_app")).scope().localize(triggerHtml));
             };
+
             sel.on('blur.fs', function () {
                 if (trigger.hasClass('open')) {
                     return setTimeout(function () {
@@ -864,6 +878,7 @@ Tilde.TranslatorWidget.prototype = {
                 });
             };
             sel.on('update.fs', function () {
+                alert('test');
                 wrapper.find('.options').empty();
                 return copyOptionsToList();
             });

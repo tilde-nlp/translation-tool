@@ -95,6 +95,22 @@ app.controller("myPageCtrl", function ($scope, $location, $translate) {
     };
 
     $scope.initWebsite = function () {
+        var data = [];
+
+        for (var i = 0; i < $widget.settings._systems.length; i++) {
+            var mySys = $widget.settings._systems[i]
+            data.push({
+                "id": mySys.ID,
+                "sourceLanguage": mySys.SourceLanguage.Code,
+                "targetLanguage": mySys.TargetLanguage.Code,
+                "name": mySys.Title ? mySys.Title.Text : mySys.ID,
+                "order": i
+            });
+        }
+
+        $scope.website.frame.postMessage(
+            { "message": "setSystemList", "systemList": data },
+            "*");
         $scope.website.changeSystem();
         $scope.website.loadUrl(true);
     };
@@ -320,8 +336,9 @@ app.directive('ngMessage', function ($window) {
                 if (event.originalEvent) event = event.originalEvent;
                 if (event.data && event.data.message) {
                     console.log("Tu: " + event.data.message);
-                    //console.log("RRR " + event.data.url);
-                    //console.log("RRR " + event.data.systemId);
+                    vstr = JSON.stringify(event.data, null, 4); // (Optional) beautiful indented output.
+                    console.log(vstr); // Logs output to dev tools console.
+
                         
                     switch (event.data.message) {
                         case "urlLoaded":
@@ -500,7 +517,6 @@ function loadTargetLangList(source, selTarget, putSystemId) {
     $('.w .translateTargetLang').empty();
 
     $.each($widget.settings._systems, function (idx, sys) {
-        //console.log('RRR: ' + sys.SourceLanguage.Code);
         if (sys.SourceLanguage.Code === source) {
             if (putSystemId) {
                 // check unique in lang attribute

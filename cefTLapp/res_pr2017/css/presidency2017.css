@@ -1,4 +1,4 @@
-html {
+﻿html {
     font-size: 16px;
     height: 100%;
 }
@@ -7,7 +7,8 @@ body {
     background-color: white;
 }
 
-.contain {
+*:focus {
+    outline: none !important;
 }
 
 #main {
@@ -642,12 +643,155 @@ div.fancy-select div.trigger {
 }
 /*/web widget*/
 /*SDL Trados plugin*/
-    #plugin_title {
-        font-weight: bold;
-    }
+#plugin_title {
+    font-weight: bold;
+    font-size: 18px;
+}
 
 #plugin_text li {
     list-style-image: url('../img/Checkmark.svg');
+    line-height: 2;
+    margin-left: -14px;
+}
+
+#plugin_agreement {
+    float: right;
+}
+
+#plugin_read_rules:active, #plugin_read_rules:focus, #plugin_read_rules:hover {
+    cursor: pointer;
+}
+
+#plugin_rules {
+    height: 182px;
+    min-width: 200px;
+    max-width: 450px;
+    overflow-y: auto;
+    padding-left: 22px;
+    padding-right: 29px;
+    background-color: #f7f8f8;
+}
+
+
+    #plugin_rules h1 {
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 14px;
+        margin: 0;
+        line-height: 1.42857143;
+    }
+
+#plugin_check {
+    min-width: 200px;
+    max-width: 450px;
+    padding-top: 21px;
+    padding-bottom: 21px;
+    padding-left: 23px;
+    padding-right: 23px;
+    margin-top: 21px;
+    background-color: #e8eaec;
+}
+/* checkbox */
+/* Base for label styling */
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+    position: absolute;
+    left: -9999px;
+    width: 0.1px;
+    height: 0.1px;
+}
+
+[type="checkbox"] + label {
+    position: relative;
+    cursor: pointer;
+    margin-right: 24px;
+    margin-bottom: 13px;
+}
+
+        /* checkbox aspect */
+        [type="checkbox"] + label:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 18px;
+            height: 17px;
+            border: 2px solid #ccc;
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,.1);
+        }
+
+        /* checked mark aspect */
+    [type="checkbox"] + label:after {
+        background-image: url('../img/Checkmark.svg');
+        width: 22px;
+        height: 14px;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: 1.3em;
+        line-height: 0.8;
+        color: #09ad7e;
+        transition: all .2s;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+
+        /* checked mark aspect changes */
+        [type="checkbox"]:not(:checked) + label:after {
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        [type="checkbox"]:checked + label:after {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+/* /checkbox */
+
+#get_plugin_wrapper {
+    width: 180px;
+    height: 57px;
+    border-radius: 3px;
+    margin-top: 14px;
+    background: #0598e4; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#0598e4, #0566d4); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#0598e4, #0566d4); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#0598e4, #0566d4); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#0598e4, #0566d4); /* Standard syntax */
+    -moz-box-shadow: inset 0 7px 1px -6px #40b4ee;
+    box-shadow: inset 0 7px 1px -6px #40b4ee;
+    -webkit-box-shadow: inset 0 7px 1px -6px #40b4ee;
+}
+
+#get_plugin {
+    width: 180px;
+    height: 57px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    border: 1px solid #0853a1;
+    border-radius: 3px;
+    cursor: pointer;
+    background-image: url('../img/Download.svg');
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-position: 24px center;
+}
+
+#get_plugin:disabled {
+    -moz-box-shadow: inset 0 7px 1px -6px #b4bec3;
+    box-shadow: inset 0 7px 1px -6px #b4bec3;
+    -webkit-box-shadow: inset 0 7px 1px -6px #b4bec3;
+    background-color: #a1adb4;
+    border-color: #9ea6af;
+}
+
+#sdl_image_div {
+    float: left;
 }
 
 /*/SDL Trados plugin*/
@@ -686,7 +830,7 @@ div.fancy-select div.trigger {
 }
 
 .article p {
-    margin-top: 1.7rem;
+    margin-top: 14px;
     font-size: 1rem;
     margin-left: 0px;
     margin-right: 0px;

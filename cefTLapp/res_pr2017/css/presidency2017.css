@@ -190,9 +190,14 @@ button.lang_select:focus {
     font-weight: 500;
 }
 
-    .transl_type .active {
-        color: #0092ff;
-    }
+#transl_types a {
+    text-decoration: none !important;
+    color: black !important;
+}
+
+#transl_types a:hover, #transl_types a:active, #transl_types a.active {
+    color: #0092ff !important;
+}
 
 #translation_types .transl_type_long {
     display: inline;
@@ -248,11 +253,6 @@ button.lang_select:focus {
     margin-left: 0;
     margin-right: 0;
 }
-
-    #transl_types a:hover, #transl_types a:active, #transl_types a:focus, #transl_types a.active {
-        color: #0092ff !important;
-        text-decoration: none;
-    }
 
 .text .translateContainerLeft {
     margin-left: 0;
@@ -644,9 +644,10 @@ div.fancy-select div.trigger {
         padding-bottom: 5px;
         padding-top: 5px;
         outline: none;
+        text-decoration: none !important;
     }
 
-#web_transl_types a:focus, #web_transl_types a:active, #web_transl_types a:hover, #web_transl_types a.active {
+#web_transl_types a:active, #web_transl_types a:hover, #web_transl_types a.active {
     color: #0092ff !important;
     text-decoration: none;
 }
@@ -828,7 +829,7 @@ div.fancy-select div.trigger {
 /*/SDL Trados plugin*/
 
 .footer {
-    padding-top: 10px;
+    padding-top: px;
     padding-left: 15px;
     padding-right: 15px
 }

@@ -3826,7 +3826,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         var extArray = [];
         var mimeArray = [];
         for (var idx in $widget.settings._allowedFileTypes) {
-            var item = $widget.settings._allowedFileTypes[idx];            
+            var item = $widget.settings._allowedFileTypes[idx];
             if ($.inArray(item.ext, extArray) == -1) {
                 extArray.push(item.ext);
             }
@@ -3845,31 +3845,31 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             debug: false,
             sizeLimit: this.settings._upload_size_limit,
             template: '<div class="qq-uploader">' +
-                      ' <div class="qq-upload-drop-area"></div>' +
-                      '	<div href="#" class="qq-upload-button">' +
-                      //'  <div class="qq-upload-button-image"></div>' +
-                      //'  <div class="qq-upload-button-text">' +
-                      '     <span>' + uiResources[$widget.settings._language]['docUploadTooltip'] + '</span>' +
-                      //'  </div>' +
-                      ' </div>' +
-                	  '	<ul class="qq-upload-list hide"></ul>' +
-                	  '</div>',
+            ' <div class="qq-upload-drop-area"></div>' +
+            '	<div href="#" class="qq-upload-button">' +
+            //'  <div class="qq-upload-button-image"></div>' +
+            //'  <div class="qq-upload-button-text">' +
+            '     <span>' + uiResources[$widget.settings._language]['docUploadTooltip'] + '</span>' +
+            //'  </div>' +
+            ' </div>' +
+            '	<ul class="qq-upload-list hide"></ul>' +
+            '</div>',
             fileTemplate: '<li>' +
-                          ' <div class="qq-upload-meta">' +
-                          '     <span class="qq-upload-meta-title">' + uiResources[$widget.settings._language]['docUploadFilename'] + '</span>' +
-                          '     <span class="qq-upload-file"></span>' +
-                          '     <span class="qq-upload-failed-text">' + uiResources[$widget.settings._language]['docUploadFailed'] + '</span>' +
-                          '     <a class="qq-upload-cancel hide"></a>' +
-                          ' </div>' +
-                          ' <div class="qq-upload-meta">' +
-                          '     <span class="qq-upload-meta-title">' + uiResources[$widget.settings._language]['docUploadFilesize'] + '</span>' +
-                          '     <span class="qq-upload-size"></span>' +
-                          ' </div>' +
-                          ' <div class="qq-upload-meta">' +
-                          '     <span class="qq-upload-meta-title">' + uiResources[$widget.settings._language]['docUploadWordcount'] + '</span>' +
-                          '     <span class="qq-upload-wordcount"></span>' +
-                          ' </div>' +
-                          '</li>',
+            ' <div class="qq-upload-meta">' +
+            '     <span class="qq-upload-meta-title">' + uiResources[$widget.settings._language]['docUploadFilename'] + '</span>' +
+            '     <span class="qq-upload-file"></span>' +
+            '     <span class="qq-upload-failed-text">' + uiResources[$widget.settings._language]['docUploadFailed'] + '</span>' +
+            '     <a class="qq-upload-cancel hide"></a>' +
+            ' </div>' +
+            ' <div class="qq-upload-meta">' +
+            '     <span class="qq-upload-meta-title">' + uiResources[$widget.settings._language]['docUploadFilesize'] + '</span>' +
+            '     <span class="qq-upload-size"></span>' +
+            ' </div>' +
+            ' <div class="qq-upload-meta">' +
+            '     <span class="qq-upload-meta-title">' + uiResources[$widget.settings._language]['docUploadWordcount'] + '</span>' +
+            '     <span class="qq-upload-wordcount"></span>' +
+            ' </div>' +
+            '</li>',
             messages: {
                 typeError: uiResources[$widget.settings._language]['docUploadMsgType'],
                 sizeError: uiResources[$widget.settings._language]['docUploadMsgSize'],
@@ -3981,7 +3981,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
 
             var fileName = $('[name = "file"]');
-    console.log(fileName);
+            console.log(fileName);
 
             authHeaders = {
                 'client-id': $widget.settings._clientId
@@ -3995,7 +3995,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             headers: authHeaders,
             data: {
                 systemid: $widget.activeSystemId,
-                filename: $('.qq-upload-file').text(),
+                filename: $('.qq-upload-file:first').text(),
                 tmpname: $('#hidTranslRealFilename').val(),
                 translimit: $widget.settings._docMaxWordCount
             },
@@ -4236,6 +4236,9 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 }
                 else if (response.status === 'completed') {
                     var down = $widget.settings._downloadUrl + '?docid=' + encodeURIComponent(docid) + '&filename=' + encodeURIComponent(response.filename);
+                    console.log("download url: " + $widget.settings._downloadUrl);
+                    console.log("docid: " + encodeURIComponent(docid));
+                    console.log("filename: " + response.filename);
 
                     var authHeders = $widget.getAuthHeaders();
                     if (authHeders) {

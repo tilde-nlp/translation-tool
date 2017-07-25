@@ -828,7 +828,7 @@ div.fancy-select div.trigger {
 /*/SDL Trados plugin*/
 
 .footer {
-    padding-top: 5px;
+    padding-top: 10px;
     padding-left: 15px;
     padding-right: 15px
 }
@@ -1042,6 +1042,14 @@ _:-ms-lang(x), #main_title {
         margin-left: 0px;
     }
 }
+
+@media (max-width: 460px) {
+    #target_lang_div {
+        width: 28%;
+        margin-left: 1%;
+    }
+}
+
 
 @media (max-width: 400px) {
     #main_logo {

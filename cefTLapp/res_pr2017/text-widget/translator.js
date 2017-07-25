@@ -907,7 +907,6 @@ Tilde.TranslatorWidget.prototype = {
                 });
             };
             sel.on('update.fs', function () {
-                alert('test');
                 wrapper.find('.options').empty();
                 return copyOptionsToList();
             });

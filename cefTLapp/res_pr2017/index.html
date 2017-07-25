@@ -85,9 +85,9 @@
                             <div class="dropdown">
                                 <button id="dropdown_button" class="btn btn-primary btn-block dropdown-toggle menu_text" type="button" data-toggle="dropdown" translate="{{ 'MENU' | translate }}"></button>
                                 <ul class="dropdown-menu">
-                                    <li class="dropdown-menu-first"><a href="" ng-click="routeMe('/about');" translate="{{ 'MENU_ABOUT' | translate }}"></a></li>
-                                    <li class="dropdown-menu-last"><a href="" ng-click="routeMe('/contactUs');" translate="{{ 'MENU_CONTACT' | translate }}"></a></li>
-                                    <li class="dropdown-menu-last"><a href="" ng-click="routeMe('/plugin');" translate="{{ 'MENU_PLUGIN' | translate }}"></a></li>
+                                    <li class="dropdown-menu-first"><a href="#/about" ng-click="routeMe('/about');"  translate="{{ 'MENU_ABOUT' | translate }}"></a></li>
+                                    <li class="dropdown-menu-last"><a href="#/contactUs" ng-click="routeMe('/contactUs');" translate="{{ 'MENU_CONTACT' | translate }}"></a></li>
+                                    <li class="dropdown-menu-last"><a href="#/plugin" ng-click="routeMe('/plugin');" translate="{{ 'MENU_PLUGIN' | translate }}"></a></li>
                                 </ul>
                             </div>
                             <div id="language_selection">
@@ -107,13 +107,13 @@
                         <div id="translation_types">
                             <ul class="list-inline">
                                 <li>
-                                    <a ng-click="routeMe('/text');" ng-class="{ active: isActive('text') }" href="" title="Translate text" class="transl_type transl_text" translate="{{ 'TEXT' | translate }}"></a>
+                                    <a href="#/text" ng-click="routeMe('/text');" ng-class="{ active: isActive('text') }"  title="Translate text" class="transl_type transl_text" translate="{{ 'TEXT' | translate }}"></a>
                                 </li>
                                 <li>
-                                    <a ng-class="{ active: isActive('document') }" href="#/document" title="Translate document" class="transl_type transl_document" translate="{{ 'DOC' | translate }}"></a>
+                                    <a href="#/document" ng-class="{ active: isActive('document') }" title="Translate document" class="transl_type transl_document" translate="{{ 'DOC' | translate }}"></a>
                                 </li>
                                 <li>
-                                    <a ng-click="routeMe('/www');" href="" ng-class="{ active: isActive('website') || isActive('www')  }" title="Translate website" class="transl_type transl_website" translate="{{ 'WEB' | translate }}"></a>
+                                    <a href="#/www" ng-click="routeMe('/www');" ng-class="{ active: isActive('website') || isActive('www')  }" title="Translate website" class="transl_type transl_website" translate="{{ 'WEB' | translate }}"></a>
                                 </li>
                             </ul>
                         </div>
@@ -165,7 +165,7 @@
                     <div id="web_transl_types" class="col-sm-3 col-xs-4 no_padding_left">
                         <ul>
                             <li>
-                                <a ng-click="routeMe('/text');" ng-class="{ active: isActive('text') }" href="" title="Translate text" class="transl_text" translate="{{ 'TEXT' | translate }}"></a>
+                                <a ng-click="routeMe('/text');" href="#/text" ng-class="{ active: isActive('text') }" title="Translate text" class="transl_text" translate="{{ 'TEXT' | translate }}"></a>
                             </li>
                             <li>
                                 <a ng-class="{ active: isActive('document') }" href="#/document" title="Translate document" class="transl_document" translate="{{ 'DOC' | translate }}"></a>
@@ -225,11 +225,11 @@
     <div ng-hide="isActive('website') || isActive('www')" class="section footer">
         <div class="container">
             <div class="row">
-                <div class="col-sm-6 col-xs-8 no_padding_left">
+                <div class="col-sm-6 col-xs-7 no_padding_left">
                     <p class="footer_text footer_etranslation" translate="{{ 'POWERED' | translate }}">
                     </p>
                 </div>
-                <div class="col-sm-6 col-xs-4 no_padding_right">
+                <div class="col-sm-6 col-xs-5 no_padding_right">
                     <p class="footer_text footer_tilde" translate="{{ 'DEVELOPED' | translate }}"></p>
                 </div>
             </div>

@@ -1312,7 +1312,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             // since line height for scrollbar and normal div does not match there
         } else {
             $('.translateTextSource').on('scroll', sourceScrolled);
-            $('.translateContainerRight').on('scroll', targetScrolled);
+            $('.translateTextResult').on('scroll', targetScrolled);
             if (navigator.userAgent.indexOf("Android") > -1 && navigator.userAgent.indexOf("Version/") > -1) {
                 $('.translateContainerRight').bind('touchstart', function () { $(':focus').blur(); });
             }
@@ -4095,6 +4095,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
         $('.docUploadNewDoc').addClass('hide');
         $('.buttonDownDoc').removeAttr('href').addClass('hide');
+        $('.translateButton').removeClass('hide')
         $('#hidTranslRealFilename').remove();
         $('#hidTranslTempFilename').remove();
         $('#hidUploadTempId').remove();
@@ -4249,6 +4250,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
                     $('.buttonDownDoc').attr('href', down).attr('target', '_blank').removeClass('hide');
                     $('.buttonDelDoc').addClass('hide');
+                    $('.translateButton').addClass('hide');
                     $('.buttonCancelDoc').addClass('hide');
                     $('#hidTranslRealFilename').remove();
                     $('#hidTranslTempFilename').remove();

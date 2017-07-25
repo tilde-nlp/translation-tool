@@ -822,14 +822,10 @@ div.fancy-select div.trigger {
     border-color: #9ea6af;
 }
 
-#sdl_image_div {
-    float: left;
-}
-
 /*/SDL Trados plugin*/
 
 .footer {
-    padding-top: px;
+    padding-top: 10px;
     padding-left: 15px;
     padding-right: 15px
 }
@@ -1000,6 +996,10 @@ _:-ms-lang(x), #main_title {
         padding-right: 0px;
     }
 
+    .translateSourceSystemLabel, .translateTargetSystemLabel, .fancy-select {
+        font-size: 0.8rem !important; 
+    }
+
     .translateSourceSystemLabel, .translateTargetSystemLabel {
         margin-right: 5px;
     }
@@ -1013,7 +1013,7 @@ _:-ms-lang(x), #main_title {
     }*/
 
     #translation_types li {
-        margin-right: 20px;
+        margin-right: 10px;
     }
 
     #translation_types .transl_type_long {
@@ -1022,6 +1022,7 @@ _:-ms-lang(x), #main_title {
 
     #translation_types .transl_type_short {
         display: inline !important;
+        font-size: 1rem;
     }
 }
 
@@ -1045,14 +1046,6 @@ _:-ms-lang(x), #main_title {
 }
 
 @media (max-width: 460px) {
-    #target_lang_div {
-        width: 28%;
-        margin-left: 1%;
-    }
-}
-
-
-@media (max-width: 400px) {
     #main_logo {
         padding-left: 3px;
         background: none;
@@ -1060,6 +1053,19 @@ _:-ms-lang(x), #main_title {
 
     #dropdown_button {
         margin-left: 0px;
+    }
+
+    #source_lang_div {
+        width: 37%;
+    }
+
+    #target_lang_div {
+        width: 31%;
+        margin-left: 1%;
+    }
+
+    #translate_button_div {
+        width: 22.66%;
     }
 }
 

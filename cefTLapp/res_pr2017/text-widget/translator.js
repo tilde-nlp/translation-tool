@@ -529,7 +529,6 @@ Tilde.TranslatorWidget.prototype = {
         $('.translateSourceLang option[value="' + src + '"]', $widget.settings.container).attr('selected', 'selected');
 
         if ($widget.fancySource !== null) {
-            alert(JSON.stringify($widget.fancySource, null, 4));
             $widget.fancySource.trigger('update.fs');
         }
         
@@ -3952,7 +3951,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
     filePluginTranslate: function () {
         $widget.disableTranslation();
-        $('.translateButton, .docUploadNewDoc'); //.addClass('hide');
+        // $('.translateButton, .docUploadNewDoc').addClass('hide');
 
         $('.buttonCancelDoc').removeClass('hide');
         $('.docTempTarget').addClass('hide');

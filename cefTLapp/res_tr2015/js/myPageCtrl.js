@@ -235,7 +235,17 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
                      { ext: "htm", mime: "text/html" },
                      { ext: "xhtml", mime: "﻿﻿application/xhtml" },
                      { ext: "xht", mime: "﻿application/xhtml+xml" },
-                     { ext: "txt", mime: "text/plain" }
+                     { ext: "txt", mime: "text/plain" },
+                     { ext: "fodt", mime: "application/vnd.oasis.opendocument.text" },
+                     { ext: "fodp", mime: "application/vnd.oasis.opendocument.presentation" },
+                     { ext: "fods", mime: "application/vnd.oasis.opendocument.spreadsheet" },
+                     { ext: "tmx", mime: "text/xml" },
+                     { ext: "xlf", mime: "application/x-xliff+xml" },
+                     { ext: "xlif", mime: "application/xlif+xml" },
+                     { ext: "xliff", mime: "application/xliff+xml" },
+                     { ext: "sdlxliff", mime: "application/octet-stream" },
+                     { ext: "ttx", mime: "application/octet-stream" },
+                     { ext: "pages", mime: "application/x-iwork-pages-sffpages" }
         ],
         _onWidgetLoaded: function () {
             initLanguages($scope);

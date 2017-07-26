@@ -4,7 +4,8 @@
 .contain {
     min-height: 100%;
     /* equal to footer height */
-    margin-bottom: -38px;
+    /*margin-bottom: -38px;*/
+    margin-bottom: -50px;
 }
 
 .contain:after {
@@ -12,8 +13,9 @@
     display: block;
 }
 
- .footer, .contain:after {
-        height: 38px;
+    .footer, .contain:after {
+        /*height: 38px;*/
+        height: 18px;
     }
 
 .footer {

@@ -390,7 +390,6 @@ div.fancy-select div.trigger {
 }
 
 .text .translateTextResult.translateTextTemp {
-    padding-right: 0px;
     padding-left: 0px;
 }
 
@@ -509,13 +508,13 @@ div.fancy-select div.trigger {
 .file .qq-upload-button {
     position: absolute !important;
     background-repeat: no-repeat;
-    background-position: center 24px;
-    background-size: 52px 61px;
+    background-position: center top;
+    background-size: 104px 122px;
 }
 
 .file qq-upload-drop-area, .file .qq-upload-button {
-    top: 20px !important;
-    padding-top: 88px !important;
+    top: 200% !important;
+    padding-top: 124px !important;
     padding-bottom: 64px;
 }
 
@@ -538,12 +537,28 @@ div.fancy-select div.trigger {
 }
 
 .file .docTempTarget {
-    top: 20px;
-    padding-top: 88px;
+    top: 200%;
+    padding-top: 124px;
+}
+
+.file #docPreviewContent.no-preview {
+    width: 100px;
+    height: 100px;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    margin: 0 auto;
+}
+
+.file #docPreviewContent.no-preview .type {
+    font-size: 1rem !important;
+}
+
+.file .transItem {
+    top: 50px;
 }
 
 /*/doc widget*/
-
 /*web widget*/
 .web_container {
     padding-right: 15px;
@@ -558,12 +573,12 @@ div.fancy-select div.trigger {
 }
 
 #web_menu {
-    height: 83px;
-    margin-top: 15px;
+    height: 98px;
+    padding-top: 15px;
 }
 
 #web_logo img {
-    margin-left: 42px;
+    margin-left: 25%;
     width: 60px;
     height: 80px;
     cursor: pointer;
@@ -602,7 +617,7 @@ div.fancy-select div.trigger {
 
 .web_button {
     background-color: #0092ff;
-    width: 94px;
+    /*width: 94px;*/
     height: 31px;
     box-shadow: none;
     border: 1px solid #0092ff;
@@ -704,7 +719,6 @@ div.fancy-select div.trigger {
     background-color: #f7f8f8;
 }
 
-
     #plugin_rules h1 {
         font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
         font-size: 14px;
@@ -712,11 +726,16 @@ div.fancy-select div.trigger {
         line-height: 1.42857143;
     }
 
+    #plugin_rules p {
+        font-size: 0.7rem;
+        line-height: 0.8rem;
+    }
+
 #plugin_check {
     min-width: 200px;
     max-width: 450px;
-    padding-top: 21px;
-    padding-bottom: 21px;
+    padding-top: 18px;
+    padding-bottom: 18px;
     padding-left: 23px;
     padding-right: 23px;
     margin-top: 21px;
@@ -856,6 +875,10 @@ div.fancy-select div.trigger {
     text-decoration: none;
     color: black;
 }
+#footer_row {
+    margin-left: 0;
+    margin-right: 0;
+}
 
 .article p {
     margin-top: 14px;
@@ -914,28 +937,6 @@ div.fancy-select div.trigger {
     }
 }
 
-@media (max-width: 845px) {
-    .row {
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-
-    .text .translateTextTempSourceContainer {
-        margin-left: 10px;
-    }
-
-    .text .translateTextResult.translateTextTemp {
-        margin-right: 10px;
-    }
-
-    #fileWidget #widget_section .container {
-        width: 100%;
-        margin-left: 0px;
-        margin-right: 0px;
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-}
 /* MS Edge and IE */
 _:-ms-lang(x), #main_title {
     margin-top: 0.67em;
@@ -967,9 +968,40 @@ _:-ms-lang(x), #main_title {
     }
 }
 
+
+@media (max-width: 845px) {
+    .row {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    /*.text .translateTextTempSourceContainer {
+        margin-left: 10px;
+    }
+
+    .text .translateTextResult.translateTextTemp {
+        margin-right: 10px;
+    }*/
+
+    #fileWidget #widget_section .container {
+        width: 100%;
+        margin-left: 0px;
+        margin-right: 0px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
 @media (max-width: 800px) {
     #web_main .translateSourceSystemLabel {
         margin-right: 0.3rem;
+    }
+}
+
+@media (max-width: 780px) {
+    #web_logo img {
+        margin-left: 0px;
+        margin-right: 5px;
     }
 }
 
@@ -978,7 +1010,11 @@ _:-ms-lang(x), #main_title {
         padding-left: 85px;
     }
 
-    #main_logo, .translateButton {
+    #main_logo {
+        font-size: 1.2rem;
+    }
+
+    .translateButton, .buttonDownDoc {
         font-size: 1rem;
     }
 
@@ -1000,9 +1036,9 @@ _:-ms-lang(x), #main_title {
         font-size: 0.8rem !important; 
     }
 
-    .translateSourceSystemLabel, .translateTargetSystemLabel {
+    /*.translateSourceSystemLabel, .translateTargetSystemLabel {
         margin-right: 5px;
-    }
+    }*/
 
     /*
     #translation_types li a {
@@ -1022,7 +1058,10 @@ _:-ms-lang(x), #main_title {
 
     #translation_types .transl_type_short {
         display: inline !important;
-        font-size: 1rem;
+        /*font-size: 1rem;*/
+    }
+    #plugin_agreement {
+        float: left;
     }
 }
 
@@ -1055,20 +1094,23 @@ _:-ms-lang(x), #main_title {
         margin-left: 0px;
     }
 
-    #source_lang_div {
+    /*#source_lang_div {
         width: 37%;
-    }
-
-    #target_lang_div {
+    }*/
+        /*#target_lang_div {
         width: 31%;
         margin-left: 1%;
+    }*/
+        /*#translate_button_div {
+        width: 22.66%;
+    }*/
     }
 
-    #translate_button_div {
-        width: 22.66%;
+@media (max-width: 400px) {
+    #web_logo img {
+        margin-left: -12px;
     }
 }
-
 @media (min-width: 768px) {
     #main_logo {
         padding-left: 100px;
@@ -1214,9 +1256,9 @@ _:-ms-lang(x), #main_title {
         height: 180px;
     }
 
-    .text .translateTextSourceContainer {
+    /*.text .translateTextSourceContainer {
         margin-left: 10px;
-    }
+    }*/
 
     .text .translateContainerLeft, .text .translateContainerRight,
     .file .translateContainerLeft, .file .translateContainerRight {
@@ -1232,7 +1274,7 @@ _:-ms-lang(x), #main_title {
     }
 
     .file .docTempTarget, .file .qq-upload-button {
-        top: 20px !important;
+        top: 200% !important;
     }
 
     .infoMessageBox {

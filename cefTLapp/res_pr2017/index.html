@@ -125,10 +125,10 @@
         <div class="section" id="web_section" ng-show="isActive('website') || isActive('www')">
             <div class="web_container">
                 <div class="row" id="web_menu">
-                    <div id="web_logo" class="col-sm-1 hidden-xs no_padding_left">
+                    <div id="web_logo" class="col-sm-1 col-xs-2 no_padding_left">
                         <img src="img/EU2017.svg" ng-click="routeMe('/text')" alt="EU2017.EE" title="EU Presidency Translator" />
                     </div>
-                    <div id="web_main" class="col-sm-7 col-sm-offset-1 col-xs-8 no_padding_right">
+                    <div id="web_main" class="col-sm-7 col-xs-10 no_padding_right">
                         <form novalidate class="right" ng-show="isActive('www') || isActive('website')" ng-submit="">
                             <div id="address" class="input-group">
                                 <input type="text"
@@ -140,14 +140,14 @@
                                        ng-disabled="false && website.status=='translating'"
                                        required focus-on="website.focus" />
                                 <span class="input-group-btn input-space">
-                                    <button ng-click="updateWebsite()" ng-show="website.status=='translated' || website.status=='error' || website.status=='loading' || website.status=='translating' || website.status=='initial' || website.status=='ready' || website.status=='loaded'" class="btn btn-default web_button">Translate</button>
+                                    <button ng-click="updateWebsite()" ng-show="website.status=='translated' || website.status=='error' || website.status=='loading' || website.status=='translating' || website.status=='initial' || website.status=='ready' || website.status=='loaded'" class="btn btn-default web_button"><span class="hidden-xs">Translate</span><span class="visible-xs glyphicon glyphicon-triangle-right"></span></button>
                                 </span>
 
                             </div>
                             <div class="LanguageSelect w">
                                 <div class="translateLanguageContainer no_padding_left no_padding_right" ng-show="website.languagesReady=='yes'">
                                     <div class="col-sm-2 translate_column_height col-xs-4 no_padding_left no_padding_right web_transl_types">
-                                        <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
+                                        <div data-text="sourceSystem" class="translateSourceSystemLabel hidden-xs"></div>
                                         <select class="translateSourceLang"></select>
                                         <!--<select class="translateSystem"></select>-->
                                     </div>
@@ -155,14 +155,14 @@
                                         <a data-title="swapLanguage" id="webSwapLanguage" class="swapLanguage hide"></a>
                                     </div>
                                     <div class="col-sm-2 translate_column_height col-xs-offset-1 col-xs-3 no_padding_left no_padding_right web_transl_types">
-                                        <div data-text="targetSystem" class="translateTargetSystemLabel"></div>
+                                        <div data-text="targetSystem" class="translateTargetSystemLabel hidden-xs"></div>
                                         <select class="w translateTargetLang"></select>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div id="web_transl_types" class="col-sm-3 col-xs-4 no_padding_left">
+                    <div id="web_transl_types" class="col-sm-3 hidden-xs no_padding_left no_padding_right">
                         <ul>
                             <li>
                                 <a ng-click="routeMe('/text');" href="#/text" ng-class="{ active: isActive('text') }" title="Translate text" class="transl_text" translate="{{ 'TEXT' | translate }}"></a>
@@ -224,7 +224,7 @@
     <!--FOOTER-->
     <div ng-hide="isActive('website') || isActive('www')" class="section footer">
         <div class="container">
-            <div class="row">
+            <div class="row" id="footer_row">
                 <div class="col-sm-6 col-xs-6 no_padding_left">
                     <p class="footer_text footer_etranslation" translate="{{ 'POWERED' | translate }}">
                     </p>

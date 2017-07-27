@@ -288,10 +288,6 @@ Tilde.TranslatorWidget.prototype = {
 
             // swap system source and target
             if ($widget.settings._swapLanguages) {
-                $('#webSwapLanguage').on('click', function () {
-                    $widget.swapSystemLanguages();
-                });
-
                 $('.swapLanguage', $widget.settings.container).on('click', function () {
                     $widget.swapSystemLanguages();
                 });
@@ -516,7 +512,7 @@ Tilde.TranslatorWidget.prototype = {
 
     setActiveSystem: function (systemId) {
         if (systemId === $widget.activeSystemId) { return; }
-        
+
         var src = '', trg = '';
         
         $.each($widget.settings._systems, function (idx, sys) {
@@ -531,7 +527,9 @@ Tilde.TranslatorWidget.prototype = {
         if ($widget.fancySource !== null) {
             $widget.fancySource.trigger('update.fs');
         }
-        
+
+       
+
         $widget.loadTargetLangList(src, trg, true);
     },
 
@@ -569,7 +567,6 @@ Tilde.TranslatorWidget.prototype = {
 
         // find reverse
         $.each($widget.settings._systems, function (idx, sys) {
-
             if (sys.SourceLanguage.Code === trg && sys.TargetLanguage.Code === src) {
                 $widget.setActiveSystem(sys.ID);
             }
@@ -623,6 +620,7 @@ Tilde.TranslatorWidget.prototype = {
         $('.translateTargetLang', $widget.settings.container).empty();
 
         $.each($widget.settings._systems, function (idx, sys) {
+            // alert("RRR: "sys.TargetLanguage.Code);
             if (sys.SourceLanguage.Code === source) {
                 if (putSystemId) {
                     // check unique in lang attribute
@@ -758,8 +756,9 @@ Tilde.TranslatorWidget.prototype = {
             }
             updateTriggerText = function () {
                 var triggerHtml;
+                alert(sel.find(':selected').val());
+
                 triggerHtml = settings.triggerTemplate(sel.find(':selected'));
-                //console.log(triggerHtml);
                 return trigger.html(angular.element($("#my_translator_app")).scope().localize(triggerHtml));
             };
 
@@ -897,6 +896,7 @@ Tilde.TranslatorWidget.prototype = {
                     opt = $(opt);
                     if (!opt.prop('disabled') && (opt.val() || settings.includeBlank)) {
                         optHtml = settings.optionTemplate(opt);
+
                         if (opt.prop('selected')) {
                             return options.append("<li data-raw-value=\"" + (opt.val()) + "\" class=\"selected\">" + angular.element($("#my_translator_app")).scope().localize(optHtml) + "</li>");
                         } else {

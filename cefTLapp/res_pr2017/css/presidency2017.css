@@ -446,22 +446,21 @@ div.fancy-select div.trigger {
         text-decoration: none;
     }
 
-.file .buttonCancelDoc {
+.file .buttonCancelDoc, .file .docUploadNewDoc {
     width: 0.5em;
     height: 0.5em;
     border-radius: 2em;
-    vertical-align: middle;
     background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNC4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDQzMzYzKSAgLS0+DQo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjE5MS4zNHB4IiBoZWlnaHQ9IjE5MS4zNHB4IiB2aWV3Qm94PSIwIDAgMTkxLjM0IDE5MS4zNCIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTkxLjM0IDE5MS4zNCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8Zz4NCgk8cGF0aCBmaWxsPSIjRkZGRkZGIiBkPSJNOTUuMDY1LDY4LjUzNGw1NC4zMzktNTQuNDY4bDI3LjI5OCwyNy4xN2wtNTQuNDY4LDU0LjQ2OGw1NC40NjgsNTQuNDY5bC0yNy4yOTgsMjcuMTY4bC01NC4zMzktNTQuNDY4DQoJCUw0MC41OTYsMTc3LjM0bC0yNy4xNjgtMjcuMTY5bDU0LjMzOC01NC40NjhMMTMuNDI4LDQxLjIzNWwyNy4xNjgtMjcuMTY5TDk1LjA2NSw2OC41MzR6Ii8+DQo8L2c+DQo8L3N2Zz4NCg==');
     background-size: 50%;
     background-position: center;
     background-repeat: no-repeat;
     background-color: #ACB6BF;
     padding: 0.7em 0.438em 0.438em 0.7em;
-    margin-top: 0.2em;
-    float: right;
     cursor: pointer;
     margin: 0;
-    margin-top: 0.2em;
+    position: absolute;
+    right: 20px;
+    top: 10px;
 }
 
 .backGroundSource .classMTsource, .translateTextResult .mt-translation {
@@ -491,6 +490,11 @@ div.fancy-select div.trigger {
     display: none !important;
 }
 
+.file .mainContent  {
+    min-height: 450px !important;
+    height: 450px;
+}
+
 .file .qq-upload-button-text, .file .docTempTarget {
     font-size: 14px;
     text-align: center;
@@ -509,11 +513,11 @@ div.fancy-select div.trigger {
     position: absolute !important;
     background-repeat: no-repeat;
     background-position: center top;
-    background-size: 104px 122px;
+    background-size: 80px 100px;
 }
 
 .file qq-upload-drop-area, .file .qq-upload-button {
-    top: 200% !important;
+    top: 30% !important;
     padding-top: 124px !important;
     padding-bottom: 64px;
 }
@@ -537,17 +541,22 @@ div.fancy-select div.trigger {
 }
 
 .file .docTempTarget {
-    top: 200%;
+    top: 30%;
     padding-top: 124px;
 }
 
+.file #docSourcePreview {
+    padding: 0rem 1.3rem 0.7rem 1.4rem;
+    overflow-y: auto;
+}
 .file #docPreviewContent.no-preview {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     left: auto;
     right: auto;
     bottom: auto;
     margin: 0 auto;
+    top: 37%;
 }
 
 .file #docPreviewContent.no-preview .type {
@@ -977,9 +986,8 @@ div.fancy-select div.trigger {
 .translateResultClear {
     position: absolute;
     right: 20px;
-    top: 0;
+    top: 10px;
     z-index: 10;
-    padding-top: 0.7em;
 }
 
 .clearText {
@@ -1081,7 +1089,7 @@ _:-ms-lang(x), #main_title {
         padding-right: 0;
         margin-right: 0;
         vertical-align: bottom;
-        padding-bottom: 0;
+        padding-bottom: 6px;
     }
 
     .translate_column_height {
@@ -1238,70 +1246,70 @@ _:-ms-lang(x), #main_title {
 }
 
 @media (min-height: 700px) {
-    .text .translateTextSourceContainer, .translateTextResult {
+    .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
         min-height: 450px !important;
         height: 450px;
     }
 }
 
 @media (min-height: 800px) {
-    .text .translateTextSourceContainer, .translateTextResult {
+    .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
         min-height: 550px !important;
         height: 550px;
     }
 }
 
 @media (min-height: 900px) {
-    .text .translateTextSourceContainer, .translateTextResult {
+    .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
         min-height: 650px !important;
         height: 650px;
     }
 }
 
 @media (min-height: 1000px) {
-    .text .translateTextSourceContainer, .translateTextResult {
+    .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
         min-height: 750px !important;
         height: 750px;
     }
 }
 
 @media (min-height: 1100px) {
-    .text .translateTextSourceContainer, .translateTextResult {
+    .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
         min-height: 850px !important;
         height: 850px;
     }
 }
 
 @media (min-height: 1200px) {
-    .text .translateTextSourceContainer, .translateTextResult {
+    .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
         min-height: 950px !important;
         height: 950px;
     }
 }
 
 @media (min-height: 1300px) {
-    .text .translateTextSourceContainer, .translateTextResult {
+    .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
         min-height: 1050px !important;
         height: 1050px;
     }
 }
 
 @media (min-height: 1400px) {
-    .text .translateTextSourceContainer, .translateTextResult {
+    .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
         min-height: 1150px !important;
         height: 1150px;
     }
 }
 
 @media (min-height: 1500px) {
-    .text .translateTextSourceContainer, .translateTextResult {
+    .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
         min-height: 1250px !important;
         height: 1250px;
     }
 }
 
 @media (min-height: 2000px) {
-    .text .translateTextSourceContainer, .translateTextResult {
+    .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
         min-height: 1750px !important;
         height: 1750px;
     }
@@ -1322,7 +1330,7 @@ _:-ms-lang(x), #main_title {
         height: 190px !important;
     }
 
-    .translateContainerLeft {
+    .text .translateContainerLeft {
         border-bottom: solid 1px #e8eaec;
     }
 
@@ -1331,7 +1339,7 @@ _:-ms-lang(x), #main_title {
     }
 
     .file .docTempTarget, .file .qq-upload-button {
-        top: 200% !important;
+        top: 30% !important;
     }
 
     .infoMessageBox {

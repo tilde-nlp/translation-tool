@@ -221,9 +221,9 @@ function initTextWidget($scope, mustApply) {
         _getFilteredSystems: false,
         _onWidgetLoaded: function () {
 
-            if ($scope.isActive('www') || $scope.isActive('website')) {
+            /*if ($scope.isActive('www') || $scope.isActive('website')) {
                 initLanguages($scope);
-            }
+            }*/
             $(document)
                .keydown(function (e) {
                    if (isCharacterKeyPress(e) && $scope.isActive('text')) {
@@ -273,19 +273,29 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
         _landingView: true,
         _getFilteredSystems: false,
         _allowedFileTypes: [
-                     { ext: "doc", mime: "application/msword" },
-                     { ext: "docx", mime: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" },
-                     { ext: "xlsx", mime: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" },
-                     { ext: "pptx", mime: "application/vnd.openxmlformats-officedocument.presentationml.presentation" },
-                     { ext: "odt", mime: "application/vnd.oasis.opendocument.text" },
-                     { ext: "odp", mime: "application/vnd.oasis.opendocument.presentation" },
-                     { ext: "ods", mime: "application/vnd.oasis.opendocument.spreadsheet" },
-                     { ext: "rtf", mime: "﻿application/rtf" },
-                     { ext: "html", mime: "text/html" },
-                     { ext: "htm", mime: "text/html" },
-                     { ext: "xhtml", mime: "﻿﻿application/xhtml" },
-                     { ext: "xht", mime: "﻿application/xhtml+xml" },
-                     { ext: "txt", mime: "text/plain" }
+            { ext: "doc", mime: "application/msword" },
+            { ext: "docx", mime: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" },
+            { ext: "xlsx", mime: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" },
+            { ext: "pptx", mime: "application/vnd.openxmlformats-officedocument.presentationml.presentation" },
+            { ext: "odt", mime: "application/vnd.oasis.opendocument.text" },
+            { ext: "odp", mime: "application/vnd.oasis.opendocument.presentation" },
+            { ext: "ods", mime: "application/vnd.oasis.opendocument.spreadsheet" },
+            { ext: "rtf", mime: "﻿application/rtf" },
+            { ext: "html", mime: "text/html" },
+            { ext: "htm", mime: "text/html" },
+            { ext: "xhtml", mime: "﻿﻿application/xhtml" },
+            { ext: "xht", mime: "﻿application/xhtml+xml" },
+            { ext: "txt", mime: "text/plain" },
+            { ext: "fodt", mime: "application/vnd.oasis.opendocument.text" },
+            { ext: "fodp", mime: "application/vnd.oasis.opendocument.presentation" },
+            { ext: "fods", mime: "application/vnd.oasis.opendocument.spreadsheet" },
+            { ext: "tmx", mime: "text/xml" },
+            { ext: "xlf", mime: "application/x-xliff+xml" },
+            { ext: "xlif", mime: "application/xlif+xml" },
+            { ext: "xliff", mime: "application/xliff+xml" },
+            { ext: "sdlxliff", mime: "application/octet-stream" },
+            { ext: "ttx", mime: "application/octet-stream" },
+            { ext: "pages", mime: "application/x-iwork-pages-sffpages" }
         ],
         _onWidgetLoaded: function () {
             initLanguages($scope);
@@ -300,7 +310,7 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
 });
 
 app.controller('websiteTranslatorCtrl', function ($scope, $routeParams) {
-    //updateTriggerText();
+    initLanguages($scope);
     $scope.website.reset();
     if (typeof $widget == "undefined") {
         initTextWidget($scope, true);
@@ -321,6 +331,7 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams) {
         return true;
     }
     jQuery("#url").click(function () { $(this).select(); });
+    
 });
 
 /*app.controller('homeCtrl', function ($scope, $routeParams) {

@@ -689,13 +689,14 @@ div.fancy-select div.trigger {
     top: 0 !important;
 }
 /*/web widget*/
-/*SDL Trados plugin*/
-#plugin_title {
+/*pages*/
+.page_heading {
     font-weight: bold;
     font-size: 18px;
 }
-
-#plugin_text li {
+/*/pages*/
+/*SDL Trados plugin*/
+.plugin_text li {
     list-style-image: url('../img/Checkmark.svg');
     line-height: 2;
     margin-left: -14px;
@@ -843,11 +844,67 @@ div.fancy-select div.trigger {
 
 /*/SDL Trados plugin*/
 
-.footer {
-    padding-top: 10px;
-    padding-left: 15px;
-    padding-right: 15px
+/*EU Presidency Translator workshop*/
+.workshop_table tr {
+    border-top: 1px solid #e8eaec;
+    border-bottom: 1px solid #e8eaec;
 }
+
+.workshop_table td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.workshop_table td:nth-child(odd) {
+    padding-left: 10px;
+    padding-right: 20px;
+    width: 120px
+}
+
+.workshop_table td:nth-child(even) {
+    font-weight: bold;
+}
+
+
+#workshop_short_info {
+    margin-top: 20px;
+}
+
+#workshop_short_info td:nth-child(odd) {
+    width: 30px;
+}
+
+#workshop_short_info td:nth-child(odd) {
+    font-weight: bold;
+}
+
+#workshop_section h3 {
+    margin-top: 50px;
+}
+
+#workshop_agenda table {
+    margin: 0 auto;
+}
+
+#workshop_agenda td:nth-child(even) {
+    max-width: 500px;
+}
+
+#workshop_about li {
+    font-size: 1rem;
+    line-height: 2;
+}
+#workshop_registration iframe {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+}
+
+/*/EU Presidency Translator workshop*/
+    .footer {
+        padding-top: 10px;
+        padding-left: 15px;
+        padding-right: 15px
+    }
 
     .footer .container {
         padding-left: 0;

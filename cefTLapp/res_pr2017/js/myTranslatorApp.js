@@ -19,6 +19,10 @@ app.config(['$routeProvider',
               templateUrl: 'templates/plugin.html',
               controller: 'myPageCtrl'
           })
+          .when('/workshop', {
+              templateUrl: 'templates/workshop.html',
+              controller: 'myPageCtrl'
+          })
         .when('/text', {
             templateUrl: 'templates/translate-text.html',
             controller: 'TranslateCtrl'
@@ -47,6 +51,7 @@ app.config(function ($translateProvider) {
         MENU_ABOUT: 'About EU Presidency Translator',
         MENU_CONTACT: 'Contact us',
         MENU_PLUGIN: 'SDL Trados Studio plug-in',
+        MENU_WORKSHOP: 'EU Presidency Translator workshop',
         TEXT: '<span class="transl_type_long">Translate text</span><span style="display:none" class="transl_type_short">Text</span>',
         DOC: '<span class="transl_type_long">Translate document</span><span style="display:none" class="transl_type_short">Document</span>',
         WEB: '<span class="transl_type_long">Translate website</span><span style="display:none" class="transl_type_short">Website</span>',

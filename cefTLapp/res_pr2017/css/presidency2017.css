@@ -514,6 +514,7 @@ div.fancy-select div.trigger {
     background-repeat: no-repeat;
     background-position: center top;
     background-size: 80px 100px;
+    height: 40%;
 }
 
 .file qq-upload-drop-area, .file .qq-upload-button {
@@ -545,6 +546,10 @@ div.fancy-select div.trigger {
     padding-top: 124px;
 }
 
+.file #translProgress {
+    top: 75%;
+}
+
 .file #docSourcePreview {
     padding: 0rem 1.3rem 0.7rem 1.4rem;
     overflow-y: auto;
@@ -556,16 +561,31 @@ div.fancy-select div.trigger {
     right: auto;
     bottom: auto;
     margin: 0 auto;
-    top: 37%;
+    top: 50%;
 }
 
 .file #docPreviewContent.no-preview .type {
     font-size: 1rem !important;
 }
 
+.file .translated-no-preview {
+    top: 65%;    
+}
 .file .transItem {
     top: 50px;
 }
+
+.file .translated-no-preview span {
+    text-decoration: none !important;
+    color: black;
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+    .file .translated-no-preview span:active, .translated-no-preview span:hover {
+        color: #0092ff !important;
+        text-decoration: none !important;
+    }   
 
 /*/doc widget*/
 /*web widget*/
@@ -673,7 +693,7 @@ div.fancy-select div.trigger {
 
 #web_transl_types a:active, #web_transl_types a:hover, #web_transl_types a.active {
     color: #0092ff !important;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 #web_main .translateSourceLang, #web_main .translateTargetLang {
@@ -854,6 +874,10 @@ div.fancy-select div.trigger {
 /*/SDL Trados plugin*/
 
 /*EU Presidency Translator workshop*/
+.workshop_table {
+    margin-top: 20px;
+}
+
 .workshop_table tr {
     border-top: 1px solid #e8eaec;
     border-bottom: 1px solid #e8eaec;
@@ -888,10 +912,7 @@ div.fancy-select div.trigger {
 
 #workshop_section h3 {
     margin-top: 50px;
-}
-
-#workshop_agenda table {
-    margin: 0 auto;
+    margin-bottom: 0;
 }
 
 #workshop_agenda td:nth-child(even) {
@@ -902,9 +923,14 @@ div.fancy-select div.trigger {
     font-size: 1rem;
     line-height: 2;
 }
+
+#workshop_registration {
+    max-width: 500px;
+}
+
 #workshop_registration iframe {
     width: 100%;
-    height: 500px;
+    height: 650px;
     overflow: hidden;
 }
 

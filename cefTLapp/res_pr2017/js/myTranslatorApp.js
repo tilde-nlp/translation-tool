@@ -1,5 +1,29 @@
 ﻿
 var app = angular.module("myTranslatorApp", ['ngRoute', 'angular.filter', 'pascalprecht.translate']);
+    /*.run(function ($rootScope) {
+        $rootScope.language = 'ee';
+        $rootScope.languages = ['en', 'ee'];
+
+        $rootScope.localize = function (word) {
+            var Estonian = {}
+            Estonian["English"] = "Īnglise";
+            Estonian["Estonian"] = "Eesti";
+
+            if ($rootScope.language === 'ee') {
+                return (Estonian[word]);
+            }
+
+            return word;
+        }
+
+        $rootScope.updateLanguage = function () {
+            $scope.$translate.use($rootScope.language);
+            $widget.settings._language = $rootScope.language;
+            $widget.retrieveSystemData(function () {
+                $widget.initPlugins();
+            });
+        };
+    });*/
 app.config(['$routeProvider',
   function ($routeProvider, $filter) {
       $routeProvider
@@ -64,7 +88,10 @@ app.config(function ($translateProvider) {
         ABOUT3: 'EU Presidency Translator also integrates the European Commission’s <a href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eTranslation" target="_blank">CEF eTranslation platform</a>, which offers automated translation systems for translating between the 24 official languages of the EU.',
         ABOUT4: 'The Estonian-language automated translation systems and user interface of EU Presidency Translator were developed by <a href="https://www.tilde.com" target="_blank">Tilde</a>, a language technology company based in Tallinn, Riga, and Vilnius.',
         PLUGIN1: 'Instructions for use',
-        PLUGIN2: '<ul><li>Download and install the EU Presidency Translator plug-in for SDL Trados Studio</li><li>In SDL Trados, select your language pair in Project Settings</li><li>Check "Use different translation providers for this language pair"</li><li>Add EU Presidency Translator</li><li>Enter your ID in the authentication window (<a href="#/contactUs" ng-click="routeMe(\' / contactUs\');">request an ID</a>)</li><li>Start your project</li><li>Translation suggestions from your EU Presidency Translator system will appear on screen during the translation process (users can also apply EU Presidency Translator to pre-translate files in batch processing)</li></ul>'
+        PLUGIN2: '<ul><li>Download and install the EU Presidency Translator plug-in for SDL Trados Studio</li><li>In SDL Trados, select your language pair in Project Settings</li><li>Check "Use different translation providers for this language pair"</li><li>Add EU Presidency Translator</li><li>Enter your ID in the authentication window (<a href="#/contactUs" ng-click="routeMe(\' / contactUs\');">request an ID</a>)</li><li>Start your project</li><li>Translation suggestions from your EU Presidency Translator system will appear on screen during the translation process (users can also apply EU Presidency Translator to pre-translate files in batch processing)</li></ul>',
+        PLUGIN3: 'I accept the end-user license agreement.',
+        PLUGIN4: 'Read agreement',
+        PLUGIN5: 'Download'
     })
     .translations('ee', {
         MENU: 'Menüü',
@@ -80,7 +107,12 @@ app.config(function ($translateProvider) {
         ABOUT1: 'EU Presidency Translator on automaattõlketeenus, mis on spetsiaalselt välja töötatud <a href="https://www.eu2017.ee/" target="_blank">Eesti Euroopa Liidu Nõukogu eesistumiseks 2017. aastal</a>.',
         ABOUT2: 'Teenus hõlmab eesti keele jaoks tipptasemel automaattõlkesüsteeme, mis rajanevad uusimatel keeletehnoloogiasaavutustel. Süsteeme saab kasutada tekstide, dokumentide ja veebisaitide tõlkimiseks.',
         ABOUT3: 'EU Presidency Translator on integreeritav ka Euroopa ühendamise rahastu toel valminud Euroopa Komisjoni <a href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eTranslation" target="_blank">platvormiga eTranslation</a>, mille automaattõlkesüsteemid võimaldavad tõlkida EL-i 24 ametlikku keelt.',
-        ABOUT4: 'EU Presidency Translator kasutajaliidese ja eesti keele automaattõlkesüsteemid töötas välja keeletehnoloogia alal tegutsev ettevõte <a href="https://www.tilde.com" target="_blank">Tilde</a>, kelle kontorid asuvad Tallinnas, Riias ja Vilniuses.'
+        ABOUT4: 'EU Presidency Translator kasutajaliidese ja eesti keele automaattõlkesüsteemid töötas välja keeletehnoloogia alal tegutsev ettevõte <a href="https://www.tilde.com" target="_blank">Tilde</a>, kelle kontorid asuvad Tallinnas, Riias ja Vilniuses.',
+        PLUGIN1: 'Instructions for use',
+        PLUGIN2: '<ul><li>Download and install the EU Presidency Translator plug-in for SDL Trados Studio</li><li>In SDL Trados, select your language pair in Project Settings</li><li>Check "Use different translation providers for this language pair"</li><li>Add EU Presidency Translator</li><li>Enter your ID in the authentication window (<a href="#/contactUs" ng-click="routeMe(\' / contactUs\');">request an ID</a>)</li><li>Start your project</li><li>Translation suggestions from your EU Presidency Translator system will appear on screen during the translation process (users can also apply EU Presidency Translator to pre-translate files in batch processing)</li></ul>',
+        PLUGIN3: 'Nõustun lõppkasutaja litsentsilepinguga.',
+        PLUGIN4: 'Lugege lepingut',
+        PLUGIN5: 'Laadi alla'
     });
 
     $translateProvider.preferredLanguage('en');

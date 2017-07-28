@@ -17,7 +17,7 @@
                     <div class="col-sm-5 col-xs-12 no_padding_right">
                         <div id="plugin_agreement">
                             <div id="plugin_check">
-                                <input id="plugin_checkbox" type="checkbox" name="" ng-model="rulesAgreed"><label for="plugin_checkbox"></label> I accept the end-user license agreement. <a id="plugin_read_rules" ng-click="rulesVisible = !rulesVisible">(Read agreement)</a><br>
+                                <input id="plugin_checkbox" type="checkbox" name="" ng-model="rulesAgreed"><label for="plugin_checkbox"></label>{{ 'PLUGIN3' | translate }} <a id="plugin_read_rules" ng-click="rulesVisible = !rulesVisible">({{ 'PLUGIN4' | translate }})</a><br>
                             </div>
                             <div id="plugin_rules" ng-show="rulesVisible">
                                 <p>END USER LICENSE AGREEMENT FOR LETSMT! SDL TRADOS STUDIO PLUGIN</p>
@@ -61,7 +61,7 @@
                                 <p>END USER LICENSE AGREEMENT FOR LETSMT! SDL TRADOS STUDIO PLUGIN, v.1.0, 04.01.2013.</p>
                             </div>
                             <div id="get_plugin_wrapper" ng-disabled="!rulesAgreed">
-                                <button id="get_plugin" ng-disabled="!rulesAgreed" ng-click="getPlugin()">Download</button>
+                                <button id="get_plugin" ng-disabled="!rulesAgreed" ng-click="getPlugin()">{{ 'PLUGIN5' | translate }}</button>
                             </div>
                         </div>
                         

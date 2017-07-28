@@ -118,7 +118,7 @@ app.controller("myPageCtrl", function ($scope, $location, $translate) {
 
 
     $scope.website.loadUrl = function (translateAfterLoad) {
-        console.log("Es: loadURL + translate it:  " + $scope.website.url);
+        //console.log("Es: loadURL + translate it:  " + $scope.website.url);
         $scope.website.status = 'loading';
         $scope.website.frame.postMessage(
             { "message": "loadUrl", "url": $scope.website.url, "translateAfterLoad": translateAfterLoad },
@@ -126,18 +126,18 @@ app.controller("myPageCtrl", function ($scope, $location, $translate) {
     }
 
     $scope.website.translate = function () {
-        console.log("Es: translate");
+        //console.log("Es: translate");
         $scope.website.frame.postMessage({ "message": "translate", },
             "*");
     }
 
     $scope.website.untranslate = function () {
-        console.log("Es: untranslate");
+        //console.log("Es: untranslate");
         $scope.website.frame.postMessage({ "message": "untranslate", }, "*");
     }
 
     $scope.website.changeSystem = function () {
-        console.log("Es: change system to " + $scope.website.system);
+        //console.log("Es: change system to " + $scope.website.system);
         jQuery("#websiteFrame")[0].contentWindow.postMessage({ "message": "changeSystem", "systemId": $scope.website.system },
           "*");
     }
@@ -170,6 +170,16 @@ app.controller("myPageCtrl", function ($scope, $location, $translate) {
         }
     };
 
+    $scope.rulesVisible = false;
+    $scope.rulesAgreed = false;
+    $scope.pluginURL = "http://tildecom-test.tilde.lv/sites/default/files/downloads/Tilde.MTProvider.msi";
+    $scope.getPlugin = function () {
+        var downloadLink = angular.element('<a></a>');
+        downloadLink.attr('href', $scope.pluginURL);
+        downloadLink.attr('target', '_blank');
+        downloadLink[0].click();
+    };
+
     $scope.language = 'en';
     $scope.languages = ['en', 'ee'];
 
@@ -192,16 +202,6 @@ app.controller("myPageCtrl", function ($scope, $location, $translate) {
             $widget.initPlugins();
         });
     };
-
-    $scope.rulesVisible = false;
-    $scope.rulesAgreed = false;
-    $scope.pluginURL = "http://tildecom-test.tilde.lv/sites/default/files/downloads/Tilde.MTProvider.msi";
-    $scope.getPlugin = function () {
-        var downloadLink = angular.element('<a></a>');
-        downloadLink.attr('href', $scope.pluginURL);
-        downloadLink.attr('target', '_blank');
-        downloadLink[0].click();
-    };
 });
 
 app.controller('TranslateCtrl', function ($scope, $routeParams) {
@@ -221,9 +221,9 @@ function initTextWidget($scope, mustApply) {
         _getFilteredSystems: false,
         _onWidgetLoaded: function () {
 
-            /*if ($scope.isActive('www') || $scope.isActive('website')) {
+            if ($scope.isActive('www') || $scope.isActive('website')) {
                 initLanguages($scope);
-            }*/
+            }
             $(document)
                .keydown(function (e) {
                    if (isCharacterKeyPress(e) && $scope.isActive('text')) {
@@ -310,14 +310,15 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
 });
 
 app.controller('websiteTranslatorCtrl', function ($scope, $routeParams) {
-    initLanguages($scope);
+
     $scope.website.reset();
-    if (typeof $widget == "undefined") {
+    
+    //if (typeof $widget === "undefined") {
         initTextWidget($scope, true);
-    }
-    else {
-        $scope.website.languagesReady = 'yes';
-    }
+    //}
+    //else {
+    //    $scope.website.languagesReady = 'yes';
+    //}
 
     $scope.website.systemUpdated = function () {
         jQuery("#websiteFrame")[0].contentWindow.postMessage(
@@ -331,7 +332,6 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams) {
         return true;
     }
     jQuery("#url").click(function () { $(this).select(); });
-    
 });
 
 /*app.controller('homeCtrl', function ($scope, $routeParams) {
@@ -346,9 +346,9 @@ app.directive('ngMessage', function ($window) {
             angular.element($window).on('message', function (event) {
                 if (event.originalEvent) event = event.originalEvent;
                 if (event.data && event.data.message) {
-                    console.log("Tu: " + event.data.message);
-                    vstr = JSON.stringify(event.data, null, 4); // (Optional) beautiful indented output.
-                    console.log(vstr); // Logs output to dev tools console.
+                    //console.log("Tu: " + event.data.message);
+                    //vstr = JSON.stringify(event.data, null, 4); // (Optional) beautiful indented output.
+                    //console.log(vstr); // Logs output to dev tools console.
 
                         
                     switch (event.data.message) {
@@ -363,8 +363,8 @@ app.directive('ngMessage', function ($window) {
                             //scope.website.status = 'loaded';
                             break;
                         case "systemChanged":
-                            console.log("Tu: " + event.data.systemId);
-                            if (scope.website.updateSystem(event.data.systemId)) console.log("Es: system changed");
+                            //console.log("Tu: " + event.data.systemId);
+                            //if (scope.website.updateSystem(event.data.systemId)) console.log("Es: system changed");
                             scope.website.translate();
                             break;
                         case "translationStarted":
@@ -383,7 +383,7 @@ app.directive('ngMessage', function ($window) {
                             scope.initWebsite();
                             break;
                         case "error":
-                            console.log("Tu: Error - " + event.data.description);
+                            //console.log("Tu: Error - " + event.data.description);
                             scope.website.errorMsg = event.data.description;
                             scope.website.status = 'error';
                             break;
@@ -472,8 +472,9 @@ function initLanguages($scope) {
         if ($('.w .translateSourceLang option[value="' + sys.SourceLanguage.Code + '"]').length == 0) {
             $('.w .translateSourceLang').append($('<option>', {
                 value: sys.SourceLanguage.Code,
-                text: sys.SourceLanguage.Name.Text
+                text: $scope.localize(sys.SourceLanguage.Name.Text)
             }));
+            
         }
     });
 
@@ -481,7 +482,7 @@ function initLanguages($scope) {
     if ($('.w .translateSourceLang option').length === 1) {
         var srcSelect = $('.w .translateSourceLang', $widget.settings.container),
             srcVal = srcSelect.val(),
-            srcText = srcSelect.text();
+            srcText = $scope.localize(srcSelect.text());
 
         srcSelect.replaceWith('<div class="translateSingleSourceLang" data-value="' + srcVal + '">' + srcText + '</div>');
         loadTargetLangList(srcVal, null, null);
@@ -489,7 +490,7 @@ function initLanguages($scope) {
     else {
         // default source lang
         if ($widget.settings._defaultSourceLang !== null) {
-            $('.w .translateSourceLang').val($widget.settings._defaultSourceLang);
+            $('.w .translateSourceLang').val($scope.localize($widget.settings._defaultSourceLang));
         }
 
         $('.w .translateSourceLang').fancySelect({
@@ -503,7 +504,7 @@ function initLanguages($scope) {
     // default target lang        
     if ($widget.settings._defaultTargetLang !== null) {
 
-        $('.w .translateTargetLang option[lang="' + $widget.settings._defaultTargetLang + '"]').val($widget.settings._defaultTargetLang);
+        $('.w .translateTargetLang option[lang="' + $widget.settings._defaultTargetLang + '"]').val($scope.localize($widget.settings._defaultTargetLang));
     }
 
     $('.w .translateTargetLang').fancySelect({
@@ -575,6 +576,7 @@ function setActiveSystem(systemId) {
 
     $('.w .translateSourceLang option[value="' + src + '"]').attr('selected', 'selected');
     if ($('.w .translateSourceLang') !== null) {
+        alert($('.w .translateSourceLang').html());
         $('.w .translateSourceLang').trigger('update.fs');
     }
     loadTargetLangList(src, trg, true);

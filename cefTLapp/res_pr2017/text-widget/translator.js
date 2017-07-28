@@ -521,7 +521,7 @@ Tilde.TranslatorWidget.prototype = {
                 trg = sys.TargetLanguage.Code;
             }
         });
-
+        
         $('.translateSourceLang option[value="' + src + '"]', $widget.settings.container).attr('selected', 'selected');
 
         if ($widget.fancySource !== null) {
@@ -756,7 +756,6 @@ Tilde.TranslatorWidget.prototype = {
             }
             updateTriggerText = function () {
                 var triggerHtml;
-                alert(sel.find(':selected').val());
 
                 triggerHtml = settings.triggerTemplate(sel.find(':selected'));
                 return trigger.html(angular.element($("#my_translator_app")).scope().localize(triggerHtml));
@@ -2692,7 +2691,6 @@ qq.FileUploaderBasic.prototype = {
     },
     _createUploadButton: function (element) {
         var self = this;
-
         return new qq.UploadButton({
             element: element,
             multiple: this._options.multiple && qq.UploadHandlerXhr.isSupported(),
@@ -2711,7 +2709,7 @@ qq.FileUploaderBasic.prototype = {
         } else {
             handlerClass = 'UploadHandlerForm';
         }
-
+        
         var handler = new qq[handlerClass]({
             debug: this._options.debug,
             action: this._options.action,
@@ -2838,9 +2836,9 @@ qq.FileUploaderBasic.prototype = {
         this._options.showMessage(message);
     },
     _formatFileName: function (name) {
-        if (name.length > 33) {
+        /*if (name.length > 33) {
             name = name.slice(0, 19) + '...' + name.slice(-13);
-        }
+        }*/
         return name;
     },
     _isAllowedExtension: function (fileName) {
@@ -3198,7 +3196,20 @@ qq.UploadButton.prototype = {
         }
 
         input.setAttribute("type", "file");
-        // input.setAttribute("accept", this._options.allowedMimetypes.join(', '));        
+        input.setAttribute("tabindex", "1");
+        // Edge browser does not open file picker dialog
+        // if there is application/xhtml+xml in accepted file type list
+        if (navigator.userAgent.indexOf("Edge") > -1 && this._options.allowedMimetypes) {
+            var filteredMimeTypes = [];
+            for (var counter = 0; counter < this._options.allowedMimetypes.length; counter++) {
+                if (this._options.allowedMimetypes[counter] != "application/xhtml+xml") {
+                    filteredMimeTypes.push(this._options.allowedMimetypes[counter]);
+                }
+            }
+            input.setAttribute("accept", filteredMimeTypes.join(', '));
+        } else {
+            input.setAttribute("accept", this._options.allowedMimetypes.join(', '));
+        }      
         input.setAttribute("name", this._options.name);
 
         qq.css(input, {
@@ -3665,6 +3676,7 @@ uiResources = $.extend(true, uiResources, {
         "docDownload": "Download",
         "docCancel": "Cancel",
         "docUploadTooltip": "Upload document here to get a full translation",
+        "docUploadType": "Translation is supported for these document formats: {extensions}. UTF-8 or UTF-16 coding required.",
         "docUploadMsgType": "The file {file} format is not recognized. Translation is supported for these document formats: {extensions}.",
         "docUploadMsgSize": "File {file} is too large. Maximum file size is {sizeLimit}.",
         "docUploadMsgEmpty": "File {file} is empty. Please select a file with content.",
@@ -3685,6 +3697,7 @@ uiResources = $.extend(true, uiResources, {
         "docDownload": "Laadi alla",
         "docCancel": "Tühista",
         "docUploadTooltip": "Laadi dokument üles",
+        "docUploadType": "Tõlketugi on olemas järgmiste failivormingute puhul: {extensions}. Vajalik on kodeering UTF-8 või UTF-16.",
         "docUploadMsgType": "Faili \"{file}\" vorming on tundmatu. Tõlketugi on olemas järgmiste failivormingute puhul: {extensions}.",
         "docUploadMsgSize": "Fail \"{file}\" on liiga suur. Faili lubatud maksimummaht on {sizeLimit}.",
         "docUploadMsgEmpty": "Fail \"{file}\" on tühi. Valige andmeid sisaldav fail.",
@@ -3705,6 +3718,7 @@ uiResources = $.extend(true, uiResources, {
         "docDownload": "Atvērt",
         "docCancel": "Atcelt",
         "docUploadTooltip": "Augšupielādēt dokumentu",
+        "docUploadType": "Tulkošana tiek atbalstīta šādiem dokumentu formātiem: {extensions}. Nepieciešams UTF-8 vai UTF-16 kodējums.",
         "docUploadMsgType": "Faila {file} formāts nav atpazīts. Tulkošana tiek atbalstīta šādiem dokumentu formātiem: {extensions}.",
         "docUploadMsgSize": "Fails {file} ir pārāk liels. Maksimālais lielums ir {sizeLimit}.",
         "docUploadMsgEmpty": "Fails {file} ir tukšs. Izvēlieties failu, kurā ir saturs.",
@@ -3724,6 +3738,7 @@ uiResources = $.extend(true, uiResources, {
         "docDownload": "Открыть",
         "docCancel": "Отменить",
         "docUploadTooltip": "Загрузить документ",
+        "docUploadType": "Translation is supported for these document formats: {extensions}. UTF-8 or UTF-16 coding required.",
         "docUploadMsgType": "Формат файла {file} не опознан. Перевод поддерживается для следующих форматов документов: {extensions}.",
         "docUploadMsgSize": "Файл {file} слишком большой. Максимальный размер: {sizeLimit}.",
         "docUploadMsgEmpty": "Файл {file} пустой. Выберите файл с содержимым.",
@@ -3834,6 +3849,10 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             }
         }
 
+
+        var docUploadType = uiResources[$widget.settings._language]['docUploadType'];
+        docUploadType = docUploadType.replace('{extensions}', '<b>' + extArray.join('</b>, <b>').toUpperCase() + '</b>');
+
         var uploader = new qq.FileUploader({
             element: document.getElementById('docUploadFile'),
             multiple: false,
@@ -3849,6 +3868,8 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             //'  <div class="qq-upload-button-image"></div>' +
             //'  <div class="qq-upload-button-text">' +
             '     <span>' + uiResources[$widget.settings._language]['docUploadTooltip'] + '</span>' +
+            '          <br/>' +
+            '     <span style="font-size: 0.9em">' + docUploadType + '</span>' +
             //'  </div>' +
             ' </div>' +
             '	<ul class="qq-upload-list hide"></ul>' +
@@ -4235,9 +4256,6 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 }
                 else if (response.status === 'completed') {
                     var down = $widget.settings._downloadUrl + '?docid=' + encodeURIComponent(docid) + '&filename=' + encodeURIComponent(response.filename);
-                    console.log("download url: " + $widget.settings._downloadUrl);
-                    console.log("docid: " + encodeURIComponent(docid));
-                    console.log("filename: " + response.filename);
 
                     var authHeders = $widget.getAuthHeaders();
                     if (authHeders) {
@@ -4268,6 +4286,8 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                         }
                     }
 
+                    var downloadFileName = response.filename;
+
                     $.ajax({
                         type: 'POST',
                         dataType: 'json',
@@ -4280,8 +4300,12 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                         success: function (response) {
                             if (response.success) {
                                 $('.translateResult').html(response.preview);
+                                /*
                                 $('.translateResult').toggleClass("bigIcon", $('.translated-no-preview').length > 0);
                                 $('.translated-no-preview').html('<a href="' + down + '" target="_blank"><span>' + $('.uploadedDocumentName').text() + '</span></a>');
+                                */
+                                $('.translateResult').html('<div class="translated-no-preview"></div>');
+                                $('.translated-no-preview').html('<a href="' + down + '" target="_blank"><span>' + downloadFileName + '</span></a>');
                             }
                             else {
                                 $('.infoMessageBox').html(uiResources[$widget.settings._language]['docPreviewError']).removeClass('hide');

@@ -1,5 +1,5 @@
 ﻿
-var app = angular.module("myTranslatorApp", ['ngRoute', 'angular.filter', 'pascalprecht.translate']);
+var app = angular.module("myTranslatorApp", ['ngRoute', 'angular.filter', 'pascalprecht.translate'])
     /*.run(function ($rootScope) {
         $rootScope.language = 'ee';
         $rootScope.languages = ['en', 'ee'];
@@ -24,6 +24,7 @@ var app = angular.module("myTranslatorApp", ['ngRoute', 'angular.filter', 'pasca
             });
         };
     });*/
+
 app.config(['$routeProvider',
   function ($routeProvider, $filter) {
       $routeProvider
@@ -91,7 +92,8 @@ app.config(function ($translateProvider) {
         PLUGIN2: '<ul><li>Download and install the EU Presidency Translator plug-in for SDL Trados Studio</li><li>In SDL Trados, select your language pair in Project Settings</li><li>Check "Use different translation providers for this language pair"</li><li>Add EU Presidency Translator</li><li>Enter your ID in the authentication window (<a href="#/contactUs" ng-click="routeMe(\' / contactUs\');">request an ID</a>)</li><li>Start your project</li><li>Translation suggestions from your EU Presidency Translator system will appear on screen during the translation process (users can also apply EU Presidency Translator to pre-translate files in batch processing)</li></ul>',
         PLUGIN3: 'I accept the end-user license agreement.',
         PLUGIN4: 'Read agreement',
-        PLUGIN5: 'Download'
+        PLUGIN5: 'Download',
+        WORKSHOP_URL: 'presidency-translator-workshop-registration'
     })
     .translations('ee', {
         MENU: 'Menüü',
@@ -112,7 +114,8 @@ app.config(function ($translateProvider) {
         PLUGIN2: '<ul><li>Download and install the EU Presidency Translator plug-in for SDL Trados Studio</li><li>In SDL Trados, select your language pair in Project Settings</li><li>Check "Use different translation providers for this language pair"</li><li>Add EU Presidency Translator</li><li>Enter your ID in the authentication window (<a href="#/contactUs" ng-click="routeMe(\' / contactUs\');">request an ID</a>)</li><li>Start your project</li><li>Translation suggestions from your EU Presidency Translator system will appear on screen during the translation process (users can also apply EU Presidency Translator to pre-translate files in batch processing)</li></ul>',
         PLUGIN3: 'Nõustun lõppkasutaja litsentsilepinguga.',
         PLUGIN4: 'Lugege lepingut',
-        PLUGIN5: 'Laadi alla'
+        PLUGIN5: 'Laadi alla',
+        WORKSHOP_URL: 'presidency-translator-workshop-registration-ee'
     });
 
     $translateProvider.preferredLanguage('en');

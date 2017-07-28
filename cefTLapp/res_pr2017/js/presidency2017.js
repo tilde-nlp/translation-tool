@@ -25,6 +25,6 @@ function getWindowInnerHeight(notCount) {
     return myHeight;
 }
 
-function resizeIframe(obj) {
+/*function resizeIframe(obj) {
     obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
-}
+}*/

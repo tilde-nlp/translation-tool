@@ -12,7 +12,7 @@ app.controller("updateCtrl", function ($scope) {
     jQuery.ajax({
         catche: false,
         url: $scope.url,
-        dataType: "jsonp",
+        dataType: "json",
         jsonp: false,
         jsonpCallback: "applicationUpdates",
         success: function (data) {
@@ -179,7 +179,6 @@ app.controller("myPageCtrl", function ($scope, $location, $translate) {
         downloadLink.attr('target', '_blank');
         downloadLink[0].click();
     };
-
     $scope.language = 'en';
     $scope.languages = ['en', 'ee'];
 
@@ -331,6 +330,7 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams) {
         setActiveSystem(systemID);
         return true;
     }
+
     jQuery("#url").click(function () { $(this).select(); });
 });
 
@@ -504,7 +504,7 @@ function initLanguages($scope) {
     // default target lang        
     if ($widget.settings._defaultTargetLang !== null) {
 
-        $('.w .translateTargetLang option[lang="' + $widget.settings._defaultTargetLang + '"]').val($scope.localize($widget.settings._defaultTargetLang));
+        $('.w .translateTargetLang option[lang="' + $widget.settings._defaultTargetLang + '"]').val($widget.settings._defaultTargetLang);
     }
 
     $('.w .translateTargetLang').fancySelect({

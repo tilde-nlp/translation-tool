@@ -519,9 +519,11 @@ Tilde.TranslatorWidget.prototype = {
             if (sys.ID === systemId) {
                 src = sys.SourceLanguage.Code;
                 trg = sys.TargetLanguage.Code;
+                return false;
             }
         });
-        
+
+        $('.translateSourceLang option[selected="selected"]', $widget.settings.container).removeAttr('selected');
         $('.translateSourceLang option[value="' + src + '"]', $widget.settings.container).attr('selected', 'selected');
 
         if ($widget.fancySource !== null) {
@@ -758,6 +760,7 @@ Tilde.TranslatorWidget.prototype = {
                 var triggerHtml;
 
                 triggerHtml = settings.triggerTemplate(sel.find(':selected'));
+                console.log(sel);
                 return trigger.html(angular.element($("#my_translator_app")).scope().localize(triggerHtml));
             };
 

@@ -527,7 +527,13 @@ Tilde.TranslatorWidget.prototype = {
         $('.translateSourceLang option[value="' + src + '"]', $widget.settings.container).attr('selected', 'selected');
 
         if ($widget.fancySource !== null) {
-            $widget.fancySource.trigger('update.fs');
+            var newTriggerText = $('.translateSourceLang option[value="' + src + '"]', $widget.settings.container).html();
+            newTriggerText = angular.element($("#my_translator_app")).scope().localize(newTriggerText);
+            $('#source_lang_div .trigger').first().html(newTriggerText);
+            $('#source_lang_div .options li').each(function () {
+                $(this).toggleClass('selected');
+            });
+           // $widget.fancySource.trigger('change.fs');
         }
 
        
@@ -564,6 +570,7 @@ Tilde.TranslatorWidget.prototype = {
             if (sys.ID === $widget.activeSystemId) {
                 src = sys.SourceLanguage.Code;
                 trg = sys.TargetLanguage.Code;
+                return false;
             }
         });
 
@@ -571,6 +578,7 @@ Tilde.TranslatorWidget.prototype = {
         $.each($widget.settings._systems, function (idx, sys) {
             if (sys.SourceLanguage.Code === trg && sys.TargetLanguage.Code === src) {
                 $widget.setActiveSystem(sys.ID);
+                return false;
             }
         });
     },
@@ -760,7 +768,7 @@ Tilde.TranslatorWidget.prototype = {
                 var triggerHtml;
 
                 triggerHtml = settings.triggerTemplate(sel.find(':selected'));
-                console.log(sel);
+                
                 return trigger.html(angular.element($("#my_translator_app")).scope().localize(triggerHtml));
             };
 

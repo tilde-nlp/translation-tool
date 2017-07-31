@@ -1,41 +1,5 @@
 ﻿var $versionNumber = '1.22';
 
-app.controller("updateCtrl", function ($scope) {
-    $scope.version = $versionNumber;//possible values - text|website|  
-    $scope.url = 'https://saas.tilde.com/bb7_updateinfo/downloads/translate2015updates.js';//possible values - mobile|about
-    $scope.update = {
-        type: '',
-        title: '',
-        description: '',
-        url: ''
-    };
-    jQuery.ajax({
-        catche: false,
-        url: $scope.url,
-        dataType: "json",
-        jsonp: false,
-        jsonpCallback: "applicationUpdates",
-        success: function (data) {
-            jQuery.each(data, function (i, update) {
-                //console.log($scope.version.match(update.forVersion));
-                if ($scope.version.match(update.forVersion)) {
-                    $scope.update = update;
-                    $scope.$apply();
-                }
-            });
-        },
-        error: function (e, status, error) {
-            console.log(status);
-            console.log(error);
-        }
-    });
-});
-
-
-
-
-
-
 app.controller("myPageCtrl", function ($scope, $location, $translate) {
     try {
         console.log("Location: " + document.location);
@@ -571,12 +535,13 @@ function setActiveSystem(systemId) {
         if (sys.ID === systemId) {
             src = sys.SourceLanguage.Code;
             trg = sys.TargetLanguage.Code;
+            return;
         }
     });
 
     $('.w .translateSourceLang option[value="' + src + '"]').attr('selected', 'selected');
+
     if ($('.w .translateSourceLang') !== null) {
-        alert($('.w .translateSourceLang').html());
         $('.w .translateSourceLang').trigger('update.fs');
     }
     loadTargetLangList(src, trg, true);

@@ -210,18 +210,6 @@
             </div>
         </div>
     </div>-->
-    <div ng-controller="updateCtrl" ng-show="isActive('home') && update.type!=''">
-        <div class="update" id="dialog">
-            <div id="dialog-bg">
-                <div id="dialog-title">{{update.title}}</div>
-                <div id="dialog-description">{{update.description}}</div>
-                <div id="dialog-buttons">
-                    <a href="{{update.url}}" target="_blank" ng-click="update.type=''" class="dialogButton">{{update.yes}}</a>
-                    <a href="" ng-click="update.type=''" class="dialogButton cancelButton">{{update.no}}</a>
-                </div>
-            </div>
-        </div>
-    </div>
     <!--FOOTER-->
     <div ng-hide="isActive('website') || isActive('www')" class="section footer">
         <div class="container">

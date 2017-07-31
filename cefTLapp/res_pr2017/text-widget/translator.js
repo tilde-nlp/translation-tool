@@ -630,7 +630,6 @@ Tilde.TranslatorWidget.prototype = {
         $('.translateTargetLang', $widget.settings.container).empty();
 
         $.each($widget.settings._systems, function (idx, sys) {
-            // alert("RRR: "sys.TargetLanguage.Code);
             if (sys.SourceLanguage.Code === source) {
                 if (putSystemId) {
                     // check unique in lang attribute

@@ -92,8 +92,8 @@
                                 </ul>
                             </div>
                             <div id="language_selection">
-                                <button class="btn lang_select menu_text" ng-class="{ active: language === languages[0] }" ng-model="language" ng-click="language=languages[0];updateLanguage()">EN</button>
-                                <button class="btn lang_select menu_text" ng-class="{ active: language === languages[1] }" ng-model="language" ng-click="language=languages[1];updateLanguage()">EE</button>
+                                <button class="btn lang_select menu_text" ng-class="{ active: language === languages[0] }" ng-model="language" ng-click="setLanguage(languages[0])">EN</button>
+                                <button class="btn lang_select menu_text" ng-class="{ active: language === languages[1] }" ng-model="language" ng-click="setLanguage(languages[1])">EE</button>
                             </div>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
                                        ng-disabled="false && website.status=='translating'"
                                        required focus-on="website.focus" />
                                 <span class="input-group-btn input-space">
-                                    <button ng-click="updateWebsite()" ng-show="website.status=='translated' || website.status=='error' || website.status=='loading' || website.status=='translating' || website.status=='initial' || website.status=='ready' || website.status=='loaded'" class="btn btn-default web_button"><span class="hidden-xs">Translate</span><span class="visible-xs glyphicon glyphicon-triangle-right"></span></button>
+                                    <button ng-click="updateWebsite()" ng-show="website.status=='translated' || website.status=='error' || website.status=='loading' || website.status=='translating' || website.status=='initial' || website.status=='ready' || website.status=='loaded'" class="btn btn-default web_button"><span class="hidden-xs" data-text="translateButton"></span><span class="visible-xs glyphicon glyphicon-triangle-right"></span></button>
                                 </span>
 
                             </div>

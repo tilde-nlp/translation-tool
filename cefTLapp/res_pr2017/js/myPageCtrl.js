@@ -1,6 +1,6 @@
 ﻿var $versionNumber = '1.22';
 
-app.controller("myPageCtrl", function ($scope, $location, $translate) {
+app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope) {
     try {
         console.log("Location: " + document.location);
         console.log("Domain: " + document.domain);
@@ -143,37 +143,56 @@ app.controller("myPageCtrl", function ($scope, $location, $translate) {
         downloadLink.attr('target', '_blank');
         downloadLink[0].click();
     };
-    $scope.language = 'en';
-    $scope.languages = ['en', 'ee'];
+    // $scope.language = 'en';
+    // $scope.languages = ['en', 'ee'];
 
     $scope.localize = function (word) {
+        console.log("localising, language: " + $rootScope.language);
         var Estonian = {}
         Estonian["English"] = "Īnglise";
         Estonian["Estonian"] = "Eesti";
 
-        if ($scope.language === 'ee') {
+        if ($rootScope.language === 'ee') {
             return (Estonian[word]);
         }
 
         return word;
     }
 
-    $scope.updateLanguage = function () {
-        $translate.use($scope.language);
-        $widget.settings._language = $scope.language
-        $widget.retrieveSystemData(function () {
-            $widget.initPlugins();
-        });
+    $scope.setLanguage = function (newLang) {
+        try {
+            var isOk = false;
+            for (var i = 0; i < $rootScope.languages.length; i++) {
+                if ($rootScope.languages[i] === newLang) {
+                    isOk = true;
+                }
+            }
+
+            if (!isOk) {
+                return;
+            }
+
+            $rootScope.language = newLang;
+            $translate.use($rootScope.language);
+            $widget.settings._language = $rootScope.language;
+
+            $widget.retrieveSystemData(function () {
+                $widget.initPlugins();
+            });
+        }
+        catch (err) {
+            console.log("Failed to switch languages: " + err);
+        }
     };
 });
 
-app.controller('TranslateCtrl', function ($scope, $routeParams) {
+app.controller('TranslateCtrl', function ($scope, $routeParams, $rootScope) {
     $scope.website.reset();
     $('#fileWidget').empty();
-    initTextWidget($scope);
+    initTextWidget($scope, $rootScope);
 });
 
-function initTextWidget($scope, mustApply) {
+function initTextWidget($scope, $rootScope) {
     var textWidget = new Tilde.TranslatorWidget('#textWidget', {
         _language: 'en',
         _systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList',
@@ -185,7 +204,7 @@ function initTextWidget($scope, mustApply) {
         _onWidgetLoaded: function () {
 
             if ($scope.isActive('www') || $scope.isActive('website')) {
-                initLanguages($scope);
+                initLanguages($scope, $rootScope);
             }
             $(document)
                .keydown(function (e) {
@@ -214,7 +233,7 @@ function isCharacterKeyPress(evt) {
     return false;
 }
 
-app.controller('DocumentCtrl', function ($scope, $routeParams) {
+app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
     $scope.website.reset();
     $scope.website.url = '';
     $('#textWidget').empty();
@@ -261,7 +280,7 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
             { ext: "pages", mime: "application/x-iwork-pages-sffpages" }
         ],
         _onWidgetLoaded: function () {
-            initLanguages($scope);
+            initLanguages($scope, $rootScope);
         },
         _onSystemChanged: function (id) {
             $scope.website.system = id;
@@ -272,12 +291,12 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
 
 });
 
-app.controller('websiteTranslatorCtrl', function ($scope, $routeParams) {
+app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootScope) {
 
     $scope.website.reset();
     
     //if (typeof $widget === "undefined") {
-        initTextWidget($scope, true);
+        initTextWidget($scope, $rootScope);
     //}
     //else {
     //    $scope.website.languagesReady = 'yes';
@@ -296,6 +315,28 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams) {
     }
 
     jQuery("#url").click(function () { $(this).select(); });
+
+    $scope.localize = function (word) {
+        console.log("localising www, language: " + $rootScope.language);
+        var Estonian = {}
+        Estonian["English"] = "Īnglise";
+        Estonian["Estonian"] = "Eesti";
+
+        if ($rootScope.language === 'ee') {
+            return (Estonian[word]);
+        }
+
+        return word;
+    }
+    $scope.initLang = function () {
+            $widget.settings._language = $rootScope.language;
+
+            $widget.retrieveSystemData(function () {
+                $widget.initPlugins();
+            });
+    };
+
+    $scope.initLang();
 });
 
 /*app.controller('homeCtrl', function ($scope, $routeParams) {
@@ -431,14 +472,13 @@ function initEvents() {
 
 }
 
-function initLanguages($scope) {
+function initLanguages($scope, $rootScope) {
     $.each($widget.settings._systems, function (idx, sys) {
         if ($('.w .translateSourceLang option[value="' + sys.SourceLanguage.Code + '"]').length == 0) {
             $('.w .translateSourceLang').append($('<option>', {
                 value: sys.SourceLanguage.Code,
                 text: $scope.localize(sys.SourceLanguage.Name.Text)
             }));
-            
         }
     });
 
@@ -446,7 +486,7 @@ function initLanguages($scope) {
     if ($('.w .translateSourceLang option').length === 1) {
         var srcSelect = $('.w .translateSourceLang', $widget.settings.container),
             srcVal = srcSelect.val(),
-            srcText = $scope.localize(srcSelect.text());
+            srcText = srcSelect.text();
 
         srcSelect.replaceWith('<div class="translateSingleSourceLang" data-value="' + srcVal + '">' + srcText + '</div>');
         loadTargetLangList(srcVal, null, null);
@@ -454,7 +494,7 @@ function initLanguages($scope) {
     else {
         // default source lang
         if ($widget.settings._defaultSourceLang !== null) {
-            $('.w .translateSourceLang').val($scope.localize($widget.settings._defaultSourceLang));
+            $('.w .translateSourceLang').val($widget.settings._defaultSourceLang);
         }
 
         $('.w .translateSourceLang').fancySelect({
@@ -539,6 +579,7 @@ function setActiveSystem(systemId) {
         }
     });
 
+    $('.w .translateSourceLang option[selected="selected"]').removeAttr('selected');
     $('.w .translateSourceLang option[value="' + src + '"]').attr('selected', 'selected');
 
     if ($('.w .translateSourceLang') !== null) {

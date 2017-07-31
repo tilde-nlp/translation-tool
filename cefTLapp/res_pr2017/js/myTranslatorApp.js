@@ -1,29 +1,9 @@
 ﻿
 var app = angular.module("myTranslatorApp", ['ngRoute', 'angular.filter', 'pascalprecht.translate'])
-    /*.run(function ($rootScope) {
-        $rootScope.language = 'ee';
+    .run(function ($rootScope) {
+        $rootScope.language = 'en';
         $rootScope.languages = ['en', 'ee'];
-
-        $rootScope.localize = function (word) {
-            var Estonian = {}
-            Estonian["English"] = "Īnglise";
-            Estonian["Estonian"] = "Eesti";
-
-            if ($rootScope.language === 'ee') {
-                return (Estonian[word]);
-            }
-
-            return word;
-        }
-
-        $rootScope.updateLanguage = function () {
-            $scope.$translate.use($rootScope.language);
-            $widget.settings._language = $rootScope.language;
-            $widget.retrieveSystemData(function () {
-                $widget.initPlugins();
-            });
-        };
-    });*/
+    });
 
 app.config(['$routeProvider',
   function ($routeProvider, $filter) {

@@ -204,7 +204,8 @@ function initTextWidget($scope, $rootScope) {
         _onWidgetLoaded: function () {
 
             if ($scope.isActive('www') || $scope.isActive('website')) {
-                initLanguages($scope, $rootScope);
+                initLanguages($scope);
+                localizeLanguages($scope, $rootScope);
             }
             $(document)
                .keydown(function (e) {
@@ -280,7 +281,8 @@ app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
             { ext: "pages", mime: "application/x-iwork-pages-sffpages" }
         ],
         _onWidgetLoaded: function () {
-            initLanguages($scope, $rootScope);
+            initLanguages($scope);
+            localizeLanguages($scope, $rootScope);
         },
         _onSystemChanged: function (id) {
             $scope.website.system = id;
@@ -472,7 +474,7 @@ function initEvents() {
 
 }
 
-function initLanguages($scope, $rootScope) {
+function initLanguages($scope) {
     $.each($widget.settings._systems, function (idx, sys) {
         if ($('.w .translateSourceLang option[value="' + sys.SourceLanguage.Code + '"]').length == 0) {
             $('.w .translateSourceLang').append($('<option>', {
@@ -527,6 +529,19 @@ function initLanguages($scope, $rootScope) {
         $scope.website.languagesReady = 'yes';
         $scope.$apply();
     }, 0);
+}
+
+function localizeLanguages($scope, $rootScope) {
+    $('.fancy-select .trigger').each(function () {
+        $(this).html($scope.localize($(this).html()))
+    });
+    $('.fancy-select .option').each(function () {
+        $(this).html($scope.localize($(this).html()))
+    });
+
+    $('.fancy-select ul.options li').each(function () {
+        $(this).html($scope.localize($(this).html()))
+    });
 }
 
 function loadTargetLangList(source, selTarget, putSystemId) {

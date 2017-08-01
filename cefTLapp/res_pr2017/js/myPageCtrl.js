@@ -147,7 +147,6 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
     // $scope.languages = ['en', 'ee'];
 
     $scope.localize = function (word) {
-        console.log("localising, language: " + $rootScope.language);
         var Estonian = {}
         Estonian["English"] = "Īnglise";
         Estonian["Estonian"] = "Eesti";
@@ -296,7 +295,7 @@ app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
 app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootScope) {
 
     $scope.website.reset();
-    
+
     //if (typeof $widget === "undefined") {
         initTextWidget($scope, $rootScope);
     //}
@@ -310,7 +309,7 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
                    $scope.website.base);
     };
     $scope.website.updateSystem = function (systemID) {
-        if ($scope.website.system == systemID) return false;
+        if ($scope.website.system === systemID) return false;
         $scope.website.system = systemID;
         setActiveSystem(systemID);
         return true;
@@ -333,9 +332,7 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
     $scope.initLang = function () {
             $widget.settings._language = $rootScope.language;
 
-            $widget.retrieveSystemData(function () {
-                $widget.initPlugins();
-            });
+            $widget.retrieveSystemData();
     };
 
     $scope.initLang();
@@ -590,7 +587,7 @@ function setActiveSystem(systemId) {
         if (sys.ID === systemId) {
             src = sys.SourceLanguage.Code;
             trg = sys.TargetLanguage.Code;
-            return;
+            return false;
         }
     });
 

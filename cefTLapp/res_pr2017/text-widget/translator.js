@@ -291,6 +291,13 @@ Tilde.TranslatorWidget.prototype = {
                 $('.swapLanguage', $widget.settings.container).on('click', function () {
                     $widget.swapSystemLanguages();
                 });
+
+
+                $('#webSwapLanguage').off('click');
+
+                $('#webSwapLanguage').on('click', function () {
+                    $widget.swapSystemLanguages();
+                });
             }
         }
 
@@ -534,11 +541,26 @@ Tilde.TranslatorWidget.prototype = {
                 $(this).toggleClass('selected');
             });
            // $widget.fancySource.trigger('change.fs');
-        }
-
-       
+        }   
 
         $widget.loadTargetLangList(src, trg, true);
+
+
+        $('.w .translateSourceLang option[selected="selected"]').removeAttr('selected');
+        $('.w .translateSourceLang option[value="' + src + '"]').attr('selected', 'selected');
+
+
+        if ($('.w .translateSourceLang') !== null) {
+            var newTriggerText = $('.w .translateSourceLang option[value="' + src + '"]').html();
+            newTriggerText = angular.element($("#my_translator_app")).scope().localize(newTriggerText);
+            $('.web_transl_types .trigger').first().html(newTriggerText);
+            $('.web_transl_types .options li').each(function () {
+                $(this).toggleClass('selected');
+            });
+        }
+
+        $widget.loadTargetLangListWeb(src, trg, true);
+
     },
 
     checkReverseSystem: function () {
@@ -565,15 +587,18 @@ Tilde.TranslatorWidget.prototype = {
     swapSystemLanguages: function () {
         var src = '', trg = '';
 
+        if (!$widget.activeSystemId) {
+            $widget.activeSystemId = $widget.settings._systems[0].ID;
+        }
         // get active source and target
         $.each($widget.settings._systems, function (idx, sys) {
-            if (sys.ID === $widget.activeSystemId) {
+            if (sys.ID == $widget.activeSystemId) {
                 src = sys.SourceLanguage.Code;
                 trg = sys.TargetLanguage.Code;
                 return false;
             }
         });
-
+        
         // find reverse
         $.each($widget.settings._systems, function (idx, sys) {
             if (sys.SourceLanguage.Code === trg && sys.TargetLanguage.Code === src) {
@@ -661,6 +686,44 @@ Tilde.TranslatorWidget.prototype = {
         if ($widget.fancyTarget !== null) {
             $widget.fancyTarget.trigger('update.fs');
         }
+    },
+
+    loadTargetLangListWeb: function (source, selTarget, putSystemId) {
+        $('.w .translateTargetLang').empty();
+
+        $.each($widget.settings._systems, function (idx, sys) {
+            if (sys.SourceLanguage.Code === source) {
+                if (putSystemId) {
+                    // check unique in lang attribute
+                    if ($('.w .translateTargetLang option[lang="' + sys.TargetLanguage.Code + '"]').length === 0) {
+                        $('.w .translateTargetLang').append($('<option>', {
+                            value: sys.ID,
+                            text: sys.TargetLanguage.Name.Text,
+                            lang: sys.TargetLanguage.Code
+                        }));
+                    }
+                }
+                else {
+                    // check unique in value attribute
+                    if ($('.w .translateTargetLang option[value="' + sys.TargetLanguage.Code + '"]').length === 0) {
+                        $('.w .translateTargetLang').append($('<option>', {
+                            value: sys.TargetLanguage.Code,
+                            text: sys.TargetLanguage.Name.Text
+                        }));
+                    }
+                }
+            }
+        });
+
+        // select target
+        if (selTarget !== undefined && selTarget !== null) {
+            $('.w .translateTargetLang option[lang="' + selTarget + '"]').attr('selected', 'selected');
+        }
+
+        if ($('.w .translateTargetLang') !== null) {
+            $('.w .translateTargetLang').trigger('update.fs');
+        }
+
     },
 
     loadDomainList: function (source, target) {

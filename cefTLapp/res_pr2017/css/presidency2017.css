@@ -378,6 +378,7 @@ div.fancy-select div.trigger {
     width: 24px;
     height: 18px;
     display: inline !important;
+    padding-bottom: 4px;
 }
 
 .text .translateTextSourceContainer {
@@ -515,6 +516,7 @@ div.fancy-select div.trigger {
     background-position: center top;
     background-size: 80px 100px;
     height: 40%;
+    overflow: visible !important;
 }
 
 .file qq-upload-drop-area, .file .qq-upload-button {
@@ -1208,7 +1210,7 @@ _:-ms-lang(x), #main_title {
     }
 
     .translateSourceSystemLabel, .translateTargetSystemLabel {
-        margin-right: 1.2rem;
+        margin-right: 0.2rem;
     }
 
     div.fancy-select ul.options {
@@ -1227,6 +1229,7 @@ _:-ms-lang(x), #main_title {
         border: none;
         border-radius: 0;
         box-shadow: none;
+        min-width: 50px;
     }
 
         div.fancy-select ul.options li {

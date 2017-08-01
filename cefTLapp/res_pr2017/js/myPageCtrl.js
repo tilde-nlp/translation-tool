@@ -319,7 +319,6 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
     jQuery("#url").click(function () { $(this).select(); });
 
     $scope.localize = function (word) {
-        console.log("localising www, language: " + $rootScope.language);
         var Estonian = {}
         Estonian["English"] = "Īnglise";
         Estonian["Estonian"] = "Eesti";
@@ -330,6 +329,7 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
 
         return word;
     }
+
     $scope.initLang = function () {
             $widget.settings._language = $rootScope.language;
 

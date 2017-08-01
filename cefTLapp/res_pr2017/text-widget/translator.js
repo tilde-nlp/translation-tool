@@ -3216,7 +3216,7 @@ qq.UploadButton.prototype = {
                     filteredMimeTypes.push(this._options.allowedMimetypes[counter]);
                 }
             }
-            input.setAttribute("accept", filteredMimeTypes.join(', '));
+            //input.setAttribute("accept", filteredMimeTypes.join(', '));
         } else {
             input.setAttribute("accept", this._options.allowedMimetypes.join(', '));
         }      

@@ -150,9 +150,19 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         var Estonian = {}
         Estonian["English"] = "Īnglise";
         Estonian["Estonian"] = "Eesti";
+        Estonian["Īnglise"] = "Īnglise";
+        Estonian["Eesti"] = "Eesti";
+
+        var English = {}
+        English["English"] = "English";
+        English["Estonian"] = "Estonian";
+        English["Īnglise"] = "English";
+        English["Eesti"] = "Estonian";
 
         if ($rootScope.language === 'ee') {
             return (Estonian[word]);
+        } else if ($rootScope.language === 'en') {
+            return (English[word]);
         }
 
         return word;
@@ -174,10 +184,11 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         $translate.use($rootScope.language);
 
         try {
-
             $widget.settings._language = $rootScope.language;
-
             $widget.initPlugins();
+            $widget.initWidgetLanguage();
+            localizeLanguages($scope, $rootScope);
+            
         }
         catch (err) {
             console.log("Failed to switch languages: " + err);
@@ -222,6 +233,7 @@ function initTextWidget($scope, $rootScope) {
         },
         _replaceContainer: false
     });
+    $scope.setLanguage($rootScope.language);
 }
 
 function isCharacterKeyPress(evt) {
@@ -289,6 +301,7 @@ app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
         },
         _replaceContainer: false
     });
+    $scope.setLanguage($rootScope.language);
 });
 
 app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootScope) {
@@ -329,9 +342,21 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
     }
 
     $scope.initLang = function () {
-            $widget.settings._language = $rootScope.language;
+        $rootScope.language = newLang;
+        $translate.use($rootScope.language);
 
-            $widget.retrieveSystemData();
+        try {
+            $widget.settings._language = $rootScope.language;
+            $widget.initPlugins();
+            $widget.initWidgetLanguage();
+            initLanguages($scope);
+        }
+        catch (err) {
+            console.log("Failed to switch languages: " + err);
+        }
+         //   $widget.settings._language = $rootScope.language;
+
+           // $widget.retrieveSystemData();
     };
 
     $scope.initLang();
@@ -536,7 +561,7 @@ function localizeLanguages($scope, $rootScope) {
     });
 
     $('.fancy-select ul.options li').each(function () {
-        $(this).html($scope.localize($(this).html()))
+        $(this).html($scope.localize($(this).html()));
     });
 }
 

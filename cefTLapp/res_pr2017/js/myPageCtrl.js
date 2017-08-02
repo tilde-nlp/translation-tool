@@ -187,8 +187,7 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
             $widget.settings._language = $rootScope.language;
             $widget.initPlugins();
             $widget.initWidgetLanguage();
-            localizeLanguages($scope, $rootScope);
-            
+            localizeLanguages($scope, $rootScope);   
         }
         catch (err) {
             console.log("Failed to switch languages: " + err);

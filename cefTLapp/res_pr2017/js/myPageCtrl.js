@@ -145,7 +145,7 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
     };
     // $scope.language = 'en';
     // $scope.languages = ['en', 'ee'];
-
+    
     $scope.localize = function (word) {
         var Estonian = {}
         Estonian["English"] = "Īnglise";
@@ -159,30 +159,30 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
     }
 
     $scope.setLanguage = function (newLang) {
+        var isOk = false;
+        for (var i = 0; i < $rootScope.languages.length; i++) {
+            if ($rootScope.languages[i] === newLang) {
+                isOk = true;
+            }
+        }
+
+        if (!isOk) {
+            return;
+        }
+
+        $rootScope.language = newLang;
+        $translate.use($rootScope.language);
+
         try {
-            var isOk = false;
-            for (var i = 0; i < $rootScope.languages.length; i++) {
-                if ($rootScope.languages[i] === newLang) {
-                    isOk = true;
-                }
-            }
 
-            if (!isOk) {
-                return;
-            }
-
-            $rootScope.language = newLang;
-            $translate.use($rootScope.language);
             $widget.settings._language = $rootScope.language;
 
-            $widget.retrieveSystemData(function () {
-                $widget.initPlugins();
-            });
+            $widget.initPlugins();
         }
         catch (err) {
             console.log("Failed to switch languages: " + err);
         }
-    };
+    };   
 });
 
 app.controller('TranslateCtrl', function ($scope, $routeParams, $rootScope) {
@@ -289,7 +289,6 @@ app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
         },
         _replaceContainer: false
     });
-
 });
 
 app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootScope) {

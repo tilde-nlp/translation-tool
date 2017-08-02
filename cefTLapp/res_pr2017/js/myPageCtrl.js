@@ -340,11 +340,12 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
         return word;
     }
 
-    $scope.initLang = function () {
+    $scope.initLang = function (newLang) {
         $rootScope.language = newLang;
-        $translate.use($rootScope.language);
+        
 
         try {
+            $translate.use($rootScope.language);
             $widget.settings._language = $rootScope.language;
             $widget.initPlugins();
             $widget.initWidgetLanguage();
@@ -358,7 +359,7 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
            // $widget.retrieveSystemData();
     };
 
-    $scope.initLang();
+    $scope.initLang($rootScope.language);
 });
 
 /*app.controller('homeCtrl', function ($scope, $routeParams) {

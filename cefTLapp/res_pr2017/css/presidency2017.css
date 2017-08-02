@@ -1048,7 +1048,7 @@ _:-ms-lang(x), #main_title {
     }
 
     #web_menu .options li {
-        margin-left: 0;
+        margin-left: 5px;
         padding-left: 0;
     }
 

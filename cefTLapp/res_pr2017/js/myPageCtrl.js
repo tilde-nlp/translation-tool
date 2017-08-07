@@ -136,12 +136,25 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
 
     $scope.rulesVisible = false;
     $scope.rulesAgreed = false;
-    $scope.pluginURL = "http://tildecom-test.tilde.lv/sites/default/files/downloads/Tilde.MTProvider.msi";
+    // $scope.pluginURL = "http://tildecom-test.tilde.lv/sites/default/files/downloads/Tilde.MTProvider.msi";
+    $scope.pluginURL = "https://www.tilde.com/sites/default/files/downloads/EUPresidencyTranslator.MTProvider";
+
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+    var isChrome = !!window.chrome && !!window.chrome.webstore;
+
+    if ( isChrome || isFirefox ) {
+        $scope.pluginURL += '.sdlplugin';
+    }
+    else {
+        $scope.pluginURL += '.zip';
+    }
+
     $scope.getPlugin = function () {
-        var downloadLink = angular.element('<a></a>');
-        downloadLink.attr('href', $scope.pluginURL);
-        downloadLink.attr('target', '_blank');
-        downloadLink[0].click();
+        var link = document.createElement('a');
+        link.href = $scope.pluginURL;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     };
     // $scope.language = 'en';
     // $scope.languages = ['en', 'ee'];

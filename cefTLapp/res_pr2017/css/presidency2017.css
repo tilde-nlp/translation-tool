@@ -693,6 +693,11 @@ div.fancy-select div.trigger {
         text-decoration: none !important;
     }
 
+#web_translation_type_text {
+    margin-left: 2px;
+    padding-left: 29px;
+}
+
 #web_transl_types a:active, #web_transl_types a:hover, #web_transl_types a.active {
     color: #0092ff !important;
     text-decoration: none !important;
@@ -865,13 +870,14 @@ div.fancy-select div.trigger {
     background-position: 24px center;
 }
 
-#get_plugin:disabled {
-    -moz-box-shadow: inset 0 7px 1px -6px #b4bec3;
-    box-shadow: inset 0 7px 1px -6px #b4bec3;
-    -webkit-box-shadow: inset 0 7px 1px -6px #b4bec3;
-    background-color: #a1adb4;
-    border-color: #9ea6af;
-}
+    #get_plugin:disabled {
+        -moz-box-shadow: inset 0 7px 1px -6px #b4bec3;
+        box-shadow: inset 0 7px 1px -6px #b4bec3;
+        -webkit-box-shadow: inset 0 7px 1px -6px #b4bec3;
+        background-color: #a1adb4;
+        border-color: #9ea6af;
+        cursor: default;
+    }
 
 /*/SDL Trados plugin*/
 

@@ -98,7 +98,7 @@ app.config(function ($translateProvider) {
         MENU_ABOUT: 'Teenusest EU Presidency Translator',
         MENU_CONTACT: 'Kontaktteave',
         MENU_PLUGIN: 'SDL Trados Studio lisandmoodul ',
-        MENU_WORKSHOP: 'EL-i eesistumise tõlketööriista kasutamise töötuba',
+        MENU_WORKSHOP: 'EL-i eesistumise tõlketööriista töötuba',
         TEXT: '<span class="transl_type_long">Tõlgi tekst</span><span style="display:none" class="transl_type_short">Tekst</span>',
         DOC: '<span class="transl_type_long">Tõlgi dokument</span><span style="display:none" class="transl_type_short">Dokument</span>',
         WEB: '<span class="transl_type_long">Tõlgi veebileht</span><span style="display:none" class="transl_type_short">Veebileht</span>',

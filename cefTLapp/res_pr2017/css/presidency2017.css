@@ -55,6 +55,15 @@ body {
         display: table-cell;
     }
 
+    #main_coop {
+        position: absolute;
+        top: 4.5rem;
+        left: 0;
+        padding-left: 105px;
+        width: 600px;
+        font-style: italic;
+    }
+
     #main_title a, #main_title a:hover, #main_title a:focus, #main_title a:active {
         text-decoration: none;
         color: black;
@@ -1109,8 +1118,12 @@ _:-ms-lang(x), #main_title {
         padding-left: 85px;
     }
 
-    #main_logo {
+    /*#main_logo {
         font-size: 1.2rem;
+    }*/
+
+    #main_coop {
+        display: none;
     }
 
     .translateButton, .buttonDownDoc {

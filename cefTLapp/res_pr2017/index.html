@@ -77,7 +77,8 @@
                 <div class="row" id="main">
                     <div class="col-sm-5 col-xs-7 no_padding_left">
                         <div id="main_title">
-                            <h1><a href=" #" id="main_logo" ng-click="routeMe('/text');">EU Presidency Translator</a></h1>
+                            <h1><a href="https://www.eu2017.ee/" target="_blank" id="main_logo" title="https://www.eu2017.ee/">Translate 2017</a></h1>
+                            <p id ="main_coop">In cooperation with the Estonian Presidency of the Council of the EU</p>
                         </div>
                     </div>
                     <div class="col-sm-4 col-sm-offset-3 col-xs-5 no_padding_right" id="main_menu">
@@ -127,7 +128,7 @@
             <div class="web_container">
                 <div class="row" id="web_menu">
                     <div id="web_logo" class="col-sm-1 col-xs-2 no_padding_left">
-                        <img src="img/EU2017.svg" ng-click="routeMe('/text')" alt="EU2017.EE" title="EU Presidency Translator" />
+                        <a href="https://www.eu2017.ee/" target="_blank" title="https://www.eu2017.ee/"><img src="img/EU2017.svg" alt="EU2017.EE" title="EU Presidency Translator" /></a>
                     </div>
                     <div id="web_main" class="col-sm-7 col-xs-10 no_padding_right">
                         <form novalidate class="right" ng-show="isActive('www') || isActive('website')" ng-submit="">
@@ -143,7 +144,7 @@
                                 <span class="input-group-btn input-space">
                                     <button id="web_translateButton" ng-click="updateWebsite()" ng-show="website.status=='translated' || website.status=='error' || website.status=='loading' || website.status=='translating' || website.status=='initial' || website.status=='ready' || website.status=='loaded'" class="btn btn-default web_button"><span class="hidden-xs" data-text="translateButton"></span><span class="visible-xs glyphicon glyphicon-triangle-right"></span></button>
                                 </span>
-
+                                <a class="restoreButton button hide" data-text="restoreButton" data-title="restoreButton"></a>
                             </div>
                             <div class="LanguageSelect w">
                                 <div class="translateLanguageContainer no_padding_left no_padding_right" ng-show="website.languagesReady=='yes'">

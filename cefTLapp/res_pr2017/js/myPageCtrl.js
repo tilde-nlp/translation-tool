@@ -24,11 +24,23 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
     $scope.website.focus = false;
     $scope.website.samples = listOfWebsites();
     $scope.website.languagesReady = 'no';
-    $scope.updateWebsite = function () {
-        if (!$scope.website.url || $scope.website.url.lenght == 0) {
+    $scope.updateWebsite = function (exampleURL) {
+        exampleURL = exampleURL || 0;
 
+        if (!$scope.website.url && $scope.website.url.length == 0) {
+            return;
         }
-        else if ($scope.isActive('www') || $scope.website.status === 'initial') {
+
+        if (exampleURL === 'et') {
+            $('#web_source_lang_div .options li').each(function () {
+                if ($(this).attr('data-raw-value') === 'en') {
+                    $(this).click();
+                    return false;
+                }
+            });
+        }
+
+        if ($scope.isActive('www') || $scope.website.status === 'initial') {
             $location.path('/website');//?embeddedStyle=noUI
             window.open($scope.website.base + "/Translate/WebsiteEmbedded?embeddedStyle=noUI&appId=Tilde|EU Presidency|Web", "websiteFrame");
             $scope.website.frame = jQuery("#websiteFrame")[0].contentWindow;
@@ -214,6 +226,8 @@ app.controller('TranslateCtrl', function ($scope, $routeParams, $rootScope) {
     initTextWidget($scope, $rootScope);
 });
 
+
+
 function initTextWidget($scope, $rootScope) {
     var textWidget = new Tilde.TranslatorWidget('#textWidget', {
         _language: 'en',
@@ -317,15 +331,9 @@ app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
 });
 
 app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootScope) {
-
+    
     $scope.website.reset();
-
-    //if (typeof $widget === "undefined") {
-        initTextWidget($scope, $rootScope);
-    //}
-    //else {
-    //    $scope.website.languagesReady = 'yes';
-    //}
+    initTextWidget($scope, $rootScope);
 
     $scope.website.systemUpdated = function () {
         jQuery("#websiteFrame")[0].contentWindow.postMessage(
@@ -489,12 +497,12 @@ app.directive('hideBlink', function () {
 
 function listOfWebsites() {
     return [
-        { "url": "www.letonika.lv", "title": "Letonika.lv", "description": "Online encyclopedia" },
-        { "url": "www.lsm.lv", "title": "LSM.lv", "description": "Public news service" },
-        { "url": "www.diena.lv", "title": "Diena", "description": "Daily newspaper" },
-        { "url": "www.db.lv", "title": "db.lv", "description": "Business news" },
-        { "url": "www.delfi.lv", "title": "Delfi", "description": "News site" },
-        { "url": "www.tvnet.lv", "title": "TVNET ", "description": "News site" }
+        { "url": "www.delfi.ee", "title": "Delfi", "description": "News site" },
+        { "url": "ekspress.delfi.ee", "title": "Eesti Ekspress", "description": "News site" },
+        { "url": "www.postimees.ee", "title": "Postimees", "description": "Business news" },
+        { "url": "www.err.ee", "title": "ERR.ee", "description": "News site" },
+        { "url": "www.aripaev.ee", "title": "Äripäev", "description": "News site" },
+        { "url": "eestipaevaleht.se", "title": "Eesti Päevaleht", "description": "News site" }
     ];
 }
 

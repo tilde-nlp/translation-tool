@@ -78,7 +78,7 @@
                     <div class="col-sm-5 col-xs-7 no_padding_left">
                         <div id="main_title">
                             <h1><a href="https://www.eu2017.ee/" target="_blank" id="main_logo" title="https://www.eu2017.ee/">Translate 2017</a></h1>
-                            <p id ="main_coop">In cooperation with the Estonian Presidency of the Council of the EU</p>
+                            <p id ="main_coop">in cooperation with the Estonian Presidency of the Council of the EU</p>
                         </div>
                     </div>
                     <div class="col-sm-4 col-sm-offset-3 col-xs-5 no_padding_right" id="main_menu">
@@ -179,6 +179,25 @@
         </div>
        
 
+
+        <div ng-show="isActive('website') || isActive('www')" style="clear: both;" class="restricted">
+            <div id="web_links_container" class="container no_padding_left no_padding_right">
+                <div id="websiteLinks">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12 no_padding_left no_padding_right">
+                            <p id="web_links_about">Links to Estonian media and information resources:</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-sm-6 col-xs-6 no_padding_left no_padding_right" ng-repeat="sample in website.samples">
+                            <h1><a href="" ng-click="website.url=sample.url; updateWebsite('et');">{{sample.title}} <span class="glyphicon glyphicon-chevron-right"></span></a></h1>
+                            <p><span>{{sample.description}}</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div ng-show="isActive('website') && website.status!='initial'" id="websiteFrameContainer">
             <!--<div ng-show="website.status=='loading' || website.status=='translating' || website.status=='error'" class="infoMessage">
                 <center ng-show="website.status=='translating' || website.status=='error'">Translation in progress</center>
@@ -190,9 +209,11 @@
             <iframe id="websiteFrame" name="websiteFrame" src="about:blank" frameborder="0"></iframe>
         </div>
         <div ng-hide="isActive('website') || isActive('www')" ng-view></div>
+
+
     </div>
 
-    <div ng-show="isActive('home')" style="visibility:hidden;" id="textWidget"></div>
+    <div ng-show="isActive('home')" style="visibility: hidden;" id="textWidget"></div>
 
     <!--<div class="tilde" ng-hide="isActive('home') || isActive('about') || isActive('mobileApp')">
         Developed by <a class=" red" href="http://www.tilde.com" target="_blank">

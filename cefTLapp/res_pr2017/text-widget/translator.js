@@ -1196,7 +1196,7 @@ uiResources = $.extend(true, uiResources, {
     },
     'ee': {
         "clearTranslation": "Tühjenda",
-        "sourceTextTooltip": "Sisestage tekst, mida soovite tõlkida...",
+        "sourceTextTooltip": "Sisesta tekst, mida soovid tõlkida...",
         "noInternet": "No internet connection",
         "targetTextTooltip": "Masintõlge aitab teksti sisust aru saada, kuid ei asenda inimtõlget."
     },

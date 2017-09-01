@@ -26,8 +26,11 @@ body {
     margin-top: 0.875em;
 }
 
-#main_logo_translate2017 {
+#logo_translate2017_wrapper {
     cursor: pointer;
+    margin-top: 34px;
+    margin-bottom: 34px;
+    margin-left: 34px;
 }
 
 #main_title {
@@ -37,30 +40,26 @@ body {
     float: left;
 }
 
-    #main_title h1 {
-        height: 2.5rem;
-        align-self: center;
-        font-size: 1.75rem;
-        line-height: 2rem;
-        color: black;
-        text-align: left;
-        font-weight: normal;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        white-space: nowrap;
-        /*cursor: default;*/
-        margin-top: 39px;
-        margin-bottom: 29px;
-        margin-left: 34px;
-        vertical-align: middle;
-        display: table-cell;
-    }
+#main_logo_translate2017 {
+    height: 2.5rem;
+    align-self: center;
+    font-size: 1.75rem;
+    line-height: 2rem;
+    color: black;
+    text-align: left;
+    font-weight: normal;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    white-space: nowrap;
+    /*cursor: default;*/
+    vertical-align: middle;
+    display: table-cell;
+}
 
     #main_coop {
         position: absolute;
-        top: 4.5rem;
         left: 0;
         padding-left: 105px;
         width: 600px;
@@ -127,14 +126,11 @@ body {
     transition: all 240ms ease-out;
 }
 
-    .dropdown-menu li {
-        padding-top: 0.8rem;
-        padding-bottom: 0.8rem;
-    }
-
         .dropdown-menu li a {
             font-weight: 600;
             font-size: 0.8rem;
+            padding-top: 0.8rem;
+            padding-bottom: 0.8rem;
         }
 
 
@@ -1089,19 +1085,6 @@ div.fancy-select div.trigger {
     font-size: 0px;
 }
 
-/*IE only*/
-@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-    #main_logo_eu2017 {
-        padding-left: 100px;
-    }
-}
-
-/* MS Edge and IE */
-_:-ms-lang(x), #main_title {
-    margin-top: 0.67em;
-    margin-bottom: 0.67em;
-}
-
 @media (max-width: 898px) {
     .web_transl_types {
         margin-right: 0px;
@@ -1245,7 +1228,7 @@ _:-ms-lang(x), #main_title {
 }
 
 @media (max-width: 400px) {
-    #main_logo_translate2017 {
+    #logo_translate2017_wrapper {
         margin-left: 5px !important;
     }
 
@@ -1274,7 +1257,7 @@ _:-ms-lang(x), #main_title {
         margin-left: 0;
     }
 
-    #main_title h1 {
+    #main_logo_translate2017 {
         margin-bottom: 0;
     }
 
@@ -1468,7 +1451,7 @@ _:-ms-lang(x), #main_title {
         margin-bottom: 8px;
     }
 
-    #main_title h1 {
+    #main_logo_translate2017 {
         height: 56px;
     }
 

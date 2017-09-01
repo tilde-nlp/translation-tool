@@ -206,8 +206,7 @@ button.lang_select:focus {
     color: black !important;
 }
 
-/*#transl_types a:hover, */
-#transl_types a:active, #transl_types a.active {
+#transl_types a.active {
     color: #0092ff !important;
 }
 
@@ -259,6 +258,10 @@ button.lang_select:focus {
 
 #widget_section {
     padding-top: 1rem;
+}
+
+#widget_section .container {
+    width: 100%;
 }
 
 #transl_types, .row.white_top {
@@ -323,7 +326,7 @@ div.fancy-select div.trigger {
     background-image: url('../img/TextDark.svg');
 }
 
-    .transl_text.active, .transl_text:active {
+    .transl_text.active {
         background-image: url('../img/Text.svg');
     }
 
@@ -331,7 +334,7 @@ div.fancy-select div.trigger {
     background-image: url('../img/DocDark.svg');
 }
 
-    .transl_document.active, .transl_document:active, .file .qq-upload-button {
+    .transl_document.active, .file .qq-upload-button {
         background-image: url('../img/Doc.svg');
     }
 
@@ -339,7 +342,7 @@ div.fancy-select div.trigger {
     background-image: url('../img/WebDark.svg');
 }
 
-    .transl_website.active, .transl_website:active {
+    .transl_website.active {
         background-image: url('../img/Web.svg');
     }
 
@@ -421,6 +424,7 @@ div.fancy-select div.trigger {
 .text .translateTextResult, .text .translateTextSource {
     text-align: justify;
     overflow: auto;
+    min-width: 180px;
 }
 
 .text .translateTextTempSourceContainer, .translateTextSource, .translateTextResult {
@@ -615,6 +619,10 @@ div.fancy-select div.trigger {
 
 /*/doc widget*/
 /*web widget*/
+iframe {
+    background: #FFFFFF;
+}
+
 .web_container {
     padding-right: 15px;
     padding-left: 15px;
@@ -1088,6 +1096,7 @@ div.fancy-select div.trigger {
 @media (max-width: 898px) {
     .web_transl_types {
         margin-right: 0px;
+        margin-left: 10px;
     }
 
     #web_menu .options li {

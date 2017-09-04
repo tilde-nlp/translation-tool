@@ -4074,7 +4074,6 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
 
             var fileName = $('[name = "file"]');
-            console.log(fileName);
 
             authHeaders = {
                 'client-id': $widget.settings._clientId

@@ -198,8 +198,13 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4 col-sm-6 col-xs-6 no_padding_left no_padding_right" ng-repeat="sample in website.samples">
-                            <h1><a href="" ng-click="website.url=sample.url; updateWebsite('et');">{{sample.title}} <span class="glyphicon glyphicon-chevron-right"></span></a></h1>
-                            <p><span>{{sample.description}}</span></p>
+                            <div class="sample_first_section">
+                                <h1><a href="" ng-click="website.url=sample.url; updateWebsite('et');">{{sample.title}} <span class="glyphicon glyphicon-chevron-right"></span></a></h1>
+                                <p><span>{{sample.description}}</span></p>
+                            </div>
+                            <div class="sample_second_section">
+                                <a href="" ng-click="website.url=sample.url; updateWebsite('et');"><div style="background: {{sample.image}};" class="sample_logo"></div></a>
+                            </div>
                         </div>
                     </div>
                 </div>

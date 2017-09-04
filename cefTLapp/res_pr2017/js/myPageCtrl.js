@@ -497,12 +497,12 @@ app.directive('hideBlink', function () {
 
 function listOfWebsites() {
     return [
-        { "url": "www.delfi.ee", "title": "Delfi", "description": "News site" },
-        { "url": "ekspress.delfi.ee", "title": "Eesti Ekspress", "description": "News site" },
-        { "url": "www.postimees.ee", "title": "Postimees", "description": "Business news" },
-        { "url": "www.err.ee", "title": "ERR.ee", "description": "News site" },
-        { "url": "www.aripaev.ee", "title": "Äripäev", "description": "News site" },
-        { "url": "eestipaevaleht.se", "title": "Eesti Päevaleht", "description": "News site" }
+        { "url": "www.delfi.ee", "title": "Delfi", "description": "News site", "image": "url('../img/examples/delfi.png')" },
+        { "url": "ekspress.delfi.ee", "title": "Eesti Ekspress", "description": "News site", "image": "url('../img/examples/eesti_ekspress.jpg')" },
+        { "url": "www.postimees.ee", "title": "Postimees", "description": "Business news", "image": "url('../img/examples/postimees.png')" },
+        { "url": "www.err.ee", "title": "ERR.ee", "description": "News site", "image": "url('../img/examples/err.jpg')" },
+        { "url": "www.aripaev.ee", "title": "Äripäev", "description": "News site", "image": "url('../img/examples/aripaev.png')" },
+        { "url": "eesti.ee", "title": "Eesti.ee", "description": "A state portal „one stop shop“ to public sector resources", "image": "url('../img/examples/eesti.png')" }
     ];
 }
 

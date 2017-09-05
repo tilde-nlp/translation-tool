@@ -27,14 +27,17 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
     $scope.updateWebsite = function (exampleURL) {
         exampleURL = exampleURL || 0;
 
-        if (!$scope.website.url && $scope.website.url.length == 0) {
+        if (!$scope.website.url || $scope.website.url.length == 0) {
+
             return;
         }
 
         if (exampleURL === 'et') {
+            
             $('#web_source_lang_div .options li').each(function () {
-                if ($(this).attr('data-raw-value') === 'en') {
+                if ($(this).attr('data-raw-value') === 'et') {
                     $(this).click();
+                    console.log('stop2');
                     return false;
                 }
             });
@@ -330,7 +333,7 @@ app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
     $scope.setLanguage($rootScope.language);
 });
 
-app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootScope) {
+app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootScope, $translate) {
     
     $scope.website.reset();
     initTextWidget($scope, $rootScope);

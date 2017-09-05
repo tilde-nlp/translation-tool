@@ -680,7 +680,6 @@ iframe {
 
 .web_button {
     background-color: #0092ff;
-    /*width: 94px;*/
     height: 31px;
     box-shadow: none;
     border: 1px solid #0092ff;
@@ -697,6 +696,8 @@ iframe {
         border: 1px solid #0092ff !important;
         color: white !important;
     }
+
+
 
 #web_main .swapLanguage {
     margin-right: 0px;

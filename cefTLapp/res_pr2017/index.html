@@ -135,10 +135,10 @@
         <div class="section" id="web_section" ng-show="isActive('website') || isActive('www')">
             <div class="web_container">
                 <div class="row" id="web_menu">
-                    <div id="web_logo" class="col-sm-1 col-xs-2 no_padding_left">
+                    <div id="web_logo" class="col-sm-1 hidden-xs no_padding_left">
                         <a href="https://www.eu2017.ee/" target="_blank" title="https://www.eu2017.ee/"><img src="img/EU2017.svg" alt="EU2017.EE" title="EU Presidency Translator" /></a>
                     </div>
-                    <div id="web_main" class="col-sm-7 col-xs-10 no_padding_right">
+                    <div id="web_main" class="col-sm-7 col-xs-12 no_padding_right">
                         <form novalidate class="right" ng-show="isActive('www') || isActive('website')" ng-submit="">
                             <div id="address" class="input-group">
                                 <input type="text"
@@ -150,7 +150,7 @@
                                        ng-disabled="false && website.status=='translating'"
                                        required focus-on="website.focus" />
                                 <span class="input-group-btn input-space">
-                                    <button id="web_translateButton" ng-click="updateWebsite()" ng-show="website.status=='translated' || website.status=='error' || website.status=='loading' || website.status=='translating' || website.status=='initial' || website.status=='ready' || website.status=='loaded'" class="btn btn-default web_button"><span class="hidden-xs" data-text="translateButton"></span><span class="visible-xs glyphicon glyphicon-triangle-right"></span></button>
+                                    <button id="web_translateButton" ng-click="updateWebsite()" ng-show="website.status=='translated' || website.status=='error' || website.status=='loading' || website.status=='translating' || website.status=='initial' || website.status=='ready' || website.status=='loaded'" class="btn btn-default web_button"><span class="glyphicon glyphicon-search"></span></button>
                                 </span>
                                 <a class="restoreButton button hide" data-text="restoreButton" data-title="restoreButton"></a>
                             </div>
@@ -161,10 +161,10 @@
                                         <select id="web_source_lang" class="translateSourceLang"></select>
                                         <!--<select class="translateSystem"></select>-->
                                     </div>
-                                    <div id="web_swap_language_div" class="col-sm-1 col-sm-offset-3 translate_column_height col-xs-1 no_padding_left no_padding_right web_transl_types">
+                                    <div id="web_swap_language_div" class="col-sm-1 col-sm-offset-1 translate_column_height col-xs-1 no_padding_left no_padding_right web_transl_types">
                                         <a data-title="swapLanguage" id="webSwapLanguage" class="swapLanguage hide"></a>
                                     </div>
-                                    <div id="web_target_lang_div" class="col-sm-2 translate_column_height col-xs-offset-1 col-xs-3 no_padding_left no_padding_right web_transl_types">
+                                    <div id="web_target_lang_div" class="col-sm-3 col-sm-offset-2 translate_column_height col-xs-4 no_padding_left no_padding_right web_transl_types">
                                         <div data-text="targetSystem" class="translateTargetSystemLabel hidden-xs"></div>
                                         <select id="web_target_lang" class="translateTargetLang"></select>
                                     </div>

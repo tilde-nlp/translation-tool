@@ -14,6 +14,9 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         return active;
     };
 
+   
+
+
     $scope.website = {};
     $scope.website.system = '';
     $scope.website.base = "https://readymt.tilde.com"; //https://hugo.lv/en";
@@ -22,7 +25,7 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
     $scope.website.freeze = false;
     $scope.website.status = 'initial';
     $scope.website.focus = false;
-    $scope.website.samples = listOfWebsites();
+    $scope.website.samples = listOfWebsites();   
     $scope.website.languagesReady = 'no';
     $scope.updateWebsite = function (exampleURL) {
         exampleURL = exampleURL || 0;
@@ -37,7 +40,6 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
             $('#web_source_lang_div .options li').each(function () {
                 if ($(this).attr('data-raw-value') === 'et') {
                     $(this).click();
-                    console.log('stop2');
                     return false;
                 }
             });
@@ -94,8 +96,6 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         $scope.website.loadUrl(true);
     };
 
-
-
     $scope.website.loadUrl = function (translateAfterLoad) {
         //console.log("Es: loadURL + translate it:  " + $scope.website.url);
         $scope.website.status = 'loading';
@@ -125,6 +125,13 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         if ($event.which === 13) {
             $scope.website.loadUrl();
         }
+    }
+
+    $scope.websiteHasBeenInitiated = function () {
+        if ($scope.isActive('website') && $scope.website.status != 'initial') {
+            return true;
+        }
+        return false;
     }
 
 
@@ -220,7 +227,7 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         catch (err) {
             console.log("Failed to switch languages: " + err);
         }
-    };   
+    };
 });
 
 app.controller('TranslateCtrl', function ($scope, $routeParams, $rootScope) {
@@ -334,7 +341,6 @@ app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
 });
 
 app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootScope, $translate) {
-    
     $scope.website.reset();
     initTextWidget($scope, $rootScope);
 
@@ -498,14 +504,14 @@ app.directive('hideBlink', function () {
 
 });
 
-function listOfWebsites() {
+function listOfWebsites(lang) {
     return [
-        { "url": "www.delfi.ee", "title": "Delfi", "description": "News site", "image": "url('../img/examples/delfi.png')" },
-        { "url": "ekspress.delfi.ee", "title": "Eesti Ekspress", "description": "News site", "image": "url('../img/examples/eesti_ekspress.jpg')" },
-        { "url": "www.postimees.ee", "title": "Postimees", "description": "Business news", "image": "url('../img/examples/postimees.png')" },
-        { "url": "www.err.ee", "title": "ERR.ee", "description": "News site", "image": "url('../img/examples/err.jpg')" },
-        { "url": "www.aripaev.ee", "title": "Äripäev", "description": "News site", "image": "url('../img/examples/aripaev.png')" },
-        { "url": "eesti.ee", "title": "Eesti.ee", "description": "A state portal „one stop shop“ to public sector resources", "image": "url('../img/examples/eesti.png')" }
+        { "url": "www.delfi.ee", "title": "Delfi", "description": "News site", "description_ee": "Uudiste lehekülg","image": "url('../img/examples/delfi.png')" },
+        { "url": "ekspress.delfi.ee", "title": "Eesti Ekspress", "description": "News site", "description_ee": "Uudiste lehekülg", "image": "url('../img/examples/eesti_ekspress.png')" },
+        { "url": "www.postimees.ee", "title": "Postimees", "description": "Business news", "description_ee": "Äriuudised", "image": "url('../img/examples/postimees.png')" },
+        { "url": "www.err.ee", "title": "ERR.ee", "description": "News site", "description_ee": "Uudiste lehekülg", "image": "url('../img/examples/err.png')" },
+        { "url": "www.aripaev.ee", "title": "Äripäev", "description": "News site", "description_ee": "Uudiste lehekülg", "image": "url('../img/examples/aripaev.png')" },
+        { "url": "eesti.ee", "title": "Eesti.ee", "description": "Public e-services", "description_ee": "Avalikud e-teenused", "image": "url('../img/examples/eesti.png')" }
     ];
 }
 

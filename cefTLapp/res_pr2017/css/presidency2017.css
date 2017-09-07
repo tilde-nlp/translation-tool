@@ -11,6 +11,10 @@ body {
     outline: none !important;
 }
 
+.glyphicon {
+    top: 0;
+}
+
 #main {
     background-color: #FFFFFF;
     z-index: -10000;
@@ -675,7 +679,7 @@ iframe {
 }
 
 .input-group-btn.input-space {
-    padding-left: 15px;
+    padding-left: 10px;
 }
 
 .web_button {
@@ -697,7 +701,11 @@ iframe {
         color: white !important;
     }
 
-
+#web_refresh_button {
+    padding-right: 5px;
+    padding-left: 5px;
+    margin-right: 10px;
+}
 
 #web_main .swapLanguage {
     margin-right: 0px;
@@ -801,7 +809,8 @@ iframe {
     height: 70px;
     background-size: contain !important;
     background-repeat: no-repeat !important;
-    background-position: right center !important;
+    background-position: left top !important;
+    margin-top: 20px;
 }
 
 
@@ -1112,9 +1121,8 @@ iframe {
 
 
 @media (max-width: 898px) {
-    .web_transl_types {
+    #web_source_lang_div {
         margin-right: 0px;
-        margin-left: 10px;
     }
 
     #web_menu .options li {
@@ -1132,7 +1140,7 @@ iframe {
 }
 
 
-@media (max-width: 845px) {
+@media (max-width: 844px) {
     .row {
         margin-left: 10px;
         margin-right: 10px;
@@ -1157,6 +1165,13 @@ iframe {
     .sample_second_section {
         width: 120px;
     }
+    #web_logo {
+        display: none;
+    }
+
+    #web_main {
+        padding-left: 0px;
+    }
 }
 
 @media (max-width: 800px) {
@@ -1166,10 +1181,10 @@ iframe {
 }
 
 @media (max-width: 780px) {
-    #web_logo img {
+    /*#web_logo img {
         margin-left: 0px;
         margin-right: 5px;
-    }
+    }*/
 }
 
 @media (max-width: 767px) {
@@ -1226,10 +1241,6 @@ iframe {
     #plugin_agreement {
         float: left;
     }
-
-    #web_links_container {
-        margin-left: 20%;
-    }
 }
 
 @media (max-width: 612px) {
@@ -1263,9 +1274,9 @@ iframe {
         margin-left: 5px !important;
     }
 
-    #web_logo img {
+    /*#web_logo img {
         margin-left: -12px;
-    }
+    }*/
 
     #web_links_container {
         margin-left: 5%;
@@ -1478,8 +1489,13 @@ iframe {
     }
 
     #dropdown_button, #language_selection {
-        margin-top: 16px !important;
+        margin-top: 0px !important;
         margin-bottom: 8px;
+    }
+
+    #logo_translate2017_wrapper {
+        margin-top: 12px;
+        margin-bottom: 0px;
     }
 
     #main_logo_translate2017 {

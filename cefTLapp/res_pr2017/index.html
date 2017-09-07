@@ -206,7 +206,9 @@
                                 <p><span ng-bind="(language === languages[1] && sample.description_ee) || (sample.description)"></span></p>
                             </div>
                             <div class="sample_second_section">
-                                <a href="" ng-click="website.url=sample.url; updateWebsite('et');"><div style="background: {{sample.image}};" class="sample_logo"></div></a>
+                                <a href="" ng-click="website.url=sample.url; updateWebsite('et');">
+                                    <div style="background: {{sample.image}}" class="sample_logo"></div>
+                                </a>
                             </div>
                         </div>
                     </div>

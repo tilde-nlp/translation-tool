@@ -805,9 +805,9 @@ iframe {
 }
 
 .sample_logo {
-    width: 100px;
-    height: 70px;
-    background-size: contain !important;
+    width: 149px;
+    height: 53px;
+    background-size: auto auto !important;
     background-repeat: no-repeat !important;
     background-position: left top !important;
     margin-top: 20px;

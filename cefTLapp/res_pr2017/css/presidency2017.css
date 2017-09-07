@@ -767,7 +767,7 @@ iframe {
 }
 
 #web_links_container {
-    margin-left: 10%;
+    margin-left: 5%;
     margin-top: 5%;
 }
 
@@ -801,7 +801,8 @@ iframe {
 
 .sample_second_section {
     float: left;
-    width: 100px;
+    /*width: 100px;*/
+    width: 149px;
 }
 
 .sample_logo {
@@ -1165,6 +1166,12 @@ iframe {
     .sample_second_section {
         width: 120px;
     }
+
+    .sample_logo {
+        width: 100px;
+        background-size: contain !important;
+    }
+
     #web_logo {
         display: none;
     }

@@ -1,42 +1,6 @@
 ﻿var $versionNumber = '1.22';
 
-app.controller("updateCtrl", function ($scope) {
-    $scope.version = $versionNumber;//possible values - text|website|  
-    $scope.url = 'https://saas.tilde.com/bb7_updateinfo/downloads/translate2015updates.js';//possible values - mobile|about
-    $scope.update = {
-        type: '',
-        title: '',
-        description: '',
-        url: ''
-    };
-    jQuery.ajax({
-        catche: false,
-        url: $scope.url,
-        dataType: "jsonp",
-        jsonp: false,
-        jsonpCallback: "applicationUpdates",
-        success: function (data) {
-            jQuery.each(data, function (i, update) {
-                console.log($scope.version.match(update.forVersion));
-                if ($scope.version.match(update.forVersion)) {
-                    $scope.update = update;
-                    $scope.$apply();
-                }
-            });
-        },
-        error: function (e, status, error) {
-            console.log(status);
-            console.log(error);
-        }
-    });
-});
-
-
-
-
-
-
-app.controller("myPageCtrl", function ($scope, $location, $translate) {
+app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope) {
     try {
         console.log("Location: " + document.location);
         console.log("Domain: " + document.domain);
@@ -50,28 +14,46 @@ app.controller("myPageCtrl", function ($scope, $location, $translate) {
         return active;
     };
 
+   
+
+
     $scope.website = {};
     $scope.website.system = '';
-    $scope.website.base = "https://hugo.lv/en"
+    $scope.website.base = "https://readymt.tilde.com"; //https://hugo.lv/en";
     $scope.website.url = '';
     $scope.website.errorMsg = '';
     $scope.website.freeze = false;
     $scope.website.status = 'initial';
     $scope.website.focus = false;
-    $scope.website.samples = listOfWebsites();
+    $scope.website.samples = listOfWebsites();   
     $scope.website.languagesReady = 'no';
-    $scope.updateWebsite = function () {
-        if (!$scope.website.url || $scope.website.url.lenght == 0) {
+    $scope.updateWebsite = function (exampleURL) {
+        exampleURL = exampleURL || 0;
 
+        if (!$scope.website.url || $scope.website.url.length == 0) {
+
+            return;
         }
-        else if ($scope.isActive('www')) {
+
+        if (exampleURL === 'et') {
+            
+            $('#web_source_lang_div .options li').each(function () {
+                if ($(this).attr('data-raw-value') === 'et') {
+                    $(this).click();
+                    return false;
+                }
+            });
+        }
+
+        if ($scope.isActive('www') || $scope.website.status === 'initial') {
             $location.path('/website');//?embeddedStyle=noUI
-            window.open($scope.website.base + "/Translate/WebsiteEmbedded?embeddedStyle=noUI&appId=presidency.desktop", "websiteFrame");
+            window.open($scope.website.base + "/Translate/WebsiteEmbedded?embeddedStyle=noUI&appId=Tilde|EU Presidency|Web", "websiteFrame");
             $scope.website.frame = jQuery("#websiteFrame")[0].contentWindow;
         } else {
             switch ($scope.website.status) {//initial|ready|loading|translating|loaded|translated
-                case "initial":
-                    break;
+                /*case "initial":
+                    $scope.initWebsite();
+                    break;*/
                 case "loading":
                 case "translating":
                     $scope.website.untranslate();
@@ -94,14 +76,28 @@ app.controller("myPageCtrl", function ($scope, $location, $translate) {
     };
 
     $scope.initWebsite = function () {
+        var data = [];
+
+        for (var i = 0; i < $widget.settings._systems.length; i++) {
+            var mySys = $widget.settings._systems[i]
+            data.push({
+                "id": mySys.ID,
+                "sourceLanguage": mySys.SourceLanguage.Code,
+                "targetLanguage": mySys.TargetLanguage.Code,
+                "name": mySys.Title ? mySys.Title.Text : mySys.ID,
+                "order": i
+            });
+        }
+
+        $scope.website.frame.postMessage(
+            { "message": "setSystemList", "systemList": data },
+            "*");
         $scope.website.changeSystem();
         $scope.website.loadUrl(true);
     };
 
-
-
     $scope.website.loadUrl = function (translateAfterLoad) {
-        console.log("Es: loadURL + translate it:  " + $scope.website.url);
+        //console.log("Es: loadURL + translate it:  " + $scope.website.url);
         $scope.website.status = 'loading';
         $scope.website.frame.postMessage(
             { "message": "loadUrl", "url": $scope.website.url, "translateAfterLoad": translateAfterLoad },
@@ -109,18 +105,18 @@ app.controller("myPageCtrl", function ($scope, $location, $translate) {
     }
 
     $scope.website.translate = function () {
-        console.log("Es: translate");
+        //console.log("Es: translate");
         $scope.website.frame.postMessage({ "message": "translate", },
             "*");
     }
 
     $scope.website.untranslate = function () {
-        console.log("Es: untranslate");
+        //console.log("Es: untranslate");
         $scope.website.frame.postMessage({ "message": "untranslate", }, "*");
     }
 
     $scope.website.changeSystem = function () {
-        console.log("Es: change system to " + $scope.website.system);
+        //console.log("Es: change system to " + $scope.website.system);
         jQuery("#websiteFrame")[0].contentWindow.postMessage({ "message": "changeSystem", "systemId": $scope.website.system },
           "*");
     }
@@ -129,6 +125,13 @@ app.controller("myPageCtrl", function ($scope, $location, $translate) {
         if ($event.which === 13) {
             $scope.website.loadUrl();
         }
+    }
+
+    $scope.websiteHasBeenInitiated = function () {
+        if ($scope.isActive('website') && $scope.website.status != 'initial') {
+            return true;
+        }
+        return false;
     }
 
 
@@ -153,37 +156,89 @@ app.controller("myPageCtrl", function ($scope, $location, $translate) {
         }
     };
 
-    $scope.language = 'en';
-    $scope.languages = ['en', 'ee'];
+    $scope.rulesVisible = false;
+    $scope.rulesAgreed = false;
+    // $scope.pluginURL = "http://tildecom-test.tilde.lv/sites/default/files/downloads/Tilde.MTProvider.msi";
+    $scope.pluginURL = "https://www.tilde.com/sites/default/files/downloads/EUPresidencyTranslator.MTProvider";
 
+    var isFirefox = typeof InstallTrigger !== 'undefined';
+    var isChrome = !!window.chrome && !!window.chrome.webstore;
+
+    if ( isChrome || isFirefox ) {
+        $scope.pluginURL += '.sdlplugin';
+    }
+    else {
+        $scope.pluginURL += '.zip';
+    }
+
+    $scope.getPlugin = function () {
+        var link = document.createElement('a');
+        link.href = $scope.pluginURL;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+    // $scope.language = 'en';
+    // $scope.languages = ['en', 'ee'];
+    
     $scope.localize = function (word) {
         var Estonian = {}
-        Estonian["English"] = "Īnglise";
+        Estonian["English"] = "Inglise";
         Estonian["Estonian"] = "Eesti";
+        Estonian["Inglise"] = "Inglise";
+        Estonian["Eesti"] = "Eesti";
 
-        if ($scope.language === 'ee') {
+        var English = {}
+        English["English"] = "English";
+        English["Estonian"] = "Estonian";
+        English["Inglise"] = "English";
+        English["Eesti"] = "Estonian";
+
+        if ($rootScope.language === 'ee') {
             return (Estonian[word]);
+        } else if ($rootScope.language === 'en') {
+            return (English[word]);
         }
 
         return word;
     }
 
-    $scope.updateLanguage = function () {
-        $translate.use($scope.language);
-        $widget.settings._language = $scope.language
-        $widget.retrieveSystemData(function () {
+    $scope.setLanguage = function (newLang) {
+        var isOk = false;
+        for (var i = 0; i < $rootScope.languages.length; i++) {
+            if ($rootScope.languages[i] === newLang) {
+                isOk = true;
+            }
+        }
+
+        if (!isOk) {
+            return;
+        }
+
+        $rootScope.language = newLang;
+        $translate.use($rootScope.language);
+
+        try {
+            $widget.settings._language = $rootScope.language;
             $widget.initPlugins();
-        });
+            $widget.initWidgetLanguage();
+            localizeLanguages($scope, $rootScope);   
+        }
+        catch (err) {
+            console.log("Failed to switch languages: " + err);
+        }
     };
 });
 
-app.controller('TranslateCtrl', function ($scope, $routeParams) {
+app.controller('TranslateCtrl', function ($scope, $routeParams, $rootScope) {
     $scope.website.reset();
     $('#fileWidget').empty();
-    initTextWidget($scope);
+    initTextWidget($scope, $rootScope);
 });
 
-function initTextWidget($scope, mustApply) {
+
+
+function initTextWidget($scope, $rootScope) {
     var textWidget = new Tilde.TranslatorWidget('#textWidget', {
         _language: 'en',
         _systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList',
@@ -196,6 +251,7 @@ function initTextWidget($scope, mustApply) {
 
             if ($scope.isActive('www') || $scope.isActive('website')) {
                 initLanguages($scope);
+                localizeLanguages($scope, $rootScope);
             }
             $(document)
                .keydown(function (e) {
@@ -213,6 +269,7 @@ function initTextWidget($scope, mustApply) {
         },
         _replaceContainer: false
     });
+    $scope.setLanguage($rootScope.language);
 }
 
 function isCharacterKeyPress(evt) {
@@ -224,7 +281,7 @@ function isCharacterKeyPress(evt) {
     return false;
 }
 
-app.controller('DocumentCtrl', function ($scope, $routeParams) {
+app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
     $scope.website.reset();
     $scope.website.url = '';
     $('#textWidget').empty();
@@ -246,22 +303,33 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
         _landingView: true,
         _getFilteredSystems: false,
         _allowedFileTypes: [
-                     { ext: "doc", mime: "application/msword" },
-                     { ext: "docx", mime: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" },
-                     { ext: "xlsx", mime: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" },
-                     { ext: "pptx", mime: "application/vnd.openxmlformats-officedocument.presentationml.presentation" },
-                     { ext: "odt", mime: "application/vnd.oasis.opendocument.text" },
-                     { ext: "odp", mime: "application/vnd.oasis.opendocument.presentation" },
-                     { ext: "ods", mime: "application/vnd.oasis.opendocument.spreadsheet" },
-                     { ext: "rtf", mime: "﻿application/rtf" },
-                     { ext: "html", mime: "text/html" },
-                     { ext: "htm", mime: "text/html" },
-                     { ext: "xhtml", mime: "﻿﻿application/xhtml" },
-                     { ext: "xht", mime: "﻿application/xhtml+xml" },
-                     { ext: "txt", mime: "text/plain" }
+            { ext: "doc", mime: "application/msword" },
+            { ext: "docx", mime: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" },
+            { ext: "xlsx", mime: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" },
+            { ext: "pptx", mime: "application/vnd.openxmlformats-officedocument.presentationml.presentation" },
+            { ext: "odt", mime: "application/vnd.oasis.opendocument.text" },
+            { ext: "odp", mime: "application/vnd.oasis.opendocument.presentation" },
+            { ext: "ods", mime: "application/vnd.oasis.opendocument.spreadsheet" },
+            { ext: "rtf", mime: "﻿application/rtf" },
+            { ext: "html", mime: "text/html" },
+            { ext: "htm", mime: "text/html" },
+            { ext: "xhtml", mime: "﻿﻿application/xhtml" },
+            { ext: "xht", mime: "﻿application/xhtml+xml" },
+            { ext: "txt", mime: "text/plain" },
+            { ext: "fodt", mime: "application/vnd.oasis.opendocument.text" },
+            { ext: "fodp", mime: "application/vnd.oasis.opendocument.presentation" },
+            { ext: "fods", mime: "application/vnd.oasis.opendocument.spreadsheet" },
+            { ext: "tmx", mime: "text/xml" },
+            { ext: "xlf", mime: "application/x-xliff+xml" },
+            { ext: "xlif", mime: "application/xlif+xml" },
+            { ext: "xliff", mime: "application/xliff+xml" },
+            { ext: "sdlxliff", mime: "application/octet-stream" },
+            { ext: "ttx", mime: "application/octet-stream" },
+            { ext: "pages", mime: "application/x-iwork-pages-sffpages" }
         ],
         _onWidgetLoaded: function () {
             initLanguages($scope);
+            localizeLanguages($scope, $rootScope);
         },
         _onSystemChanged: function (id) {
             $scope.website.system = id;
@@ -269,31 +337,59 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
         },
         _replaceContainer: false
     });
-
+    $scope.setLanguage($rootScope.language);
 });
 
-app.controller('websiteTranslatorCtrl', function ($scope, $routeParams) {
+app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootScope, $translate) {
     $scope.website.reset();
-
-    if (typeof $widget == "undefined") {
-        initTextWidget($scope, true);
-    }
-    else {
-        $scope.website.languagesReady = 'yes';
-    }
+    initTextWidget($scope, $rootScope);
 
     $scope.website.systemUpdated = function () {
         jQuery("#websiteFrame")[0].contentWindow.postMessage(
                    { "method": "changeSystem", "systemId": $scope.website.system },
-                     $scope.website.base);
+                   $scope.website.base);
     };
     $scope.website.updateSystem = function (systemID) {
-        if ($scope.website.system == systemID) return false;
+        if ($scope.website.system === systemID) return false;
         $scope.website.system = systemID;
         setActiveSystem(systemID);
         return true;
     }
+
     jQuery("#url").click(function () { $(this).select(); });
+
+    $scope.localize = function (word) {
+        var Estonian = {}
+        Estonian["English"] = "Īnglise";
+        Estonian["Estonian"] = "Eesti";
+
+        if ($rootScope.language === 'ee') {
+            return (Estonian[word]);
+        }
+
+        return word;
+    }
+
+    $scope.initLang = function (newLang) {
+        $rootScope.language = newLang;
+        
+
+        try {
+            $translate.use($rootScope.language);
+            $widget.settings._language = $rootScope.language;
+            $widget.initPlugins();
+            $widget.initWidgetLanguage();
+            initLanguages($scope);
+        }
+        catch (err) {
+            console.log("Failed to switch languages: " + err);
+        }
+         //   $widget.settings._language = $rootScope.language;
+
+           // $widget.retrieveSystemData();
+    };
+
+    $scope.initLang($rootScope.language);
 });
 
 /*app.controller('homeCtrl', function ($scope, $routeParams) {
@@ -308,8 +404,11 @@ app.directive('ngMessage', function ($window) {
             angular.element($window).on('message', function (event) {
                 if (event.originalEvent) event = event.originalEvent;
                 if (event.data && event.data.message) {
-                    console.log("Tu: " + event.data.message);
+                    //console.log("Tu: " + event.data.message);
+                    //vstr = JSON.stringify(event.data, null, 4); // (Optional) beautiful indented output.
+                    //console.log(vstr); // Logs output to dev tools console.
 
+                        
                     switch (event.data.message) {
                         case "urlLoaded":
                             scope.website.url = event.data.url;
@@ -322,8 +421,8 @@ app.directive('ngMessage', function ($window) {
                             //scope.website.status = 'loaded';
                             break;
                         case "systemChanged":
-                            console.log("Tu: " + event.data.systemId);
-                            if (scope.website.updateSystem(event.data.systemId)) console.log("Es: system changed");
+                            //console.log("Tu: " + event.data.systemId);
+                            //if (scope.website.updateSystem(event.data.systemId)) console.log("Es: system changed");
                             scope.website.translate();
                             break;
                         case "translationStarted":
@@ -342,7 +441,7 @@ app.directive('ngMessage', function ($window) {
                             scope.initWebsite();
                             break;
                         case "error":
-                            console.log("Tu: Error - " + event.data.description);
+                            //console.log("Tu: Error - " + event.data.description);
                             scope.website.errorMsg = event.data.description;
                             scope.website.status = 'error';
                             break;
@@ -405,14 +504,14 @@ app.directive('hideBlink', function () {
 
 });
 
-function listOfWebsites() {
+function listOfWebsites(lang) {
     return [
-        { "url": "www.letonika.lv", "title": "Letonika.lv", "description": "Online encyclopedia" },
-        { "url": "www.lsm.lv", "title": "LSM.lv", "description": "Public news service" },
-        { "url": "www.diena.lv", "title": "Diena", "description": "Daily newspaper" },
-        { "url": "www.db.lv", "title": "db.lv", "description": "Business news" },
-        { "url": "www.delfi.lv", "title": "Delfi", "description": "News site" },
-        { "url": "www.tvnet.lv", "title": "TVNET ", "description": "News site" }
+        { "url": "www.delfi.ee", "title": "Delfi", "description": "News site", "description_ee": "Uudiste lehekülg","image": "url('../img/examples/delfi.png')" },
+        { "url": "ekspress.delfi.ee", "title": "Eesti Ekspress", "description": "News site", "description_ee": "Uudiste lehekülg", "image": "url('../img/examples/eesti_ekspress.png')" },
+        { "url": "www.postimees.ee", "title": "Postimees", "description": "Business news", "description_ee": "Äriuudised", "image": "url('../img/examples/postimees.png')" },
+        { "url": "www.err.ee", "title": "ERR.ee", "description": "News site", "description_ee": "Uudiste lehekülg", "image": "url('../img/examples/err.png')" },
+        { "url": "www.aripaev.ee", "title": "Äripäev", "description": "News site", "description_ee": "Uudiste lehekülg", "image": "url('../img/examples/aripaev.png')" },
+        { "url": "eesti.ee", "title": "Eesti.ee", "description": "Public e-services", "description_ee": "Avalikud e-teenused", "image": "url('../img/examples/eesti.png')" }
     ];
 }
 
@@ -427,12 +526,11 @@ function initEvents() {
 }
 
 function initLanguages($scope) {
-
     $.each($widget.settings._systems, function (idx, sys) {
         if ($('.w .translateSourceLang option[value="' + sys.SourceLanguage.Code + '"]').length == 0) {
             $('.w .translateSourceLang').append($('<option>', {
                 value: sys.SourceLanguage.Code,
-                text: sys.SourceLanguage.Name.Text
+                text: $scope.localize(sys.SourceLanguage.Name.Text)
             }));
         }
     });
@@ -484,6 +582,19 @@ function initLanguages($scope) {
     }, 0);
 }
 
+function localizeLanguages($scope, $rootScope) {
+    $('.fancy-select .trigger').each(function () {
+        $(this).html($scope.localize($(this).html()))
+    });
+    $('.fancy-select .option').each(function () {
+        $(this).html($scope.localize($(this).html()))
+    });
+
+    $('.fancy-select ul.options li').each(function () {
+        $(this).html($scope.localize($(this).html()));
+    });
+}
+
 function loadTargetLangList(source, selTarget, putSystemId) {
     $('.w .translateTargetLang').empty();
 
@@ -530,10 +641,13 @@ function setActiveSystem(systemId) {
         if (sys.ID === systemId) {
             src = sys.SourceLanguage.Code;
             trg = sys.TargetLanguage.Code;
+            return false;
         }
     });
 
+    $('.w .translateSourceLang option[selected="selected"]').removeAttr('selected');
     $('.w .translateSourceLang option[value="' + src + '"]').attr('selected', 'selected');
+
     if ($('.w .translateSourceLang') !== null) {
         $('.w .translateSourceLang').trigger('update.fs');
     }

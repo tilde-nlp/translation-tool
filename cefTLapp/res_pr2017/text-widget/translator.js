@@ -128,6 +128,24 @@ Tilde.TranslatorWidget.prototype = {
         }
     },
 
+    getAuthHeaders: function () {
+        var authHeaders = {};
+
+        if ($widget.settings._clientId !== null) {
+            authHeaders = {
+                'client-id': $widget.settings._clientId
+            }
+        }
+
+        if (!$widget.settings._apiIsInTheSameDomain) {
+            var websiteAuthCookie = $widget.readCookie("smts");
+            if (websiteAuthCookie) {
+                authHeaders["website-auth-cookie"] = websiteAuthCookie;
+            }
+        }
+        return authHeaders;
+    },
+
     retrieveSystemData: function (cbLoaded) {
         if ($widget.settings._systems !== null) {
             $widget.systemLoadComplete($widget.settings._systems);
@@ -230,6 +248,7 @@ Tilde.TranslatorWidget.prototype = {
         }
 
         if ($widget.settings._systemSelectType === 'language' || $widget.settings._systemSelectType === 'domain') {
+            
             // bind source lang list
             $.each($widget.settings._systems, function (idx, sys) {
                 if ($('.translateSourceLang option[value="' + sys.SourceLanguage.Code + '"]', $widget.settings.container).length == 0) {
@@ -256,6 +275,7 @@ Tilde.TranslatorWidget.prototype = {
                 }
 
                 $widget.fancySource = $('.translateSourceLang', $widget.settings.container);
+                
                 $widget.fancySource.fancySelect({
                     useNativeSelect: !$widget.settings._useFancySelect,
                     triggerTemplate: function (el) {
@@ -265,9 +285,17 @@ Tilde.TranslatorWidget.prototype = {
                 });
             }
 
+
             // swap system source and target
             if ($widget.settings._swapLanguages) {
                 $('.swapLanguage', $widget.settings.container).on('click', function () {
+                    $widget.swapSystemLanguages();
+                });
+
+
+                $('#webSwapLanguage').off('click');
+
+                $('#webSwapLanguage').on('click', function () {
                     $widget.swapSystemLanguages();
                 });
             }
@@ -325,6 +353,7 @@ Tilde.TranslatorWidget.prototype = {
             }
 
             $widget.fancyTarget = $('.translateTargetLang', $widget.settings.container);
+
             $widget.fancyTarget.fancySelect({
                 useNativeSelect: !$widget.settings._useFancySelect,
                 triggerTemplate: function (el) {
@@ -492,20 +521,46 @@ Tilde.TranslatorWidget.prototype = {
         if (systemId === $widget.activeSystemId) { return; }
 
         var src = '', trg = '';
+        
         $.each($widget.settings._systems, function (idx, sys) {
             if (sys.ID === systemId) {
                 src = sys.SourceLanguage.Code;
                 trg = sys.TargetLanguage.Code;
+                return false;
             }
         });
 
+        $('.translateSourceLang option[selected="selected"]', $widget.settings.container).removeAttr('selected');
         $('.translateSourceLang option[value="' + src + '"]', $widget.settings.container).attr('selected', 'selected');
 
         if ($widget.fancySource !== null) {
-            $widget.fancySource.trigger('update.fs');
-        }
+            var newTriggerText = $('.translateSourceLang option[value="' + src + '"]', $widget.settings.container).html();
+            newTriggerText = angular.element($("#my_translator_app")).scope().localize(newTriggerText);
+            $('#source_lang_div .trigger').first().html(newTriggerText);
+            $('#source_lang_div .options li').each(function () {
+                $(this).toggleClass('selected');
+            });
+           // $widget.fancySource.trigger('change.fs');
+        }   
 
         $widget.loadTargetLangList(src, trg, true);
+
+
+        $('.w .translateSourceLang option[selected="selected"]').removeAttr('selected');
+        $('.w .translateSourceLang option[value="' + src + '"]').attr('selected', 'selected');
+
+
+        if ($('.w .translateSourceLang') !== null) {
+            var newTriggerText = $('.w .translateSourceLang option[value="' + src + '"]').html();
+            newTriggerText = angular.element($("#my_translator_app")).scope().localize(newTriggerText);
+            $('.web_transl_types .trigger').first().html(newTriggerText);
+            $('.web_transl_types .options li').each(function () {
+                $(this).toggleClass('selected');
+            });
+        }
+
+        $widget.loadTargetLangListWeb(src, trg, true);
+
     },
 
     checkReverseSystem: function () {
@@ -532,18 +587,23 @@ Tilde.TranslatorWidget.prototype = {
     swapSystemLanguages: function () {
         var src = '', trg = '';
 
+        if (!$widget.activeSystemId) {
+            $widget.activeSystemId = $widget.settings._systems[0].ID;
+        }
         // get active source and target
         $.each($widget.settings._systems, function (idx, sys) {
-            if (sys.ID === $widget.activeSystemId) {
+            if (sys.ID == $widget.activeSystemId) {
                 src = sys.SourceLanguage.Code;
                 trg = sys.TargetLanguage.Code;
+                return false;
             }
         });
-
+        
         // find reverse
         $.each($widget.settings._systems, function (idx, sys) {
             if (sys.SourceLanguage.Code === trg && sys.TargetLanguage.Code === src) {
                 $widget.setActiveSystem(sys.ID);
+                return false;
             }
         });
     },
@@ -578,6 +638,17 @@ Tilde.TranslatorWidget.prototype = {
         //if ($widget.fancySource) $widget.fancySource.trigger('enable').trigger('update.fs');
         //if ($widget.fancyTarget) $widget.fancyTarget.trigger('enable').trigger('update.fs');
         //if ($widget.fancyDomain) $widget.fancyDomain.trigger('enable').trigger('update.fs');
+    },
+
+    readCookie: function (name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
     },
 
     loadTargetLangList: function (source, selTarget, putSystemId) {
@@ -615,6 +686,44 @@ Tilde.TranslatorWidget.prototype = {
         if ($widget.fancyTarget !== null) {
             $widget.fancyTarget.trigger('update.fs');
         }
+    },
+
+    loadTargetLangListWeb: function (source, selTarget, putSystemId) {
+        $('.w .translateTargetLang').empty();
+
+        $.each($widget.settings._systems, function (idx, sys) {
+            if (sys.SourceLanguage.Code === source) {
+                if (putSystemId) {
+                    // check unique in lang attribute
+                    if ($('.w .translateTargetLang option[lang="' + sys.TargetLanguage.Code + '"]').length === 0) {
+                        $('.w .translateTargetLang').append($('<option>', {
+                            value: sys.ID,
+                            text: sys.TargetLanguage.Name.Text,
+                            lang: sys.TargetLanguage.Code
+                        }));
+                    }
+                }
+                else {
+                    // check unique in value attribute
+                    if ($('.w .translateTargetLang option[value="' + sys.TargetLanguage.Code + '"]').length === 0) {
+                        $('.w .translateTargetLang').append($('<option>', {
+                            value: sys.TargetLanguage.Code,
+                            text: sys.TargetLanguage.Name.Text
+                        }));
+                    }
+                }
+            }
+        });
+
+        // select target
+        if (selTarget !== undefined && selTarget !== null) {
+            $('.w .translateTargetLang option[lang="' + selTarget + '"]').attr('selected', 'selected');
+        }
+
+        if ($('.w .translateTargetLang') !== null) {
+            $('.w .translateTargetLang').trigger('update.fs');
+        }
+
     },
 
     loadDomainList: function (source, target) {
@@ -663,7 +772,7 @@ Tilde.TranslatorWidget.prototype = {
             opts = {};
         }
         settings = $.extend({
-            useNativeSelect: true,
+            useNativeSelect: false,
             includeBlank: false,
             optionTemplate: function (optionEl) {
                 return optionEl.text();
@@ -675,9 +784,11 @@ Tilde.TranslatorWidget.prototype = {
         return this.each(function () {
             var copyOptionsToList, disabled, options, sel, trigger, updateTriggerText, wrapper;
             sel = $(this);
+
             if (sel.hasClass('fancified') || sel[0].tagName !== 'SELECT') {
                 return;
             }
+
             sel.addClass('fancified');
             if (settings.useNativeSelect) {
                 sel.css({
@@ -701,6 +812,7 @@ Tilde.TranslatorWidget.prototype = {
             }
             sel.wrap('<div class="fancy-select">');
             wrapper = sel.parent();
+            
             if (sel.data('class')) {
                 wrapper.addClass(sel.data('class'));
             }
@@ -716,9 +828,12 @@ Tilde.TranslatorWidget.prototype = {
             }
             updateTriggerText = function () {
                 var triggerHtml;
+
                 triggerHtml = settings.triggerTemplate(sel.find(':selected'));
-                return trigger.html(triggerHtml);
+                
+                return trigger.html(angular.element($("#my_translator_app")).scope().localize(triggerHtml));
             };
+
             sel.on('blur.fs', function () {
                 if (trigger.hasClass('open')) {
                     return setTimeout(function () {
@@ -853,6 +968,7 @@ Tilde.TranslatorWidget.prototype = {
                     opt = $(opt);
                     if (!opt.prop('disabled') && (opt.val() || settings.includeBlank)) {
                         optHtml = settings.optionTemplate(opt);
+
                         if (opt.prop('selected')) {
                             return options.append("<li data-raw-value=\"" + (opt.val()) + "\" class=\"selected\">" + angular.element($("#my_translator_app")).scope().localize(optHtml) + "</li>");
                         } else {
@@ -868,7 +984,6 @@ Tilde.TranslatorWidget.prototype = {
             return copyOptionsToList();
         });
     };
-
 }).call(this);
 ///#source 1 1 ../../widget_core/tilde.translator.widget.library.js
 /* tilde.translator.widget.LIBRARY.js */
@@ -1081,7 +1196,7 @@ uiResources = $.extend(true, uiResources, {
     },
     'ee': {
         "clearTranslation": "Tühjenda",
-        "sourceTextTooltip": "Sisestage tekst, mida soovite tõlkida...",
+        "sourceTextTooltip": "Sisesta tekst, mida soovid tõlkida...",
         "noInternet": "No internet connection",
         "targetTextTooltip": "Masintõlge aitab teksti sisust aru saada, kuid ei asenda inimtõlget."
     },
@@ -2649,7 +2764,6 @@ qq.FileUploaderBasic.prototype = {
     },
     _createUploadButton: function (element) {
         var self = this;
-
         return new qq.UploadButton({
             element: element,
             multiple: this._options.multiple && qq.UploadHandlerXhr.isSupported(),
@@ -2668,7 +2782,7 @@ qq.FileUploaderBasic.prototype = {
         } else {
             handlerClass = 'UploadHandlerForm';
         }
-
+        
         var handler = new qq[handlerClass]({
             debug: this._options.debug,
             action: this._options.action,
@@ -2795,9 +2909,9 @@ qq.FileUploaderBasic.prototype = {
         this._options.showMessage(message);
     },
     _formatFileName: function (name) {
-        if (name.length > 33) {
+        /*if (name.length > 33) {
             name = name.slice(0, 19) + '...' + name.slice(-13);
-        }
+        }*/
         return name;
     },
     _isAllowedExtension: function (fileName) {
@@ -3155,7 +3269,20 @@ qq.UploadButton.prototype = {
         }
 
         input.setAttribute("type", "file");
-        // input.setAttribute("accept", this._options.allowedMimetypes.join(', '));        
+        input.setAttribute("tabindex", "1");
+        // Edge browser does not open file picker dialog
+        // if there is application/xhtml+xml in accepted file type list
+        if (navigator.userAgent.indexOf("Edge") > -1 && this._options.allowedMimetypes) {
+            var filteredMimeTypes = [];
+            for (var counter = 0; counter < this._options.allowedMimetypes.length; counter++) {
+                if (this._options.allowedMimetypes[counter] != "application/xhtml+xml") {
+                    filteredMimeTypes.push(this._options.allowedMimetypes[counter]);
+                }
+            }
+            //input.setAttribute("accept", filteredMimeTypes.join(', '));
+        } else {
+            input.setAttribute("accept", this._options.allowedMimetypes.join(', '));
+        }      
         input.setAttribute("name", this._options.name);
 
         qq.css(input, {
@@ -3619,9 +3746,10 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
 uiResources = $.extend(true, uiResources, {
     'en': {
         "docTempTarget": "Machine translation results for documents help to understand the meaning of a source text, but do not equal translation by a human.",
-        "docDownload": "Download full translation",
+        "docDownload": "Download",
         "docCancel": "Cancel",
         "docUploadTooltip": "Upload document here to get a full translation",
+        "docUploadType": "Translation is supported for these document formats: {extensions}. UTF-8 or UTF-16 coding required.",
         "docUploadMsgType": "The file {file} format is not recognized. Translation is supported for these document formats: {extensions}.",
         "docUploadMsgSize": "File {file} is too large. Maximum file size is {sizeLimit}.",
         "docUploadMsgEmpty": "File {file} is empty. Please select a file with content.",
@@ -3642,6 +3770,7 @@ uiResources = $.extend(true, uiResources, {
         "docDownload": "Laadi alla",
         "docCancel": "Tühista",
         "docUploadTooltip": "Laadi dokument üles",
+        "docUploadType": "Tõlketugi on olemas järgmiste failivormingute puhul: {extensions}. Vajalik on kodeering UTF-8 või UTF-16.",
         "docUploadMsgType": "Faili \"{file}\" vorming on tundmatu. Tõlketugi on olemas järgmiste failivormingute puhul: {extensions}.",
         "docUploadMsgSize": "Fail \"{file}\" on liiga suur. Faili lubatud maksimummaht on {sizeLimit}.",
         "docUploadMsgEmpty": "Fail \"{file}\" on tühi. Valige andmeid sisaldav fail.",
@@ -3662,6 +3791,7 @@ uiResources = $.extend(true, uiResources, {
         "docDownload": "Atvērt",
         "docCancel": "Atcelt",
         "docUploadTooltip": "Augšupielādēt dokumentu",
+        "docUploadType": "Tulkošana tiek atbalstīta šādiem dokumentu formātiem: {extensions}. Nepieciešams UTF-8 vai UTF-16 kodējums.",
         "docUploadMsgType": "Faila {file} formāts nav atpazīts. Tulkošana tiek atbalstīta šādiem dokumentu formātiem: {extensions}.",
         "docUploadMsgSize": "Fails {file} ir pārāk liels. Maksimālais lielums ir {sizeLimit}.",
         "docUploadMsgEmpty": "Fails {file} ir tukšs. Izvēlieties failu, kurā ir saturs.",
@@ -3681,6 +3811,7 @@ uiResources = $.extend(true, uiResources, {
         "docDownload": "Открыть",
         "docCancel": "Отменить",
         "docUploadTooltip": "Загрузить документ",
+        "docUploadType": "Translation is supported for these document formats: {extensions}. UTF-8 or UTF-16 coding required.",
         "docUploadMsgType": "Формат файла {file} не опознан. Перевод поддерживается для следующих форматов документов: {extensions}.",
         "docUploadMsgSize": "Файл {file} слишком большой. Максимальный размер: {sizeLimit}.",
         "docUploadMsgEmpty": "Файл {file} пустой. Выберите файл с содержимым.",
@@ -3741,12 +3872,12 @@ uiResources = $.extend(true, uiResources, {
 /* tilde.translator.widget.TRANSLATEFILE.js */
 
 $.extend(Tilde.TranslatorWidgetDefaultOptions, {
-    _uploadUrl: 'https://hugo.lv/Files/Upload',
-    _deleteUrl: 'https://hugo.lv/Files/Delete',
-    _downloadUrl: 'https://hugo.lv/Files/Download',
-    _translateUrl: 'https://hugo.lv/Files/StartTranslation',
-    _previewUrl: 'https://hugo.lv/Files/GetDocumentPreview',
-    _checkStatusUrl: 'https://hugo.lv/Files/GetStatus',
+    _uploadUrl: 'https://letsmt.eu/Files/Upload',
+    _deleteUrl: 'https://letsmt.eu/Files/Delete',
+    _downloadUrl: 'https://letsmt.eu/Files/Download',
+    _translateUrl: 'https://letsmt.eu/Files/StartTranslation',
+    _previewUrl: 'https://letsmt.eu/Files/GetDocumentPreview',
+    _checkStatusUrl: 'https://letsmt.eu/Files/GetStatus',
     _landingView: false, //intro box with tooltip
     _allowedFileTypes: [{ ext: "txt", mime: "text/plain" }], //file translation types
     _uploadSizeLimit: 1024 * 1024 * 15, //doc translate upload size limit (default 15MB)
@@ -3776,13 +3907,13 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
         // landing intro box
         if ($widget.settings._landingView) {
-            $widget.filePluginShowIntro();
+            //$widget.filePluginShowIntro();
         }
 
         var extArray = [];
         var mimeArray = [];
         for (var idx in $widget.settings._allowedFileTypes) {
-            var item = $widget.settings._allowedFileTypes[idx];            
+            var item = $widget.settings._allowedFileTypes[idx];
             if ($.inArray(item.ext, extArray) == -1) {
                 extArray.push(item.ext);
             }
@@ -3790,6 +3921,10 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 mimeArray.push(item.mime);
             }
         }
+
+
+        var docUploadType = uiResources[$widget.settings._language]['docUploadType'];
+        docUploadType = docUploadType.replace('{extensions}', '<b>' + extArray.join('</b>, <b>').toUpperCase() + '</b>');
 
         var uploader = new qq.FileUploader({
             element: document.getElementById('docUploadFile'),
@@ -3801,31 +3936,33 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             debug: false,
             sizeLimit: this.settings._upload_size_limit,
             template: '<div class="qq-uploader">' +
-                      ' <div class="qq-upload-drop-area"></div>' +
-                      '	<div href="#" class="qq-upload-button">' +
-                      '  <div class="qq-upload-button-image"></div>' +
-                      '  <div class="qq-upload-button-text">' +
-                      '     <span>' + uiResources[$widget.settings._language]['docUploadTooltip'] + '</span>' +
-                      '  </div>' +
-                      ' </div>' +
-                	  '	<ul class="qq-upload-list hide"></ul>' +
-                	  '</div>',
+            ' <div class="qq-upload-drop-area"></div>' +
+            '	<div href="#" class="qq-upload-button">' +
+            //'  <div class="qq-upload-button-image"></div>' +
+            //'  <div class="qq-upload-button-text">' +
+            '     <span>' + uiResources[$widget.settings._language]['docUploadTooltip'] + '</span>' +
+            '          <br/>' +
+            '     <span style="font-size: 0.9em">' + docUploadType + '</span>' +
+            //'  </div>' +
+            ' </div>' +
+            '	<ul class="qq-upload-list hide"></ul>' +
+            '</div>',
             fileTemplate: '<li>' +
-                          ' <div class="qq-upload-meta">' +
-                          '     <span class="qq-upload-meta-title">' + uiResources[$widget.settings._language]['docUploadFilename'] + '</span>' +
-                          '     <span class="qq-upload-file"></span>' +
-                          '     <span class="qq-upload-failed-text">' + uiResources[$widget.settings._language]['docUploadFailed'] + '</span>' +
-                          '     <a class="qq-upload-cancel hide"></a>' +
-                          ' </div>' +
-                          ' <div class="qq-upload-meta">' +
-                          '     <span class="qq-upload-meta-title">' + uiResources[$widget.settings._language]['docUploadFilesize'] + '</span>' +
-                          '     <span class="qq-upload-size"></span>' +
-                          ' </div>' +
-                          ' <div class="qq-upload-meta">' +
-                          '     <span class="qq-upload-meta-title">' + uiResources[$widget.settings._language]['docUploadWordcount'] + '</span>' +
-                          '     <span class="qq-upload-wordcount"></span>' +
-                          ' </div>' +
-                          '</li>',
+            ' <div class="qq-upload-meta">' +
+            '     <span class="qq-upload-meta-title">' + uiResources[$widget.settings._language]['docUploadFilename'] + '</span>' +
+            '     <span class="qq-upload-file"></span>' +
+            '     <span class="qq-upload-failed-text">' + uiResources[$widget.settings._language]['docUploadFailed'] + '</span>' +
+            '     <a class="qq-upload-cancel hide"></a>' +
+            ' </div>' +
+            ' <div class="qq-upload-meta">' +
+            '     <span class="qq-upload-meta-title">' + uiResources[$widget.settings._language]['docUploadFilesize'] + '</span>' +
+            '     <span class="qq-upload-size"></span>' +
+            ' </div>' +
+            ' <div class="qq-upload-meta">' +
+            '     <span class="qq-upload-meta-title">' + uiResources[$widget.settings._language]['docUploadWordcount'] + '</span>' +
+            '     <span class="qq-upload-wordcount"></span>' +
+            ' </div>' +
+            '</li>',
             messages: {
                 typeError: uiResources[$widget.settings._language]['docUploadMsgType'],
                 sizeError: uiResources[$widget.settings._language]['docUploadMsgSize'],
@@ -3858,7 +3995,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
                     if ($('#hidTranslRealFilename').length == 0) {
                         $('.docTranslateContent').after($('<input>', {
-                            type: 'hidden',
+                            //type: 'hidden',
                             id: 'hidTranslRealFilename',
                             value: filename
                         }));
@@ -3908,7 +4045,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
     filePluginTranslate: function () {
         $widget.disableTranslation();
-        $('.translateButton, .docUploadNewDoc').addClass('hide');
+        // $('.translateButton, .docUploadNewDoc').addClass('hide');
 
         $('.buttonCancelDoc').removeClass('hide');
         $('.docTempTarget').addClass('hide');
@@ -3934,6 +4071,10 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         var authHeaders = {};
 
         if ($widget.settings._clientId !== null) {
+
+
+            var fileName = $('[name = "file"]');
+
             authHeaders = {
                 'client-id': $widget.settings._clientId
             }
@@ -3946,7 +4087,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             headers: authHeaders,
             data: {
                 systemid: $widget.activeSystemId,
-                filename: $('.transFileMeta .qq-upload-file').text(),
+                filename: $('.qq-upload-file:first').text(),
                 tmpname: $('#hidTranslRealFilename').val(),
                 translimit: $widget.settings._docMaxWordCount
             },
@@ -4045,6 +4186,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
         $('.docUploadNewDoc').addClass('hide');
         $('.buttonDownDoc').removeAttr('href').addClass('hide');
+        $('.translateButton').removeClass('hide')
         $('#hidTranslRealFilename').remove();
         $('#hidTranslTempFilename').remove();
         $('#hidUploadTempId').remove();
@@ -4066,7 +4208,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
         // landing intro box
         if ($widget.settings._landingView) {
-            $widget.filePluginShowIntro();
+           //$widget.filePluginShowIntro();
         }
     },
 
@@ -4186,8 +4328,20 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 }
                 else if (response.status === 'completed') {
                     var down = $widget.settings._downloadUrl + '?docid=' + encodeURIComponent(docid) + '&filename=' + encodeURIComponent(response.filename);
+
+                    var authHeders = $widget.getAuthHeaders();
+                    if (authHeders) {
+                        if (authHeders["client-id"]) {
+                            down += "&clientId=" + encodeURIComponent(authHeders["client-id"]);
+                        }
+                        if (authHeders["website-auth-cookie"]) {
+                            down += "&websiteAuthCookie=" + encodeURIComponent(authHeders["website-auth-cookie"]);
+                        }
+                    }
+
                     $('.buttonDownDoc').attr('href', down).attr('target', '_blank').removeClass('hide');
                     $('.buttonDelDoc').addClass('hide');
+                    $('.translateButton').addClass('hide');
                     $('.buttonCancelDoc').addClass('hide');
                     $('#hidTranslRealFilename').remove();
                     $('#hidTranslTempFilename').remove();
@@ -4204,6 +4358,8 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                         }
                     }
 
+                    var downloadFileName = response.filename;
+
                     $.ajax({
                         type: 'POST',
                         dataType: 'json',
@@ -4216,8 +4372,12 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                         success: function (response) {
                             if (response.success) {
                                 $('.translateResult').html(response.preview);
+                                /*
                                 $('.translateResult').toggleClass("bigIcon", $('.translated-no-preview').length > 0);
                                 $('.translated-no-preview').html('<a href="' + down + '" target="_blank"><span>' + $('.uploadedDocumentName').text() + '</span></a>');
+                                */
+                                $('.translateResult').html('<div class="translated-no-preview"></div>');
+                                $('.translated-no-preview').html('<a href="' + down + '" target="_blank"><span>' + downloadFileName + '</span></a>');
                             }
                             else {
                                 $('.infoMessageBox').html(uiResources[$widget.settings._language]['docPreviewError']).removeClass('hide');

@@ -52,7 +52,7 @@ app.controller("myPageCtrl", function ($scope, $location) {
 
     $scope.website = {};
     $scope.website.system = '';
-    $scope.website.base = "https://hugo.lv/en"
+    $scope.website.base = "https://hugo.lv/en";
     $scope.website.url = '';
     $scope.website.errorMsg = '';
     $scope.website.freeze = false;
@@ -66,7 +66,7 @@ app.controller("myPageCtrl", function ($scope, $location) {
         }
         else if ($scope.isActive('www')) {
             $location.path('/website');//?embeddedStyle=noUI
-            window.open($scope.website.base + "/Translate/WebsiteEmbedded?embeddedStyle=noUI&appId=presidency.desktop", "websiteFrame");
+            window.open($scope.website.base + "/Translate/WebsiteEmbedded?embeddedStyle=noUI&appId=Tilde|EU Presidency|Web", "websiteFrame");
             $scope.website.frame = jQuery("#websiteFrame")[0].contentWindow;
         } else {
             switch ($scope.website.status) {//initial|ready|loading|translating|loaded|translated
@@ -223,19 +223,19 @@ app.controller('DocumentCtrl', function ($scope, $routeParams) {
         _landingView: true,
         _getFilteredSystems: true,
         _allowedFileTypes: [
-                     { ext: "doc", mime: "application/msword" },
-                     { ext: "docx", mime: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" },
-                     { ext: "xlsx", mime: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" },
-                     { ext: "pptx", mime: "application/vnd.openxmlformats-officedocument.presentationml.presentation" },
-                     { ext: "odt", mime: "application/vnd.oasis.opendocument.text" },
-                     { ext: "odp", mime: "application/vnd.oasis.opendocument.presentation" },
-                     { ext: "ods", mime: "application/vnd.oasis.opendocument.spreadsheet" },
-                     { ext: "rtf", mime: "﻿application/rtf" },
-                     { ext: "html", mime: "text/html" },
-                     { ext: "htm", mime: "text/html" },
-                     { ext: "xhtml", mime: "﻿﻿application/xhtml" },
-                     { ext: "xht", mime: "﻿application/xhtml+xml" },
-                     { ext: "txt", mime: "text/plain" }
+            { ext: "doc", mime: "application/msword" },
+            { ext: "docx", mime: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" },
+            { ext: "xlsx", mime: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" },
+            { ext: "pptx", mime: "application/vnd.openxmlformats-officedocument.presentationml.presentation" },
+            { ext: "odt", mime: "application/vnd.oasis.opendocument.text" },
+            { ext: "odp", mime: "application/vnd.oasis.opendocument.presentation" },
+            { ext: "ods", mime: "application/vnd.oasis.opendocument.spreadsheet" },
+            { ext: "rtf", mime: "﻿application/rtf" },
+            { ext: "html", mime: "text/html" },
+            { ext: "htm", mime: "text/html" },
+            { ext: "xhtml", mime: "﻿﻿application/xhtml" },
+            { ext: "xht", mime: "﻿application/xhtml+xml" },
+            { ext: "txt", mime: "text/plain" }
         ],
         _onWidgetLoaded: function () {
             initLanguages($scope);

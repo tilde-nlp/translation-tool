@@ -153,7 +153,7 @@
                                        ng-disabled="false && website.status=='translating'"
                                        required focus-on="website.focus" />
                                 <span class="input-group-btn input-space">
-                                    <button id="web_translateButton" ng-click="updateWebsite()" ng-show="website.status=='translated' || website.status=='error' || website.status=='loading' || website.status=='translating' || website.status=='initial' || website.status=='ready' || website.status=='loaded'" class="btn btn-default web_button" data-title="translateButton" autofocus><span class="glyphicon glyphicon-search"></span></button>
+                                    <button id="web_translateButton" ng-click="updateWebsite()" ng-show="website.status=='translated' || website.status=='error' || website.status=='loading' || website.status=='translating' || website.status=='initial' || website.status=='ready' || website.status=='loaded'" class="btn btn-default web_button" data-title="translateButton" data-text="translateButton" autofocus></button>
                                 </span>
                                 <a class="restoreButton button hide" data-text="restoreButton" data-title="restoreButton"></a>
                             </div>

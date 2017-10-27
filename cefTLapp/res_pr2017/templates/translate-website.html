@@ -5,46 +5,141 @@
 </div>
 
 <script id="translateweb-template" type="text/html">
-    <div class="translateContainerHeader hide">
-        <div class="addressContainer">
-            <div class="addressContainerRow">
-                <div class="addressColumn0">
-                    <a href="/en" id="homeButton" class="button" title="Go home"></a>
+
+   
+       
+        <!--
+                        <div id="address" class="input-group">
+                            <span class="input-group-btn">
+                                <button id="web_refresh_button" type="button" class="btn btn-default web_button" ng-click="websiteHasBeenInitiated() ? routeMe('/www') : routeMe('/text')" title="{{ websiteHasBeenInitiated() ? ('WEB_REFRESH' | translate) : ('WEB_RETURN' | translate)}}"><span class="glyphicon glyphicon-menu-left"></span></button>
+                            </span>
+                            <input type="text"
+                                   id="url"
+                                   class="form-control"
+                                   ng-keyup="$scope.apply; $event.keyCode == 13 && updateWebsite(); "
+                                   placeholder="{{ 'WEB_PLACEHOLDER' | translate }}"
+                                   ng-model="website.url"
+                                   ng-disabled="false && website.status=='translating'"
+                                   required focus-on="website.focus" />
+                            <span class="input-group-btn input-space">
+                                <button id="web_translateButton" ng-click="updateWebsite()" ng-show="website.status=='translated' || website.status=='error' || website.status=='loading' || website.status=='translating' || website.status=='initial' || website.status=='ready' || website.status=='loaded'" class="btn btn-default web_button" data-title="translateButton" autofocus><span class="glyphicon glyphicon-search"></span></button>
+                            </span>
+                            <a class="restoreButton button hide" data-text="restoreButton" data-title="restoreButton"></a>
+                        </div>
+                        <div class="LanguageSelect w">
+                            <div class="translateLanguageContainer no_padding_left no_padding_right" ng-show="website.languagesReady=='yes'">
+                                <div id="web_source_lang_div" class="col-sm-5 translate_column_height col-xs-4 web_transl_types no_padding_left">
+                                    <div data-text="sourceSystem" class="translateSourceSystemLabel hidden-xs"></div>
+                                    <select id="web_source_lang" class="translateSourceLang"></select>
+                                </div>
+                                <div id="web_swap_language_div" class="col-sm-1 col-sm-offset-1 translate_column_height col-xs-1 col-xs-offset-1 web_transl_types">
+                                    <a data-title="swapLanguage" id="webSwapLanguage" class="swapLanguage hide"></a>
+                                </div>
+                                <div id="web_target_lang_div" class="col-sm-3 col-sm-offset-2 translate_column_height col-xs-4 col-xs-offset-2 web_transl_types">
+                                    <div data-text="targetSystem" class="translateTargetSystemLabel hidden-xs"></div>
+                                    <select id="web_target_lang" class="translateTargetLang"></select>
+                                </div>
+                            </div>
+                        </div>
+               
+
+
+        -->
+    
+    <div class="section" id="web_section">
+        <div class="web_container">
+            <div class="row" id="web_menu">
+                <div id="web_logo" class="col-sm-1 hidden-xs no_padding_left">
+                    <a href="https://www.eu2017.ee/" target="_blank" title="https://www.eu2017.ee/"><img src="img/EU2017.svg" alt="EU2017.EE" title="EU2017.EE" /></a>
                 </div>
-                <div class="addressColumn1">
-                    <div data-text="address" class="addressLabel"></div>
-                </div>
-                <div class="addressColumn2">
-                    <input type="url" class="url" value="" autofocus="autofocus" />
-                </div>
-                <div class="addressColumn3">
-                    <a href="javascript:;" class="loadButton button" data-title="loadButton"></a>
+                <div id="web_main" class="col-sm-7 col-xs-12 no_padding_right">
+                    <!-- aiz šī ir jālabo -->
+                    <div class="translateContainerHeader hide">
+                        <div class="addressContainer">
+                            <div class="addressContainerRow">
+                                <div class="addressColumn0">
+                                    <a href="/en" id="homeButton" class="button" title="Go home"></a>
+                                </div>
+                                <div class="addressColumn1">
+                                    <div data-text="address" class="addressLabel"></div>
+                                </div>
+                                <div class="addressColumn2">
+                                    <input type="url" class="url" value="" autofocus="autofocus" />
+                                </div>
+                                <div class="addressColumn3">
+                                    <a href="javascript:;" class="loadButton button" data-title="loadButton"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="translateSystemContainerLeft">
+                            <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
+                            <ul class="popSourceLangs"></ul>
+                            <select class="translateSourceLang"></select>
+                        </div>
+                        <a data-title="swapLanguage" class="swapLanguage hide"></a>
+                        <div class="translateSystemContainerRight">
+                            <div data-text="targetSystem" class="translateTargetSystemLabel"></div>
+                            <ul class="popTargetLangs"></ul>
+                            <select class="translateTargetLang"></select>
+                        </div>
+
+                        <a href="javascript:;" class="translateButton button" data-text="translateButton" data-title="translateButton"></a>
+                        <a href="javascript:;" class="cancelButton button hide" data-text="cancelButton" data-title="cancelButton"></a>
+                        <a href="javascript:;" class="restoreButton button hide" data-text="restoreButton" data-title="restoreButton"></a>
+                        <div class="translateProgress hide"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+                        <div style="clear:both; height:0;"></div>
+                    </div>
+                    <!-- virs šī ir jālabo -->
+                    <div id="web_transl_types" class="col-sm-3 hidden-xs no_padding_left no_padding_right">
+                        <ul>
+                            <li>
+                                <a id="web_translation_type_text" ng-click="routeMe('/text');" href="#/text" ng-class="{ active: isActive('text') }" title="{{ 'TEXT' | translate }}" class="transl_text"><span class="transl_type_long">{{ 'TEXT' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'TEXT_SHORT' | translate }}</span></a>
+                            </li>
+                            <li>
+                                <a id="web_translation_type_doc" ng-class="{ active: isActive('document') }" href="#/document" title="{{ 'DOC' | translate }}" class="transl_document"><span class="transl_type_long">{{ 'DOC' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'DOC_SHORT' | translate }}</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="translateSystemContainerLeft">
-            <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
-            <ul class="popSourceLangs"></ul>
-            <select class="translateSourceLang"></select>
-        </div>
-        <a data-title="swapLanguage" class="swapLanguage hide"></a>
-        <div class="translateSystemContainerRight">
-            <div data-text="targetSystem" class="translateTargetSystemLabel"></div>
-            <ul class="popTargetLangs"></ul>
-            <select class="translateTargetLang"></select>
-        </div>
-
-        <a href="javascript:;" class="translateButton button" data-text="translateButton" data-title="translateButton"></a>
-        <a href="javascript:;" class="cancelButton button hide" data-text="cancelButton" data-title="cancelButton"></a>
-        <a href="javascript:;" class="restoreButton button hide" data-text="restoreButton" data-title="restoreButton"></a>
-        <div class="translateProgress hide"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
-        <div style="clear:both; height:0;"></div>
-    </div>
-    <div class="systemsLoading"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
-    <div id="websiteFrameContainer">
-        <iframe id="websiteFrame" name="websiteFrame" src="about:blank"></iframe>
-    </div>
+                <!--<div class="systemsLoading"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>-->
 
 
+
+
+                <div ng-show="website.status!='initial'" id="websiteFrameContainer">
+                    <iframe id="websiteFrame" name="websiteFrame" src="about:blank" frameborder="0"></iframe>
+                </div>
+
+
+                <!---->
+                <div style="clear: both;" class="restricted">
+                    <div ng-hide="isActive('www')" id="web_links_container" class="container no_padding_left no_padding_right">
+                        <!--<div ng-hide="isActive('website') && website.status!='initial'" id="web_links_container" class="container no_padding_left no_padding_right">-->
+                        -->
+                        <div id="websiteLinks">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12 no_padding_left no_padding_right">
+                                    <p id="web_links_about">{{ 'WEB_EXAMPLES' | translate }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-6 col-xs-6 no_padding_left no_padding_right" ng-repeat="sample in website.samples">
+                                    <div class="sample_first_section">
+                                        <h1><a href="" ng-click="website.url=sample.url; updateWebsite('et');">{{sample.title}} <span class="glyphicon glyphicon-chevron-right"></span></a></h1>
+                                        <p><span ng-bind="(language === languages[1] && sample.description_ee) || (sample.description)"></span></p>
+                                    </div>
+                                    <div class="sample_second_section">
+                                        <a href="" ng-click="website.url=sample.url; updateWebsite('et');">
+                                            <div style="background: {{sample.image}}" class="sample_logo"></div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 </script>

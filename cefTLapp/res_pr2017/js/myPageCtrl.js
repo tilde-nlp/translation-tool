@@ -14,9 +14,6 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         return active;
     };
 
-   
-
-
     //$scope.website = {};
     //$scope.website.system = '';
     //$scope.website.base = "https://readymt.tilde.com"; //https://hugo.lv/en";
@@ -336,7 +333,7 @@ app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
     $scope.setLanguage($rootScope.language);
 });
 
-app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootScope) {
+app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootScope, $translate) {
     $('#textWidget').empty();
 
     if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };

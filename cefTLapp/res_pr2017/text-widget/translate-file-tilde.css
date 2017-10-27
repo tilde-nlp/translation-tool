@@ -1,0 +1,123 @@
+﻿.translateButton  {
+    margin: 0.1em 0.4em 0.5em 1em;
+    float:right;
+}
+
+.docUploadNewDoc {
+    cursor: pointer;
+    border-radius: 2em;
+    vertical-align: middle;
+    background-image: url('images/cross.svg');
+    background-size: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #DC8F9F;
+    top: 0.75em;
+    right: 0.75em;
+    padding: 0.7em 0.438em 0.438em 0.7em;
+    margin: 0 0 0.7em 0.6em;
+    position: relative;
+    float: right;
+    
+    -moz-transition: background-color 200ms ease-in-out;
+    -o-transition: background-color 200ms ease-in-out;
+    -webkit-transition: background-color 200ms ease-in-out;
+    transition: background-color 200ms ease-in-out;
+    z-index:1;
+}
+
+.docUploadNewDoc:hover {
+    background-color: #BF1A37;
+    
+    -moz-transition: background-color 200ms ease-in-out;
+    -o-transition: background-color 200ms ease-in-out;
+    -webkit-transition: background-color 200ms ease-in-out;
+    transition: background-color 200ms ease-in-out;
+    float:right;
+}
+
+.buttonCancelDoc {
+    cursor: pointer;
+    margin: 0.1em 0.4em 0.5em 1em;
+    float:right;
+}
+
+.buttonDownDoc {
+    margin: 0.1em 0.4em 0.5em 1em;
+    float:right;
+}
+
+.qq-upload-button-image {
+    background-image: url('images/translate-tilde-com/file.svg');
+}
+
+.qq-upload-button-image,
+.qq-upload-button-hover {
+    -moz-transition: opacity ease-out 100ms;
+    -o-transition: opacity ease-out 100ms;
+    -webkit-transition: opacity ease-out 100ms;
+    transition: opacity ease-out 100ms;
+}
+
+/* Translate no preview*/
+.translateResult a {
+    height: 30%;
+    margin-top: 25%;
+    display: block;
+    text-align: center;
+}
+
+.translated-no-preview {
+    height: 100%;
+    background-image: url(images/translate-tilde-com/download.svg);
+    background-position: center -0.5em;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: relative;
+    min-height: 2em;
+    opacity: .6;
+
+    -moz-transition: opacity ease-out 200ms;
+    -o-transition: opacity ease-out 200ms;
+    -webkit-transition: opacity ease-out 200ms;
+    transition: opacity ease-out 200ms;
+}
+
+.translateResult a:hover .translated-no-preview {
+    opacity: 1;
+    -moz-transition: opacity ease-out 200ms;
+    -o-transition: opacity ease-out 200ms;
+    -webkit-transition: opacity ease-out 200ms;
+    transition: opacity ease-out 200ms;
+}
+
+.translateProgress {
+    margin: 0.2em 1.3em 0 0;
+}
+
+.docTempTarget,
+#docSourcePreview,
+.translateResult {
+    padding: 15px 1.2em;
+}
+
+.translateProgress {
+    margin: 0.2em 0.45em 0 0;
+}
+
+
+@media screen and (max-width:28em) {
+    .translateSystemContainerLeft .fancy-select .trigger {
+        padding-left:0 !important;
+    }
+}
+
+@media screen and (max-width:26em) {
+    .translateSystemContainerLeft .fancy-select .trigger {
+        padding-left:0 !important;
+    }
+
+    .translateSourceSystemLabel, .translateTargetSystemLabel{
+        display:none;
+    }
+}

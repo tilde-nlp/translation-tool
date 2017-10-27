@@ -1,4 +1,50 @@
-﻿
+﻿<div style="height:100%;" >
+    <div style="height:100%; margin: 0;">
+        <div style="height: 100%;  width: 100%;" id="widget"></div>
+    </div>
+</div>
+
+<script id="translateweb-template" type="text/html">
+    <div class="translateContainerHeader hide">
+        <div class="addressContainer">
+            <div class="addressContainerRow">
+                <div class="addressColumn0">
+                    <a href="/en" id="homeButton" class="button" title="Go home"></a>
+                </div>
+                <div class="addressColumn1">
+                    <div data-text="address" class="addressLabel"></div>
+                </div>
+                <div class="addressColumn2">
+                    <input type="url" class="url" value="" autofocus="autofocus" />
+                </div>
+                <div class="addressColumn3">
+                    <a href="javascript:;" class="loadButton button" data-title="loadButton"></a>
+                </div>
+            </div>
+        </div>
+        <div class="translateSystemContainerLeft">
+            <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
+            <ul class="popSourceLangs"></ul>
+            <select class="translateSourceLang"></select>
+        </div>
+        <a data-title="swapLanguage" class="swapLanguage hide"></a>
+        <div class="translateSystemContainerRight">
+            <div data-text="targetSystem" class="translateTargetSystemLabel"></div>
+            <ul class="popTargetLangs"></ul>
+            <select class="translateTargetLang"></select>
+        </div>
+
+        <a href="javascript:;" class="translateButton button" data-text="translateButton" data-title="translateButton"></a>
+        <a href="javascript:;" class="cancelButton button hide" data-text="cancelButton" data-title="cancelButton"></a>
+        <a href="javascript:;" class="restoreButton button hide" data-text="restoreButton" data-title="restoreButton"></a>
+        <div class="translateProgress hide"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+        <div style="clear:both; height:0;"></div>
+    </div>
+    <div class="systemsLoading"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
+    <div id="websiteFrameContainer">
+        <iframe id="websiteFrame" name="websiteFrame" src="about:blank"></iframe>
+    </div>
 
 
 
+</script>

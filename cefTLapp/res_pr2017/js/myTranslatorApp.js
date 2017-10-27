@@ -2,10 +2,10 @@
 var app = angular.module("myTranslatorApp", ['ngRoute', 'angular.filter', 'pascalprecht.translate'])
     .run(function ($rootScope) {
         $rootScope.language = 'en';
-        $rootScope.languages = ['en', 'ee'];
+        $rootScope.languages = ['en', 'et'];
         $rootScope.workshopURLs = {
             'en': 'https://www.tilde.lv/presidency-translator-workshop-registration',
-            'ee': 'https://www.tilde.lv/presidency-translator-workshop-registration-ee'
+            'et': 'https://www.tilde.lv/presidency-translator-workshop-registration-ee'
         }
     })
     .filter('trustAsResourceUrl', ['$sce', function ($sce) {
@@ -21,38 +21,38 @@ app.config(['$routeProvider',
             templateUrl: 'templates/about.html',
             controller: 'myPageCtrl'
         })
-        /*.when('/home', {
-            templateUrl: 'templates/home.html',
-            controller: 'homeCtrl'
-        })*/
+        .when('/home', {
+            templateUrl: 'templates/translate-text.html',
+            controller: 'TranslateCtrl'
+        })
         .when('/contactUs', {
             templateUrl: 'templates/contactUs.html',
             controller: 'myPageCtrl'
           })
-          .when('/plugin', {
-              templateUrl: 'templates/plugin.html',
-              controller: 'myPageCtrl'
-          })
-          .when('/workshop', {
-              templateUrl: 'templates/workshop.html',
-              controller: 'myPageCtrl'
-          })
+        .when('/plugin', {
+            templateUrl: 'templates/plugin.html',
+            controller: 'myPageCtrl'
+        })
+        .when('/workshop', {
+            templateUrl: 'templates/workshop.html',
+            controller: 'myPageCtrl'
+        })
         .when('/text', {
             templateUrl: 'templates/translate-text.html',
             controller: 'TranslateCtrl'
         })
-          .when('/www', {
-              templateUrl: 'templates/translate-website.html',
-              controller: 'websiteTranslatorCtrl'
-          })
-           .when('/website', {
-               templateUrl: 'templates/translate-website.html',
-               controller: 'websiteTranslatorCtrl'
-           })
-           .when('/document', {
-               templateUrl: 'templates/translate-document.html',
-               controller: 'DocumentCtrl'
-           })
+        .when('/www', {
+            templateUrl: 'templates/translate-website.html',
+            controller: 'websiteTranslatorCtrl'
+        })
+        .when('/website', {
+            templateUrl: 'templates/translate-website.html',
+            controller: 'websiteTranslatorCtrl'
+        })
+        .when('/document', {
+            templateUrl: 'templates/translate-document.html',
+            controller: 'DocumentCtrl'
+        })
         .otherwise({
             redirectTo: '/text'
         });
@@ -104,7 +104,7 @@ app.config(function ($translateProvider) {
         CO_FINANCED_LOGO: 'img/CoFinanced_en.png',
         CO_FINANCED_ALT: 'Co-financed by the European Union'
     })
-    .translations('ee', {
+    .translations('et', {
         SUBTITLE: 'koostöös Euroopa Nõukogu Eesti eesistumisega',
         MENU: 'Menüü',
         MENU_ABOUT: 'Teenusest Translate 2017',

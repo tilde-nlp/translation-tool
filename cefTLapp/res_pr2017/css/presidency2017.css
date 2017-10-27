@@ -1357,7 +1357,8 @@ iframe {
             }
 
     div.fancy-select div.trigger {
-        display: none
+        display: none;
+        background: none;
     }
 }
 

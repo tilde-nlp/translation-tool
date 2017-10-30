@@ -22,45 +22,21 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
     //$scope.website.freeze = false;
     //$scope.website.status = 'initial';
     //$scope.website.focus = false;
-    //$scope.website.samples = listOfWebsites();   
+    $scope.web_samples = [
+        { "url": "www.delfi.ee", "title": "Delfi", "description": "News site", "description_ee": "Uudiste lehekülg", "image": "url('../img/examples/delfi.png')" },
+        { "url": "ekspress.delfi.ee", "title": "Eesti Ekspress", "description": "News site", "description_ee": "Uudiste lehekülg", "image": "url('../img/examples/eesti_ekspress.png')" },
+        { "url": "www.postimees.ee", "title": "Postimees", "description": "Business news", "description_ee": "Äriuudised", "image": "url('../img/examples/postimees.png')" },
+        { "url": "www.err.ee", "title": "ERR.ee", "description": "News site", "description_ee": "Uudiste lehekülg", "image": "url('../img/examples/err.png')" },
+        { "url": "www.aripaev.ee", "title": "Äripäev", "description": "News site", "description_ee": "Uudiste lehekülg", "image": "url('../img/examples/aripaev.png')" },
+        { "url": "eesti.ee", "title": "Eesti.ee", "description": "Public e-services", "description_ee": "Avalikud e-teenused", "image": "url('../img/examples/eesti.png')" }
+    ];
     //$scope.website.languagesReady = 'no';
-    //$scope.updateWebsite = function (exampleURL) {
-    //    exampleURL = exampleURL || 0;
+    $scope.updateWebsite = function (url) {
+        $("input#url").val(url);
+        $("#web_translateButton").trigger('click');
+    };
 
-    //    if (!$scope.website.url || $scope.website.url.length == 0) {
-
-    //        return;
-    //    }
-
-    //    if (exampleURL === 'et') {
-            
-    //        $('#web_source_lang_div .options li').each(function () {
-    //            if ($(this).attr('data-raw-value') === 'et') {
-    //                $(this).click();
-    //                return false;
-    //            }
-    //        });
-    //    }
-
-    //    if ($scope.isActive('www') || $scope.website.status === 'initial') {
-    //        $location.path('/website');//?embeddedStyle=noUI
-    //        window.open($scope.website.base + "/Translate/WebsiteEmbedded?embeddedStyle=noUI&appId=Tilde|EU Presidency|Web", "websiteFrame");
-    //        $scope.website.frame = jQuery("#websiteFrame")[0].contentWindow;
-    //    } else {
-    //        switch ($scope.website.status) {//initial|ready|loading|translating|loaded|translated
-    //            /*case "initial":
-    //                $scope.initWebsite();
-    //                break;*/
-    //            case "loading":
-    //            case "translating":
-    //                $scope.website.untranslate();
-    //                setTimeout(function () { $scope.updateWebsite(); }, 500);
-    //                break;
-    //            default:
-    //                $scope.initWebsite();
-    //        }
-    //    }
-    //};
+    $scope.webLoaded = false;
 
     //$scope.website.reset = function () {
     //    if ($scope.website.status == 'loading' || $scope.website.status == 'translating') {
@@ -120,12 +96,10 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
     //    }
     //}
 
-    //$scope.websiteHasBeenInitiated = function () {
     //    if ($scope.isActive('website') && $scope.website.status != 'initial') {
     //        return true;
     //    }
     //    return false;
-    //}
 
 
     initEvents();
@@ -221,6 +195,8 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
             console.log("Failed to switch languages: " + err);
         }
     };
+
+    $scope.testText = 'this is a test text';
 });
 
 app.controller('TranslateCtrl', function ($scope, $routeParams, $rootScope) {
@@ -320,14 +296,6 @@ app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
             { ext: "ttx", mime: "application/octet-stream" },
             { ext: "pages", mime: "application/x-iwork-pages-sffpages" }
         ],
-        _onWidgetLoaded: function () {
-            //initLanguages($scope);
-            //localizeLanguages($scope, $rootScope);
-        },
-        _onSystemChanged: function (id) {
-            //$scope.website.system = id;
-            //console.log('_onSystemChanged(' + id + ')');
-        },
         _replaceContainer: false
     });
     $scope.setLanguage($rootScope.language);
@@ -339,46 +307,54 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
     if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
 
     //var webWidget = new Tilde.TranslatorWidget('#webWidget', {
-    //    _language: 'en',
-    //    _websiteTranslationUrl: 'http://https://readymt.tilde.com/Translate/WebsiteEmbedded?embeddedStyle=noUI', // address of website translation page (that uses TranslateProxy)
-    //    _clientId: 'u-dc4cd3c5-ebc9-4213-ac9d-593c896bc0ea',
-    //    _templateId: 'translateweb-template',
-    //    _appId: "Tilde|EU Presidency|Web",
     //    _landingView: true,
-    //    _getFilteredSystems: false,
-    //    _onWidgetLoaded: function () {
-    //        //initLanguages($scope);
-    //        //localizeLanguages($scope, $rootScope);
-    //    },
-    //    _replaceContainer: false
+    //    
     //});
 
-    var widget = new Tilde.TranslatorWidget('#widget', {
+    var webWidget = new Tilde.TranslatorWidget('#webWidget', {
         _language: 'en',
         _clientId: 'u-dc4cd3c5-ebc9-4213-ac9d-593c896bc0ea',
         _systemSelectType: 'language',
         _appId: "Tilde|EU Presidency|Web",
-        _templateId: 'translateweb-template',
-//        _systems: null,
         _defaultTargetLang: 'en',
         _defaultSourceLang: 'en',
-        _getFilteredSystems: true,
+        _getFilteredSystems: false,
         _replaceSourceWithBlock: 'false',
-        _replaceContainer: false,
         _apiIsInTheSameDomain: false,
-
+        _replaceContainer: false,
         _useRecentLangSelector: true,
         _customSelectText: uiResources['en']['moreLangs'],
 
         //_sourceLanguageOrder: ["en", "lv", "ru", "lt", "et"],
         //_targetLanguageOrder: ["en", "lv", "ru", "lt", "et", "ar"],
-        _websiteTranslationUrl: 'https://readymt.tilde.com/Translate/WebsiteEmbedded?embeddedStyle=noUI', // address of website translation page (that uses TranslateProxy)
-
+        _websiteTranslationUrl: "https://readymt.tilde.com/Translate/WebsiteEmbedded?embeddedStyle=noUI", // address of website translation page (that uses TranslateProxy)
+        _onWidgetLoaded: function () {
+            //        //initLanguages($scope);
+            //        //localizeLanguages($scope, $rootScope);
+            },
         //_debug: true
     });
 
-
     $scope.setLanguage($rootScope.language);
+
+    $("#web_translateButton").click(function () {
+        $scope.webLoaded = true;
+    })
+
+    $scope.webClearOrReturn = function () {
+        if ($scope.webLoaded) {
+            $scope.webLoaded = false;
+            return true;
+        }
+
+        return false;
+    }
+    // translation logic
+    $scope.web_placeholder = $translate.instant('WEB_PLACEHOLDER');
+
+    $rootScope.$on('$translateChangeSuccess', function () {
+        $scope.web_placeholder = $translate.instant('WEB_PLACEHOLDER');
+    });
 });
 
 /*app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootScope, $translate) {
@@ -544,17 +520,6 @@ app.directive('hideBlink', function () {
     };
 
 });
-
-function listOfWebsites(lang) {
-    return [
-        { "url": "www.delfi.ee", "title": "Delfi", "description": "News site", "description_ee": "Uudiste lehekülg","image": "url('../img/examples/delfi.png')" },
-        { "url": "ekspress.delfi.ee", "title": "Eesti Ekspress", "description": "News site", "description_ee": "Uudiste lehekülg", "image": "url('../img/examples/eesti_ekspress.png')" },
-        { "url": "www.postimees.ee", "title": "Postimees", "description": "Business news", "description_ee": "Äriuudised", "image": "url('../img/examples/postimees.png')" },
-        { "url": "www.err.ee", "title": "ERR.ee", "description": "News site", "description_ee": "Uudiste lehekülg", "image": "url('../img/examples/err.png')" },
-        { "url": "www.aripaev.ee", "title": "Äripäev", "description": "News site", "description_ee": "Uudiste lehekülg", "image": "url('../img/examples/aripaev.png')" },
-        { "url": "eesti.ee", "title": "Eesti.ee", "description": "Public e-services", "description_ee": "Avalikud e-teenused", "image": "url('../img/examples/eesti.png')" }
-    ];
-}
 
 function initEvents() {
 

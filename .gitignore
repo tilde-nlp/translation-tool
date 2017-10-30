@@ -300,3 +300,4 @@ __pycache__/
 
 # OpenCover UI analysis results
 OpenCover/
+/PresidencyTranslator.VC.VC.opendb

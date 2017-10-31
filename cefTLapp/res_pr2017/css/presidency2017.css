@@ -1084,11 +1084,8 @@ iframe {
 }
 
 .info_images {
-    margin-left: 0px;
-    margin-top: 96px;
-    margin-bottom: 40px;
+    margin: 25px 0;
 }
-
 
     .info_images img {
         max-width: 100%;

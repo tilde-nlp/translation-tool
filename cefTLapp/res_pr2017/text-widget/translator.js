@@ -1,338 +1,5 @@
 /* UI texts */
 
-uiResources = $.extend(true, uiResources, {
-    'en': {
-        "address":     "Address",
-        "loadButton": "Load webpage",
-        "cancelButton": "Cancel",
-        "restoreButton": "Restore"
-    },
-    'lv': {
-        "address": "Adrese",
-        "loadButton": "Ielādēt lapu",
-        "cancelButton": "Atcelt",
-        "restoreButton": "Atjaunot"
-    },
-    'lt': {
-        "address": "Adresas",
-        "loadButton": "Įkelti svetainę",
-        "cancelButton": "Atšaukti",
-        "restoreButton": "Atkurti"
-    },
-    'et': {
-        "address": "Aadress",
-        "loadButton": "Laadi veebileht",
-        "cancelButton": "Tühista",
-        "restoreButton": "Taasta"
-    }
-});
-/* UI texts */
-
-uiResources = $.extend(true, uiResources, {
-    'en': {
-        "E_DEFAULT_ERROR": "Error occurred while translating.",
-        "E_UNKNOWN_FILE_TYPE": "Unknown file type.",
-        "E_CANNOT_READ_FILE": "Cannot read file, file may be corrupted.",
-        "E_FAILED_IN_TRANSLATION": "Error occurred while translating.",
-        "E_FORMAT_TRACK_CHANGES": "Could not translate because track changes was turned on. Changes must first be accepted.",
-        "E_UNKNOWN_ERROR": "An unknown error occurred.",
-        "E_UNAUTHORIZED": "Document translation was denied.",
-        "W_TIMEOUT": "Some sentences are not translated, because translation took too much time.",
-        "W_SENTENCE_TOO_LONG": "Some sentences are not translated, because they are too long."
-    },
-    'lv': {
-        "E_DEFAULT_ERROR": "Tulkojot radās kļūda.",
-        "E_UNKNOWN_FILE_TYPE": "Nezināms faila tips.",
-        "E_CANNOT_READ_FILE": "Neizdevās nolasīt faila saturu, iespējams, fails ir bojāts.",
-        "E_FAILED_IN_TRANSLATION": "Tulkojot radās kļūda.",
-        "E_FORMAT_TRACK_CHANGES": "Nevarēja iztulkot dokumentu, jo bija ieslēgta izmaiņu reģistrēšana. Vispirms apstipriniet izmaiņas.",
-        "E_UNKNOWN_ERROR": "Radās nezināma kļūda.",
-        "E_UNAUTHORIZED": "Dokumenta tulkošana tika liegta.",
-        "W_TIMEOUT": "Daži teikumi netika iztulkoti, jo tulkošana prasīja pārāk daudz laika.",
-        "W_SENTENCE_TOO_LONG": "Daži teikumi nav iztulkoti, jo tie bija pārāk gari."
-    },
-    'ru': {
-        "E_DEFAULT_ERROR": "Во время перевода возникла ошибка.",
-        "E_UNKNOWN_FILE_TYPE": "Неизвестный тип файла.",
-        "E_CANNOT_READ_FILE": "Не удалось считать содержание файла, возможно, файл поврежден.",
-        "E_FAILED_IN_TRANSLATION": "Во время перевода возникла ошибка.",
-        "E_FORMAT_TRACK_CHANGES": "Не удалось перевести, поскольку был включен режим отслеживания исправлений. Сначала примите исправления.",
-        "E_UNKNOWN_ERROR": "Возникла неизвестная ошибка.",
-        "E_UNAUTHORIZED": "Перевод документа запрещен.",
-        "W_TIMEOUT": "Some sentences are not translated, because translation took too much time.",
-        "W_SENTENCE_TOO_LONG": "Some sentences are not translated, because they are too long."
-    },
-    'lt': {
-        'E_DEFAULT_ERROR': 'Verčiant įvyko klaida.',
-        'E_UNKNOWN_FILE_TYPE': 'Nežinomas failo tipas.',
-        'E_CANNOT_READ_FILE': 'Failo nuskaityti nepavyko. Jis gali būti sugadintas.',
-        'E_FAILED_IN_TRANSLATION': 'Verčiant įvyko klaida.',
-        'E_FORMAT_TRACK_CHANGES': 'Išversti nepavyko, nes įjungtas keitimų sekimas (angl. track changes). Pirmiausia sutikite su visais keitimais.',
-        'E_UNKNOWN_ERROR': 'Aptikta nenustatyta klaida.',
-        'E_UNAUTHORIZED': 'Dokumento vertimas atmestas.',
-        "W_TIMEOUT": "Kai kurie sakiniai liko neišversti, nes baigėsi vertimui skirtas laikas.",
-        "W_SENTENCE_TOO_LONG": "Kai kurie sakiniai liko neišversti, nes jie per ilgi."
-    },
-    'fr': {
-        'E_DEFAULT_ERROR': 'Une erreur est survenue pendant la traduction.',
-        'E_UNKNOWN_FILE_TYPE': 'Type de fichier inconnu.',
-        'E_CANNOT_READ_FILE': 'Impossible de lire le fichier, le fichier est peut-être endommagé.',
-        'E_FAILED_IN_TRANSLATION': 'Une erreur est survenue pendant la traduction.',
-        'E_FORMAT_TRACK_CHANGES': 'Impossible de traduire car le suivi des corrections est activé. Les corrections doivent d\'abord être acceptées.',
-        'E_UNKNOWN_ERROR': 'Une erreur inconnue s\'est produite.',
-        'E_UNAUTHORIZED': 'La traduction du document a été refusée.',
-        "W_TIMEOUT": "Some sentences are not translated, because translation timed out.",
-        "W_SENTENCE_TOO_LONG": "Some sentences are not translated, because they are too long."
-    },
-    'et': {
-        "E_DEFAULT_ERROR": "Tõlkimisel ilmnes tõrge.",
-        "E_UNKNOWN_FILE_TYPE": "Tundmatu failitüüp.",
-        "E_CANNOT_READ_FILE": "Faili ei saa lugeda. See võib olla rikutud.",
-        "E_FAILED_IN_TRANSLATION": "Tõlkimisel ilmnes tõrge.",
-        "E_FORMAT_TRACK_CHANGES": "Tõlkida ei saanud, kuna muutuste jälitus oli sisse lülitatud. Muutused tuleb esmalt aktsepteerida.",
-        "E_UNKNOWN_ERROR": "Ilmnes tundmatu tõrge.",
-        "E_UNAUTHORIZED": "Dokumendi tõlkimine keelati.",
-        "W_TIMEOUT": "Mõni lause jäi tõlkimata, kuna tõlkimisel ilmnes ajalõpp.",
-        "W_SENTENCE_TOO_LONG": "Mõnda lauset ei tõlgitud, kuna need on liiga pikad."
-    },
-});
-/* UI texts */
-
-uiResources = $.extend(true, uiResources, {
-    'en': {
-        "docTempTarget": "Machine translation results for documents help to understand the meaning of a source text, but do not equal translation by a human.",
-        "docDownload": "Download",
-        "docCancel": "Cancel",
-        "docUploadTooltip": "Upload document",
-        "docUploadMsgType": "The file \"{file}\" format is not recognized. Translation is supported for these document formats: {extensions}.",
-        "docUploadMsgSize": "File \"{file}\" is too large. Maximum file size is {sizeLimit}.",
-        "docUploadMsgEmpty": "File \"{file}\" is empty. Please select a file with content.",
-        "docUploadMsgWordcnt": "The maximum word count for one translation ({wordCount}) has been exceeded.",
-        "docUploadFilename": "Document title:",
-        "docUploadFilesize": "Document size:",
-        "docUploadWordcount": "Word count:",
-        "docUploadFailed": "File upload was not successful.",
-        "docTranslFailed": "Document translation failed. Please try again.",
-        "docUploadNewDoc": "Delete",
-        "docStarting": "Document translation is starting...",
-        "docPreviewError": "Could not generate a preview of the document.",
-        "docAppleLimited": "File upload on iOS devices is limited.",
-        "docTranslInProgress": "Document translation is in progress. If you leave the page, the translation will be lost.",
-        "docSupportedTypes": "Currently the system supports {extensions} file formats. UTF-8 or UTF-16 coding required.",
-        "docLimit": "Please be informed that only first {limit} segments of each document will be translated for you as a DEMO user. We kindly invite you to contact us <a href=\"mailto:mt@tilde.com\">mt@tilde.com</a> to get full access",
-        "advancedOptions": "Options▾"
-    },
-    'lv': {
-        "docTempTarget": "Dokumentu mašīntulkošanas rezultāti ļauj saprast teksta nozīmi, bet nevar aizstāt cilvēka radītu tulkojumu.",
-        "docDownload": "Atvērt",
-        "docCancel": "Atcelt",
-        "docUploadTooltip": "Augšupielādēt dokumentu",
-        "docUploadMsgType": "Faila \"{file}\" formāts nav atpazīts. Tulkošana tiek atbalstīta šādiem dokumentu formātiem: {extensions}.",
-        "docUploadMsgSize": "Fails \"{file}\" ir pārāk liels. Maksimālais lielums ir {sizeLimit}.",
-        "docUploadMsgEmpty": "Fails \"{file}\" ir tukšs. Izvēlieties failu, kurā ir saturs.",
-        "docUploadMsgWordcnt": "Ir pārsniegts vienam tulkojumam pieejamais vārdu skaits ({wordCount}), tādēļ dokuments tiks iztulkots daļēji. Pilnam tulkojumam, lūdzu, sadaliet tekstu vairākos dokumentos.",
-        "docUploadFilename": "Dokumenta nosaukums:",
-        "docUploadFilesize": "Dokumenta lielums:",
-        "docUploadWordcount": "Vārdu skaits:",
-        "docUploadFailed": "Neizdevās ielādēt failu.",
-        "docUploadNewDoc": "Izdzēst",
-        "docStarting": "Tiek sākta dokumenta tulkošana...",
-        "docPreviewError": "Neizdevās izveidot dokumenta priekšskatījumu.",
-        "docAppleLimited": "iOS iekārtās failu augšupielāde ir ierobežota.",
-        "docTranslInProgress": "Patreiz notiek dokumenta tulkošana. Pametot lapu, tulkojums tiks pazaudēts.",
-        "docSupportedTypes": "Tiek atbalstīti šādi dokumentu formāti: {extensions}. Nepieciešams UTF-8 vai UTF-16 kodējums."
-    },
-    'ru': {
-        "docTempTarget": "Результаты машинного перевода документов позволяют понять значение текста, но не позволяют заменить сделанный человеком перевод.",
-        "docDownload": "Открыть",
-        "docCancel": "Отменить",
-        "docUploadTooltip": "Загрузить документ",
-        "docUploadMsgType": "Формат файла \"{file}\" не опознан. Перевод поддерживается для следующих форматов документов: {extensions}.",
-        "docUploadMsgSize": "Файл \"{file}\" слишком большой. Максимальный размер: {sizeLimit}.",
-        "docUploadMsgEmpty": "Файл \"{file}\" пустой. Выберите файл с содержимым.",
-        "docUploadMsgWordcnt": "Превышено количество слов, доступное для одного файла ({wordCount}).",
-        "docUploadFilename": "Название документа:",
-        "docUploadFilesize": "Размер документа:",
-        "docUploadWordcount": "Количество слов:",
-        "docUploadFailed": "Файл не удалось загрузить.",
-        "docUploadNewDoc": "Удалить",
-        "docStarting": "Начат перевод документа...",
-        "docPreviewError": "Не удалось создать предварительный просмотр документа.",
-        "docAppleLimited": "Загрузка файла на устройствах IOS ограничено.",
-        "docTranslInProgress": "Перевод документов в процессе. Если вы уйдете со страницы, перевод будет потерян.",
-        "docSupportedTypes": "Currently the system supports {extensions} file formats. UTF-8 or UTF-16 coding required."
-    },
-    'lt': {
-        "docTempTarget": "Dokumentų mašininio vertimo rezultatai padeda suprasti originalo teksto prasmę, tačiau jo kokybės negalima lyginti su žmonių atliekamu vertimu.",
-        "docDownload": "Atidaryti",
-        "docCancel": "Atšaukti",
-        "docUploadTooltip": "Įkelti dokumentą",
-        "docUploadMsgType": "Failo „{file}“ formatas neatpažintas. Atliekamas tik šių dokumentų formatų vertimas: {extensions}.",
-        "docUploadMsgSize": "Failas „{file}“ yra per didelis. Maksimalus leistinas failo dydis: {sizeLimit}.",
-        "docUploadMsgEmpty": "Failas „{file}“ yra tuščias. Pasirinkite failą su turiniu.",
-        "docUploadMsgWordcnt": "Viršytas maksimalus vieno vertimo žodžių skaičius ({wordCount}).",
-        "docUploadFilename": "Document title:",
-        "docUploadFilesize": "Document size:",
-        "docUploadWordcount": "Word count:",
-        "docUploadFailed": "Failo įkelti nepavyko.",
-        "docTranslFailed": "Document translation failed. Please try again.",
-        "docUploadNewDoc": "Ištrinti",
-        "docStarting": "Pradedamas dokumento vertimas...",
-        "docPreviewError": "Dokumento peržiūros sugeneruoti nepavyko.",
-        "docAppleLimited": "Failų įkėlimas iOS įrenginiuose yra apribotas.",
-        "docTranslInProgress": "Dokumentas verčiamas. Jei uždarysite šį puslapį, vertimas bus prarastas.",
-        "docSupportedTypes": "Šiuo metu sistema palaiko {extensions} failų formatus. Būtinas UTF-8 arba UTF-16 kodavimas."
-    },
-    'fr': {
-        "docTempTarget": "Les résultats de la traduction automatique de documents aident à comprendre le sens d'un texte source, mais ils ne sont pas équivalents à une traduction humaine.",
-        "docDownload": "Ouvrir",
-        "docCancel": "Annuler",
-        "docUploadTooltip": "Charger le document",
-        "docUploadMsgType": "Le format du fichier \"{file}\" n'est pas reconnu. La traduction est prise en charge pour les formats de document suivants : {extensions}.",
-        "docUploadMsgSize": "Le fichier \"{file}\" est trop grand. La taille maximum du fichier est de {sizeLimit}.",
-        "docUploadMsgEmpty": "Le fichier \"{file}\" est vide. Veuillez sélectionner un fichier avec contenu.",
-        "docUploadMsgWordcnt": "Le nombre maximum de mots pour une traduction ({wordCount}) a été dépassé.",
-        "docUploadFilename": "Document title:",
-        "docUploadFilesize": "Document size:",
-        "docUploadWordcount": "Word count:",
-        "docUploadFailed": "Failo įkelti nepavyko.",
-        "docTranslFailed": "Échec du chargement du fichier.",
-        "docUploadNewDoc": "Supprimer",
-        "docStarting": "La traduction du document démarre…",
-        "docPreviewError": "Impossible de générer un aperçu du document.",
-        "docAppleLimited": "Le chargement de fichiers sur les appareils iOS est limité.",
-        "docTranslInProgress": "La traduction du document est en cours. Si vous quittez la page, la traduction sera perdue.",
-        "docSupportedTypes": "Currently the system supports {extensions} file formats. UTF-8 or UTF-16 coding required."
-    },
-    'et': {
-        "docTempTarget": "Masintõlge aitab teksti sisust aru saada, kuid ei asenda inimtõlget.",
-        "docDownload": "Laadi alla",
-        "docCancel": "Tühista",
-        "docUploadTooltip": "Laadi dokument üles",
-        "docUploadMsgType": "Faili \"{file}\" vorming on tundmatu. Tõlketugi on olemas järgmiste failivormingute puhul: {extensions}.",
-        "docUploadMsgSize": "Fail \"{file}\" on liiga suur. Faili lubatud maksimummaht on {sizeLimit}.",
-        "docUploadMsgEmpty": "Fail \"{file}\" on tühi. Valige andmeid sisaldav fail.",
-        "docUploadMsgWordcnt": "Ühe tõlke suurim lubatud sõnaarv ({wordCount}) on ületatud.",
-        "docUploadFilename": "Dokumendi pealkiri:",
-        "docUploadFilesize": "Dokumendi suurus:",
-        "docUploadWordcount": "Sõnade arv:",
-        "docUploadFailed": "Faili üleslaadimine nurjus.",
-        "docTranslFailed": "Dokumendi tõlkimine nurjus. Proovige uuesti.",
-        "docUploadNewDoc": "Kustuta",
-        "docStarting": "Algab dokumendi tõlkimine...",
-        "docPreviewError": "Dokumendi eelvaate loomine nurjus.",
-        "docAppleLimited": "Failide üleslaadimine iOS-seadmetest on piiratud.",
-        "docTranslInProgress": "Dokumendi tõlkimine on pooleli. Kui lehelt lahkute, läheb tõlge kaotsi.",
-        "docSupportedTypes": "Praegu toetab süsteem järgmisi failivorminguid: {extensions}. Vajalik on kodeering UTF-8 või UTF-16."
-    },
-});
-/* UI texts */
-
-uiResources = $.extend(true, uiResources, {
-    'en': {
-        "clearTranslation": "Clear",
-        // RL
-        // "sourceTextTooltip": "Enter the text you want to translate",
-        "sourceTextTooltip": "Enter the text you would like to translate...",
-        //
-        "noInternet": "No internet connection",
-        "targetTextTooltip": "Machine translation results help to understand the meaning of a source text, but do not equal translation by a human.",
-        "transLimit": "You have reached the maximum word limit for one translation request. To translate the untranslated part please make another request.",
-        "seeFullEntry": "Read complete entry",
-        "speaker": "Listen",
-        "editButton": "Edit",
-        "editButtonTooltip": "Suggest a better translation",
-        "translationEditSave": "Contribute",
-        "translationEditClose": "Close",
-        "translationEditOriginal": "Original sentence",
-        "translationEditTranslation": "Translation",
-        "translationEditDescription": "Your translation suggestion will be used to improve the quality of machine translation."
-
-    },
-    'fr': {
-        "clearTranslation": "Effacer",
-        "sourceTextTooltip": "Entrez le texte que vous voulez traduire",
-        "noInternet": "No internet connection",
-        "targetTextTooltip": "Les résultats de traduction électronique aident à comprendre le sens du texte original mais ils ne remplacent pas un traducteur humain.",
-        "transLimit": "Ir sasniegts maksimālais vārdu limits vienā tulkošanas pieprasījumā. Lūdzu, sadaliet tekstu mazākos gabalos.",
-        "seeFullEntry": "Read complete entry",
-        "speaker": "Listen",
-        "editButton": "Edit",
-        "translationEditSave": "Contribute",
-        "translationEditClose": "Close",
-        "translationEditOriginal": "Original sentence",
-        "translationEditTranslation": "Translation",
-        "translationEditDescription": "Your translation suggestion will be used to improve the quality of machine translation."
-    },
-    'lt': {
-        "clearTranslation": "Ištrinti",
-        "sourceTextTooltip": "Įveskite norimą versti tekstą",
-        "noInternet": "No internet connection",
-        "targetTextTooltip": "Automatinio vertimo rezultatai padeda suprasti teksto prasmę, tačiau nepakeičia žmonių kuriamų vertimų.",
-        "transLimit": "Pasiekėte vienos vertimo užklausos leistiną žodžių ribą. Jei norite versti neišverstą dalį, pateikite kitą užklausą.",
-        "seeFullEntry": "Read complete entry",
-        "speaker": "Klausykite",
-        "editButton": "Redaguoti",
-        "editButtonTooltip": "Siūlyti vertimą",
-        "translationEditSave": "Siūlyti",
-        "translationEditClose": "Uždaryti",
-        "translationEditOriginal": "Originalo sakinys",
-        "translationEditTranslation": "Vertimas",
-        "translationEditDescription": "Jūsų vertimo pasiūlymą naudosime, kad pagerintume mašininio vertimo kokybę."
-    },
-    'lv': {
-        "clearTranslation": "Notīrīt",
-        "sourceTextTooltip": "Ievadiet tulkojamo tekstu",
-        "noInternet": "No internet connection",
-        "targetTextTooltip": "Mašīntulkošanas rezultāti ļauj saprast teksta nozīmi, bet nevar aizstāt cilvēka radītu tulkojumu.",
-        "transLimit": "You have reached the maximum word limit for one translation request. To translate the untranslated part please make another request.",
-        "seeFullEntry": "Skatīt pilnu šķirkli",
-        "speaker": "Klausīties",
-        "editButton": "Rediģēt",
-        "editButtonTooltip": "Ieteikt labāku tulkojumu",
-        "translationEditSave": "Ieteikt",
-        "translationEditClose": "Aizvērt",
-        "translationEditOriginal": "Sākotnējais teikums",
-        "translationEditTranslation": "Tulkojums",
-        "translationEditDescription" : "Jūsu tulkojuma ieteikums tiks izmantots tulkošanas kvalitātes uzlabošanai."
-    },
-    'ru': {
-        "clearTranslation": "Очистить",
-        "sourceTextTooltip": "Введите текст для перевода",
-        "noInternet": "No internet connection",
-        "targetTextTooltip": "Результаты машинного перевода позволяют понять значение текста, но не позволяют заменить сделанный человеком перевод.",
-        "transLimit": "You have reached the maximum word limit for one translation request. To translate the untranslated part please make another request.",
-        "seeFullEntry": "Read complete entry",
-        "speaker": "Listen",
-        "editButton": "Edit",
-        "translationEditSave": "Contribute",
-        "translationEditClose": "Close",
-        "translationEditOriginal": "Original sentence",
-        "translationEditTranslation": "Translation",
-        "translationEditDescription": "Your translation suggestion will be used to improve the quality of machine translation."
-    },
-    'et': {
-        "clearTranslation": "Tühjenda",
-        // RL
-        //"sourceTextTooltip": "Sisestage soovitud tekst",
-        "sourceTextTooltip": "Sisesta tekst, mida soovid tõlkida...",
-        // /RL
-        "noInternet": "No internet connection",
-        "targetTextTooltip": "Masintõlge aitab teksti sisust aru saada, kuid ei asenda inimtõlget.",
-        "transLimit": "Ühe tõlketaotluse suurim sõnaarv on täis. Tõlkimata osa tõlkimiseks esitage uus taotlus.",
-        "seeFullEntry": "Read complete entry",
-        "speaker": "Kuulake",
-        "editButton": "Redigeeri",
-        "editButtonTooltip": "Soovita tõlget",
-        "translationEditSave": "Andke oma panus",
-        "translationEditClose": "Sule",
-        "translationEditOriginal": "Algne lause",
-        "translationEditTranslation": "Tõlge",
-        "translationEditDescription": "Teie tõlkesoovitust kasutatakse masintõlke kvaliteedi parandamiseks."
-    }
-});
-/* UI texts */
-
 var uiResources = {
     'en': {
         "sourceSystem": "From:",
@@ -993,10 +660,10 @@ Tilde.TranslatorWidget.prototype = {
             }
 
             if ($widget.fancySource !== null) {
-                // RL
-                var newTriggerText = $('.translateSourceLang option[value="' + src + '"]', $widget.settings.container).html();
-                newTriggerText = angular.element($("#my_translator_app")).scope().localize(newTriggerText);
-                $('#source_lang_div .trigger').first().html(newTriggerText);
+               // // RL
+                //var newTriggerText = $('.translateSourceLang option[value="' + src + '"]', $widget.settings.container).html();
+                //newTriggerText = angular.element($("#my_translator_app")).scope().localize(newTriggerText);
+                //$('#source_lang_div .trigger').first().html(newTriggerText);
                 $('#source_lang_div .options li').each(function () {
                     if ($(this).data("raw-value") != src) {
                         $(this).removeClass('selected');
@@ -1009,14 +676,7 @@ Tilde.TranslatorWidget.prototype = {
             }
 
             // RL
-            $('.w .translateSourceLang option').removeAttr('selected');
-            $('.w .translateSourceLang option[value="' + src + '"]').attr('selected', 'selected');
-
-
             if ($('.w .translateSourceLang') !== null) {
-                var newTriggerText = $('.w .translateSourceLang option[value="' + src + '"]').html();
-                newTriggerText = angular.element($("#my_translator_app")).scope().localize(newTriggerText);
-                $('.web_transl_types .trigger').first().html(newTriggerText);
                 $('.web_transl_types .options li').each(function () {
                     if ($(this).data("raw-value") != src) {
                         $(this).removeClass('selected');
@@ -1025,8 +685,6 @@ Tilde.TranslatorWidget.prototype = {
                     }
                 });
             }
-
-            $widget.loadTargetLangListWeb(src, trg, true);
             // /RL
         } else {
             $('.translateSystem option[selected="selected"]', $widget.settings.container).removeAttr('selected');
@@ -1170,49 +828,6 @@ Tilde.TranslatorWidget.prototype = {
             $widget.fancyTarget.trigger('update.fs');
         }
     },
-    // RL
-    loadTargetLangListWeb: function (source, selTarget, putSystemId) {
-        $('.w .translateTargetLang').empty();
-
-        $.each($widget.settings._systems, function (idx, sys) {
-            if (sys.SourceLanguage.Code === source) {
-                if (putSystemId) {
-                    // check unique in lang attribute
-                    if ($('.w .translateTargetLang option[lang="' + sys.TargetLanguage.Code + '"]').length === 0) {
-                        $('.w .translateTargetLang').append($('<option>', {
-                            value: sys.ID,
-                            text: sys.TargetLanguage.Name.Text,
-                            lang: sys.TargetLanguage.Code
-                        }));
-                    }
-                }
-                else {
-                    // check unique in value attribute
-                    if ($('.w .translateTargetLang option[value="' + sys.TargetLanguage.Code + '"]').length === 0) {
-                        $('.w .translateTargetLang').append($('<option>', {
-                            value: sys.TargetLanguage.Code,
-                            text: sys.TargetLanguage.Name.Text
-                        }));
-                    }
-                }
-            }
-        });
-
-        // select target
-        if (selTarget !== undefined && selTarget !== null) {
-            $('.w .translateTargetLang option[lang="' + selTarget + '"]').attr('selected', 'selected');
-        }
-
-        if ($('.w .translateTargetLang') !== null) {
-            $('.w .translateTargetLang').trigger('update.fs');
-
-            var newTriggerText = $('.w .translateTargetLang option[lang="' + selTarget + '"]').html();
-            newTriggerText = angular.element($("#my_translator_app")).scope().localize(newTriggerText);
-            $('.web_transl_types .trigger').last().html(newTriggerText);
-
-        }
-    },
-    // /RL
 
     loadDomainList: function (source, target) {
         var core = this,
@@ -3012,6 +2627,146 @@ qq.extend(qq.UploadHandlerXhr.prototype, {
     }
 
 })();
+/* tilde.translator.widget.RECENTLANGS.js */
+
+$.extend(Tilde.TranslatorWidgetDefaultOptions, {
+    _useRecentLangSelector: false
+});
+
+$.extend(Tilde.TranslatorWidget.prototype, {
+
+    recentlangsPluginInit: function () {
+        if (!$widget.settings._useRecentLangSelector) {
+            return;
+        }
+        $widget.onSystemListLoadedHandlers.push(function () {
+            $widget.loadPopularSourceLangList();
+            $widget.loadPopularTargetLangList();
+        });
+
+        $widget.onSystemChangedHandlers.push(function (systemId) {
+            $widget.changePopularLangList(systemId);
+        });
+
+        $(document).on('click', '.popSourceLangs li', function () {
+            if (!$(this).hasClass('active')) {
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+            }
+            $('.translateSourceLang option[value="' + $(this).attr('data-value') + '"]').prop('selected', true);
+            $widget.fancySource.trigger('update.fs');
+        });
+
+        $(document).on('click', '.popTargetLangs li', function () {
+            if (!$(this).hasClass('active')) {
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+            }
+            $('.translateTargetLang option[lang="' + $(this).attr('data-value') + '"]').prop('selected', true);
+            $widget.fancyTarget.trigger('update.fs');
+        });
+
+        $(window).on('resize', function () {
+            $widget.loadPopularSourceLangList();
+            $widget.loadPopularTargetLangList();
+        });
+    },
+
+    loadPopularSourceLangList: function (languageCount) {
+        if(!languageCount)
+            languageCount = 3;
+        languageIndexes = [];
+        // select first N languages. always include selected language even if it is not in first N
+        $('.translateSourceLang option').each(function (idx) {
+            if (idx < languageCount) {
+                languageIndexes.push(idx);
+            } else if ($(this).val() === $(this).parent().val()) {
+                if (languageIndexes.length > 0) {
+                    languageIndexes.pop();
+                }
+                languageIndexes.push(idx);
+            }
+        });
+        var list = '';
+        $('.translateSourceLang option').each(function (idx) {
+            if ($.inArray(idx, languageIndexes) >= 0) {
+                list += '<li data-value="' + $(this).val() + '"' + ($(this).val() === $(this).parent().val() ? ' class="active"' : '') + '>' + $(this).text() + '</li>';
+            }
+        });
+        $(".translateSystemContainerLeft .fancy-select").toggle($('.translateSourceLang option').length > languageCount);
+        $('.popSourceLangs').html(list);
+        if ($(".translateSystemContainerLeft").height() > 50 && languageCount > 1){
+            $widget.loadPopularSourceLangList(languageCount - 1);
+        }
+    },
+
+    loadPopularTargetLangList: function (languageCount) {
+        if (!languageCount)
+            languageCount = 3;
+        languageIndexes = [];
+        // select first N languages. always include selected language even if it is not in first N
+        $('.translateTargetLang option').each(function (idx) {
+            if (idx < languageCount) {
+                languageIndexes.push(idx);
+            } else if ($(this).val() === $(this).parent().val()) {
+                if (languageIndexes.length > 0) {
+                    languageIndexes.pop();
+                }
+                languageIndexes.push(idx);
+            }
+        });
+        var list = '';
+        $('.translateTargetLang option').each(function (idx) {
+            if ($.inArray(idx, languageIndexes) >= 0) {
+                list += '<li data-value="' + $(this).attr('lang') + '"' + ($(this).val() === $(this).parent().val() ? ' class="active"' : '') + '>' + $(this).text() + '</li>';
+            }
+        });
+        $(".translateSystemContainerRight .fancy-select").toggle($('.translateTargetLang option').length > languageCount);
+        $('.popTargetLangs').html(list);
+        if ($(".translateSystemContainerRight").height() > 50 && languageCount > 1) {
+            $widget.loadPopularTargetLangList(languageCount - 1);
+        }
+    },
+
+    changePopularLangList: function (systemId) {
+        var sysObj = $widget.getActiveSystemObj();
+        if (!sysObj)
+            return;
+
+        var src = sysObj.SourceLanguage.Code;
+        var trg = sysObj.TargetLanguage.Code;
+
+        $('.popSourceLangs li').removeClass('active');
+
+        if ($('.popSourceLangs li[data-value="' + src + '"]').length > 0) {
+            $('.popSourceLangs li[data-value="' + src + '"]').addClass('active');
+        }
+        else {
+            $('.popSourceLangs').prepend('<li data-value="' + src + '" class="active">' + $('.translateSourceLang :selected').text() + '</li>');
+            $('.popSourceLangs li').last().remove();
+            if ($('.popSourceLangs li').length > 1 && $(".translateSystemContainerLeft").height() > 50) {
+                $('.popSourceLangs li').last().remove();
+            }
+        }
+
+        $widget.loadPopularTargetLangList();
+        $('.popTargetLangs li').removeClass('active');
+        if ($('.popTargetLangs li[data-value="' + trg + '"]').length > 0) {
+            $('.popTargetLangs li[data-value="' + trg + '"]').addClass('active');
+        }
+        else {
+            $('.popTargetLangs').prepend('<li data-value="' + trg + '" class="active">' + $('.translateTargetLang :selected').text() + '</li>');
+            $('.popTargetLangs li').last().remove();
+            if ($('.popTargetLangs li').length > 1 && $(".translateSystemContainerRight").height() > 50)
+            {
+                $('.popTargetLangs li').last().remove();
+            }
+        }
+    }
+
+});
+
+Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.recentlangsPluginInit);
 /* tilde.translator.widget.TRANSLATEFILE.js */
 
 $.extend(Tilde.TranslatorWidgetDefaultOptions, {
@@ -3295,10 +3050,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
     filePluginTranslate: function () {
         $widget.disableSystemChange();
-        // RL
-        //$('.translateButton, .docUploadNewDoc').addClass('hide');
-        $('.translateButton').addClass('hide');
-        // /RL
+        $('.translateButton, .docUploadNewDoc').addClass('hide');
         if ($widget.settings._advancedOptions) {
             $('.advancedOptions').addClass("hide");
             $('.buttonAdvancedOptions').addClass("hide");
@@ -4262,7 +4014,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
     textPluginSetTempTextSource: function () {
         $($widget.settings._textSource, $widget.settings.container).val('');
-
+        
         // show blink cursor
         if ($widget.settings._landingView) {
             $('.intro .fakeCursor', $widget.settings.container).removeClass('hide');
@@ -4270,7 +4022,6 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
         $('.translateTextTempSourceContainer', $widget.settings.container).removeClass('hide');
         $('.translateTextTempSourceContainer', $widget.settings.container).html(uiResources[$widget.settings._language]['sourceTextTooltip']);
-        
         $('.translateTextTempSourceContainer', $widget.settings.container).unbind('focus');
         $('.translateTextTempSourceContainer', $widget.settings.container).bind('focus', function () {
             $('.translateTextTempSourceContainer', $widget.settings.container).addClass('hide');
@@ -6063,3 +5814,336 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 });
 
 Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.webPluginInit);
+/* UI texts */
+
+uiResources = $.extend(true, uiResources, {
+    'en': {
+        "E_DEFAULT_ERROR": "Error occurred while translating.",
+        "E_UNKNOWN_FILE_TYPE": "Unknown file type.",
+        "E_CANNOT_READ_FILE": "Cannot read file, file may be corrupted.",
+        "E_FAILED_IN_TRANSLATION": "Error occurred while translating.",
+        "E_FORMAT_TRACK_CHANGES": "Could not translate because track changes was turned on. Changes must first be accepted.",
+        "E_UNKNOWN_ERROR": "An unknown error occurred.",
+        "E_UNAUTHORIZED": "Document translation was denied.",
+        "W_TIMEOUT": "Some sentences are not translated, because translation took too much time.",
+        "W_SENTENCE_TOO_LONG": "Some sentences are not translated, because they are too long."
+    },
+    'lv': {
+        "E_DEFAULT_ERROR": "Tulkojot radās kļūda.",
+        "E_UNKNOWN_FILE_TYPE": "Nezināms faila tips.",
+        "E_CANNOT_READ_FILE": "Neizdevās nolasīt faila saturu, iespējams, fails ir bojāts.",
+        "E_FAILED_IN_TRANSLATION": "Tulkojot radās kļūda.",
+        "E_FORMAT_TRACK_CHANGES": "Nevarēja iztulkot dokumentu, jo bija ieslēgta izmaiņu reģistrēšana. Vispirms apstipriniet izmaiņas.",
+        "E_UNKNOWN_ERROR": "Radās nezināma kļūda.",
+        "E_UNAUTHORIZED": "Dokumenta tulkošana tika liegta.",
+        "W_TIMEOUT": "Daži teikumi netika iztulkoti, jo tulkošana prasīja pārāk daudz laika.",
+        "W_SENTENCE_TOO_LONG": "Daži teikumi nav iztulkoti, jo tie bija pārāk gari."
+    },
+    'ru': {
+        "E_DEFAULT_ERROR": "Во время перевода возникла ошибка.",
+        "E_UNKNOWN_FILE_TYPE": "Неизвестный тип файла.",
+        "E_CANNOT_READ_FILE": "Не удалось считать содержание файла, возможно, файл поврежден.",
+        "E_FAILED_IN_TRANSLATION": "Во время перевода возникла ошибка.",
+        "E_FORMAT_TRACK_CHANGES": "Не удалось перевести, поскольку был включен режим отслеживания исправлений. Сначала примите исправления.",
+        "E_UNKNOWN_ERROR": "Возникла неизвестная ошибка.",
+        "E_UNAUTHORIZED": "Перевод документа запрещен.",
+        "W_TIMEOUT": "Some sentences are not translated, because translation took too much time.",
+        "W_SENTENCE_TOO_LONG": "Some sentences are not translated, because they are too long."
+    },
+    'lt': {
+        'E_DEFAULT_ERROR': 'Verčiant įvyko klaida.',
+        'E_UNKNOWN_FILE_TYPE': 'Nežinomas failo tipas.',
+        'E_CANNOT_READ_FILE': 'Failo nuskaityti nepavyko. Jis gali būti sugadintas.',
+        'E_FAILED_IN_TRANSLATION': 'Verčiant įvyko klaida.',
+        'E_FORMAT_TRACK_CHANGES': 'Išversti nepavyko, nes įjungtas keitimų sekimas (angl. track changes). Pirmiausia sutikite su visais keitimais.',
+        'E_UNKNOWN_ERROR': 'Aptikta nenustatyta klaida.',
+        'E_UNAUTHORIZED': 'Dokumento vertimas atmestas.',
+        "W_TIMEOUT": "Kai kurie sakiniai liko neišversti, nes baigėsi vertimui skirtas laikas.",
+        "W_SENTENCE_TOO_LONG": "Kai kurie sakiniai liko neišversti, nes jie per ilgi."
+    },
+    'fr': {
+        'E_DEFAULT_ERROR': 'Une erreur est survenue pendant la traduction.',
+        'E_UNKNOWN_FILE_TYPE': 'Type de fichier inconnu.',
+        'E_CANNOT_READ_FILE': 'Impossible de lire le fichier, le fichier est peut-être endommagé.',
+        'E_FAILED_IN_TRANSLATION': 'Une erreur est survenue pendant la traduction.',
+        'E_FORMAT_TRACK_CHANGES': 'Impossible de traduire car le suivi des corrections est activé. Les corrections doivent d\'abord être acceptées.',
+        'E_UNKNOWN_ERROR': 'Une erreur inconnue s\'est produite.',
+        'E_UNAUTHORIZED': 'La traduction du document a été refusée.',
+        "W_TIMEOUT": "Some sentences are not translated, because translation timed out.",
+        "W_SENTENCE_TOO_LONG": "Some sentences are not translated, because they are too long."
+    },
+    'et': {
+        "E_DEFAULT_ERROR": "Tõlkimisel ilmnes tõrge.",
+        "E_UNKNOWN_FILE_TYPE": "Tundmatu failitüüp.",
+        "E_CANNOT_READ_FILE": "Faili ei saa lugeda. See võib olla rikutud.",
+        "E_FAILED_IN_TRANSLATION": "Tõlkimisel ilmnes tõrge.",
+        "E_FORMAT_TRACK_CHANGES": "Tõlkida ei saanud, kuna muutuste jälitus oli sisse lülitatud. Muutused tuleb esmalt aktsepteerida.",
+        "E_UNKNOWN_ERROR": "Ilmnes tundmatu tõrge.",
+        "E_UNAUTHORIZED": "Dokumendi tõlkimine keelati.",
+        "W_TIMEOUT": "Mõni lause jäi tõlkimata, kuna tõlkimisel ilmnes ajalõpp.",
+        "W_SENTENCE_TOO_LONG": "Mõnda lauset ei tõlgitud, kuna need on liiga pikad."
+    },
+});
+/* UI texts */
+
+uiResources = $.extend(true, uiResources, {
+    'en': {
+        "docTempTarget": "Machine translation results for documents help to understand the meaning of a source text, but do not equal translation by a human.",
+        "docDownload": "Download",
+        "docCancel": "Cancel",
+        "docUploadTooltip": "Upload document",
+        "docUploadMsgType": "The file \"{file}\" format is not recognized. Translation is supported for these document formats: {extensions}.",
+        "docUploadMsgSize": "File \"{file}\" is too large. Maximum file size is {sizeLimit}.",
+        "docUploadMsgEmpty": "File \"{file}\" is empty. Please select a file with content.",
+        "docUploadMsgWordcnt": "The maximum word count for one translation ({wordCount}) has been exceeded.",
+        "docUploadFilename": "Document title:",
+        "docUploadFilesize": "Document size:",
+        "docUploadWordcount": "Word count:",
+        "docUploadFailed": "File upload was not successful.",
+        "docTranslFailed": "Document translation failed. Please try again.",
+        "docUploadNewDoc": "Delete",
+        "docStarting": "Document translation is starting...",
+        "docPreviewError": "Could not generate a preview of the document.",
+        "docAppleLimited": "File upload on iOS devices is limited.",
+        "docTranslInProgress": "Document translation is in progress. If you leave the page, the translation will be lost.",
+        "docSupportedTypes": "Currently the system supports {extensions} file formats. UTF-8 or UTF-16 coding required.",
+        "docLimit": "Please be informed that only first {limit} segments of each document will be translated for you as a DEMO user. We kindly invite you to contact us <a href=\"mailto:mt@tilde.com\">mt@tilde.com</a> to get full access",
+        "advancedOptions": "Options▾"
+    },
+    'lv': {
+        "docTempTarget": "Dokumentu mašīntulkošanas rezultāti ļauj saprast teksta nozīmi, bet nevar aizstāt cilvēka radītu tulkojumu.",
+        "docDownload": "Atvērt",
+        "docCancel": "Atcelt",
+        "docUploadTooltip": "Augšupielādēt dokumentu",
+        "docUploadMsgType": "Faila \"{file}\" formāts nav atpazīts. Tulkošana tiek atbalstīta šādiem dokumentu formātiem: {extensions}.",
+        "docUploadMsgSize": "Fails \"{file}\" ir pārāk liels. Maksimālais lielums ir {sizeLimit}.",
+        "docUploadMsgEmpty": "Fails \"{file}\" ir tukšs. Izvēlieties failu, kurā ir saturs.",
+        "docUploadMsgWordcnt": "Ir pārsniegts vienam tulkojumam pieejamais vārdu skaits ({wordCount}), tādēļ dokuments tiks iztulkots daļēji. Pilnam tulkojumam, lūdzu, sadaliet tekstu vairākos dokumentos.",
+        "docUploadFilename": "Dokumenta nosaukums:",
+        "docUploadFilesize": "Dokumenta lielums:",
+        "docUploadWordcount": "Vārdu skaits:",
+        "docUploadFailed": "Neizdevās ielādēt failu.",
+        "docUploadNewDoc": "Izdzēst",
+        "docStarting": "Tiek sākta dokumenta tulkošana...",
+        "docPreviewError": "Neizdevās izveidot dokumenta priekšskatījumu.",
+        "docAppleLimited": "iOS iekārtās failu augšupielāde ir ierobežota.",
+        "docTranslInProgress": "Patreiz notiek dokumenta tulkošana. Pametot lapu, tulkojums tiks pazaudēts.",
+        "docSupportedTypes": "Tiek atbalstīti šādi dokumentu formāti: {extensions}. Nepieciešams UTF-8 vai UTF-16 kodējums."
+    },
+    'ru': {
+        "docTempTarget": "Результаты машинного перевода документов позволяют понять значение текста, но не позволяют заменить сделанный человеком перевод.",
+        "docDownload": "Открыть",
+        "docCancel": "Отменить",
+        "docUploadTooltip": "Загрузить документ",
+        "docUploadMsgType": "Формат файла \"{file}\" не опознан. Перевод поддерживается для следующих форматов документов: {extensions}.",
+        "docUploadMsgSize": "Файл \"{file}\" слишком большой. Максимальный размер: {sizeLimit}.",
+        "docUploadMsgEmpty": "Файл \"{file}\" пустой. Выберите файл с содержимым.",
+        "docUploadMsgWordcnt": "Превышено количество слов, доступное для одного файла ({wordCount}).",
+        "docUploadFilename": "Название документа:",
+        "docUploadFilesize": "Размер документа:",
+        "docUploadWordcount": "Количество слов:",
+        "docUploadFailed": "Файл не удалось загрузить.",
+        "docUploadNewDoc": "Удалить",
+        "docStarting": "Начат перевод документа...",
+        "docPreviewError": "Не удалось создать предварительный просмотр документа.",
+        "docAppleLimited": "Загрузка файла на устройствах IOS ограничено.",
+        "docTranslInProgress": "Перевод документов в процессе. Если вы уйдете со страницы, перевод будет потерян.",
+        "docSupportedTypes": "Currently the system supports {extensions} file formats. UTF-8 or UTF-16 coding required."
+    },
+    'lt': {
+        "docTempTarget": "Dokumentų mašininio vertimo rezultatai padeda suprasti originalo teksto prasmę, tačiau jo kokybės negalima lyginti su žmonių atliekamu vertimu.",
+        "docDownload": "Atidaryti",
+        "docCancel": "Atšaukti",
+        "docUploadTooltip": "Įkelti dokumentą",
+        "docUploadMsgType": "Failo „{file}“ formatas neatpažintas. Atliekamas tik šių dokumentų formatų vertimas: {extensions}.",
+        "docUploadMsgSize": "Failas „{file}“ yra per didelis. Maksimalus leistinas failo dydis: {sizeLimit}.",
+        "docUploadMsgEmpty": "Failas „{file}“ yra tuščias. Pasirinkite failą su turiniu.",
+        "docUploadMsgWordcnt": "Viršytas maksimalus vieno vertimo žodžių skaičius ({wordCount}).",
+        "docUploadFilename": "Document title:",
+        "docUploadFilesize": "Document size:",
+        "docUploadWordcount": "Word count:",
+        "docUploadFailed": "Failo įkelti nepavyko.",
+        "docTranslFailed": "Document translation failed. Please try again.",
+        "docUploadNewDoc": "Ištrinti",
+        "docStarting": "Pradedamas dokumento vertimas...",
+        "docPreviewError": "Dokumento peržiūros sugeneruoti nepavyko.",
+        "docAppleLimited": "Failų įkėlimas iOS įrenginiuose yra apribotas.",
+        "docTranslInProgress": "Dokumentas verčiamas. Jei uždarysite šį puslapį, vertimas bus prarastas.",
+        "docSupportedTypes": "Šiuo metu sistema palaiko {extensions} failų formatus. Būtinas UTF-8 arba UTF-16 kodavimas."
+    },
+    'fr': {
+        "docTempTarget": "Les résultats de la traduction automatique de documents aident à comprendre le sens d'un texte source, mais ils ne sont pas équivalents à une traduction humaine.",
+        "docDownload": "Ouvrir",
+        "docCancel": "Annuler",
+        "docUploadTooltip": "Charger le document",
+        "docUploadMsgType": "Le format du fichier \"{file}\" n'est pas reconnu. La traduction est prise en charge pour les formats de document suivants : {extensions}.",
+        "docUploadMsgSize": "Le fichier \"{file}\" est trop grand. La taille maximum du fichier est de {sizeLimit}.",
+        "docUploadMsgEmpty": "Le fichier \"{file}\" est vide. Veuillez sélectionner un fichier avec contenu.",
+        "docUploadMsgWordcnt": "Le nombre maximum de mots pour une traduction ({wordCount}) a été dépassé.",
+        "docUploadFilename": "Document title:",
+        "docUploadFilesize": "Document size:",
+        "docUploadWordcount": "Word count:",
+        "docUploadFailed": "Failo įkelti nepavyko.",
+        "docTranslFailed": "Échec du chargement du fichier.",
+        "docUploadNewDoc": "Supprimer",
+        "docStarting": "La traduction du document démarre…",
+        "docPreviewError": "Impossible de générer un aperçu du document.",
+        "docAppleLimited": "Le chargement de fichiers sur les appareils iOS est limité.",
+        "docTranslInProgress": "La traduction du document est en cours. Si vous quittez la page, la traduction sera perdue.",
+        "docSupportedTypes": "Currently the system supports {extensions} file formats. UTF-8 or UTF-16 coding required."
+    },
+    'et': {
+        "docTempTarget": "Masintõlge aitab teksti sisust aru saada, kuid ei asenda inimtõlget.",
+        "docDownload": "Laadi alla",
+        "docCancel": "Tühista",
+        "docUploadTooltip": "Laadi dokument üles",
+        "docUploadMsgType": "Faili \"{file}\" vorming on tundmatu. Tõlketugi on olemas järgmiste failivormingute puhul: {extensions}.",
+        "docUploadMsgSize": "Fail \"{file}\" on liiga suur. Faili lubatud maksimummaht on {sizeLimit}.",
+        "docUploadMsgEmpty": "Fail \"{file}\" on tühi. Valige andmeid sisaldav fail.",
+        "docUploadMsgWordcnt": "Ühe tõlke suurim lubatud sõnaarv ({wordCount}) on ületatud.",
+        "docUploadFilename": "Dokumendi pealkiri:",
+        "docUploadFilesize": "Dokumendi suurus:",
+        "docUploadWordcount": "Sõnade arv:",
+        "docUploadFailed": "Faili üleslaadimine nurjus.",
+        "docTranslFailed": "Dokumendi tõlkimine nurjus. Proovige uuesti.",
+        "docUploadNewDoc": "Kustuta",
+        "docStarting": "Algab dokumendi tõlkimine...",
+        "docPreviewError": "Dokumendi eelvaate loomine nurjus.",
+        "docAppleLimited": "Failide üleslaadimine iOS-seadmetest on piiratud.",
+        "docTranslInProgress": "Dokumendi tõlkimine on pooleli. Kui lehelt lahkute, läheb tõlge kaotsi.",
+        "docSupportedTypes": "Praegu toetab süsteem järgmisi failivorminguid: {extensions}. Vajalik on kodeering UTF-8 või UTF-16."
+    },
+});
+/* UI texts */
+
+uiResources = $.extend(true, uiResources, {
+    'en': {
+        "clearTranslation": "Clear",
+        // RL
+        "sourceTextTooltip": "Enter the text you want to translate",
+        //"sourceTextTooltip": "Enter the text you would like to translate...",
+        //
+        "noInternet": "No internet connection",
+        "targetTextTooltip": "Machine translation results help to understand the meaning of a source text, but do not equal translation by a human.",
+        "transLimit": "You have reached the maximum word limit for one translation request. To translate the untranslated part please make another request.",
+        "seeFullEntry": "Read complete entry",
+        "speaker": "Listen",
+        "editButton": "Edit",
+        "editButtonTooltip": "Suggest a better translation",
+        "translationEditSave": "Contribute",
+        "translationEditClose": "Close",
+        "translationEditOriginal": "Original sentence",
+        "translationEditTranslation": "Translation",
+        "translationEditDescription": "Your translation suggestion will be used to improve the quality of machine translation."
+
+    },
+    'fr': {
+        "clearTranslation": "Effacer",
+        "sourceTextTooltip": "Entrez le texte que vous voulez traduire",
+        "noInternet": "No internet connection",
+        "targetTextTooltip": "Les résultats de traduction électronique aident à comprendre le sens du texte original mais ils ne remplacent pas un traducteur humain.",
+        "transLimit": "Ir sasniegts maksimālais vārdu limits vienā tulkošanas pieprasījumā. Lūdzu, sadaliet tekstu mazākos gabalos.",
+        "seeFullEntry": "Read complete entry",
+        "speaker": "Listen",
+        "editButton": "Edit",
+        "translationEditSave": "Contribute",
+        "translationEditClose": "Close",
+        "translationEditOriginal": "Original sentence",
+        "translationEditTranslation": "Translation",
+        "translationEditDescription": "Your translation suggestion will be used to improve the quality of machine translation."
+    },
+    'lt': {
+        "clearTranslation": "Ištrinti",
+        "sourceTextTooltip": "Įveskite norimą versti tekstą",
+        "noInternet": "No internet connection",
+        "targetTextTooltip": "Automatinio vertimo rezultatai padeda suprasti teksto prasmę, tačiau nepakeičia žmonių kuriamų vertimų.",
+        "transLimit": "Pasiekėte vienos vertimo užklausos leistiną žodžių ribą. Jei norite versti neišverstą dalį, pateikite kitą užklausą.",
+        "seeFullEntry": "Read complete entry",
+        "speaker": "Klausykite",
+        "editButton": "Redaguoti",
+        "editButtonTooltip": "Siūlyti vertimą",
+        "translationEditSave": "Siūlyti",
+        "translationEditClose": "Uždaryti",
+        "translationEditOriginal": "Originalo sakinys",
+        "translationEditTranslation": "Vertimas",
+        "translationEditDescription": "Jūsų vertimo pasiūlymą naudosime, kad pagerintume mašininio vertimo kokybę."
+    },
+    'lv': {
+        "clearTranslation": "Notīrīt",
+        "sourceTextTooltip": "Ievadiet tulkojamo tekstu",
+        "noInternet": "No internet connection",
+        "targetTextTooltip": "Mašīntulkošanas rezultāti ļauj saprast teksta nozīmi, bet nevar aizstāt cilvēka radītu tulkojumu.",
+        "transLimit": "You have reached the maximum word limit for one translation request. To translate the untranslated part please make another request.",
+        "seeFullEntry": "Skatīt pilnu šķirkli",
+        "speaker": "Klausīties",
+        "editButton": "Rediģēt",
+        "editButtonTooltip": "Ieteikt labāku tulkojumu",
+        "translationEditSave": "Ieteikt",
+        "translationEditClose": "Aizvērt",
+        "translationEditOriginal": "Sākotnējais teikums",
+        "translationEditTranslation": "Tulkojums",
+        "translationEditDescription" : "Jūsu tulkojuma ieteikums tiks izmantots tulkošanas kvalitātes uzlabošanai."
+    },
+    'ru': {
+        "clearTranslation": "Очистить",
+        "sourceTextTooltip": "Введите текст для перевода",
+        "noInternet": "No internet connection",
+        "targetTextTooltip": "Результаты машинного перевода позволяют понять значение текста, но не позволяют заменить сделанный человеком перевод.",
+        "transLimit": "You have reached the maximum word limit for one translation request. To translate the untranslated part please make another request.",
+        "seeFullEntry": "Read complete entry",
+        "speaker": "Listen",
+        "editButton": "Edit",
+        "translationEditSave": "Contribute",
+        "translationEditClose": "Close",
+        "translationEditOriginal": "Original sentence",
+        "translationEditTranslation": "Translation",
+        "translationEditDescription": "Your translation suggestion will be used to improve the quality of machine translation."
+    },
+    'et': {
+        "clearTranslation": "Tühjenda",
+        // RL
+        //"sourceTextTooltip": "Sisestage soovitud tekst",
+        "sourceTextTooltip": "Sisesta tekst, mida soovid tõlkida...",
+        // /RL
+        "noInternet": "No internet connection",
+        "targetTextTooltip": "Masintõlge aitab teksti sisust aru saada, kuid ei asenda inimtõlget.",
+        "transLimit": "Ühe tõlketaotluse suurim sõnaarv on täis. Tõlkimata osa tõlkimiseks esitage uus taotlus.",
+        "seeFullEntry": "Read complete entry",
+        "speaker": "Kuulake",
+        "editButton": "Redigeeri",
+        "editButtonTooltip": "Soovita tõlget",
+        "translationEditSave": "Andke oma panus",
+        "translationEditClose": "Sule",
+        "translationEditOriginal": "Algne lause",
+        "translationEditTranslation": "Tõlge",
+        "translationEditDescription": "Teie tõlkesoovitust kasutatakse masintõlke kvaliteedi parandamiseks."
+    }
+});
+/* UI texts */
+
+uiResources = $.extend(true, uiResources, {
+    'en': {
+        "address":     "Address",
+        "loadButton": "Load webpage",
+        "cancelButton": "Cancel",
+        "restoreButton": "Restore"
+    },
+    'lv': {
+        "address": "Adrese",
+        "loadButton": "Ielādēt lapu",
+        "cancelButton": "Atcelt",
+        "restoreButton": "Atjaunot"
+    },
+    'lt': {
+        "address": "Adresas",
+        "loadButton": "Įkelti svetainę",
+        "cancelButton": "Atšaukti",
+        "restoreButton": "Atkurti"
+    },
+    'et': {
+        "address": "Aadress",
+        "loadButton": "Laadi veebileht",
+        "cancelButton": "Tühista",
+        "restoreButton": "Taasta"
+    }
+});

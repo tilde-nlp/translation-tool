@@ -10,17 +10,19 @@
                             <!--<div class="translateContainerHeader">-->
                             <!--<div class="translateHeaderLeft">-->
                             <!--<div class="translateLanguageContainer">-->
-                            <div id="source_lang_div" class="col-sm-2 translate_column_height col-xs-4 no_padding_left">
+                            <div id="source_lang_div" class="col-sm-3 translate_column_height col-xs-4 no_padding_left">
                                 <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
-                                <select id="doc_source_lang" class="translateSourceLang"></select>
+                                <ul class="popSourceLangs"></ul>
+                                <select id="doc_source_lang" class="translateSourceLang hide"></select>
                                 <!--<select class="translateSystem"></select>-->
                             </div>
-                            <div id="swap_language_div" class="col-sm-1 col-sm-offset-3 translate_column_height col-xs-1">
+                            <div id="swap_language_div" class="col-sm-1 col-sm-offset-2 translate_column_height col-xs-1">
                                 <a data-title="swapLanguage" class="swapLanguage hide"></a>
                             </div>
                             <div id="target_lang_div" class="col-sm-2 translate_column_height col-xs-offset-1 col-xs-3">
                                 <div data-text="targetSystem" class="translateTargetSystemLabel"></div>
-                                <select id="doc_targetLang" class="translateTargetLang"></select>
+                                <ul class="popTargetLangs"></ul>
+                                <select id="doc_targetLang" class="translateTargetLang hide"></select>
                             </div>
                             <div id="translate_button_div" class="col-sm-3 translate_column_height col-xs-3">
                                 <a id="doc_downloadButton" data-text="docDownload" class="buttonDownDoc hide"></a>

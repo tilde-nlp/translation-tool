@@ -73,7 +73,7 @@ app.config(function ($translateProvider) {
         DOC_SHORT: 'Document',
         WEB: 'Translate website',
         WEB_SHORT: 'Website',
-        WEB_PLACEHOLDER: 'Type web address here...',
+        WEB_PLACEHOLDER: 'Type the web address here...',
         WEB_EXAMPLES: 'Links to Estonian media and information resources:',
         WEB_REFRESH: 'Refresh',
         WEB_RETURN: 'Back',

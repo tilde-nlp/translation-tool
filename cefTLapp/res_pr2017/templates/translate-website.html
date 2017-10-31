@@ -11,12 +11,12 @@
                         <div id="web_main" class="col-sm-7 col-xs-12 no_padding_right">
                             <div id="address" class="input-group">
                                 <span class="input-group-btn">
-                                    <button id="web_refresh_button" type="button" class="btn btn-default web_button" ng-click="webClearOrReturn() ? routeMe('/www') : routeMe('/text')" title="{{ websiteHasBeenInitiated() ? ('WEB_REFRESH' | translate) : ('WEB_RETURN' | translate)}}"><span class="glyphicon glyphicon-menu-left"></span></button>
+                                    <button id="web_refresh_button" type="button" class="btn btn-default web_button" title="{{ websiteHasBeenInitiated() ? ('WEB_REFRESH' | translate) : ('WEB_RETURN' | translate)}}"><span class="glyphicon glyphicon-menu-left"></span></button>
                                 </span>
                                 <input type="text"
                                        id="url"
                                        class="form-control url"
-                                       placeholder="{{web_placeholder}}"
+                                       placeholder="{{ 'WEB_PLACEHOLDER' | translate }}"
                                        ng-model="website.url"
                                        required focus-on="website.focus" />
                                 <span class="input-group-btn input-space">
@@ -27,10 +27,10 @@
                                 <div class="LanguageSelect w">
                                     <!-- aiz šī ir jālabo -->
                                     <div class="translateLanguageContainer no_padding_left no_padding_right">
-                                        <div id="web_source_lang_div" class="col-sm-2 translate_column_height col-xs-4 web_transl_types no_padding_left">
+                                        <div id="web_source_lang_div" class="col-sm-3 translate_column_height col-xs-4 web_transl_types no_padding_left">
                                             <div data-text="sourceSystem" class="translateSourceSystemLabel hidden-xs"></div>
                                             <ul class="popSourceLangs"></ul>
-                                            <select id="web_source_lang" class="translateSourceLang"></select>
+                                            <select id="web_source_lang" class="translateSourceLang hide"></select>
                                             <!--<select class="translateSystem"></select>-->
                                         </div>
                                         <div id="web_swap_language_div" class="col-sm-1 col-sm-offset-1 translate_column_height col-xs-1 col-xs-offset-1 web_transl_types">
@@ -39,7 +39,7 @@
                                         <div id="web_target_lang_div" class="col-sm-3 col-sm-offset-2 translate_column_height col-xs-4 col-xs-offset-2 web_transl_types">
                                             <div data-text="targetSystem" class="translateTargetSystemLabel hidden-xs"></div>
                                             <ul class="popTargetLangs"></ul>
-                                            <select id="web_target_lang" class="translateTargetLang"></select>
+                                            <select id="web_target_lang" class="translateTargetLang hide"></select>
                                         </div>
                                         <div class="col-sm-3 translate_column_height">
                                             <a href="javascript:;" class="translateButton button hide" data-text="translateButton" data-title="translateButton"></a>
@@ -71,7 +71,7 @@
 
                 <iframe id="websiteFrame" name="websiteFrame" src="about:blank" frameborder="0"></iframe>
             </div>
-            <div id="web_links_container" class="container no_padding_left no_padding_right">
+            <div id="web_links_container" ng-hide="webLoaded" class="container no_padding_left no_padding_right">
                 <!--<div ng-hide="isActive('website') && website.status!='initial'" id="web_links_container" class="container no_padding_left no_padding_right">-->
                 <div id="websiteLinks">
                     <div class="row">

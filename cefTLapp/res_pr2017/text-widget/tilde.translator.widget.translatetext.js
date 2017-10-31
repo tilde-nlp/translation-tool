@@ -482,7 +482,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
     textPluginSetTempTextSource: function () {
         $($widget.settings._textSource, $widget.settings.container).val('');
-
+        
         // show blink cursor
         if ($widget.settings._landingView) {
             $('.intro .fakeCursor', $widget.settings.container).removeClass('hide');
@@ -490,7 +490,6 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
         $('.translateTextTempSourceContainer', $widget.settings.container).removeClass('hide');
         $('.translateTextTempSourceContainer', $widget.settings.container).html(uiResources[$widget.settings._language]['sourceTextTooltip']);
-        
         $('.translateTextTempSourceContainer', $widget.settings.container).unbind('focus');
         $('.translateTextTempSourceContainer', $widget.settings.container).bind('focus', function () {
             $('.translateTextTempSourceContainer', $widget.settings.container).addClass('hide');

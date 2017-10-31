@@ -281,10 +281,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
     filePluginTranslate: function () {
         $widget.disableSystemChange();
-        // RL
-        //$('.translateButton, .docUploadNewDoc').addClass('hide');
-        $('.translateButton').addClass('hide');
-        // /RL
+        $('.translateButton, .docUploadNewDoc').addClass('hide');
         if ($widget.settings._advancedOptions) {
             $('.advancedOptions').addClass("hide");
             $('.buttonAdvancedOptions').addClass("hide");

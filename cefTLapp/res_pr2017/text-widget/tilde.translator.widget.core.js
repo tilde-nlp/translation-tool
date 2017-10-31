@@ -568,10 +568,10 @@ Tilde.TranslatorWidget.prototype = {
             }
 
             if ($widget.fancySource !== null) {
-                // RL
-                var newTriggerText = $('.translateSourceLang option[value="' + src + '"]', $widget.settings.container).html();
-                newTriggerText = angular.element($("#my_translator_app")).scope().localize(newTriggerText);
-                $('#source_lang_div .trigger').first().html(newTriggerText);
+               // // RL
+                //var newTriggerText = $('.translateSourceLang option[value="' + src + '"]', $widget.settings.container).html();
+                //newTriggerText = angular.element($("#my_translator_app")).scope().localize(newTriggerText);
+                //$('#source_lang_div .trigger').first().html(newTriggerText);
                 $('#source_lang_div .options li').each(function () {
                     if ($(this).data("raw-value") != src) {
                         $(this).removeClass('selected');
@@ -584,14 +584,7 @@ Tilde.TranslatorWidget.prototype = {
             }
 
             // RL
-            $('.w .translateSourceLang option').removeAttr('selected');
-            $('.w .translateSourceLang option[value="' + src + '"]').attr('selected', 'selected');
-
-
             if ($('.w .translateSourceLang') !== null) {
-                var newTriggerText = $('.w .translateSourceLang option[value="' + src + '"]').html();
-                newTriggerText = angular.element($("#my_translator_app")).scope().localize(newTriggerText);
-                $('.web_transl_types .trigger').first().html(newTriggerText);
                 $('.web_transl_types .options li').each(function () {
                     if ($(this).data("raw-value") != src) {
                         $(this).removeClass('selected');
@@ -600,8 +593,6 @@ Tilde.TranslatorWidget.prototype = {
                     }
                 });
             }
-
-            $widget.loadTargetLangListWeb(src, trg, true);
             // /RL
         } else {
             $('.translateSystem option[selected="selected"]', $widget.settings.container).removeAttr('selected');
@@ -745,49 +736,6 @@ Tilde.TranslatorWidget.prototype = {
             $widget.fancyTarget.trigger('update.fs');
         }
     },
-    // RL
-    loadTargetLangListWeb: function (source, selTarget, putSystemId) {
-        $('.w .translateTargetLang').empty();
-
-        $.each($widget.settings._systems, function (idx, sys) {
-            if (sys.SourceLanguage.Code === source) {
-                if (putSystemId) {
-                    // check unique in lang attribute
-                    if ($('.w .translateTargetLang option[lang="' + sys.TargetLanguage.Code + '"]').length === 0) {
-                        $('.w .translateTargetLang').append($('<option>', {
-                            value: sys.ID,
-                            text: sys.TargetLanguage.Name.Text,
-                            lang: sys.TargetLanguage.Code
-                        }));
-                    }
-                }
-                else {
-                    // check unique in value attribute
-                    if ($('.w .translateTargetLang option[value="' + sys.TargetLanguage.Code + '"]').length === 0) {
-                        $('.w .translateTargetLang').append($('<option>', {
-                            value: sys.TargetLanguage.Code,
-                            text: sys.TargetLanguage.Name.Text
-                        }));
-                    }
-                }
-            }
-        });
-
-        // select target
-        if (selTarget !== undefined && selTarget !== null) {
-            $('.w .translateTargetLang option[lang="' + selTarget + '"]').attr('selected', 'selected');
-        }
-
-        if ($('.w .translateTargetLang') !== null) {
-            $('.w .translateTargetLang').trigger('update.fs');
-
-            var newTriggerText = $('.w .translateTargetLang option[lang="' + selTarget + '"]').html();
-            newTriggerText = angular.element($("#my_translator_app")).scope().localize(newTriggerText);
-            $('.web_transl_types .trigger').last().html(newTriggerText);
-
-        }
-    },
-    // /RL
 
     loadDomainList: function (source, target) {
         var core = this,

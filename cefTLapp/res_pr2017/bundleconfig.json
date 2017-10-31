@@ -8,29 +8,31 @@
   {
     "outputFileName": "text-widget/translator.css",
     "inputFiles": [
+      "text-widget/translate-text-v2.css",
       "text-widget/translate-core-tilde.css",
       "text-widget/translate-core.css",
       "text-widget/translate-file-tilde.css",
       "text-widget/translate-file-v2.css",
       "text-widget/translate-text-tilde.css",
-      "text-widget/translate-text-v2.css"
+      "text-widget/tilde.translator.widget.fancyselect.css"
     ]
   },
   {
     "outputFileName": "text-widget/translator.js",
     "inputFiles": [
-      "text-widget/translateweb.resources.js",
-      "text-widget/translatefile.errors.js",
-      "text-widget/translatefile.resources.js",
-      "text-widget/translatetext.resources.js",
       "text-widget/core.resources.js",
       "text-widget/tilde.translator.widget.core.js",
       "text-widget/tilde.translator.widget.fancyselect.js",
       "text-widget/tilde.translator.widget.fileuploader.js",
       "text-widget/tilde.translator.widget.library.js",
+      "text-widget/tilde.translator.widget.recentlangs.js",
       "text-widget/tilde.translator.widget.translatefile.js",
       "text-widget/tilde.translator.widget.translatetext.js",
-      "text-widget/tilde.translator.widget.translateweb.js"
+      "text-widget/tilde.translator.widget.translateweb.js",
+      "text-widget/translatefile.errors.js",
+      "text-widget/translatefile.resources.js",
+      "text-widget/translatetext.resources.js",
+      "text-widget/translateweb.resources.js"
     ]
   }
 ]

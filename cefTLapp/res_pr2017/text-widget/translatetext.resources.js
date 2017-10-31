@@ -4,8 +4,8 @@ uiResources = $.extend(true, uiResources, {
     'en': {
         "clearTranslation": "Clear",
         // RL
-        // "sourceTextTooltip": "Enter the text you want to translate",
-        "sourceTextTooltip": "Enter the text you would like to translate...",
+        "sourceTextTooltip": "Enter the text you want to translate",
+        //"sourceTextTooltip": "Enter the text you would like to translate...",
         //
         "noInternet": "No internet connection",
         "targetTextTooltip": "Machine translation results help to understand the meaning of a source text, but do not equal translation by a human.",

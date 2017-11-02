@@ -35,72 +35,8 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         $("input#url").val(url);
         $("#web_translateButton").trigger('click');
     };
-
-    $scope.webLoaded = false;
-
-    //$scope.website.reset = function () {
-    //    if ($scope.website.status == 'loading' || $scope.website.status == 'translating') {
-    //        $scope.website.untranslate();
-    //        setTimeout(function () { $scope.website.reset(); }, 500);
-    //    } else {
-    //        $scope.website.status = 'initial';
-
-    //    }
-    //};
-
-    //$scope.initWebsite = function () {
-    //    var data = [];
-
-    //    for (var i = 0; i < $widget.settings._systems.length; i++) {
-    //        var mySys = $widget.settings._systems[i]
-    //        data.push({
-    //            "id": mySys.ID,
-    //            "sourceLanguage": mySys.SourceLanguage.Code,
-    //            "targetLanguage": mySys.TargetLanguage.Code,
-    //            "name": mySys.Title ? mySys.Title.Text : mySys.ID,
-    //            "order": i
-    //        });
-    //    }
-
-    //    $scope.website.frame.postMessage(
-    //        { "message": "setSystemList", "systemList": data },
-    //        "*");
-    //    $scope.website.changeSystem();
-    //    $scope.website.loadUrl(true);
-    //};
-
-    //$scope.website.loadUrl = function (translateAfterLoad) {
-    //    $scope.website.status = 'loading';
-    //    $scope.website.frame.postMessage(
-    //        { "message": "loadUrl", "url": $scope.website.url, "translateAfterLoad": translateAfterLoad },
-    //        "*");
-    //}
-
-    //$scope.website.translate = function () {
-    //    $scope.website.frame.postMessage({ "message": "translate", },
-    //        "*");
-    //}
-
-    //$scope.website.untranslate = function () {
-    //    $scope.website.frame.postMessage({ "message": "untranslate", }, "*");
-    //}
-
-    //$scope.website.changeSystem = function () {
-    //    jQuery("#websiteFrame")[0].contentWindow.postMessage({ "message": "changeSystem", "systemId": $scope.website.system },
-    //      "*");
-    //}
-
-    //$scope.loadURL = function () {
-    //    if ($event.which === 13) {
-    //        $scope.website.loadUrl();
-    //    }
-    //}
-
-    //    if ($scope.isActive('website') && $scope.website.status != 'initial') {
-    //        return true;
-    //    }
-    //    return false;
-
+    
+   
 
     initEvents();
 
@@ -133,8 +69,7 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
 
     if ( isChrome || isFirefox ) {
         $scope.pluginURL += '.sdlplugin';
-    }
-    else {
+    } else {
         $scope.pluginURL += '.zip';
     }
 
@@ -145,8 +80,6 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         link.click();
         document.body.removeChild(link);
     };
-    // $scope.language = 'en';
-    // $scope.languages = ['en', 'et'];
     
     $scope.localize = function (word) {
         var Estonian = {}
@@ -173,14 +106,14 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
     }
 
     $scope.setLanguage = function (newLang) {
-        var isOk = false;
+        var languageFound = false;
         for (var i = 0; i < $rootScope.languages.length; i++) {
             if ($rootScope.languages[i] === newLang) {
-                isOk = true;
+                languageFound = true;
             }
         }
 
-        if (!isOk) {
+        if (!languageFound) {
             return;
         }
 
@@ -252,7 +185,7 @@ function isCharacterKeyPress(evt) {
 app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
     $('#textWidget').empty();
 
-    if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
+    //if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
 
     var fileWidget = new Tilde.TranslatorWidget('#fileWidget', {
         _language: 'en',
@@ -293,6 +226,7 @@ app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
             { ext: "ttx", mime: "application/octet-stream" },
             { ext: "pages", mime: "application/x-iwork-pages-sffpages" }
         ],
+        _showAllowedFileInfo: true,
         _replaceContainer: false,
         _useRecentLangSelector: true,
         _customSelectText: '&nbsp;'
@@ -336,7 +270,8 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
             iframeReset();
             examplesShow();
         } else {
-            $window.location.href = '#/text';
+            webWidget = null;
+            angular.element('#web_translation_type_text').triggerHandler('click');
         }
     });
 
@@ -348,6 +283,7 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
     function iframeHide() {
         $("#websiteFrame").css('display','none');
     }
+
     function iframeReset() {
         $("#websiteFrame").attr('src','about:blank');
     }
@@ -363,48 +299,9 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
     function examplesHide() {
         $("#websiteLinks").css("display","none");
     }
-
 });
 
-/*app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootScope, $translate) {
-    $scope.website.reset();
-    initTextWidget($scope, $rootScope);
-
-    $scope.localize = function (word) {
-        var Estonian = {};
-        Estonian["English"] = "Inglise";
-        Estonian["Estonian"] = "Eesti";
-
-        if ($rootScope.language === 'et') {
-            return (Estonian[word]);
-        }
-
-        return word;
-    }
-
-    $scope.initLang = function (newLang) {
-        $rootScope.language = newLang;
-        
-
-        try {
-            $translate.use($rootScope.language);
-            $widget.settings._language = $rootScope.language;
-            $widget.initPlugins();
-            $widget.initWidgetLanguage();
-            initLanguages($scope);
-        }
-        catch (err) {
-            console.log("Failed to switch languages: " + err);
-        }
-         //   $widget.settings._language = $rootScope.language;
-
-           // $widget.retrieveSystemData();
-    };
-
-    $scope.initLang($rootScope.language);
-});*/
-
-app.directive('fancybox', function ($compile, $timeout) {
+/*app.directive('fancybox', function ($compile, $timeout) {
     return {
         link: function ($scope, element, attrs) {
             element.fancybox({
@@ -422,9 +319,9 @@ app.directive('fancybox', function ($compile, $timeout) {
             });
         }
     }
-});
+});*/
 
-app.directive('focusOn', function ($timeout) {
+/*app.directive('focusOn', function ($timeout) {
     return {
         restrict: 'A',
         link: function ($scope, $element, $attr) {
@@ -436,9 +333,9 @@ app.directive('focusOn', function ($timeout) {
             });
         }
     }
-})
+})*/
 
-app.directive('hideBlink', function () {
+/*app.directive('hideBlink', function () {
 
     var link = function (scope, element, attributes) {
         var target = attributes.hideBlink ? attributes.hideBlink : element;
@@ -451,7 +348,7 @@ app.directive('hideBlink', function () {
         link: link
     };
 
-});
+});*/
 
 function initEvents() {
 
@@ -482,6 +379,9 @@ function localizeLanguages($scope, $rootScope) {
     $('.fancy-select ul.options li').each(function () {
         $(this).html($scope.localize($(this).html()));
     });
+
+    var formatsHtml = '<span class="supTypesList">' + uiResources[$widget.settings._language]['docSupportedTypes'].replace('{extensions}', '<span class="format">' + extArray.join('</span>, <span class="format">') + '</span>') + '</span>';
+    $('.supTypesList').replaceWith(formatsHtml);
 }
 
 function loadTargetLangList(source, selTarget, putSystemId) {

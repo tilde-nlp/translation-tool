@@ -25,7 +25,6 @@
                             </div>
                             <div class="translateContainerHeader hide">
                                 <div class="LanguageSelect w">
-                                    <!-- aiz šī ir jālabo -->
                                     <div class="translateLanguageContainer no_padding_left no_padding_right">
                                         <div id="web_source_lang_div" class="col-sm-3 translate_column_height col-xs-4 web_transl_types no_padding_left">
                                             <div data-text="sourceSystem" class="translateSourceSystemLabel hidden-xs"></div>
@@ -36,7 +35,7 @@
                                         <div id="web_swap_language_div" class="col-sm-1 col-sm-offset-1 translate_column_height col-xs-1 col-xs-offset-1 web_transl_types">
                                             <a data-title="swapLanguage" id="webSwapLanguage" class="swapLanguage hide"></a>
                                         </div>
-                                        <div id="web_target_lang_div" class="col-sm-3 col-sm-offset-2 translate_column_height col-xs-4 col-xs-offset-2 web_transl_types">
+                                        <div id="web_target_lang_div" class="col-sm-3 col-sm-offset-2 translate_column_height col-xs-4 col-xs-offset-1 web_transl_types">
                                             <div data-text="targetSystem" class="translateTargetSystemLabel hidden-xs"></div>
                                             <ul class="popTargetLangs"></ul>
                                             <select id="web_target_lang" class="translateTargetLang hide"></select>
@@ -67,11 +66,10 @@
             </div>
             <!--<div class="systemsLoading"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>-->
 
-            <div ng-show="website.status!='initial'" id="websiteFrameContainer">
-
+            <div id="websiteFrameContainer">
                 <iframe id="websiteFrame" name="websiteFrame" src="about:blank" frameborder="0"></iframe>
             </div>
-            <div id="web_links_container" ng-hide="webLoaded" class="container no_padding_left no_padding_right">
+            <div id="web_links_container" class="container no_padding_left no_padding_right">
                 <!--<div ng-hide="isActive('website') && website.status!='initial'" id="web_links_container" class="container no_padding_left no_padding_right">-->
                 <div id="websiteLinks">
                     <div class="row">

@@ -2690,7 +2690,10 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         var list = '';
         $('.translateSourceLang option').each(function (idx) {
             if ($.inArray(idx, languageIndexes) >= 0) {
-                list += '<li data-value="' + $(this).val() + '"' + ($(this).val() === $(this).parent().val() ? ' class="active"' : '') + '>' + $(this).text() + '</li>';
+                // RL
+                //list += '<li data-value="' + $(this).val() + '"' + ($(this).val() === $(this).parent().val() ? ' class="active"' : '') + '>' + $(this).text() + '</li>';
+                list += '<li data-value="' + $(this).val() + '"' + ($(this).val() === $(this).parent().val() ? ' class="active"' : '') + '>' + angular.element($("#my_translator_app")).scope().localize($(this).text()) + '</li>';
+                // / RL
             }
         });
         $(".translateSystemContainerLeft .fancy-select").toggle($('.translateSourceLang option').length > languageCount);
@@ -2718,7 +2721,10 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         var list = '';
         $('.translateTargetLang option').each(function (idx) {
             if ($.inArray(idx, languageIndexes) >= 0) {
-                list += '<li data-value="' + $(this).attr('lang') + '"' + ($(this).val() === $(this).parent().val() ? ' class="active"' : '') + '>' + $(this).text() + '</li>';
+                // RL
+                // list += '<li data-value="' + $(this).attr('lang') + '"' + ($(this).val() === $(this).parent().val() ? ' class="active"' : '') + '>' + $(this).text() + '</li>';
+                list += '<li data-value="' + $(this).attr('lang') + '"' + ($(this).val() === $(this).parent().val() ? ' class="active"' : '') + '>' + angular.element($("#my_translator_app")).scope().localize($(this).text()) + '</li>';
+                // RL
             }
         });
         $(".translateSystemContainerRight .fancy-select").toggle($('.translateTargetLang option').length > languageCount);

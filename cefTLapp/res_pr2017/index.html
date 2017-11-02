@@ -27,15 +27,16 @@
     <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
     <script src="js/jquery-2.1.1.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    <script src="bootstrap/js/bootstrap.min.js"></script>
     <!--<link rel="stylesheet" type="text/css" href="css/index.css" />-->
     <!--text translation-->
     <!---->
     <link href="text-widget/translator.css" rel="stylesheet" />
     <script src="text-widget/translator.js"></script>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <!--<script src="text-widget/recentlangs.resources.js"></script>
     <script src="text-widget/tilde.translator.widget.recentlangs.js"></script>-->
     <!--2017-->
@@ -72,7 +73,7 @@
 <body ng-app="myTranslatorApp" ng-controller="myPageCtrl" ng-message id="my_translator_app">
     <div class="contain">
         <!--MENU-->
-        <div ng-hide="isActive('website') || isActive('www')" class="section">
+        <div ng-show="(!isActive('website') && !isActive('www'))" class="section">
                 <div class="container">
                     <div class="row" id="main">
                         <div class="col-sm-5 col-xs-7 no_padding_left">
@@ -110,7 +111,7 @@
                 </div>
             </div>
             <!--TYPE-->
-            <div ng-hide="isActive('website') || isActive('www')" class="section gray_section" id="translation_type_section">
+            <div ng-show="(!isActive('website') && !isActive('www'))" class="section gray_section" id="translation_type_section">
                 <div class="container">
                     <div class="row" id="transl_types">
                         <div class="col-sm-12 col-xs-12 no_padding_left no_padding_right">
@@ -131,34 +132,16 @@
                     </div>
                 </div>
             </div>
-        <!--<div ng-hide="isActive('website') || isActive('www')" ng-view></div>-->
         <div ng-view></div>
 
 
+
+
         </div>
 
-    <!--<div ng-show="isActive('text')" style="visibility: hidden;" id="textWidget"></div>-->
-   
-    <!--<div class="tilde" ng-hide="isActive('home') || isActive('about') || isActive('mobileApp')">
-        Developed by <a class=" red" href="http://www.tilde.com" target="_blank">
-            Tilde
-        </a>
-    </div>-->
-    <!--<div id="modalConfirmation" ng-class="{modal: dialog.showModal=='show'}">
-        <div id="dialog">
-            <div id="dialog-bg">
-                <div id="dialog-title">Are you sure you want to exit document translation?</div>
-                <div id="dialog-description">Your translation will not be saved.</div>
-                <div id="dialog-buttons">
-                    <a href="" ng-click="dialog.navigate(true);" class="dialogButton">Yes</a>
-                    <a href="" ng-click="dialog.navigate(false);" class="dialogButton cancelButton">Cancel</a>
-                </div>
-            </div>
-        </div>
-    </div>-->
+  
     <!--FOOTER-->
-    <!--<div ng-hide="isActive('website') || isActive('www')" class="section footer">-->
-    <div class="section footer">
+    <div ng-show="(!isActive('website') && !isActive('www'))" class="section footer">
             <div class="container">
                 <div class="row" id="footer_row">
                     <div class="col-sm-6 col-xs-6 no_padding_left">

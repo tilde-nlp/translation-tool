@@ -82,17 +82,110 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
     };
     
     $scope.localize = function (word) {
-        var Estonian = {}
-        Estonian["English"] = "Inglise";
-        Estonian["Estonian"] = "Eesti";
-        Estonian["Inglise"] = "Inglise";
-        Estonian["Eesti"] = "Eesti";
+        var Estonian = {
+            "Bulgarian": "Bulgaaria",
+            "Croatian": "Horvaatia",
+            "Czech": "Tšehhi",
+            "Danish": "Taani",
+            "Dutch": "Hollandi",
+            "English": "Inglise",
+            "Estonian": "Eesti",
+            "Finnish": "Soome",
+            "French": "Prantsuse",
+            "German": "Saksa",
+            "Greek": "Kreeka",
+            "Hungarian": "Ungari",
+            "Irish": "Iiri",
+            "Italian": "Itaalia",
+            "Latvian": "Läti",
+            "Lithuanian": "Leedu",
+            "Maltese": "Malta",
+            "Polish": "Poola",
+            "Portuguese": "Portugali",
+            "Romanian": "Rumeenia",
+            "Slovak": "Slovaki",
+            "Slovenian": "Sloveeni",
+            "Spanish": "Hispaania",
+            "Swedish": "Rootsi",
+            // et -> en
+            "Bulgaaria": "Bulgaaria",
+            "Horvaatia": "Horvaatia",
+            "Tšehhi": "Tšehhi",
+            "Taani": "Taani",
+            "Hollandi": "Hollandi",
+            "Inglise": "Inglise",
+            "Eesti": "Eesti",
+            "Soome": "Soome",
+            "Prantsuse": "Prantsuse",
+            "Saksa": "Saksa",
+            "Kreeka": "Kreeka",
+            "Ungari": "Ungari",
+            "Iiri": "Iiri",
+            "Itaalia": "Itaalia",
+            "Läti": "Läti",
+            "Leedu": "Leedu",
+            "Malta": "Malta",
+            "Poola": "Poola",
+            "Portugali": "Portugali",
+            "Rumeenia": "Rumeenia",
+            "Slovaki": "Slovaki",
+            "Sloveeni": "Sloveeni",
+            "Hispaania": "Hispaania",
+            "Rootsi": "Rootsi",
+        }
 
-        var English = {}
-        English["English"] = "English";
-        English["Estonian"] = "Estonian";
-        English["Inglise"] = "English";
-        English["Eesti"] = "Estonian";
+        var English = {
+            "Bulgarian": "Bulgarian",
+            "Croatian": "Croatian",
+            "Czech": "Czech",
+            "Danish": "Danish",
+            "Dutch": "Dutch",
+            "English": "English",
+            "Estonian": "Estonian",
+            "Finnish": "Finnish",
+            "French": "French",
+            "German": "German",
+            "Greek": "Greek",
+            "Hungarian": "Hungarian",
+            "Irish": "Irish",
+            "Italian": "Italian",
+            "Latvian": "Latvian",
+            "Lithuanian": "Lithuanian",
+            "Maltese": "Maltese",
+            "Polish": "Polish",
+            "Portuguese": "Portuguese",
+            "Romanian": "Romanian",
+            "Slovak": "Slovak",
+            "Slovene": "Slovenian",
+            "Slovenian": "Slovenian",
+            "Spanish": "Spanish",
+            "Swedish": "Swedish",
+            // en->et
+            "Bulgaaria": "Bulgarian",
+            "Horvaatia": "Croatian",
+            "Tšehhi": "Czech",
+            "Taani": "Danish",
+            "Hollandi": "Dutch",
+            "Inglise": "English",
+            "Eesti": "Estonian",
+            "Soome": "Finnish",
+            "Prantsuse": "French",
+            "Saksa": "German",
+            "Kreeka": "Greek",
+            "Ungari": "Hungarian",
+            "Iiri": "Irish",
+            "Itaalia": "Italian",
+            "Läti": "Latvian",
+            "Leedu": "Lithuanian",
+            "Malta": "Maltese",
+            "Poola": "Polish",
+            "Portugali": "Portuguese",
+            "Rumeenia": "Romanian",
+            "Slovaki": "Slovak",
+            "Sloveeni": "Slovenian",
+            "Hispaania": "Spanish",
+            "Rootsi": "Swedish",
+        }
 
         if (word.length) {
             if ($rootScope.language === 'et') {
@@ -130,12 +223,19 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
             console.log("Failed to switch languages: " + err);
         }
     };
-
-    $scope.testText = 'this is a test text';
+    $scope.sysType = {
+        eTranslation: true,
+    }
 });
 
 app.controller('TranslateCtrl', function ($scope, $routeParams, $rootScope) {
     $('#fileWidget').empty();
+    $('#webWidget').empty();
+
+    $scope.$apply(function () {
+        $scope.sysType.eTranslation = false;
+    });
+
     initTextWidget($scope, $rootScope);
 });
 
@@ -144,8 +244,11 @@ app.controller('TranslateCtrl', function ($scope, $routeParams, $rootScope) {
 function initTextWidget($scope, $rootScope) {
     var textWidget = new Tilde.TranslatorWidget('#textWidget', {
         _language: 'en',
-        _systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList',
-        _clientId: 'u-dc4cd3c5-ebc9-4213-ac9d-593c896bc0ea',
+        //_systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList',
+        _systemListUrl: 'https://letsmt.eu/ws/service.svc/json/GetSystemList',
+        _translationUrl: 'https://letsmt.eu/ws/service.svc/json/Translate',
+        //_clientId: 'u-dc4cd3c5-ebc9-4213-ac9d-593c896bc0ea',
+        _clientId: 'u-aa4a8f1a-52fd-4b1b-a663-a72247852d76',
         _templateId: 'translatetext-template',
         _appId: "Tilde|EU Presidency|Web",
         //_landingView: true,
@@ -168,7 +271,26 @@ function initTextWidget($scope, $rootScope) {
         },
         _replaceContainer: false,
         _useRecentLangSelector: true,
-        _customSelectText: '&nbsp;'
+        _customSelectText: '&nbsp;',
+        _enableParallelHover: true,
+        _onSystemChanged: function isETranslationSystem(activeSys) {
+            var etr = false;
+            
+            $widget.settings._systems.forEach(function (a) {
+                if (a.ID === activeSys) {
+                    a.Metadata.forEach(function (b) {
+                        if (b.Key === 'decoder' && b.Value === 'cefat-etranslation') {
+                            etr = true;
+                            return;
+                        }
+                    });
+                    return;
+                }
+            });
+            $scope.$apply(function () {
+                $scope.sysType.eTranslation = etr;
+            });
+        },
     });
     $scope.setLanguage($rootScope.language);
 }
@@ -184,19 +306,24 @@ function isCharacterKeyPress(evt) {
 
 app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
     $('#textWidget').empty();
-
     //if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
+
+    $scope.$apply(function () {
+        $scope.sysType.eTranslation = false;
+    });
 
     var fileWidget = new Tilde.TranslatorWidget('#fileWidget', {
         _language: 'en',
-        _systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList', //'https://hugo.lv/ws/Service.svc/json/GetSystemList',
+        //_systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList', //'https://hugo.lv/ws/Service.svc/json/GetSystemList',
+        _systemListUrl: 'https://letsmt.eu/ws/service.svc/json/GetSystemList', //'https://hugo.lv/ws/Service.svc/json/GetSystemList',
         _uploadUrl: 'https://letsmt.eu/ws/Files/Upload',
         _deleteUrl: 'https://letsmt.eu/ws/Files/Delete',
         _downloadUrl: 'https://letsmt.eu/ws/Files/Download',
         _translateUrl: 'https://letsmt.eu/ws/Files/StartTranslation',
         _previewUrl: 'https://letsmt.eu/ws/Files/GetDocumentPreview',
         _checkStatusUrl: 'https://letsmt.eu/ws/Files/GetStatus',
-        _clientId: 'u-dc4cd3c5-ebc9-4213-ac9d-593c896bc0ea',
+        //_clientId: 'u-dc4cd3c5-ebc9-4213-ac9d-593c896bc0ea',
+        _clientId: 'u-aa4a8f1a-52fd-4b1b-a663-a72247852d76',
         _templateId: 'translatefile-template',
         _appId: "Tilde|EU Presidency|Web",
         //_landingView: true,
@@ -229,19 +356,44 @@ app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
         _showAllowedFileInfo: true,
         _replaceContainer: false,
         _useRecentLangSelector: true,
-        _customSelectText: '&nbsp;'
+        _customSelectText: '&nbsp;',
+        _onSystemChanged: function isETranslationSystem(activeSys) {
+            var etr = false;
+
+            $widget.settings._systems.forEach(function (a) {
+                if (a.ID === activeSys) {
+                    a.Metadata.forEach(function (b) {
+                        if (b.Key === 'decoder' && b.Value === 'cefat-etranslation') {
+                            etr = true;
+                            return;
+                        }
+                    });
+                    return;
+                }
+            });
+
+            
+            $scope.$apply(function () {
+                $scope.sysType.eTranslation = etr;
+            });
+        },
     });
     $scope.setLanguage($rootScope.language);
 });
 
 app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootScope, $translate, $window) {
     $('#textWidget').empty();
+    $('#documentWidget').empty();
 
-    if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
+    $scope.$apply(function () {
+        $scope.sysType.eTranslation = false;
+    });
 
+    //if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
     var webWidget = new Tilde.TranslatorWidget('#webWidget', {
         _language: 'en',
-        _clientId: 'u-dc4cd3c5-ebc9-4213-ac9d-593c896bc0ea',
+        //_clientId: 'u-dc4cd3c5-ebc9-4213-ac9d-593c896bc0ea',
+        _clientId: 'u-aa4a8f1a-52fd-4b1b-a663-a72247852d76',
         _systemSelectType: 'language',
         _appId: "Tilde|EU Presidency|Web",
         _defaultTargetLang: 'en',
@@ -253,9 +405,31 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
         _useRecentLangSelector: true,
         _customSelectText: '&nbsp;',
         _websiteTranslationUrl: "https://readymt.tilde.com/Translate/WebsiteEmbedded?embeddedStyle=noUI", // address of website translation page (that uses TranslateProxy)
+        //_systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList', //'https://hugo.lv/ws/Service.svc/json/GetSystemList',
+        _systemListUrl: 'https://letsmt.eu/ws/service.svc/json/GetSystemList', //'https://hugo.lv/ws/Service.svc/json/GetSystemList',
         _onWidgetLoaded: function () {
                     localizeLanguages($scope, $rootScope);
-        }
+        },
+        _onSystemChanged: function isETranslationSystem(activeSys) {
+            var etr = false;
+            $scope.eTranslationSystem = true;
+            return;
+            $widget.settings._systems.forEach(function (a) {
+                if (a.ID === activeSys) {
+                    a.Metadata.forEach(function (b) {
+                        if (b.Key === 'decoder' && b.Value === 'cefat-etranslation') {
+                            etr = true;
+                            return;
+                        }
+                    });
+                    return;
+                }
+            });
+
+            $scope.$apply(function () {
+                $scope.sysType.eTranslation = etr;
+            });
+        },
     });
 
     $scope.setLanguage($rootScope.language);
@@ -278,6 +452,7 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
     $(".loadButton", webWidget.settings.container).click(function () {
         examplesHide();
         iframeShow();
+        console.log($scope.eTranslationSystem + '!');
     });
 
     function iframeHide() {
@@ -380,6 +555,15 @@ function localizeLanguages($scope, $rootScope) {
         $(this).html($scope.localize($(this).html()));
     });
 
+    var extArray = [];
+    
+    for (var idx in $widget.settings._allowedFileTypes) {
+        var item = $widget.settings._allowedFileTypes[idx];
+        if ($.inArray(item.ext, extArray) == -1) {
+            extArray.push(item.ext);
+        }
+    }
+    
     var formatsHtml = '<span class="supTypesList">' + uiResources[$widget.settings._language]['docSupportedTypes'].replace('{extensions}', '<span class="format">' + extArray.join('</span>, <span class="format">') + '</span>') + '</span>';
     $('.supTypesList').replaceWith(formatsHtml);
 }
@@ -421,4 +605,3 @@ function loadTargetLangList(source, selTarget, putSystemId) {
     }
 
 }
-

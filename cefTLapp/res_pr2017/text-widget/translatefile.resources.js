@@ -125,6 +125,9 @@ uiResources = $.extend(true, uiResources, {
         "docPreviewError": "Dokumendi eelvaate loomine nurjus.",
         "docAppleLimited": "Failide üleslaadimine iOS-seadmetest on piiratud.",
         "docTranslInProgress": "Dokumendi tõlkimine on pooleli. Kui lehelt lahkute, läheb tõlge kaotsi.",
-        "docSupportedTypes": "Praegu toetab süsteem järgmisi failivorminguid: {extensions}. Vajalik on kodeering UTF-8 või UTF-16."
+        // RL
+        // "docSupportedTypes": "Praegu toetab süsteem järgmisi failivorminguid: {extensions}. Vajalik on kodeering UTF-8 või UTF-16."
+        "docSupportedTypes": "Tõlketugi on olemas järgmiste failivormingute puhul: {extensions}. Vajalik on kodeering UTF-8 või UTF-16."
+        // / RL
     },
 });

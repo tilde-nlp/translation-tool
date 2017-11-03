@@ -73,7 +73,7 @@
 <body ng-app="myTranslatorApp" ng-controller="myPageCtrl" ng-message id="my_translator_app">
     <div class="contain">
         <!--MENU-->
-        <div ng-show="(!isActive('website') && !isActive('www'))" class="section">
+        <div ng-hide="isActive('website') || isActive('www')" class="section">
                 <div class="container">
                     <div class="row" id="main">
                         <div class="col-sm-5 col-xs-7 no_padding_left">
@@ -133,10 +133,10 @@
                 </div>
             </div>
         <div ng-view></div>
-
-
-
-
+        <!--IS A eTRANSLATION SYSTEM-->
+        <div ng-show="sysType.eTranslation" class="eTranslation">
+            <p>You have chosen to translate with a <b>CEF eTranslation system</b>, developed by the European Commission.</p>
+        </div>
         </div>
 
   

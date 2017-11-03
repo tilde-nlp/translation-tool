@@ -30,8 +30,8 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 websiteTranslationUrl.indexOf("://") + 3));
 
         $widget.translateWeb_Url = $('.url', $widget.settings.container);
-        $widget.translateWeb_Iframe = $('#websiteFrame', $widget.settings.container)[0];
-        $widget.translateWeb_IframeContainer = $('#websiteFrameContainer', $widget.settings.container);
+        $widget.translateWeb_Iframe = $('#websiteFrame')[0];
+        $widget.translateWeb_IframeContainer = $('#websiteFrameContainer');
         $widget.translateWeb_translateButton = $('.translateButton', $widget.settings.container);
         $widget.translateWeb_cancelButton = $('.cancelButton', $widget.settings.container);
         $widget.translateWeb_restoreButton = $('.restoreButton', $widget.settings.container);
@@ -310,9 +310,20 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             console.info("Message sent to iframe:" + JSON.stringify(message));
         }
 
-        $widget.translateWeb_Iframe.contentWindow.postMessage(
-            message,
-            $widget.translateWeb_IframeSchemaPortDomain);
+        // RL
+        // $widget.translateWeb_Iframe.contentWindow.postMessage(
+        // message,
+        // $widget.translateWeb_IframeSchemaPortDomain);
+        
+        try {
+            $widget.translateWeb_Iframe.contentWindow.postMessage(
+                message,
+                $widget.translateWeb_IframeSchemaPortDomain);
+        }
+        catch (err) {
+            // console.log(err);
+        }
+        // / RL
     },
 
     translateWeb_resizeLayout: function () {

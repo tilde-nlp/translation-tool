@@ -92,7 +92,10 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                       '	<div href="#" class="qq-upload-button">' +
                       '  <div class="qq-upload-button-image"></div>' +
                       '  <div class="qq-upload-button-text">' +
-                      '     <span>' + uiResources[$widget.settings._language]['docUploadTooltip'] + '</span>' + formatsHtml +
+                      // RL
+                      //'     <span data-text="docUploadTooltip">' + uiResources[$widget.settings._language]['docUploadTooltip'] + '</span>' + formatsHtml +
+                      '     <span data-text="docUploadTooltip">' + /*uiResources[$widget.settings._language]['docUploadTooltip'] +*/ '</span>' + formatsHtml +
+                      // /RL
                       '  </div>' +
                       ' </div>' +
                 	  '	<ul class="qq-upload-list hide"></ul>' +

@@ -1944,7 +1944,10 @@ qq.UploadButton.prototype = {
                     filteredMimeTypes.push(this._options.allowedMimetypes[counter]);
                 }
             }
-            input.setAttribute("accept", filteredMimeTypes.join(', '));
+            // RL
+            // with this upload on MS Edge is not working at all
+            //input.setAttribute("accept", filteredMimeTypes.join(', '));
+            // / RL
         } else {
             input.setAttribute("accept", this._options.allowedMimetypes.join(', '));
         }
@@ -2867,7 +2870,10 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                       '	<div href="#" class="qq-upload-button">' +
                       '  <div class="qq-upload-button-image"></div>' +
                       '  <div class="qq-upload-button-text">' +
-                      '     <span>' + uiResources[$widget.settings._language]['docUploadTooltip'] + '</span>' + formatsHtml +
+                      // RL
+                      //'     <span data-text="docUploadTooltip">' + uiResources[$widget.settings._language]['docUploadTooltip'] + '</span>' + formatsHtml +
+                      '     <span data-text="docUploadTooltip">' + /*uiResources[$widget.settings._language]['docUploadTooltip'] +*/ '</span>' + formatsHtml +
+                      // /RL
                       '  </div>' +
                       ' </div>' +
                 	  '	<ul class="qq-upload-list hide"></ul>' +
@@ -5506,8 +5512,8 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 websiteTranslationUrl.indexOf("://") + 3));
 
         $widget.translateWeb_Url = $('.url', $widget.settings.container);
-        $widget.translateWeb_Iframe = $('#websiteFrame', $widget.settings.container)[0];
-        $widget.translateWeb_IframeContainer = $('#websiteFrameContainer', $widget.settings.container);
+        $widget.translateWeb_Iframe = $('#websiteFrame')[0];
+        $widget.translateWeb_IframeContainer = $('#websiteFrameContainer');
         $widget.translateWeb_translateButton = $('.translateButton', $widget.settings.container);
         $widget.translateWeb_cancelButton = $('.cancelButton', $widget.settings.container);
         $widget.translateWeb_restoreButton = $('.restoreButton', $widget.settings.container);
@@ -5786,9 +5792,20 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             console.info("Message sent to iframe:" + JSON.stringify(message));
         }
 
-        $widget.translateWeb_Iframe.contentWindow.postMessage(
-            message,
-            $widget.translateWeb_IframeSchemaPortDomain);
+        // RL
+        // $widget.translateWeb_Iframe.contentWindow.postMessage(
+        // message,
+        // $widget.translateWeb_IframeSchemaPortDomain);
+        
+        try {
+            $widget.translateWeb_Iframe.contentWindow.postMessage(
+                message,
+                $widget.translateWeb_IframeSchemaPortDomain);
+        }
+        catch (err) {
+            // console.log(err);
+        }
+        // / RL
     },
 
     translateWeb_resizeLayout: function () {
@@ -6017,7 +6034,10 @@ uiResources = $.extend(true, uiResources, {
         "docPreviewError": "Dokumendi eelvaate loomine nurjus.",
         "docAppleLimited": "Failide üleslaadimine iOS-seadmetest on piiratud.",
         "docTranslInProgress": "Dokumendi tõlkimine on pooleli. Kui lehelt lahkute, läheb tõlge kaotsi.",
-        "docSupportedTypes": "Praegu toetab süsteem järgmisi failivorminguid: {extensions}. Vajalik on kodeering UTF-8 või UTF-16."
+        // RL
+        // "docSupportedTypes": "Praegu toetab süsteem järgmisi failivorminguid: {extensions}. Vajalik on kodeering UTF-8 või UTF-16."
+        "docSupportedTypes": "Tõlketugi on olemas järgmiste failivormingute puhul: {extensions}. Vajalik on kodeering UTF-8 või UTF-16."
+        // / RL
     },
 });
 /* UI texts */

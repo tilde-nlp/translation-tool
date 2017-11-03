@@ -8,7 +8,7 @@
                         <div id="web_logo" class="col-sm-1 hidden-xs no_padding_left">
                             <a href="https://www.eu2017.ee/" target="_blank" title="https://www.eu2017.ee/"><img src="img/EU2017.svg" alt="EU2017.EE" title="EU2017.EE" /></a>
                         </div>
-                        <div id="web_main" class="col-sm-7 col-xs-12 no_padding_right">
+                        <div id="web_main" class="col-sm-8 col-xs-12 no_padding_right">
                             <div id="address" class="input-group">
                                 <span class="input-group-btn">
                                     <button id="web_refresh_button" type="button" class="btn btn-default web_button" title="{{ websiteHasBeenInitiated() ? ('WEB_REFRESH' | translate) : ('WEB_RETURN' | translate)}}"><span class="glyphicon glyphicon-menu-left"></span></button>
@@ -26,21 +26,21 @@
                             <div class="translateContainerHeader hide">
                                 <div class="LanguageSelect w">
                                     <div class="translateLanguageContainer no_padding_left no_padding_right">
-                                        <div id="web_source_lang_div" class="col-sm-3 translate_column_height col-xs-4 web_transl_types no_padding_left">
+                                        <div id="web_source_lang_div" class="col-sm-4 translate_column_height col-xs-4 web_transl_types no_padding_left no_padding_right">
                                             <div data-text="sourceSystem" class="translateSourceSystemLabel hidden-xs"></div>
                                             <ul class="popSourceLangs"></ul>
                                             <select id="web_source_lang" class="translateSourceLang hide"></select>
                                             <!--<select class="translateSystem"></select>-->
                                         </div>
-                                        <div id="web_swap_language_div" class="col-sm-1 col-sm-offset-1 translate_column_height col-xs-1 col-xs-offset-1 web_transl_types">
+                                        <div id="web_swap_language_div" class="col-sm-1 translate_column_height hidden-xs web_transl_types">
                                             <a data-title="swapLanguage" id="webSwapLanguage" class="swapLanguage hide"></a>
                                         </div>
-                                        <div id="web_target_lang_div" class="col-sm-3 col-sm-offset-2 translate_column_height col-xs-4 col-xs-offset-1 web_transl_types">
+                                        <div id="web_target_lang_div" class="col-sm-4 translate_column_height col-xs-4 web_transl_types no_padding_left no_padding_right">
                                             <div data-text="targetSystem" class="translateTargetSystemLabel hidden-xs"></div>
                                             <ul class="popTargetLangs"></ul>
                                             <select id="web_target_lang" class="translateTargetLang hide"></select>
                                         </div>
-                                        <div class="col-sm-3 translate_column_height">
+                                        <div class="col-sm-3 col-xs-4 translate_column_height">
                                             <a href="javascript:;" class="translateButton button hide" data-text="translateButton" data-title="translateButton"></a>
                                             <a href="javascript:;" class="cancelButton button hide" data-text="cancelButton" data-title="cancelButton"></a>
                                             <a href="javascript:;" class="restoreButton button hide" data-text="restoreButton" data-title="restoreButton"></a>
@@ -65,10 +65,10 @@
                 </div>
             </div>
             <!--<div class="systemsLoading"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>-->
-
             <div id="websiteFrameContainer">
                 <iframe id="websiteFrame" name="websiteFrame" src="about:blank" frameborder="0"></iframe>
             </div>
+
             <div id="web_links_container" class="container no_padding_left no_padding_right">
                 <!--<div ng-hide="isActive('website') && website.status!='initial'" id="web_links_container" class="container no_padding_left no_padding_right">-->
                 <div id="websiteLinks">

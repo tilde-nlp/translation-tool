@@ -820,7 +820,10 @@ qq.UploadButton.prototype = {
                     filteredMimeTypes.push(this._options.allowedMimetypes[counter]);
                 }
             }
-            input.setAttribute("accept", filteredMimeTypes.join(', '));
+            // RL
+            // with this upload on MS Edge is not working at all
+            //input.setAttribute("accept", filteredMimeTypes.join(', '));
+            // / RL
         } else {
             input.setAttribute("accept", this._options.allowedMimetypes.join(', '));
         }

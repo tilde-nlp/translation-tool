@@ -103,7 +103,8 @@ app.config(function ($translateProvider) {
         WORKSHOP8: 'Registration',
         WORKSHOP9: 'https://www.tilde.lv/presidency-translator-workshop-registration',
         CO_FINANCED_LOGO: 'img/CoFinanced_en.png',
-        CO_FINANCED_ALT: 'Co-financed by the European Union'
+        CO_FINANCED_ALT: 'Co-financed by the European Union',
+        ETRANSLATION: 'You have chosen to translate with a <b>CEF eTranslation system</b>, developed by the European Commission.'
     })
     .translations('et', {
         SUBTITLE: 'koostöös Euroopa Nõukogu Eesti eesistumisega',
@@ -147,7 +148,8 @@ app.config(function ($translateProvider) {
         WORKSHOP8: 'Registreerimine',
         WORKSHOP9: 'https://www.tilde.lv/presidency-translator-workshop-registration-ee',
         CO_FINANCED_LOGO: 'img/CoFinanced_ee.png',
-        CO_FINANCED_ALT: 'Kaasrahastatud Euroopa Liidu poolt'
+        CO_FINANCED_ALT: 'Kaasrahastatud Euroopa Liidu poolt',
+        ETRANSLATION: 'Valisite tõlkimiseks Euroopa Komisjoni arendatava <b>CEF eTranslation süsteemi</b>.'
     });
 
     $translateProvider.preferredLanguage('en');

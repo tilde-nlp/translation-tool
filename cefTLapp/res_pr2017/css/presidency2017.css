@@ -431,6 +431,14 @@ div.fancy-select ul.options {
     left: 0;
 }
 
+div.fancy-select ul.options {
+    min-width: 110px;
+}
+
+div.fancy-select ul.options li {
+    padding: 6px 12px;
+}
+
 div.fancy-select ul.options li.hover {
     background-color: white;
     color: #0092ff;
@@ -546,7 +554,7 @@ div.fancy-select ul.options li.hover {
     line-height: 1.5;
 }
 
-    .translateButton:hover, .translateButton:focus, .translateButton:active, .buttonDownDoc:hover, .buttonDownDoc:focus, .buttonDownDoc:active {
+    .button:hover, .button:focus, .button:active, .buttonDownDoc:hover, .buttonDownDoc:focus, .buttonDownDoc:active {
         background: none;
         background-color: #0092ff;
         color: #fff;
@@ -647,6 +655,8 @@ div.fancy-select ul.options li.hover {
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
+    padding-left: 0;
+    padding-right: 35px
 }
 
 /*/text widget*/
@@ -925,7 +935,7 @@ web_container .translateContainerHeader {
         text-decoration: none !important;
     }
 
-#web_translation_type_text {
+#web_transl_types li a#web_translation_type_text {
     margin-left: 2px;
     padding-left: 29px;
 }
@@ -941,7 +951,7 @@ web_container .translateContainerHeader {
 
 #web_transl_types ul {
     float: right;
-    padding-right: 5%;
+    padding-right: 15%;
 }
 
 #websiteFrame {
@@ -1242,10 +1252,6 @@ web_container .translateContainerHeader {
     /*padding-bottom: 1.2rem;*/
 }
 
-.footer_etranslation {
-    text-align: left;
-}
-
 .footer_tilde {
     text-align: right;
 }
@@ -1314,13 +1320,23 @@ web_container .translateContainerHeader {
     left: 0;
     right: 0;
     text-align: center;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     padding-top: 30px;
+    padding-left: 5%;
+    padding-right: 5%;
     z-index: 801;
     opacity: 0.75;
 }
 
-/* Let's get this party started */
+#web_main a.translateButton {
+    font-size: 1rem;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-right: 8px !important;
+    padding-left: 8px !important;
+}
+
+/* CUSTOM SCROLLBAR */
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -1342,15 +1358,38 @@ web_container .translateContainerHeader {
 ::-webkit-scrollbar-thumb:window-inactive {
     background: rgba(232, 234, 236, 0.4);
 }
+/* /CUSTOM SCROLLBAR */
 
-
-@media (max-width: 1200px) {
-    .popSourceLangs li:not(.active) {
+@media (max-width: 1000px) {
+    /*.popSourceLangs li:not(.active) {
 		display: none;
 	}
     .popTargetLangs li:not(.active) {
 		display: none;
+	}*/
+    .popSourceLangs {
+		display: none;
 	}
+    .popTargetLangs {
+		display: none;
+	}
+    .trigger {
+        color: #0092ff;
+        padding-right: 25px !important;
+    }
+    .popSourceLangs, .popTargetLangs {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 965px) {
+    #web_transl_types .transl_type_long {
+        display: none;
+    }
+
+    #web_transl_types .transl_type_short {
+        display: inline !important;
+    }
 }
 
 @media (max-width: 898px) {
@@ -1361,14 +1400,6 @@ web_container .translateContainerHeader {
     #web_menu .options li {
         margin-left: 5px;
         padding-left: 0;
-    }
-
-    #web_transl_types .transl_type_long {
-        display: none;
-    }
-
-    #web_transl_types .transl_type_short {
-        display: inline !important;
     }
 }
 
@@ -1433,6 +1464,10 @@ web_container .translateContainerHeader {
 
     .button {
         font-size: 1rem;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-right: 8px !important;
+        padding-left: 8px !important;
     }
 
     .footer_text {
@@ -1564,12 +1599,63 @@ web_container .translateContainerHeader {
         padding: 1px 2px;
     }
 
+    #title_collumn, #main_menu
+    {
+        width: 100%;
+    }
+
+    #dropdown_button, #language_selection {
+        margin-top: 0px !important;
+        margin-bottom: 8px;
+    }
+
+    #logo_translate2017_wrapper {
+        margin-top: 12px;
+        margin-bottom: 0px;
+    }
+
+    #main_logo_translate2017 {
+        height: 56px;
+    }
+
+    #target_lang_div {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    #textWidiget .swapLanguage {
+        margin-right: 16px;
+    }
+
+    .button {
+        padding-left: 4px !important;
+        padding-right: 4px !important;
+        margin-right: 0 !important;
+        margin-left: -3px !important;
+    }
+
+    .dropdown-menu {
+        right: -70px;
+    }
+
+    .popSourceLangs li {
+        content: attr(data-value);
+    }
+}
+
+@media (min-width: 1001px) {
+    .trigger {
+          text-indent: -9999px;
+          white-space: nowrap;
+          overflow: hidden;
+          width: 10px;
+    }
 }
 
 @media (min-width: 768px) {
-    .translateSourceSystemLabel, .translateTargetSystemLabel {
+    /*.translateSourceSystemLabel, .translateTargetSystemLabel {
         margin-right: 0.2rem;
-    }
+    }*/
 
     /*div.fancy-select ul.options {
         visibility: visible;
@@ -1649,57 +1735,57 @@ web_container .translateContainerHeader {
 
 @media (min-height: 900px) {
     .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
-        min-height: 650px !important;
-        height: 650px;
+        min-height: 600px !important;
+        height: 600px;
     }
 }
 
 @media (min-height: 1000px) {
     .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
-        min-height: 750px !important;
-        height: 750px;
+        min-height: 700px !important;
+        height: 700px;
     }
 }
 
 @media (min-height: 1100px) {
     .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
-        min-height: 850px !important;
-        height: 850px;
+        min-height: 800px !important;
+        height: 800px;
     }
 }
 
 @media (min-height: 1200px) {
     .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
-        min-height: 950px !important;
-        height: 950px;
+        min-height: 900px !important;
+        height: 900px;
     }
 }
 
 @media (min-height: 1300px) {
     .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
-        min-height: 1050px !important;
-        height: 1050px;
+        min-height: 1000px !important;
+        height: 1000px;
     }
 }
 
 @media (min-height: 1400px) {
     .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
-        min-height: 1150px !important;
-        height: 1150px;
+        min-height: 1100px !important;
+        height: 1100px;
     }
 }
 
 @media (min-height: 1500px) {
     .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
-        min-height: 1250px !important;
-        height: 1250px;
+        min-height: 1200px !important;
+        height: 1200px;
     }
 }
 
 @media (min-height: 2000px) {
     .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
-        min-height: 1750px !important;
-        height: 1750px;
+        min-height: 1700px !important;
+        height: 1700px;
     }
 }
 
@@ -1740,48 +1826,5 @@ web_container .translateContainerHeader {
     .infoMessageBox {
         font-size: 0.8rem;
         margin-top: -50px;
-    }
-}
-
-@media (max-width: 320px) {
-    #title_collumn, #main_menu
-    {
-        width: 100%;
-    }
-
-    #dropdown_button, #language_selection {
-        margin-top: 0px !important;
-        margin-bottom: 8px;
-    }
-
-    #logo_translate2017_wrapper {
-        margin-top: 12px;
-        margin-bottom: 0px;
-    }
-
-    #main_logo_translate2017 {
-        height: 56px;
-    }
-
-    #target_lang_div {
-        margin-left: 0px;
-        margin-right: 0px;
-    }
-
-    #textWidiget .swapLanguage {
-        margin-right: 16px;
-    }
-
-    .button {
-        padding-left: 5px !important;
-        padding-right: 5px !important;
-    }
-
-    .dropdown-menu {
-        right: -70px;
-    }
-
-    .popSourceLangs li {
-        content: attr(data-value);
     }
 }

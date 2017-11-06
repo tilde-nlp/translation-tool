@@ -119,7 +119,11 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             $('.popSourceLangs li[data-value="' + src + '"]').addClass('active');
         }
         else {
-            $('.popSourceLangs').prepend('<li data-value="' + src + '" class="active">' + $('.translateSourceLang :selected').text() + '</li>');
+            // RL
+            // $('.popSourceLangs').prepend('<li data-value="' + src + '" class="active">' + $('.translateSourceLang :selected').text() + '</li>');
+            var newText = angular.element($("#my_translator_app")).scope().localize($('.translateSourceLang :selected').text());
+            $('.popSourceLangs').prepend('<li data-value="' + src + '" class="active">' + newText + '</li>');
+            // / RL
             $('.popSourceLangs li').last().remove();
             if ($('.popSourceLangs li').length > 1 && $(".translateSystemContainerLeft").height() > 50) {
                 $('.popSourceLangs li').last().remove();
@@ -132,7 +136,11 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             $('.popTargetLangs li[data-value="' + trg + '"]').addClass('active');
         }
         else {
-            $('.popTargetLangs').prepend('<li data-value="' + trg + '" class="active">' + $('.translateTargetLang :selected').text() + '</li>');
+            // RL
+            //$('.popTargetLangs').prepend('<li data-value="' + trg + '" class="active">' + $('.translateTargetLang :selected').text() + '</li>');
+            var newText = angular.element($("#my_translator_app")).scope().localize($('.translateTargetLang :selected').text());
+            $('.popTargetLangs').prepend('<li data-value="' + trg + '" class="active">' + newText + '</li>');
+            // /RL
             $('.popTargetLangs li').last().remove();
             if ($('.popTargetLangs li').length > 1 && $(".translateSystemContainerRight").height() > 50)
             {

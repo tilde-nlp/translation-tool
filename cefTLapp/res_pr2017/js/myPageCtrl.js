@@ -226,15 +226,28 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
     $scope.sysType = {
         eTranslation: true,
     }
+
+    // blur effect on option list
+    $('body').click(function (event) {
+        var target = $(event.target);
+        if (!target.is(".trigger")) {
+            $(".options.open").removeClass("open");
+        } else { // if it is a trigger
+            $(".options.open").each(function () {
+                if ($(this).parent().parent().attr('id') !== target.parent().parent().attr('id')) {
+                    $(this).removeClass('open');
+                }
+            });
+        }
+    });
+    
 });
 
 app.controller('TranslateCtrl', function ($scope, $routeParams, $rootScope) {
     $('#fileWidget').empty();
     $('#webWidget').empty();
 
-    $scope.$apply(function () {
-        $scope.sysType.eTranslation = false;
-    });
+    $scope.sysType.eTranslation = false;
 
     initTextWidget($scope, $rootScope);
 });
@@ -246,9 +259,10 @@ function initTextWidget($scope, $rootScope) {
         _language: 'en',
         //_systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList',
         _systemListUrl: 'https://letsmt.eu/ws/service.svc/json/GetSystemList',
-        _translationUrl: 'https://letsmt.eu/ws/service.svc/json/Translate',
+        _translationUrl: 'https://letsmt.eu/ws/service.svc/json/TranslateEx',
         //_clientId: 'u-dc4cd3c5-ebc9-4213-ac9d-593c896bc0ea',
-        _clientId: 'u-aa4a8f1a-52fd-4b1b-a663-a72247852d76',
+        //_clientId: 'u-aa4a8f1a-52fd-4b1b-a663-a72247852d76',
+        _clientId: 'u-ea37600d-1fb7-44e8-9ab6-c113cd72bf8f',
         _templateId: 'translatetext-template',
         _appId: "Tilde|EU Presidency|Web",
         //_landingView: true,
@@ -271,8 +285,9 @@ function initTextWidget($scope, $rootScope) {
         },
         _replaceContainer: false,
         _useRecentLangSelector: true,
-        _customSelectText: '&nbsp;',
-        _enableParallelHover: true,
+        _defaultSourceLang: 'et',
+        _defaultTargetLang: 'en',
+        _replaceSourceWithBlock: 'false',
         _onSystemChanged: function isETranslationSystem(activeSys) {
             var etr = false;
             
@@ -306,11 +321,9 @@ function isCharacterKeyPress(evt) {
 
 app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
     $('#textWidget').empty();
-    //if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
+    if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
 
-    $scope.$apply(function () {
-        $scope.sysType.eTranslation = false;
-    });
+    $scope.sysType.eTranslation = false;
 
     var fileWidget = new Tilde.TranslatorWidget('#fileWidget', {
         _language: 'en',
@@ -322,8 +335,11 @@ app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
         _translateUrl: 'https://letsmt.eu/ws/Files/StartTranslation',
         _previewUrl: 'https://letsmt.eu/ws/Files/GetDocumentPreview',
         _checkStatusUrl: 'https://letsmt.eu/ws/Files/GetStatus',
+        _defaultSourceLang: 'et',
+        _defaultTargetLang: 'en',
         //_clientId: 'u-dc4cd3c5-ebc9-4213-ac9d-593c896bc0ea',
-        _clientId: 'u-aa4a8f1a-52fd-4b1b-a663-a72247852d76',
+        //_clientId: 'u-aa4a8f1a-52fd-4b1b-a663-a72247852d76',
+        _clientId: 'u-ea37600d-1fb7-44e8-9ab6-c113cd72bf8f',
         _templateId: 'translatefile-template',
         _appId: "Tilde|EU Presidency|Web",
         //_landingView: true,
@@ -356,7 +372,7 @@ app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
         _showAllowedFileInfo: true,
         _replaceContainer: false,
         _useRecentLangSelector: true,
-        _customSelectText: '&nbsp;',
+        //_customSelectText: '&nbsp;',
         _onSystemChanged: function isETranslationSystem(activeSys) {
             var etr = false;
 
@@ -385,25 +401,24 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
     $('#textWidget').empty();
     $('#documentWidget').empty();
 
-    $scope.$apply(function () {
-        $scope.sysType.eTranslation = false;
-    });
+    $scope.sysType.eTranslation = false;
 
     //if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
     var webWidget = new Tilde.TranslatorWidget('#webWidget', {
         _language: 'en',
         //_clientId: 'u-dc4cd3c5-ebc9-4213-ac9d-593c896bc0ea',
-        _clientId: 'u-aa4a8f1a-52fd-4b1b-a663-a72247852d76',
+        //_clientId: 'u-aa4a8f1a-52fd-4b1b-a663-a72247852d76',
+        _clientId: 'u-ea37600d-1fb7-44e8-9ab6-c113cd72bf8f',
         _systemSelectType: 'language',
         _appId: "Tilde|EU Presidency|Web",
+        _defaultSourceLang: 'et',
         _defaultTargetLang: 'en',
-        _defaultSourceLang: 'en',
         _getFilteredSystems: false,
         _replaceSourceWithBlock: 'false',
         _apiIsInTheSameDomain: false,
         _replaceContainer: false,
         _useRecentLangSelector: true,
-        _customSelectText: '&nbsp;',
+        //_customSelectText: '&nbsp;',
         _websiteTranslationUrl: "https://readymt.tilde.com/Translate/WebsiteEmbedded?embeddedStyle=noUI", // address of website translation page (that uses TranslateProxy)
         //_systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList', //'https://hugo.lv/ws/Service.svc/json/GetSystemList',
         _systemListUrl: 'https://letsmt.eu/ws/service.svc/json/GetSystemList', //'https://hugo.lv/ws/Service.svc/json/GetSystemList',
@@ -429,6 +444,7 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
             $scope.$apply(function () {
                 $scope.sysType.eTranslation = etr;
             });
+
         },
     });
 
@@ -452,7 +468,6 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
     $(".loadButton", webWidget.settings.container).click(function () {
         examplesHide();
         iframeShow();
-        console.log($scope.eTranslationSystem + '!');
     });
 
     function iframeHide() {

@@ -1331,6 +1331,7 @@ web_container .translateContainerHeader {
     padding-right: 5%;
     z-index: 801;
     opacity: 0.75;
+    transition: all linear 5s;
 }
 
 #web_main a.translateButton {

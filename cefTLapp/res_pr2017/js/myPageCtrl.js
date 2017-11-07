@@ -247,7 +247,7 @@ app.controller('TranslateCtrl', function ($scope, $routeParams, $rootScope) {
     $('#fileWidget').empty();
     $('#webWidget').empty();
 
-    //$scope.sysType.eTranslation = false;
+    $scope.sysType.eTranslation = false;
 
     initTextWidget($scope, $rootScope);
 });
@@ -265,7 +265,6 @@ function initTextWidget($scope, $rootScope) {
         _clientId: 'u-ea37600d-1fb7-44e8-9ab6-c113cd72bf8f',
         _templateId: 'translatetext-template',
         _appId: "Tilde|EU Presidency|Web",
-        //_landingView: true,
         _getFilteredSystems: false,
         _onWidgetLoaded: function () {
 
@@ -307,6 +306,7 @@ function initTextWidget($scope, $rootScope) {
             });
         },
     });
+
     $scope.setLanguage($rootScope.language);
 }
 
@@ -323,7 +323,7 @@ app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
     $('#textWidget').empty();
     if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
 
-    //$scope.sysType.eTranslation = false;
+    $scope.sysType.eTranslation = false;
 
     var fileWidget = new Tilde.TranslatorWidget('#fileWidget', {
         _language: 'en',
@@ -401,7 +401,7 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
     $('#textWidget').empty();
     $('#documentWidget').empty();
 
-    //$scope.sysType.eTranslation = false;
+    $scope.sysType.eTranslation = false;
 
     //if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
     var webWidget = new Tilde.TranslatorWidget('#webWidget', {
@@ -428,7 +428,7 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
         _onSystemChanged: function isETranslationSystem(activeSys) {
             var etr = false;
             $scope.eTranslationSystem = true;
-            return;
+            
             $widget.settings._systems.forEach(function (a) {
                 if (a.ID === activeSys) {
                     a.Metadata.forEach(function (b) {
@@ -439,6 +439,7 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
                     });
                     return;
                 }
+                return;
             });
 
             $scope.$apply(function () {

@@ -332,6 +332,10 @@ app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
 
     $scope.sysType.eTranslation = false;
 
+    initFileWidget($scope, $rootScope);
+});
+
+function initFileWidget($scope, $rootScope) {
     var fileWidget = new Tilde.TranslatorWidget('#fileWidget', {
         _language: 'en',
         //_systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList', //'https://hugo.lv/ws/Service.svc/json/GetSystemList',
@@ -405,10 +409,14 @@ app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
             $widget.pluginInitializers.push(Tilde.TranslatorWidget.prototype.filePluginInit);
             $widget.pluginInitializers.push(Tilde.TranslatorWidget.prototype.recentlangsPluginInit);
         },
+        _onWidgetLoaded: function () {
+               // removes the popup bug from transition from website to document transition
+        },
     });
 
     $scope.setLanguage($rootScope.language);
-});
+}
+
 
 app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootScope, $translate, $window) {
     $('#textWidget').empty();

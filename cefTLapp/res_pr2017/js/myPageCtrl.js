@@ -247,7 +247,7 @@ app.controller('TranslateCtrl', function ($scope, $routeParams, $rootScope) {
     $('#fileWidget').empty();
     $('#webWidget').empty();
 
-    $scope.sysType.eTranslation = false;
+    //$scope.sysType.eTranslation = false;
 
     initTextWidget($scope, $rootScope);
 });
@@ -323,7 +323,7 @@ app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
     $('#textWidget').empty();
     if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
 
-    $scope.sysType.eTranslation = false;
+    //$scope.sysType.eTranslation = false;
 
     var fileWidget = new Tilde.TranslatorWidget('#fileWidget', {
         _language: 'en',
@@ -401,7 +401,7 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
     $('#textWidget').empty();
     $('#documentWidget').empty();
 
-    $scope.sysType.eTranslation = false;
+    //$scope.sysType.eTranslation = false;
 
     //if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
     var webWidget = new Tilde.TranslatorWidget('#webWidget', {

@@ -2783,7 +2783,9 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
 });
 
-Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.recentlangsPluginInit);
+// RL
+// Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.recentlangsPluginInit);
+// / RL
 /* tilde.translator.widget.TRANSLATEFILE.js */
 
 $.extend(Tilde.TranslatorWidgetDefaultOptions, {
@@ -3259,6 +3261,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
     },
 
     filePluginUploadNew: function () {
+        
         var uploadId = $('#hidUploadTempId').val();
         if (typeof (uploadId) == 'undefined') { uploadId = ''; }
 
@@ -3552,7 +3555,9 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
 });
 
-Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.filePluginInit);
+// RL
+// Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.filePluginInit);
+// / RL
 /* tilde.translator.widget.TRANSLATETEXT.js */
 
 $.extend(Tilde.TranslatorWidgetDefaultOptions, {
@@ -4092,7 +4097,9 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
 });
 
-Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.textPluginInit);
+// RL
+// Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.textPluginInit);
+// / RL
 
 Tilde.TextTranslator = function (options) { this.init(options); };
 Tilde.TextTranslator.prototype = {
@@ -5809,9 +5816,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         // $widget.translateWeb_IframeSchemaPortDomain);
         
         try {
-            $widget.translateWeb_Iframe.contentWindow.postMessage(
-                message,
-                $widget.translateWeb_IframeSchemaPortDomain);
+            $widget.translateWeb_Iframe.contentWindow.postMessage( message, $widget.translateWeb_IframeSchemaPortDomain);
         }
         catch (err) {
             // console.log(err);
@@ -5847,7 +5852,9 @@ $.extend(Tilde.TranslatorWidget.prototype, {
     }
 });
 
-Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.webPluginInit);
+// RL
+// Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.webPluginInit);
+// / RL
 /* UI texts */
 
 uiResources = $.extend(true, uiResources, {

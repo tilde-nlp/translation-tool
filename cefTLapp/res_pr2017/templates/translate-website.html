@@ -57,7 +57,7 @@
                                     <a id="web_translation_type_text" ng-click="routeMe('/text');" href="#/text" ng-class="{ active: isActive('text') }" title="{{ 'TEXT' | translate }}" class="transl_text"><span class="transl_type_long">{{ 'TEXT' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'TEXT_SHORT' | translate }}</span></a>
                                 </li>
                                 <li>
-                                    <a id="web_translation_type_doc" ng-class="{ active: isActive('document') }" href="#/document" title="{{ 'DOC' | translate }}" class="transl_document"><span class="transl_type_long">{{ 'DOC' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'DOC_SHORT' | translate }}</span></a>
+                                    <a id="web_translation_type_doc" ng-click="routeMe('/document');" href="#/document" ng-class="{ active: isActive('text') }" title="{{ 'DOC' | translate }}" class="transl_document"><span class="transl_type_long">{{ 'DOC' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'DOC_SHORT' | translate }}</span></a>
                                 </li>
                             </ul>
                         </div>

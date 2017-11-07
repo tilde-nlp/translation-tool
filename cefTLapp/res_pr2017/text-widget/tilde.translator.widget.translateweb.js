@@ -316,9 +316,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         // $widget.translateWeb_IframeSchemaPortDomain);
         
         try {
-            $widget.translateWeb_Iframe.contentWindow.postMessage(
-                message,
-                $widget.translateWeb_IframeSchemaPortDomain);
+            $widget.translateWeb_Iframe.contentWindow.postMessage( message, $widget.translateWeb_IframeSchemaPortDomain);
         }
         catch (err) {
             // console.log(err);
@@ -354,4 +352,6 @@ $.extend(Tilde.TranslatorWidget.prototype, {
     }
 });
 
-Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.webPluginInit);
+// RL
+// Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.webPluginInit);
+// / RL

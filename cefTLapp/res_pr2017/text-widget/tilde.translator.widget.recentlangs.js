@@ -151,4 +151,6 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
 });
 
-Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.recentlangsPluginInit);
+// RL
+// Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.recentlangsPluginInit);
+// / RL

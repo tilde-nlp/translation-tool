@@ -473,6 +473,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
     },
 
     filePluginUploadNew: function () {
+        
         var uploadId = $('#hidUploadTempId').val();
         if (typeof (uploadId) == 'undefined') { uploadId = ''; }
 
@@ -766,4 +767,6 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
 });
 
-Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.filePluginInit);
+// RL
+// Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.filePluginInit);
+// / RL

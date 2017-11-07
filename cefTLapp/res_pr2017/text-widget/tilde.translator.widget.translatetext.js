@@ -537,7 +537,9 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
 });
 
-Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.textPluginInit);
+// RL
+// Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.textPluginInit);
+// / RL
 
 Tilde.TextTranslator = function (options) { this.init(options); };
 Tilde.TextTranslator.prototype = {

@@ -305,8 +305,13 @@ function initTextWidget($scope, $rootScope) {
                 $scope.sysType.eTranslation = etr;
             });
         },
+        _onWidgetTemplateLoaded: function () {
+            $widget.pluginInitializers = [];
+            $widget.pluginInitializers.push(Tilde.TranslatorWidget.prototype.textPluginInit);
+            $widget.pluginInitializers.push(Tilde.TranslatorWidget.prototype.recentlangsPluginInit);
+        },
     });
-
+    
     $scope.setLanguage($rootScope.language);
 }
 
@@ -321,7 +326,9 @@ function isCharacterKeyPress(evt) {
 
 app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
     $('#textWidget').empty();
-    if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
+    $('#webWidget').empty();
+
+    // if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
 
     $scope.sysType.eTranslation = false;
 
@@ -393,7 +400,13 @@ app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
                 $scope.sysType.eTranslation = etr;
             });
         },
+        _onWidgetTemplateLoaded: function () {
+            $widget.pluginInitializers = [];
+            $widget.pluginInitializers.push(Tilde.TranslatorWidget.prototype.filePluginInit);
+            $widget.pluginInitializers.push(Tilde.TranslatorWidget.prototype.recentlangsPluginInit);
+        },
     });
+
     $scope.setLanguage($rootScope.language);
 });
 
@@ -446,6 +459,11 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
                 $scope.sysType.eTranslation = etr;
             });
 
+        },
+        _onWidgetTemplateLoaded: function () {
+            $widget.pluginInitializers = [];
+            $widget.pluginInitializers.push(Tilde.TranslatorWidget.prototype.webPluginInit);
+            $widget.pluginInitializers.push(Tilde.TranslatorWidget.prototype.recentlangsPluginInit);
         },
     });
 

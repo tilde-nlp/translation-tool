@@ -1,11 +1,5 @@
 [
   {
-    "outputFileName": "text-widget/translator.min.min.js",
-    "inputFiles": [
-      "text-widget/translator.min.js"
-    ]
-  },
-  {
     "outputFileName": "text-widget/translator.css",
     "inputFiles": [
       "text-widget/translate-text-v2.css",

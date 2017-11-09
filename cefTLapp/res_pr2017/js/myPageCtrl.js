@@ -14,14 +14,6 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         return active;
     };
 
-    //$scope.website = {};
-    //$scope.website.system = '';
-    //$scope.website.base = "https://readymt.tilde.com"; //https://hugo.lv/en";
-    //$scope.website.url = '';
-    //$scope.website.errorMsg = '';
-    //$scope.website.freeze = false;
-    //$scope.website.status = 'initial';
-    //$scope.website.focus = false;
     $scope.web_samples = [
         { "url": "www.delfi.ee", "title": "Delfi", "description": "News site", "description_ee": "Uudiste lehekülg", "image": "url('../img/examples/delfi.png')" },
         { "url": "ekspress.delfi.ee", "title": "Eesti Ekspress", "description": "News site", "description_ee": "Uudiste lehekülg", "image": "url('../img/examples/eesti_ekspress.png')" },
@@ -30,7 +22,6 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         { "url": "www.aripaev.ee", "title": "Äripäev", "description": "News site", "description_ee": "Uudiste lehekülg", "image": "url('../img/examples/aripaev.png')" },
         { "url": "eesti.ee", "title": "Eesti.ee", "description": "Public e-services", "description_ee": "Avalikud e-teenused", "image": "url('../img/examples/eesti.png')" }
     ];
-    //$scope.website.languagesReady = 'no';
     $scope.updateWebsite = function (url) {
         $("input#url").val(url);
         $("#web_translateButton").trigger('click');
@@ -61,7 +52,6 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
 
     $scope.rulesVisible = false;
     $scope.rulesAgreed = false;
-    // $scope.pluginURL = "http://tildecom-test.tilde.lv/sites/default/files/downloads/Tilde.MTProvider.msi";
     $scope.pluginURL = "https://www.tilde.com/sites/default/files/downloads/EUPresidencyTranslator.MTProvider";
 
     var isFirefox = typeof InstallTrigger !== 'undefined';
@@ -240,7 +230,27 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
             });
         }
     });
-    
+
+    // check if the system is from eTranslation
+    $scope.isETranslationSystem = function (activeSys) {
+        var etr = false;
+
+        for(a of $widget.settings._systems) {
+            if (a.ID === activeSys) {
+                for (b of a.Metadata) {
+                    if (b.Key === 'decoder' && b.Value === 'cefat-etranslation') {
+                        etr = true;
+                        break;
+                    }
+                };
+                break;
+            }
+        }
+        $scope.$apply(function () {
+            $scope.sysType.eTranslation = etr;
+        });
+    }
+
 });
 
 app.controller('TranslateCtrl', function ($scope, $routeParams, $rootScope) {
@@ -257,7 +267,6 @@ app.controller('TranslateCtrl', function ($scope, $routeParams, $rootScope) {
 function initTextWidget($scope, $rootScope) {
     var textWidget = new Tilde.TranslatorWidget('#textWidget', {
         _language: 'en',
-        //_systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList',
         _systemListUrl: 'https://letsmt.eu/ws/service.svc/json/GetSystemList',
         _translationUrl: 'https://letsmt.eu/ws/service.svc/json/TranslateEx',
         //_clientId: 'u-dc4cd3c5-ebc9-4213-ac9d-593c896bc0ea',
@@ -287,23 +296,8 @@ function initTextWidget($scope, $rootScope) {
         _defaultSourceLang: 'et',
         _defaultTargetLang: 'en',
         _replaceSourceWithBlock: 'false',
-        _onSystemChanged: function isETranslationSystem(activeSys) {
-            var etr = false;
-            
-            $widget.settings._systems.forEach(function (a) {
-                if (a.ID === activeSys) {
-                    a.Metadata.forEach(function (b) {
-                        if (b.Key === 'decoder' && b.Value === 'cefat-etranslation') {
-                            etr = true;
-                            return;
-                        }
-                    });
-                    return;
-                }
-            });
-            $scope.$apply(function () {
-                $scope.sysType.eTranslation = etr;
-            });
+        _onSystemChanged: function () {
+            $scope.isETranslationSystem($widget.activeSystemId);
         },
         _onWidgetTemplateLoaded: function () {
             $widget.pluginInitializers = [];
@@ -384,25 +378,8 @@ function initFileWidget($scope, $rootScope) {
         _replaceContainer: false,
         _useRecentLangSelector: true,
         //_customSelectText: '&nbsp;',
-        _onSystemChanged: function isETranslationSystem(activeSys) {
-            var etr = false;
-
-            $widget.settings._systems.forEach(function (a) {
-                if (a.ID === activeSys) {
-                    a.Metadata.forEach(function (b) {
-                        if (b.Key === 'decoder' && b.Value === 'cefat-etranslation') {
-                            etr = true;
-                            return;
-                        }
-                    });
-                    return;
-                }
-            });
-
-            
-            $scope.$apply(function () {
-                $scope.sysType.eTranslation = etr;
-            });
+        _onSystemChanged: function () {
+            $scope.isETranslationSystem($widget.activeSystemId);
         },
         _onWidgetTemplateLoaded: function () {
             $widget.pluginInitializers = [];
@@ -423,8 +400,7 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
     $('#documentWidget').empty();
 
     $scope.sysType.eTranslation = false;
-
-    //if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
+    
     var webWidget = new Tilde.TranslatorWidget('#webWidget', {
         _language: 'en',
         //_clientId: 'u-dc4cd3c5-ebc9-4213-ac9d-593c896bc0ea',
@@ -441,32 +417,12 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
         _useRecentLangSelector: true,
         //_customSelectText: '&nbsp;',
         _websiteTranslationUrl: "https://readymt.tilde.com/Translate/WebsiteEmbedded?embeddedStyle=noUI", // address of website translation page (that uses TranslateProxy)
-        //_systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList', //'https://hugo.lv/ws/Service.svc/json/GetSystemList',
-        _systemListUrl: 'https://letsmt.eu/ws/service.svc/json/GetSystemList', //'https://hugo.lv/ws/Service.svc/json/GetSystemList',
+        _systemListUrl: 'https://letsmt.eu/ws/service.svc/json/GetSystemList',
         _onWidgetLoaded: function () {
                     localizeLanguages($scope, $rootScope);
         },
-        _onSystemChanged: function isETranslationSystem(activeSys) {
-            var etr = false;
-            $scope.eTranslationSystem = true;
-            
-            $widget.settings._systems.forEach(function (a) {
-                if (a.ID === activeSys) {
-                    a.Metadata.forEach(function (b) {
-                        if (b.Key === 'decoder' && b.Value === 'cefat-etranslation') {
-                            etr = true;
-                            return;
-                        }
-                    });
-                    return;
-                }
-                return;
-            });
-
-            $scope.$apply(function () {
-                $scope.sysType.eTranslation = etr;
-            });
-
+        _onSystemChanged: function () {
+            $scope.isETranslationSystem($widget.activeSystemId);
         },
         _onWidgetTemplateLoaded: function () {
             $widget.pluginInitializers = [];
@@ -517,55 +473,6 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
         $("#websiteLinks").css("display","none");
     }
 });
-
-/*app.directive('fancybox', function ($compile, $timeout) {
-    return {
-        link: function ($scope, element, attrs) {
-            element.fancybox({
-                hideOnOverlayClick: false,
-                hideOnContentClick: false,
-                enableEscapeButton: false,
-                showNavArrows: false,
-                onComplete: function () {
-                    $timeout(function () {
-                        $compile($("#targetBox"))($scope);
-                        $scope.$apply();
-                        $.fancybox.resize();
-                    })
-                }
-            });
-        }
-    }
-});*/
-
-/*app.directive('focusOn', function ($timeout) {
-    return {
-        restrict: 'A',
-        link: function ($scope, $element, $attr) {
-            $scope.$watch($attr.focusOn, function (_focusVal) {
-                $timeout(function () {
-                    _focusVal ? $element.focus() :
-                        $element.blur();
-                });
-            });
-        }
-    }
-})*/
-
-/*app.directive('hideBlink', function () {
-
-    var link = function (scope, element, attributes) {
-        var target = attributes.hideBlink ? attributes.hideBlink : element;
-        element.bind('focus', function () { angular.element(target).addClass('hidden'); });
-        element.bind('blur', function () { angular.element(target).removeClass('hidden'); });
-    };
-
-    return {
-        restrict: 'A',
-        link: link
-    };
-
-});*/
 
 function initEvents() {
 

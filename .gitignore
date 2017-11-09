@@ -301,3 +301,7 @@ __pycache__/
 # OpenCover UI analysis results
 OpenCover/
 /PresidencyTranslator.VC.VC.opendb
+/cefTLapp/res_pr2017/text-widget/translator.js
+/cefTLapp/res_pr2017/text-widget/translator.min.js
+/cefTLapp/res_pr2017/text-widget/translator.cs
+/cefTLapp/res_pr2017/text-widget/translator.min.cs

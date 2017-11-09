@@ -304,7 +304,9 @@ OpenCover/
 /PresidencyTranslator.VC.db
 /cefTLapp/res_pr2017/text-widget/translator.js
 /cefTLapp/res_pr2017/text-widget/translator.min.js
-/cefTLapp/res_pr2017/text-widget/translator.cs
-/cefTLapp/res_pr2017/text-widget/translator.min.cs
+/cefTLapp/res_pr2017/text-widget/translator.css
+/cefTLapp/res_pr2017/text-widget/translator.min.css
 /[Bb]undler.cs
 /[Bb]undler/
+/cefTLapp/res_pr2017/package-lock.json
+README.txt

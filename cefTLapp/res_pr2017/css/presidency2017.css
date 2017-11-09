@@ -282,14 +282,6 @@ div.fancy-select ul.options.open {
     margin-right: 0;
 }
 
-.text .translateContainerLeft {
-    margin-left: 0;
-}
-
-.text .translateContainerRight {
-    margin-right: 0;
-}
-
 .translateContainerLeft, .translateContainerRight {
     margin-left: auto !important;
     margin-right: auto !important;
@@ -366,7 +358,7 @@ div.fancy-select ul.options.open {
 .text .translateContainerRight {
     float: right;
     background-color: #ffffff;
-    overflow: auto;
+    /* overflow: auto; */
 }
 
 .translateSourceSystemLabel, .translateTargetSystemLabel {
@@ -485,6 +477,18 @@ div.fancy-select ul.options li.hover {
 .swapLanguage, div.fancy-select div.trigger {
     opacity: 1 !important;
 }
+
+/* translation highlight */
+
+.mt-translation.latestHighlight {
+    background-color: #c9e2ff;
+}
+
+.classMTsource.latestHighlight {
+    background-color: #c9e2ff;
+    color: #c9e2ff;
+}
+/* / translation highlight */
 
 .text .translateTextSourceContainer {
     height: 300px;
@@ -1474,6 +1478,11 @@ web_container .translateContainerHeader {
         margin-right: 0 !important;
         padding-right: 8px !important;
         padding-left: 8px !important;
+    }
+
+    #logo_translate2017_wrapper {
+        margin-top: 34px;
+        margin-bottom: 34px;
     }
 
     .footer_text {

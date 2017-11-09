@@ -652,7 +652,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                         }
                     }
 
-                    $('.buttonDownDoc').attr('href', down).attr('target', '_blank').removeClass('hide');
+                    $('.buttonDownDoc').attr('href', down).removeClass('hide');
                     $('.buttonDelDoc').addClass('hide');
                     $('.buttonCancelDoc').addClass('hide');
                     $('#hidTranslRealFilename').remove();
@@ -686,7 +686,10 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                                     $('.translateResult').removeClass("bigIcon");
                                 }
                                 else {
-                                    $('.translateResult').html('<a href="' + down + '" target="_blank"><div class="translated-no-preview"></div><span>' + downloadFileName + '</span></a>');
+                                    // RL
+                                    // $('.translateResult').html('<a href="' + down + '" target="_blank"><div class="translated-no-preview"></div><span>' + downloadFileName + '</span></a>');
+                                    $('.translateResult').html('<a href="' + down + '" download><div class="translated-no-preview"></div><span>' + downloadFileName + '</span></a>');
+                                    // / RL
                                     $('.translateResult').addClass("bigIcon");
                                 }
                             }

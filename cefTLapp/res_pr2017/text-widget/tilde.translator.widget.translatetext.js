@@ -1091,7 +1091,9 @@ Tilde.TextTranslator.prototype = {
                     //javascript replace operation replaces only the first occurance
                     //thus the strange split/join, which replaces all
                     entry = entry.split('SEE_FULL_ENTRY').join(uiResources[$widget.settings._language]['seeFullEntry']);
-                    entry = entry.split('<a href').join('<a target="_blank" href');
+                    // RL
+                    //entry = entry.split('<a href').join('<a target="_blank" href');
+                    // / RL
                     $(this.ref.options._textResult).html(entry);
 
                     $('.translateResultClear', $widget.settings.container).removeClass('hide');

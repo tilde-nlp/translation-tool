@@ -310,3 +310,5 @@ OpenCover/
 /[Bb]undler/
 /cefTLapp/res_pr2017/package-lock.json
 README.txt
+#needed for local builds only
+/cefTLapp/res_pr2017/bundleconfig.json.bindings

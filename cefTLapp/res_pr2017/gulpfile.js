@@ -1,4 +1,5 @@
-﻿"use strict";
+/// <binding BeforeBuild='clean, min' />
+"use strict";
 
 var gulp = require("gulp"),
     concat = require("gulp-concat"),

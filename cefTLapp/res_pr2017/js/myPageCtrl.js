@@ -332,8 +332,7 @@ app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
 function initFileWidget($scope, $rootScope) {
     var fileWidget = new Tilde.TranslatorWidget('#fileWidget', {
         _language: 'en',
-        //_systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList', //'https://hugo.lv/ws/Service.svc/json/GetSystemList',
-        _systemListUrl: 'https://letsmt.eu/ws/service.svc/json/GetSystemList', //'https://hugo.lv/ws/Service.svc/json/GetSystemList',
+        _systemListUrl: 'https://letsmt.eu/ws/service.svc/json/GetSystemList',
         _uploadUrl: 'https://letsmt.eu/ws/Files/Upload',
         _deleteUrl: 'https://letsmt.eu/ws/Files/Delete',
         _downloadUrl: 'https://letsmt.eu/ws/Files/Download',

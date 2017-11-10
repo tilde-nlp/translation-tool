@@ -28,16 +28,15 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
     <script src="js/jquery-2.1.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+    
     <!--<link rel="stylesheet" type="text/css" href="css/index.css" />-->
     <!--text translation-->
     <!---->
-    <link href="text-widget/translator.css" rel="stylesheet" />
-    <script src="text-widget/translator.js"></script>
+    <link href="text-widget/translator.css?n=1" rel="stylesheet" />
+    <script src="text-widget/translator.js?n=1"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!--<script src="text-widget/recentlangs.resources.js"></script>
-    <script src="text-widget/tilde.translator.widget.recentlangs.js"></script>-->
+
     <!--2017-->
     <link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" href="/img/icons/favicon-32x32.png" sizes="32x32">
@@ -45,14 +44,14 @@
     <link rel="manifest" href="/img/icons/manifest.json">
     <link rel="mask-icon" href="/img/icons/safari-pinned-tab.svg" color="#1791ff">
 
-    <link rel="stylesheet" type="text/css" href="css/presidency2017.css" />
-    <link rel="stylesheet" type="text/css" href="css/text-widget.css" />
+    <link rel="stylesheet" type="text/css" href="css/presidency2017.css?n=2" />
+    <link rel="stylesheet" type="text/css" href="css/text-widget.css?n=1" />
     <script src="js/angular.min.js"></script>
     <script src="js/angular-route.min.js"></script>
     <script src="js/angular-filter.js"></script>
-    <script src="js/myTranslatorApp.js"></script>
-    <script src="js/myPageCtrl.js"></script>
-    <script src="js/presidency2017.js"></script>
+    <script src="js/myTranslatorApp.js?n=1"></script>
+    <script src="js/myPageCtrl.js?n=1"></script>
+    <script src="js/presidency2017.js?n=1"></script>
     <script src="js/angular-translate.min.js"></script>
 
     <title>EU Presidency Translator</title>
@@ -73,196 +72,85 @@
     <div class="contain">
         <!--MENU-->
         <div ng-hide="isActive('website') || isActive('www')" class="section">
-            <div class="container">
-                <div class="row" id="main">
-                    <div class="col-sm-5 col-xs-7 no_padding_left">
-                        <div id="main_title">
-                            <a href="https://www.eu2017.ee/" target="_blank" title="https://www.eu2017.ee/"><img id="main_logo_eu2017" src="img/EU2017.svg" alt="EU2017.EE" title="EU2017.EE" /></a>
-                            <div id="logo_translate2017_wrapper">
-                                <h1 id="main_logo_translate2017">
-                                    <a ng-click="routeMe('/text')"  title="https://www.translate2017.ee/">
-                                        Translate 2017
-                                    </a>
-                                </h1>
-                                <p id="main_coop"><a ng-click="routeMe('/text')" title="https://www.translate2017.ee/">{{ 'SUBTITLE' | translate }}</a></p>
-                            </div>
-                            
-                        </div>
-                    </div>
-                    <div class="col-sm-4 col-sm-offset-3 col-xs-5 no_padding_right" id="main_menu">
-                        <div class="menu_wrapper">
-                            <div class="dropdown">
-                                <button id="dropdown_button" class="btn btn-primary btn-block dropdown-toggle menu_text" type="button" data-toggle="dropdown" translate="{{ 'MENU' | translate }}"></button>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-menu-first"><a id="menu_about" href="#/about" ng-click="routeMe('/about');"  translate="{{ 'MENU_ABOUT' | translate }}" title="{{ 'MENU_ABOUT' | translate }}"></a></li>
-                                    <li class="dropdown-menu-last"><a id="menu_contactUs" href="#/contactUs" ng-click="routeMe('/contactUs');" translate="{{ 'MENU_CONTACT' | translate }}" title="{{ 'MENU_CONTACT' | translate }}"></a></li>
-                                    <li class="dropdown-menu-last"><a id="menu_plugin" href="#/plugin" ng-click="routeMe('/plugin');" translate="{{ 'MENU_PLUGIN' | translate }}" title="{{ 'MENU_PLUGIN' | translate }}"></a></li>
-                                    <li class="dropdown-menu-last"><a id="menu_workshop" href="#/workshop" ng-click="routeMe('/workshop');" translate="{{ 'MENU_WORKSHOP' | translate }}" title="{{ 'MENU_WORKSHOP' | translate }}"></a></li>
-                                </ul>
-                            </div>
-                            <div id="language_selection">
-                                <button id="language_selection_en"class="btn lang_select menu_text" ng-class="{ active: language === languages[0] }" ng-model="language" ng-click="setLanguage(languages[0])">EN</button>
-                                <button id="language_selection_ee"class="btn lang_select menu_text" ng-class="{ active: language === languages[1] }" ng-model="language" ng-click="setLanguage(languages[1])">EE</button>
+                <div class="container">
+                    <div class="row" id="main">
+                        <div class="col-sm-5 col-xs-7 no_padding_left">
+                            <div id="main_title">
+                                <a href="https://www.eu2017.ee/" target="_blank" title="https://www.eu2017.ee/"><img id="main_logo_eu2017" src="img/EU2017.svg" alt="EU2017.EE" title="EU2017.EE" /></a>
+                                <div id="logo_translate2017_wrapper">
+                                    <h1 id="main_logo_translate2017">
+                                        <a ng-click="routeMe('/text')" title="https://www.translate2017.ee/">
+                                            Translate 2017
+                                        </a>
+                                    </h1>
+                                    <p id="main_coop"><a ng-click="routeMe('/text')" title="https://www.translate2017.ee/">{{ 'SUBTITLE' | translate }}</a></p>
+                                </div>
+
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--TYPE-->
-        <div ng-hide="isActive('website') || isActive('www')" class="section gray_section" id="translation_type_section">
-            <div class="container">
-                <div class="row" id="transl_types">
-                    <div class="col-sm-12 col-xs-12 no_padding_left no_padding_right">
-                        <div id="translation_types">
-                            <ul class="list-inline">
-                                <li>
-                                    <a id="translation_type_text" href="#/text" ng-click="routeMe('/text');" ng-class="{ active: isActive('text') }"  title="{{ 'TEXT' | translate }}" class="transl_type transl_text"><span class="transl_type_long">{{ 'TEXT' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'TEXT_SHORT' | translate }}</span></a>
-                                </li>
-                                <li class="hidden-xs">
-                                    <a id="translation_type_doc" href="#/document" ng-class="{ active: isActive('document') }" title="{{ 'DOC' | translate }}" class="transl_type transl_document"><span class="transl_type_long">{{ 'DOC' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'DOC_SHORT' | translate }}</span></a>
-                                </li>
-                                <li>
-                                    <a id="translation_type_web" href="#/www" ng-click="routeMe('/www');" ng-class="{ active: isActive('website') || isActive('www')  }" title="{{ 'WEB' | translate }}" class="transl_type transl_website"><span class="transl_type_long">{{ 'WEB' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'WEB_SHORT' | translate }}</span></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--WEB-->
-        <div class="section" id="web_section" ng-show="isActive('website') || isActive('www')">
-            <div class="web_container">
-                <div class="row" id="web_menu">
-                    <div id="web_logo" class="col-sm-1 hidden-xs no_padding_left">
-                        <a href="https://www.eu2017.ee/" target="_blank" title="https://www.eu2017.ee/"><img src="img/EU2017.svg" alt="EU2017.EE" title="EU2017.EE" /></a>
-                    </div>
-                    <div id="web_main" class="col-sm-7 col-xs-12 no_padding_right">
-                        <form novalidate class="right" ng-show="isActive('www') || isActive('website')" ng-submit="">
-                            <div id="address" class="input-group">
-                                <span class="input-group-btn">
-                                    <button id="web_refresh_button" type="button" class="btn btn-default web_button" ng-click="websiteHasBeenInitiated() ? routeMe('/www') : routeMe('/text')" title="{{ websiteHasBeenInitiated() ? ('WEB_REFRESH' | translate) : ('WEB_RETURN' | translate)}}"><span class="glyphicon glyphicon-menu-left"></span></button>
-                                </span>
-                                <input type="text"
-                                       id="url"
-                                       class="form-control"
-                                       ng-keyup="$scope.apply; $event.keyCode == 13 && updateWebsite(); "
-                                       placeholder="{{ 'WEB_PLACEHOLDER' | translate }}"
-                                       ng-model="website.url"
-                                       ng-disabled="false && website.status=='translating'"
-                                       required focus-on="website.focus" />
-                                <span class="input-group-btn input-space">
-                                    <button id="web_translateButton" ng-click="updateWebsite()" ng-show="website.status=='translated' || website.status=='error' || website.status=='loading' || website.status=='translating' || website.status=='initial' || website.status=='ready' || website.status=='loaded'" class="btn btn-default web_button" data-title="translateButton" data-text="translateButton" autofocus></button>
-                                </span>
-                                <a class="restoreButton button hide" data-text="restoreButton" data-title="restoreButton"></a>
-                            </div>
-                            <div class="LanguageSelect w">
-                                <div class="translateLanguageContainer no_padding_left no_padding_right" ng-show="website.languagesReady=='yes'">
-                                    <div id="web_source_lang_div" class="col-sm-5 translate_column_height col-xs-4 web_transl_types no_padding_left">
-                                        <div data-text="sourceSystem" class="translateSourceSystemLabel hidden-xs"></div>
-                                        <select id="web_source_lang" class="translateSourceLang"></select>
-                                        <!--<select class="translateSystem"></select>-->
-                                    </div>
-                                    <div id="web_swap_language_div" class="col-sm-1 col-sm-offset-1 translate_column_height col-xs-1 col-xs-offset-1 web_transl_types">
-                                        <a data-title="swapLanguage" id="webSwapLanguage" class="swapLanguage hide"></a>
-                                    </div>
-                                    <div id="web_target_lang_div" class="col-sm-3 col-sm-offset-2 translate_column_height col-xs-4 col-xs-offset-2 web_transl_types">
-                                        <div data-text="targetSystem" class="translateTargetSystemLabel hidden-xs"></div>
-                                        <select id="web_target_lang" class="translateTargetLang"></select>
-                                    </div>
+                        <div class="col-sm-4 col-sm-offset-3 col-xs-5 no_padding_right" id="main_menu">
+                            <div class="menu_wrapper">
+                                <div class="dropdown">
+                                    <button id="dropdown_button" class="btn btn-primary btn-block dropdown-toggle menu_text" type="button" data-toggle="dropdown" translate="{{ 'MENU' | translate }}"></button>
+                                    <ul class="dropdown-menu">
+                                        <li class="dropdown-menu-first"><a id="menu_about" href="#/about" ng-click="routeMe('/about');" translate="{{ 'MENU_ABOUT' | translate }}" title="{{ 'MENU_ABOUT' | translate }}"></a></li>
+                                        <li class="dropdown-menu-last"><a id="menu_contactUs" href="#/contactUs" ng-click="routeMe('/contactUs');" translate="{{ 'MENU_CONTACT' | translate }}" title="{{ 'MENU_CONTACT' | translate }}"></a></li>
+                                        <li class="dropdown-menu-last"><a id="menu_plugin" href="#/plugin" ng-click="routeMe('/plugin');" translate="{{ 'MENU_PLUGIN' | translate }}" title="{{ 'MENU_PLUGIN' | translate }}"></a></li>
+                                        <li class="dropdown-menu-last"><a id="menu_workshop" href="#/workshop" ng-click="routeMe('/workshop');" translate="{{ 'MENU_WORKSHOP' | translate }}" title="{{ 'MENU_WORKSHOP' | translate }}"></a></li>
+                                    </ul>
+                                </div>
+                                <div id="language_selection">
+                                    <button id="language_selection_en" class="btn lang_select menu_text" ng-class="{ active: language === languages[0] }" ng-model="language" ng-click="setLanguage(languages[0])">EN</button>
+                                    <button id="language_selection_ee" class="btn lang_select menu_text" ng-class="{ active: language === languages[1] }" ng-model="language" ng-click="setLanguage(languages[1])">EE</button>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                    <div id="web_transl_types" class="col-sm-3 hidden-xs no_padding_left no_padding_right">
-                        <ul>
-                            <li>
-                                <a id="web_translation_type_text" ng-click="routeMe('/text');" href="#/text" ng-class="{ active: isActive('text') }" title="{{ 'TEXT' | translate }}" class="transl_text"><span class="transl_type_long">{{ 'TEXT' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'TEXT_SHORT' | translate }}</span></a>
-                            </li>
-                            <li>
-                                <a id="web_translation_type_doc" ng-class="{ active: isActive('document') }" href="#/document" title="{{ 'DOC' | translate }}" class="transl_document"><span class="transl_type_long">{{ 'DOC' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'DOC_SHORT' | translate }}</span></a>
-                            </li>
-                        </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-       
-
-
-        <div ng-show="isActive('website') || isActive('www')" style="clear: both;" class="restricted">
-            <div ng-hide="isActive('website') && website.status!='initial'" id="web_links_container" class="container no_padding_left no_padding_right">
-                <div id="websiteLinks">
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12 no_padding_left no_padding_right">
-                            <p id="web_links_about">{{ 'WEB_EXAMPLES' | translate }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 col-sm-6 col-xs-6 no_padding_left no_padding_right" ng-repeat="sample in website.samples">
-                            <div class="sample_first_section">
-                                <h1><a href="" ng-click="website.url=sample.url; updateWebsite('et');">{{sample.title}} <span class="glyphicon glyphicon-chevron-right"></span></a></h1>
-                                <p><span ng-bind="(language === languages[1] && sample.description_ee) || (sample.description)"></span></p>
-                            </div>
-                            <div class="sample_second_section">
-                                <a href="" ng-click="website.url=sample.url; updateWebsite('et');">
-                                    <div style="background: {{sample.image}}" class="sample_logo"></div>
-                                </a>
+            <!--TYPE-->
+            <div ng-show="(!isActive('website') && !isActive('www'))" class="section gray_section" id="translation_type_section">
+                <div class="container">
+                    <div class="row" id="transl_types">
+                        <div class="col-sm-12 col-xs-12 no_padding_left no_padding_right">
+                            <div id="translation_types">
+                                <ul class="list-inline">
+                                    <li>
+                                        <a id="translation_type_text" href="#/text" ng-click="routeMe('/text');" ng-class="{ active: isActive('text') }" title="{{ 'TEXT' | translate }}" class="transl_type transl_text"><span class="transl_type_long">{{ 'TEXT' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'TEXT_SHORT' | translate }}</span></a>
+                                    </li>
+                                    <li class="hidden-xs">
+                                        <a id="translation_type_doc" href="#/document" ng-class="{ active: isActive('document') }" title="{{ 'DOC' | translate }}" class="transl_type transl_document"><span class="transl_type_long">{{ 'DOC' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'DOC_SHORT' | translate }}</span></a>
+                                    </li>
+                                    <li>
+                                        <a id="translation_type_web" href="#/www" ng-click="routeMe('/www');" ng-class="{ active: isActive('website') || isActive('www')  }" title="{{ 'WEB' | translate }}" class="transl_type transl_website"><span class="transl_type_long">{{ 'WEB' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'WEB_SHORT' | translate }}</span></a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        <div ng-view></div>
+        <!--IS A eTRANSLATION SYSTEM-->
+        <div ng-show="sysType.eTranslation" class="eTranslation">
+            <p translate="{{ 'ETRANSLATION' | translate }}"></p>
+        </div>
         </div>
 
-        <div ng-show="isActive('website') && website.status!='initial'" id="websiteFrameContainer">
-            <!--<div ng-show="website.status=='loading' || website.status=='translating' || website.status=='error'" class="infoMessage">
-                <center ng-show="website.status=='translating' || website.status=='error'">Translation in progress</center>
-                <center ng-show="website.status=='loading'">Loading in progress</center>
-                <center>
-                    <button ng-click="website.untranslate()">Cancel</button>
-                </center>
-            </div>-->
-            <iframe id="websiteFrame" name="websiteFrame" src="about:blank" frameborder="0"></iframe>
-        </div>
-        <div ng-hide="isActive('website') || isActive('www')" ng-view></div>
-
-
-    </div>
-
-    <div ng-show="isActive('home')" style="visibility: hidden;" id="textWidget"></div>
-
-    <!--<div class="tilde" ng-hide="isActive('home') || isActive('about') || isActive('mobileApp')">
-        Developed by <a class=" red" href="http://www.tilde.com" target="_blank">
-            Tilde
-        </a>
-    </div>-->
-    <!--<div id="modalConfirmation" ng-class="{modal: dialog.showModal=='show'}">
-        <div id="dialog">
-            <div id="dialog-bg">
-                <div id="dialog-title">Are you sure you want to exit document translation?</div>
-                <div id="dialog-description">Your translation will not be saved.</div>
-                <div id="dialog-buttons">
-                    <a href="" ng-click="dialog.navigate(true);" class="dialogButton">Yes</a>
-                    <a href="" ng-click="dialog.navigate(false);" class="dialogButton cancelButton">Cancel</a>
-                </div>
-            </div>
-        </div>
-    </div>-->
+  
     <!--FOOTER-->
-    <div ng-hide="isActive('website') || isActive('www')" class="section footer">
-        <div class="container">
-            <div class="row" id="footer_row">
-                <div class="col-sm-6 col-xs-6 no_padding_left">
-                    <p class="footer_text footer_etranslation" translate="{{ 'POWERED' | translate }}">
-                    </p>
-                </div>
-                <div class="col-sm-6 col-xs-6 no_padding_right">
-                    <p class="footer_text footer_tilde" translate="{{ 'DEVELOPED' | translate }}"></p>
+    <div ng-show="(!isActive('website') && !isActive('www'))" class="section footer">
+            <div class="container">
+                <div class="row" id="footer_row">
+                    <div class="col-sm-6 col-xs-6 no_padding_left">
+                        <p class="footer_text footer_etranslation" translate="{{ 'POWERED' | translate }}">
+                        </p>
+                    </div>
+                    <div class="col-sm-6 col-xs-6 no_padding_right">
+                        <p class="footer_text footer_tilde" translate="{{ 'DEVELOPED' | translate }}"></p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 </body>
 </html>

@@ -1,0 +1,413 @@
+﻿.qq-uploader {
+    width: 100%;
+    height: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.qq-upload-drop-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 99%;
+    height: 98%;
+    min-height: 70px;
+    z-index: 2;
+    text-align: center;
+}
+
+.qq-upload-drop-area-active {
+    border: 3px dotted #DDD;
+    border-radius: 10px;
+}
+
+.qq-upload-list {
+    padding: 0;
+    list-style: disc;
+}
+
+.qq-upload-list li {
+    margin: 0;
+    padding: 0;
+    line-height: 15px;
+    font-size: 12px;
+}
+
+.qq-upload-file,
+.qq-upload-spinner,
+.qq-upload-size,
+.qq-upload-cancel,
+.qq-upload-failed-text {
+    margin-right: 7px;
+}
+
+.qq-upload-file {
+}
+
+.qq-upload-spinner {
+    display: inline-block;
+    background: url('images/loading_animation.gif');
+    width: 15px;
+    height: 15px;
+    vertical-align: text-bottom;
+}
+
+.qq-upload-size, .qq-upload-cancel {
+    font-size: 11px;
+}
+
+.qq-upload-failed-text {
+    display: none;
+}
+
+.qq-upload-fail .qq-upload-failed-text {
+    display: inline;
+}
+
+#docUploadFile {
+    height: 100%;
+    max-height: 26em;
+}
+
+.buttonCancelDoc {
+    cursor: pointer;
+    margin: 0 0 0.7em 0.6em;
+}
+
+#docPreviewContent {
+    color: #000;
+    cursor: default;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+}
+
+#docPreviewContent .Normal {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#docPreviewContent .Normal:first-child{
+    margin-top: 0;
+}
+
+#docSourcePreview {
+    padding: 0.7em;
+    height: 100%;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    position:absolute;
+}
+
+.bigIcon {
+    max-height: 26em;
+}
+
+.qq-upload-meta-title {
+    color: #7d7d7d;
+}
+
+.qq-upload-wordcount.warning {
+    color: #f00;
+}
+
+.translateResult,
+.docTempTarget {
+    height: 100%;
+    width:100%;
+    position:absolute;
+    overflow: visible;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding:0.7em;
+}
+
+.docTempTarget{
+    color: #5D5D5D;
+}
+
+#translProgress {
+    text-align: center;
+    position:relative;
+    width: 30%;
+    height: 16%;
+    top: 42%;
+    right: 35%;
+    bottom: 42%;
+    left: 35%;
+    min-height:3em;
+}
+
+#translProgress .progressImage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 2em;
+}
+
+#translProgress.starting .progressImage {
+    display:none;
+}
+
+
+.progressImage > div{
+    margin:0 5% 0 5%;
+    width: 15%;
+    background-color: #AC1413;
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+    animation: bouncedelay 1.4s infinite ease-in-out;
+    /* Prevent first frame from flickering when animation starts */
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    position:relative;
+}
+
+/* a hack to make the ball the same height as it's width
+    http://www.mademyday.de/css-height-equals-width-with-pure-css.html
+*/
+.progressImage > div:before{
+    content: "";
+    display: block;
+    padding-top: 100%;
+}
+
+.progressImage .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+}
+
+.progressImage .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+
+
+.transItem {
+    position: absolute;
+    text-align: center;
+    color: #5D5D5D;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.qq-upload-button {
+    text-align: center;
+    position: relative;
+    width: 80%;
+    height: 66%;
+    top: 17%;
+    right: 10%;
+    bottom: 17%;
+    left: 10%;
+    min-height: 2em;
+    overflow:visible !important;
+}
+
+.qq-upload-button-text {
+    position: absolute;
+    text-align: center;
+    color: #5D5D5D;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow:visible;
+}
+
+.qq-upload-button-image {
+    opacity: 0.4;
+    background-image: url("images/doc.svg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 2em;
+}
+
+.qq-upload-button-hover .qq-upload-button-image  {
+    opacity: 1;
+}
+
+.docUploadNewDoc {
+    cursor: pointer;
+    margin: 0 0 0.7em 0.6em;
+}
+
+.buttonDownDoc {
+    margin: 0 0 0.7em 0.6em;
+}
+
+[data-disabled='true'] {
+    opacity: 0.5;
+}
+
+.infoMessageBox, .uploadNotSupported {
+    clear: both;
+    padding: 0.2em 0 0.6em 0;
+}
+
+.translateContainerLeft {
+    overflow: auto;
+}
+
+.transFileMeta {
+    display: none;
+}
+
+#docPreviewContent.no-preview {
+    text-align: center;
+    position: relative;
+    width: 80%;
+    height: 66%;
+    top: 17%;
+    right: 10%;
+    bottom: 17%;
+    left: 10%;
+    min-height: 2em;
+    background-image: url('images/filetype.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    color: #434242;
+    font-weight: bold;
+}
+
+#docPreviewContent.no-preview .type {
+    position: relative;
+    top: 45%;
+    height: 10%;
+    font-size: 5vh; /*not really reliable, but the only real alternative is using javascript*/
+    color:#555555;
+}
+
+@media screen and (max-width:29em) {
+    #docPreviewContent.no-preview .type {
+        font-size:3vh;
+    }
+}
+
+.translated-no-preview {
+    text-align: center;
+    position: relative;
+    width: 80%;
+    height: 50%;
+    top: 25%;
+    right: 10%;
+    bottom: 25%;
+    left: 10%;
+    min-height: 2em;
+    background-image: url('images/download.svg');
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-bottom: solid 2em transparent;
+    margin-top: -1em;
+}
+
+.translated-no-preview a {
+    text-decoration: none;
+    position: absolute;
+    bottom: -2em;
+    left: 0;
+    right: 0;
+    height: 100%;
+    height: -webkit-calc(100% + 2em);
+    height: calc(100% + 2em);
+}
+
+.translated-no-preview span {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 1em;
+    font-weight: normal;
+    text-align: center;
+}
+
+.translated-no-preview a:hover span {
+    text-decoration: underline;
+}
+
+.docTranslateContent {
+    display: none;
+}
+
+.button_container {
+    width: 49%;
+    width: -webkit-calc(50% - 0.344em);
+    width: calc(50% - 0.344em);
+    float: left;
+    margin-left:0.687em;
+    text-align:right;
+}
+
+.supTypesList {
+    display: block;
+    position: absolute;
+    text-align: center;
+    color: #5D5D5D;
+    bottom:-5em;
+    font-size:86%;
+}
+
+.supTypesList .format {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size:86%;
+}
+
+@media screen and (max-width:67em) {
+    .supTypesList {
+        display: none !important;
+    }
+}
+
+@media screen and (max-height:52em) {
+    .supTypesList {
+        display: none !important;
+    }
+}
+
+
+@media screen and (max-width:29em) {
+    #container {
+        min-height:10em !important;
+        max-height:none;
+    }
+
+    .button_container{
+        width:100%;
+        box-sizing:border-box;
+        margin:0;
+        padding:0;
+        text-align:left;
+    }
+
+    .button_container .button {
+        margin-left:0 !important;
+        margin-right:0.7em;
+    }
+
+    .terminology {
+        margin-left:0;
+        margin-right:0.6em;
+    }
+}
+
+.translateResult:lang(ar), #docSourcePreview:lang(ar),
+.translateResult:lang(fa), #docSourcePreview:lang(fa),
+.translateResult:lang(ur), #docSourcePreview:lang(ur),
+.translateResult:lang(he), #docSourcePreview:lang(he),
+.translateResult:lang(yi), #docSourcePreview:lang(yi) {
+    direction:rtl;
+}

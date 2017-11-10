@@ -300,3 +300,14 @@ __pycache__/
 
 # OpenCover UI analysis results
 OpenCover/
+/PresidencyTranslator.VC.VC.opendb
+/PresidencyTranslator.VC.db
+/cefTLapp/res_pr2017/text-widget/translator.js
+/cefTLapp/res_pr2017/text-widget/translator.min.js
+/cefTLapp/res_pr2017/text-widget/translator.css
+/cefTLapp/res_pr2017/text-widget/translator.min.css
+/[Bb]undler.cs
+/[Bb]undler/
+/cefTLapp/res_pr2017/package-lock.json
+#needed for local builds only
+/cefTLapp/res_pr2017/bundleconfig.json.bindings

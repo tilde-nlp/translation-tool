@@ -1,0 +1,161 @@
+﻿.translateTextSource {
+    outline: none;
+}
+
+.translateButton  {
+    margin: 0.1em 0.4em 0.5em 1em;
+    float:right;
+}
+
+@media screen and (max-width:36em) {
+    .translateButton {
+        margin: 0.2em 0.2em 0.5em 0.2em !important;
+        padding-left:1em !important;
+        padding-right:1em !important;
+    }
+}
+
+@media screen and (max-width:30em) {
+    .translateButton {
+        display:none;
+    }
+}
+
+@media screen and (max-width:28em) {
+    .translateSystemContainerLeft .fancy-select .trigger {
+        padding-left:0 !important;
+    }
+}
+
+@media screen and (max-width:26em) {
+    .translateSystemContainerLeft .fancy-select .trigger {
+        padding-left:0 !important;
+    }
+
+    .translateSourceSystemLabel, .translateTargetSystemLabel{
+        display:none;
+    }
+}
+
+.translateProgress {
+    margin: 0.2em 0.45em 0 0;
+}
+
+.translateResultClear {
+    border-radius: 2em;
+    vertical-align: middle;
+    background-image: url('images/cross.svg');
+    background-size: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #DC8F9F;
+    top: 0.75em;
+    bottom: inherit;
+    right: 0.75em;
+    padding: 0.7em 0.438em 0.438em 0.7em;
+    -moz-transition: background-color 200ms ease-in-out;
+    -o-transition: background-color 200ms ease-in-out;
+    -webkit-transition: background-color 200ms ease-in-out;
+    transition: background-color 200ms ease-in-out;
+}
+
+.translateResultClear:hover {
+    background-color: #b62850;
+    -moz-transition: background-color 200ms ease-in-out;
+    -o-transition: background-color 200ms ease-in-out;
+    -webkit-transition: background-color 200ms ease-in-out;
+    transition: background-color 200ms ease-in-out;
+}
+
+.translateSystemContainer .swapLanguage {
+    cursor: pointer;
+    background-color: #b62850;
+    color: #FFF;
+    padding: 0.255em;
+    float: left;
+    display: inline-block;
+}
+
+/*.translateContainerHeader div.fancy-select div.trigger:before{
+    background-color:transparent;
+}
+
+.translateContainerHeader{
+    background-color:#F5F4F2;
+}
+
+#translateHeaderBackground {
+    position: absolute;
+    top: 8.7em;
+    left: 0;
+    right: 0;
+    height: 2.9em;
+    z-index: -1;
+    background-color:#F5F4F2;
+    border-bottom:0.075em solid #D4D4D4;
+}
+    */
+
+.translateTextResult .entries .title {
+    margin: 0;
+}
+
+.translateTextResult .skatitPilnu {
+    margin:0.9em 0 0 0;
+}
+
+.translateTextResult .skatitPilnu a {
+    font-family: "Avenir LT W02 45 Book", sans-serif;
+}
+
+.translateTextResult .skatitPilnu a:first-child {
+    font-size:.96em;
+}
+
+.translateTextResult .skatitPilnu+.hr
+{
+    margin-top:2em;
+}
+
+.sourceSpeak, .targetSpeak {
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    background-image: url('images/translate-tilde-com/speaker.svg');
+    background-size: 1em;
+    top: 0.75em;
+    right: 0.8em;
+    opacity: 0.5;
+    z-index: 3;
+    -moz-transition: opacity 200ms ease-in-out;
+    -o-transition: opacity 200ms ease-in-out;
+    -webkit-transition: opacity 200ms ease-in-out;
+    transition: opacity 200ms ease-in-out;
+    cursor:pointer;
+}
+
+.sourceSpeak{
+    top:3.2em;
+}
+
+.sourceSpeak:hover, .targetSpeak:hover {
+    opacity: 1;
+}
+
+.letonikaLogo
+{
+    background-image: url("images/translate-tilde-com/letonika.svg");
+    width:3.75em;
+    height:1em;
+    background-repeat:no-repeat;
+    background-size:cover;
+    display:inline-block;
+    margin-left:0.5em;
+}
+
+
+@media screen and (max-width:38em), screen and (max-height:22em) {
+    .editButtonContainer {
+        display:none;
+    }
+}

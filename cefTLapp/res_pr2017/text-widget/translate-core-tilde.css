@@ -1,0 +1,133 @@
+﻿.translateContainerHeader {
+    padding-top: 0.7em;
+    font-size: 0.9em;
+}
+
+.popSourceLangs, .popTargetLangs {
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+.popSourceLangs li, .popTargetLangs li  {
+    display: block;
+    float: left;
+    list-style: none;
+    cursor: pointer;
+    padding: 0.3em 0.5em 0.7em 0.5em;
+}
+
+.popSourceLangs li:hover, .popTargetLangs li:hover  {
+    color: #B1244C;
+}
+
+.popSourceLangs li.active, .popTargetLangs li.active {
+    color: #B1244C;
+    border-bottom: 0.175em solid #B1244C;
+}
+
+div.fancy-select {
+    position: relative;
+    float: left;
+}
+
+.translateContainerHeader .fancy-select {
+    margin: 0.22em 0.72em 0 0;
+}
+
+.translateSystemContainer .fancy-select div.trigger {
+    position: relative;
+}
+
+.translateContainerLeft,
+.translateContainerRight {
+    border:solid 1px #ebebeb;
+}
+
+.translateSourceSystemLabel,
+.translateTargetSystemLabel,
+.translateDomainLabel {
+    color: #454545;
+    margin: .3em 0.3em 0 0;
+    float:left;
+}
+
+.translateSystemContainer {
+    float: left;
+    min-width: 10em;
+    width: auto;
+}
+
+.translateSystemContainerLeft {
+    float: left;
+    width:50%;
+    box-sizing:border-box;
+    margin:0;
+}
+
+.translateSystemContainerRight {
+    float: left;
+    padding-left:0.4em;
+    width:50%;
+    box-sizing:border-box;
+    margin:0;
+}
+
+@media screen and (min-width:29em) {
+    .translateDomainContainer, .translateProgress  {
+        float: right;
+    }
+}
+
+.translateDomainContainer div.fancy-select ul.options {
+    left: calc(100% - 12em);
+    left: -webkit-calc(100% - 12em);
+}
+
+.translateDomainContainer .fancy-select .trigger {
+    min-width: 1em;
+}
+
+.translateSystemContainer .fancy-select .trigger {
+    min-width: 3em;
+}
+
+.swapLanguage {
+    display: block;
+    cursor: pointer;
+    float: right;
+    width: 1.3em;
+    height: 1.3em;
+    background-image: url('images/translate-tilde-com/swap_red.svg');
+    background-repeat: no-repeat;
+    background-size: 1.2em;
+    margin: 0.438em 1.9em
+}
+
+@media screen and (max-width:39em) { 
+    .translateDomainContainer {
+        clear: left;
+        float: left;
+    }
+}
+
+@media screen and (max-width:29em) {
+    .translateButton {
+        float: right;
+    }
+}
+
+@media screen and (max-width:36em) {
+    .swapLanguage{
+        display:none;
+    }
+}
+
+.systemsLoading{
+    margin:0.5em 0  0.7em 1em;
+}
+
+.translateContainerBody
+{
+    padding-bottom:0.5em;
+}

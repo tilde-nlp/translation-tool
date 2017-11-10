@@ -2,11 +2,12 @@
 var app = angular.module("myTranslatorApp", ['ngRoute', 'angular.filter', 'pascalprecht.translate'])
     .run(function ($rootScope) {
         $rootScope.language = 'en';
-        $rootScope.languages = ['en', 'ee'];
+        $rootScope.languages = ['en', 'et'];
         $rootScope.workshopURLs = {
             'en': 'https://www.tilde.lv/presidency-translator-workshop-registration',
-            'ee': 'https://www.tilde.lv/presidency-translator-workshop-registration-ee'
-        }
+            'et': 'https://www.tilde.lv/presidency-translator-workshop-registration-ee'
+        };
+        $rootScope.eTranslationSystem = false;
     })
     .filter('trustAsResourceUrl', ['$sce', function ($sce) {
         return function (val) {
@@ -21,38 +22,38 @@ app.config(['$routeProvider',
             templateUrl: 'templates/about.html',
             controller: 'myPageCtrl'
         })
-        /*.when('/home', {
-            templateUrl: 'templates/home.html',
-            controller: 'homeCtrl'
-        })*/
+        .when('/home', {
+            templateUrl: 'templates/translate-text.html',
+            controller: 'TranslateCtrl'
+        })
         .when('/contactUs', {
             templateUrl: 'templates/contactUs.html',
             controller: 'myPageCtrl'
           })
-          .when('/plugin', {
-              templateUrl: 'templates/plugin.html',
-              controller: 'myPageCtrl'
-          })
-          .when('/workshop', {
-              templateUrl: 'templates/workshop.html',
-              controller: 'myPageCtrl'
-          })
+        .when('/plugin', {
+            templateUrl: 'templates/plugin.html',
+            controller: 'myPageCtrl'
+        })
+        .when('/workshop', {
+            templateUrl: 'templates/workshop.html',
+            controller: 'myPageCtrl'
+        })
         .when('/text', {
             templateUrl: 'templates/translate-text.html',
             controller: 'TranslateCtrl'
         })
-          .when('/www', {
-              templateUrl: 'templates/translate-website.html',
-              controller: 'websiteTranslatorCtrl'
-          })
-           .when('/website', {
-               templateUrl: 'templates/translate-website.html',
-               controller: 'websiteTranslatorCtrl'
-           })
-           .when('/document', {
-               templateUrl: 'templates/translate-document.html',
-               controller: 'DocumentCtrl'
-           })
+        .when('/www', {
+            templateUrl: 'templates/translate-website.html',
+            controller: 'websiteTranslatorCtrl'
+        })
+        .when('/website', {
+            templateUrl: 'templates/translate-website.html',
+            controller: 'websiteTranslatorCtrl'
+        })
+        .when('/document', {
+            templateUrl: 'templates/translate-document.html',
+            controller: 'DocumentCtrl'
+        })
         .otherwise({
             redirectTo: '/text'
         });
@@ -73,7 +74,7 @@ app.config(function ($translateProvider) {
         DOC_SHORT: 'Document',
         WEB: 'Translate website',
         WEB_SHORT: 'Website',
-        WEB_PLACEHOLDER: 'Type web address here...',
+        WEB_PLACEHOLDER: 'Type the web address here...',
         WEB_EXAMPLES: 'Links to Estonian media and information resources:',
         WEB_REFRESH: 'Refresh',
         WEB_RETURN: 'Back',
@@ -102,9 +103,10 @@ app.config(function ($translateProvider) {
         WORKSHOP8: 'Registration',
         WORKSHOP9: 'https://www.tilde.lv/presidency-translator-workshop-registration',
         CO_FINANCED_LOGO: 'img/CoFinanced_en.png',
-        CO_FINANCED_ALT: 'Co-financed by the European Union'
+        CO_FINANCED_ALT: 'Co-financed by the European Union',
+        ETRANSLATION: 'You have chosen to translate with a <b>CEF eTranslation system</b>, developed by the European Commission.'
     })
-    .translations('ee', {
+    .translations('et', {
         SUBTITLE: 'koostöös Euroopa Nõukogu Eesti eesistumisega',
         MENU: 'Menüü',
         MENU_ABOUT: 'Teenusest Translate 2017',
@@ -146,7 +148,8 @@ app.config(function ($translateProvider) {
         WORKSHOP8: 'Registreerimine',
         WORKSHOP9: 'https://www.tilde.lv/presidency-translator-workshop-registration-ee',
         CO_FINANCED_LOGO: 'img/CoFinanced_ee.png',
-        CO_FINANCED_ALT: 'Kaasrahastatud Euroopa Liidu poolt'
+        CO_FINANCED_ALT: 'Kaasrahastatud Euroopa Liidu poolt',
+        ETRANSLATION: 'Valisite tõlkimiseks Euroopa Komisjoni arendatava <b>CEF eTranslation süsteemi</b>.'
     });
 
     $translateProvider.preferredLanguage('en');

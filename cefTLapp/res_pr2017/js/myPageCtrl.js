@@ -61,7 +61,7 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         $scope.pluginURL += '.sdlplugin';
     } else {
         $scope.pluginURL += '.zip';
-    }
+    };
 
     $scope.getPlugin = function () {
         var link = document.createElement('a');
@@ -213,9 +213,10 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
             console.log("Failed to switch languages: " + err);
         }
     };
+
     $scope.sysType = {
         eTranslation: true,
-    }
+    };
 
     // blur effect on option list
     $('body').click(function (event) {
@@ -235,17 +236,33 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
     $scope.isETranslationSystem = function (activeSys) {
         var etr = false;
 
-        for(a of $widget.settings._systems) {
+        var systems = Array.from($widget.settings._systems);
+
+        for (var i = 0; i < systems.length; i += 1) {
+            if (systems[i].ID === activeSys) {
+                var systemMetadata = Array.from(systems[i].Metadata);
+                for (j = 0; j < systemMetadata.length; j += 1) {
+                    var currData = systemMetadata[j];
+                    if (currData.Key === 'decoder' && currData.Value === 'cefat-etranslation') {
+                        etr = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+ /*       for (a of $widget.settings._systems) {
             if (a.ID === activeSys) {
                 for (b of a.Metadata) {
                     if (b.Key === 'decoder' && b.Value === 'cefat-etranslation') {
                         etr = true;
                         break;
                     }
-                };
+                }
                 break;
             }
         }
+*/
         $scope.$apply(function () {
             $scope.sysType.eTranslation = etr;
         });

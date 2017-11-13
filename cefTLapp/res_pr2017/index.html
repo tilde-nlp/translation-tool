@@ -133,7 +133,7 @@
         <div ng-view></div>
         <!--IS A eTRANSLATION SYSTEM-->
         <div ng-show="sysType.eTranslation" class="eTranslation">
-            <p translate="{{ 'ETRANSLATION' | translate }}"></p>
+            <p translate="{{ 'ETRANSLATION' | translate }}"></p><span id="eTranslation_close" class="glyphicon glyphicon-remove-circle" ng-click="sysType.eTranslation = false"></span>
         </div>
         </div>
 

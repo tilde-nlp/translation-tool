@@ -262,6 +262,7 @@ div.fancy-select ul.options.open {
 .infoMessageBox {
     /* margin-top: -10px; */
     font-size: 0.9rem !important;
+    margin-left: 15
 }
 
 /*text widget*/
@@ -1336,6 +1337,13 @@ web_container .translateContainerHeader {
     z-index: 801;
     opacity: 0.75;
     transition: all linear 5s;
+}
+
+#eTranslation_close {
+    right: 15px;
+    top: 10px;
+    position: absolute;
+    cursor: pointer;
 }
 
 #web_main a.translateButton {

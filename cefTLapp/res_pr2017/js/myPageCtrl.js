@@ -248,6 +248,7 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
                         break;
                     }
                 }
+                break;
             }
         }
 
@@ -455,9 +456,10 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
 
     $("#web_refresh_button").click(function() {
         if ($("#websiteFrame:visible").length != 0) {
-            iframeHide();
-            iframeReset();
-            examplesShow();
+            //iframeHide();
+            //iframeReset();
+            //examplesShow();
+            $window.location.reload();
         } else {
             webWidget = null;
             angular.element('#web_translation_type_text').triggerHandler('click');

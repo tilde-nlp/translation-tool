@@ -6,8 +6,8 @@ Tilde.TranslatorWidgetDefaultOptions = {
     _systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList',
     _apiIsInTheSameDomain: false, //is API WS in the same domain as the page that contains the widget
     _jsonType: 'json', //jsonp or json
-    _appId: 'unknown', //appid of widget - used to get systems and translations
-    _clientId: 'u-bfcaf986-8147-4901-a131-f0d618a7354b',
+    _appId: '', //appid of widget - used to get systems and translations
+    _clientId: '',
     _systems: null, //configurable system list in JSON format. If contains values system list is not loaded from server but from given data
     _allowedSystemStatuses: 'running', //filter system list with specified statuses
     _templateId: null,

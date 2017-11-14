@@ -1,4 +1,5 @@
 ﻿var $versionNumber = '1.22';
+var $clientId = 'u-dc4cd3c5-ebc9-4213-ac9d-593c896bc0ea';
 
 app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope) {
     try {
@@ -287,9 +288,7 @@ function initTextWidget($scope, $rootScope) {
         _language: 'en',
         _systemListUrl: 'https://letsmt.eu/ws/service.svc/json/GetSystemList',
         _translationUrl: 'https://letsmt.eu/ws/service.svc/json/TranslateEx',
-        //_clientId: 'u-dc4cd3c5-ebc9-4213-ac9d-593c896bc0ea',
-        //_clientId: 'u-aa4a8f1a-52fd-4b1b-a663-a72247852d76',
-        _clientId: 'u-ea37600d-1fb7-44e8-9ab6-c113cd72bf8f',
+        _clientId: $clientId,
         _templateId: 'translatetext-template',
         _appId: "Tilde|EU Presidency|Web",
         _getFilteredSystems: false,
@@ -359,9 +358,7 @@ function initFileWidget($scope, $rootScope) {
         _checkStatusUrl: 'https://letsmt.eu/ws/Files/GetStatus',
         _defaultSourceLang: 'et',
         _defaultTargetLang: 'en',
-        //_clientId: 'u-dc4cd3c5-ebc9-4213-ac9d-593c896bc0ea',
-        //_clientId: 'u-aa4a8f1a-52fd-4b1b-a663-a72247852d76',
-        _clientId: 'u-ea37600d-1fb7-44e8-9ab6-c113cd72bf8f',
+        _clientId: $clientId,
         _templateId: 'translatefile-template',
         _appId: "Tilde|EU Presidency|Web",
         //_landingView: true,
@@ -420,9 +417,7 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
     
     var webWidget = new Tilde.TranslatorWidget('#webWidget', {
         _language: 'en',
-        //_clientId: 'u-dc4cd3c5-ebc9-4213-ac9d-593c896bc0ea',
-        //_clientId: 'u-aa4a8f1a-52fd-4b1b-a663-a72247852d76',
-        _clientId: 'u-ea37600d-1fb7-44e8-9ab6-c113cd72bf8f',
+        _clientId: $clientId,
         _systemSelectType: 'language',
         _appId: "Tilde|EU Presidency|Web",
         _defaultSourceLang: 'et',

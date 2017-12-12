@@ -118,7 +118,7 @@ namespace PresidencySeleniumTests.SmokeTests
             if (result.Count()!= 0) { Assert.Fail("Source language dropdown not populated correctly"); }         
         }
         [Test]
-        public void LanguageMenuPopulatedTrgEN()
+        public void LanguageMenuPopulatedTrgfromEN()
         {
             TextTranslatePage txtPageObj = new TextTranslatePage();
             WaitElement.Wait(txtPageObj.waitDropdownTrigger);

@@ -73,9 +73,11 @@
     <Compile Include="PageObjects\TextTranslatePage.cs" />
     <Compile Include="PageObjects\WebTranslatePage.cs" />
     <Compile Include="PropertiesCollection\PresidencyProperties.cs" />
+    <Compile Include="PropertiesCollection\TestData.cs" />
     <Compile Include="SmokeTests\DocumentTranslate.cs" />
     <Compile Include="SmokeTests\MenuSections.cs" />
     <Compile Include="SmokeTests\TextTranslate.cs" />
+    <Compile Include="SmokeTests\TextTranslateAPI.cs" />
     <Compile Include="SmokeTests\WebTranslate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

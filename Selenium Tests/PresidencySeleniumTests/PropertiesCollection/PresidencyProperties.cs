@@ -49,53 +49,5 @@ namespace PresidencySeleniumTests
                                     {"Enter the text you want to translate","Machine translation results help to understand the meaning of a source text, but do not equal translation by a human."},
                                     {"Sisesta tekst, mida soovid tõlkida","Masintõlge aitab teksti sisust aru saada, kuid ei asenda inimtõlget"}};      
    }
-
-
-    class TestData
-    {
-        //text to translate
-       public static string[] textArrayEN =
-          {
-           "By letter dated 6 August 2007, France notified the Commission of restructuring aid for the FagorBrandt group.",
-           "rows 3.2.12.2.8.1 and 3.2.12.2.8.2 are replaced by the following:",
-           "French Revolution: The execution of Louis XVI on the Place de la Révolution (now Place de la Concorde) (January 21, 1793)"
-          };
-
-        public static string[] textArrayET =
-         {
-            "Prantsusmaa teatas 6. augusti 2007. aasta kirjas komisjonile FagorBrandti kontserni ümberkorraldusabi.",
-            "read 3.2.12.2.8.1 ja 3.2.12.2.8.2 asendatakse järgmisega:",
-            "Prantsuse revolutsioon: Louis XVI hukkamine Place de la Révolution (praegu Place de la Concorde) (21. jaanuar 1793)"
-          };
-
-        //translated with ET-EN NMT system (smt-85a613e5-5b6f-473a-84a4-d3fdfb0d187e)
-        public static string[] translationArrayETEN = {
-            "By letter dated 6 August 2007, France notified the Commission of the restructuring aid of the FagorBrandt Group.",
-            "rows 3.2.12.2.8.1 and 3.2.12.2.8.2 are replaced by the following:",
-            "French Revolution: Louis XVI execution Place de la Révolution (currently Place de la Concorde) (21 January 1793)"
-        };
-
-        //website URLs for testing web translate
-        public static string[] urlArray = {
-            @"www.bbc.co.uk",
-            @"www.delfi.ee",
-            @"www.bild.de",
-            @"www.lemonde.fr"
-            };
-
-        //test document directories
-        public static string[] filesBG = Directory.GetFiles(@"\\tilde.lv\ad\Testing\letsmt\testData\FileTranslate\Presidency\bulgarian");
-         public static string[] filesET = Directory.GetFiles(@"\\tilde.lv\ad\Testing\letsmt\testData\FileTranslate\Presidency\estonian");
-         public static string[] filesFR = Directory.GetFiles(@"\\tilde.lv\ad\Testing\letsmt\testData\FileTranslate\Presidency\french");
-         public static string[] filesDE = Directory.GetFiles(@"\\tilde.lv\ad\Testing\letsmt\testData\FileTranslate\Presidency\german");
-         public static string[] filesEN = Directory.GetFiles(@"\\tilde.lv\ad\Testing\letsmt\testData\FileTranslate\Presidency\english");
-
-        //unsupported file
-       public static string fileUnsupported = @"\\tilde.lv\ad\Testing\letsmt\testData\FileTranslate\badFiles\cenas2.png";
-
-    }
-   
-
-
-    
+        
 }

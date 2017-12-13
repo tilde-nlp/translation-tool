@@ -51,11 +51,11 @@ namespace PresidencySeleniumTests
 
         public static string[][] translationDataArray = { 
             new string[]{"smt-e-transl-de-en","Dies ist Sparta","This is Sparta"},
-            new string[] {"smt-e-transl-en-de","This is Sparta","Dies ist Sparta"},
+            new string[] {"smt-e-transl-en-de","This is Sparta","Dies ist Sparta."},
 			new string[]{"smt-e-transl-fr-en","Il s’agit Sparte","It is Sparta"}, 
 			new string[]{"smt-e-transl-en-fr","This is Sparta","Il s’agit Sparte"},
-			new string[]{"smt-85a613e5-5b6f-473a-84a4-d3fdfb0d187e","See on Sparta","It's Sparta"},
-			new string[]{"smt-35abecbd-565f-44e3-9999-b6decc5a6eac","This is Sparta","See on Sparta"},
+			new string[]{"smt-85a613e5-5b6f-473a-84a4-d3fdfb0d187e","See on Sparta","It's Sparta."},
+			new string[]{"smt-35abecbd-565f-44e3-9999-b6decc5a6eac","This is Sparta","See on Sparta."},
 		/*	new string[]{"smt-e-transl-en-cs","",""},
 			new string[]{"smt-e-transl-en-cs","",""},
 			new string[]{"smt-e-transl-en-it","",""},

@@ -8,6 +8,8 @@ using System.IO;
 using System.Net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Net.Http;
+
 
 namespace PresidencySeleniumTests
 {
@@ -26,15 +28,28 @@ namespace PresidencySeleniumTests
         if (missingSystems.Count > 0)
         { Assert.Fail("Missing systems:\n"+string.Join(", \n", missingSystems)); }           
        }
-
       
-        private void APITranslate()
-        { 	
-			foreach(string [] data in TestData.translationDataArray)
+        /// <summary>
+      /// sends POST request, checks translation against pretranslated text in TestData.translationDataArray
+        /// </summary>
+      [Test]
+        public void APITranslate()
+        {
+          //data[0] systemID, data[1] source text, data[2] translation to match
+            Stack<string> failedSystems = new Stack<string>();
+                foreach(string [] data in TestData.translationDataArray)
 			{
-				string systemID=data[0]; string txtSource=data[1];string txtTarget=data[2];
-				//send request with system data and txtSource, translate
+                string systemID=data[0]; string txtSource=data[1];string txtTarget=data[2];
+                Requests request = new Requests();
+                var resp = request.TranslExPOST(API_properties.apiBaseUrl + "ws/service.svc/json/TranslateEx", API_properties.token, data[0], data[1]);
+                string translation = JObject.Parse(resp.Result)["translation"].ToString();
+                if (translation!=data[2])
+                {
+                    failedSystems.Push(data[0]+" - "+data[2]+" vs "+translation+"\n");                   
+                }   
 			}
+          if(failedSystems.Count>0)
+          { Assert.Fail(string.Join(", \n", failedSystems)); }
         }
 
         //gonna change to HttpClient from Webrequest afterwards
@@ -83,6 +98,21 @@ namespace PresidencySeleniumTests
                 }           
             }
             return missingList;
+        }
+    }
+
+    class Requests
+    {
+        public async Task<string> TranslExPOST(string url, string token, string systemId, string textToTranslate )
+        {                      
+            Uri requestUri = new Uri(url);
+            var data = new { appID = "Tilde|EU Presidency|Web", text = textToTranslate, systemID = systemId };
+            string json = JsonConvert.SerializeObject(data);
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Add("client-id", token);
+            HttpResponseMessage resp = await client.PostAsync(requestUri, new StringContent(json, System.Text.Encoding.UTF8, "application/json"));
+            string responseContent = await resp.Content.ReadAsStringAsync();
+            return responseContent;
         }
     }
 

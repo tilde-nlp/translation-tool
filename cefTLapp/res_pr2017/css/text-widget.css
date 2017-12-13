@@ -26,9 +26,9 @@
 
 
 .verticalLine {
-    border-left: 1px solid #e8eaec;   
+    border-left: 1px solid #96abbd;
     position: absolute;
-    top:210px;
+    top: 210px;
     bottom: 0px;
     left: 50%;
 }

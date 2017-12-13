@@ -2,7 +2,7 @@
 var app = angular.module("myTranslatorApp", ['ngRoute', 'angular.filter', 'pascalprecht.translate'])
     .run(function ($rootScope) {
         $rootScope.language = 'en';
-        $rootScope.languages = ['en', 'et'];
+        $rootScope.languages = ['en', 'bg'];
         $rootScope.workshopURLs = {
             'en': 'https://www.tilde.lv/presidency-translator-workshop-registration',
             'et': 'https://www.tilde.lv/presidency-translator-workshop-registration-ee'
@@ -62,12 +62,12 @@ app.config(['$routeProvider',
 
 app.config(function ($translateProvider) {
     $translateProvider.translations('en', {
-        SUBTITLE: 'in cooperation with the Estonian Presidency of the Council of the EU',
+        SUBTITLE: 'in cooperation with the Bulgarian Presidency of the Council of the EU',
         MENU: 'Menu',
-        MENU_ABOUT: 'About Translate 2017',
+        MENU_ABOUT: 'About Translate 2018',
         MENU_CONTACT: 'Contact us',
         MENU_PLUGIN: 'SDL Trados Studio plug-in',
-        MENU_WORKSHOP: 'Translate 2017 workshop',
+        MENU_WORKSHOP: 'Translate 2018 workshop',
         TEXT: 'Translate text',
         TEXT_SHORT: 'Text',
         DOC: 'Translate document',
@@ -80,20 +80,20 @@ app.config(function ($translateProvider) {
         WEB_RETURN: 'Back',
         POWERED: 'Powered by <a class="footer_link" href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eTranslation" target="_blank">eTranslation</a>, the EU\'s automated translation service',
         DEVELOPED: 'Developed by <a class="footer_link" href="https://www.tilde.com" target="_blank">Tilde</a>',
-        CONTACT1: 'For more information about Translate 2017, or to receive a consultation about how to use the service, please contact us at <a href="mailto:info@translate2017.eu">info@translate2017.eu</a>.',
-        CONTACT2: 'Staff translators working for the Estonian public administration can request a SDL Trados Studio plugin for Translate 2017 and receive customer support by contacting <a href="mailto:support@translate2017.eu">support@translate2017.eu</a>.',
+        CONTACT1: 'For more information about Translate 2018, or to receive a consultation about how to use the service, please contact us at <a href="mailto:info@translate2018.eu">info@translate2018.eu</a>.',
+        CONTACT2: 'Staff translators working for the Bulgarian public administration can request a SDL Trados Studio plugin for Translate 2018 and receive customer support by contacting <a href="mailto:support@translate2017.eu">support@translate2017.eu</a>.',
         ABOUT1: 'The EU Council Presidency Translator is a multilingual communication tool that uses AI to instantly translate texts, documents, and websites between Estonian and English.',
-        ABOUT2: 'Specially designed for delegates, journalists, and translators at Estonia’s <a href="https://www.eu2017.ee/" target="_blank">2017 EU Council Presidency</a>, the tool features the world’s first AI-powered Neural Machine Translation systems for Estonian.',
+        ABOUT2: 'Specially designed for delegates, journalists, and translators at Bulgaria’s <a href="https://eu2018bg.ng/" target="_blank">2018 EU Council Presidency</a>, the tool features the world’s first AI-powered Neural Machine Translation systems for Bulgarian.',
         ABOUT3: 'When translating, Neural MT systems examine the full context of a sentence, producing more fluent and readable translations that are almost human-like in style.',
-        ABOUT4: 'The EU Council Presidency Translator complements Estonia’s e-government platform and is part of the European Commission’s <a href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eTranslation" target="_blank">CEF eTranslation</a> infrastructure, which enables digital services to become fully multilingual.',
-        ABOUT5: 'Developed by <a href="https://www.tilde.com" target="_blank">Tilde</a>, a language technology company based in Tallinn, Riga, and Vilnius',
+        ABOUT4: 'The EU Council Presidency Translator complements Bulgaria’s e-government platform and is part of the European Commission’s <a href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eTranslation" target="_blank">CEF eTranslation</a> infrastructure, which enables digital services to become fully multilingual.',
+        ABOUT5: 'Developed by <a href="https://www.tilde.com" target="_blank">Tilde</a>, a language technology company based in Riga, Tallinn and Vilnius',
         PLUGIN1: 'Instructions for use',
-        PLUGIN2: '<ul><li>Download and install the Translate 2017 plug-in for SDL Trados Studio.</li><li>In SDL Trados, select your language pair in Project Settings.</li><li>Check "Use different translation providers for this language pair".</li><li>Add Translate 2017.</li><li>Enter your ID in the authentication window (<a href="#/contactUs" ng-click="routeMe(\' / contactUs\');">request an ID</a>).</li><li>Start your project.</li><li>Translation suggestions from your Translate 2017 system will appear on screen during the translation process (users can also apply Translate 2017 to pre-translate files in batch processing).</li></ul>',
+        PLUGIN2: '<ul><li>Download and install the Translate 2018 plug-in for SDL Trados Studio.</li><li>In SDL Trados, select your language pair in Project Settings.</li><li>Check "Use different translation providers for this language pair".</li><li>Add Translate 2018.</li><li>Enter your ID in the authentication window (<a href="#/contactUs" ng-click="routeMe(\' / contactUs\');">request an ID</a>).</li><li>Start your project.</li><li>Translation suggestions from your Translate 2018 system will appear on screen during the translation process (users can also apply Translate 2018 to pre-translate files in batch processing).</li></ul>',
         PLUGIN3: 'I accept the end-user license agreement.',
         PLUGIN4: 'Read agreement',
         PLUGIN5: 'Download',
         WORKSHOP_URL: 'presidency-translator-workshop-registration',
-        WORKSHOP1: '<table class="workshop_table"><tr><td>What:</td><td>EU Council Presidency Translator workshop</td></tr><tr><td>For whom:</td><td>2017 EU Council Presidency translators, staff members, and Estonian public sector communications professionals</td></tr><tr><td>Where:</td><td><a href="http://www.nlib.ee/en/cupola-hall-3/" target="_blank">National Library of Estonia, Cupola Hall</a></td></tr><tr><td>When:</td><td>September 27, 13:30-16:00</td></tr></table> ',
+        WORKSHOP1: '<table class="workshop_table"><tr><td>What:</td><td>EU Council Presidency Translator workshop</td></tr><tr><td>For whom:</td><td>2018 EU Council Presidency translators, staff members, and Estonian public sector communications professionals</td></tr><tr><td>Where:</td><td><a href="http://www.nlib.ee/en/cupola-hall-3/" target="_blank">National Library of Estonia, Cupola Hall</a></td></tr><tr><td>When:</td><td>September 27, 13:30-16:00</td></tr></table> ',
         WORKSHOP2: '<p>Registration is mandatory. Please fill out and submit the registration form below.</p><br/><br/>About',//<p><a href="#agenda">Register now!</a></p>
         WORKSHOP3: 'This workshop for EU Council Presidency translators, staff members, and Estonian public sector communications professionals will introduce the EU Council Presidency Translator toolkit, an automated translation service specially designed for the 2017 Estonian Presidency of the Council of the European Union.</p><p>The EU Council Presidency Translator is a multilingual communication tool that enables users to instantly translate texts, documents, and websites between Estonian and English. The EU Council Presidency Translator features the world’s first Estonian-English-Estonian machine translation systems built with Neural Networks, a high-powered approach to AI and machine learning. When translating, Neural MT systems examine the full context of a sentence, producing more fluent, readable, humanlike translations than ever.',
         WORKSHOP4: 'The tool is freely available to all Estonian public sector translators for the duration of the Estonian EU Council Presidency, for use either online or in the EU Council Presidency Translator plugin for SDL Trados Studio. The tool is powered by the <a target="_blank" href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eTranslation"> CEF eTranslation</a> platform.',

@@ -130,7 +130,7 @@ body {
     border: solid 1px #017dc5;
     background-color: white;
     border-radius: 0;
-    top: 50px;
+    top: 51px;
     left: auto;
     right: 10px;
     padding-top: 0;
@@ -257,7 +257,7 @@ div.fancy-select ul.options.open {
     width: 100%;
     position: relative;
     background-color: white;
-    z-index: 1;
+    z-index: 12;
 }
 
 .info_heading {
@@ -1817,15 +1817,15 @@ iframe {
  
 /* Track */
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-    -webkit-border-radius: 7px;
-    border-radius: 7px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    /*-webkit-border-radius: 7px;
+    border-radius: 7px;*/
 }
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 7px;
-    border-radius: 7px;
+    /*-webkit-border-radius: 7px;
+    border-radius: 7px;*/
     background: #e8eaec; 
     -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.3); 
 }
@@ -2035,7 +2035,6 @@ iframe {
     }
 
     #dropdown_button {
-        width: 36px;
         height: 41px;
         padding: 0px;
         background: none;

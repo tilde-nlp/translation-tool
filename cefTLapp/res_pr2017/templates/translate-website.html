@@ -6,12 +6,12 @@
                 <div class="web_container">
                     <div class="row" id="web_menu">
                         <div id="web_logo" class="col-sm-1 hidden-xs no_padding_left">
-                            <a href="https://www.eu2017.ee/" target="_blank" title="https://www.eu2017.ee/"><img src="img/EU2017.svg" alt="EU2017.EE" title="EU2017.EE" /></a>
+                            <a href="https://eu2018bg.bg/" target="_blank" title="https://eu2018bg.bg/"><img src="img/eu2018bg.svg" alt="eu2018bg.bg" title="eu2018bg.bg" /></a>
                         </div>
                         <div id="web_main" class="col-sm-8 col-xs-12 no_padding_right">
                             <div id="address" class="input-group">
                                 <span class="input-group-btn">
-                                    <button id="web_refresh_button" type="button" class="btn btn-default web_button" title="{{ websiteHasBeenInitiated() ? ('WEB_REFRESH' | translate) : ('WEB_RETURN' | translate)}}"><span class="glyphicon glyphicon-menu-left"></span></button>
+                                    <button id="web_refresh_button" type="button" class="btn btn-default web_button" title="{{ websiteHasBeenInitiated() ? ('WEB_REFRESH' | translate) : ('WEB_RETURN' | translate)}}"></button>
                                 </span>
                                 <input type="text"
                                        id="url"
@@ -20,7 +20,7 @@
                                        ng-model="website.url"
                                        required focus-on="website.focus" />
                                 <span class="input-group-btn input-space">
-                                    <button id="web_translateButton" class="btn btn-default web_button loadButton button" data-title="loadButton" autofocus><span class="glyphicon glyphicon-search"></span></button>
+                                    <button id="web_translateButton" class="btn btn-default web_button loadButton button" data-title="loadButton" autofocus></button>
                                 </span>
                             </div>
                             <div class="translateContainerHeader hide">
@@ -69,8 +69,7 @@
                 <iframe id="websiteFrame" name="websiteFrame" src="about:blank" frameborder="0"></iframe>
             </div>
 
-            <div id="web_links_container" class="container no_padding_left no_padding_right">
-                <!--<div ng-hide="isActive('website') && website.status!='initial'" id="web_links_container" class="container no_padding_left no_padding_right">-->
+            <!--<div id="web_links_container" class="container no_padding_left no_padding_right">
                 <div id="websiteLinks">
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12 no_padding_left no_padding_right">
@@ -91,7 +90,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
 </div>

@@ -27,7 +27,7 @@ namespace PresidencySeleniumTests
         { Assert.Fail("Missing systems:\n"+string.Join(", \n", missingSystems)); }           
        }
 
-       
+      
         private void APITranslate()
         { 	
 			foreach(string [] data in TestData.translationDataArray)
@@ -38,7 +38,7 @@ namespace PresidencySeleniumTests
         }
 
         //gonna change to HttpClient from Webrequest afterwards
-        public string HttpGetWithToken(string url, string token)
+        private string HttpGetWithToken(string url, string token)
         {
             HttpWebRequest req = WebRequest.Create(url) as HttpWebRequest;
             req.Method = "GET";
@@ -66,7 +66,7 @@ namespace PresidencySeleniumTests
             return result;
         }
 
-        public Stack<string> CheckSystemList(string response, string[] sysIDs)
+        private Stack<string> CheckSystemList(string response, string[] sysIDs)
         {
             Stack<string> missingList = new Stack<string>();           
             dynamic jResponse = JsonConvert.DeserializeObject(response);

@@ -39,10 +39,11 @@ namespace PresidencySeleniumTests.SmokeTests
             int i = 0;
             foreach (string language in PresidencyProperties.supportedLanguagesSrc)
             {
-                webPageObj.inputUrl.SendKeys(TestData.urlArray[i]);
-                Thread.Sleep(1000);
+                webPageObj.inputUrl.SendKeys(TestData.urlArray[i]);               
+                Thread.Sleep(2000);     //yes there really has to be a thread sleep          
                 webPageObj.btnGo.Click();
-                WaitElement.Wait(webPageObj.waitTranslateBtn);             
+                WaitElement.Wait(webPageObj.waitTranslateBtn);
+                Thread.Sleep(3000); //yes there really has to be a thread sleep
                 if (!checkActiveLanguage(language))
                 {
                     Assert.Fail("Selected system is wrong. Source language: " + webPageObj.listSrcLanguages.FindElement(By.ClassName("active")).Text + " had to be: " + language);

@@ -77,7 +77,7 @@ namespace PresidencySeleniumTests.SmokeTests
                     try
                     {
                         DocTranslate.inputDocUpload.SendKeys(name);
-                        var TheElement = WaitElement.WaitShort(DocTranslate.btnTranslateFinderOrError);
+                        var TheElement = WaitElement.WaitGivenSeconds(DocTranslate.btnTranslateFinderOrError, 70);
                         if (TheElement.GetAttribute("class").Contains("infoMessageBox"))
                         {
                             Console.WriteLine("Error: " + TheElement.Text + "\n" + "File: " + name + "\n");
@@ -86,7 +86,7 @@ namespace PresidencySeleniumTests.SmokeTests
                         }
 
                         DocTranslate.btnTranslate.Click();
-                        var TheElement2 = WaitElement.WaitShort(DocTranslate.btnDownloadFinderOrError);
+                        var TheElement2 = WaitElement.WaitGivenSeconds(DocTranslate.btnDownloadFinderOrError,70);
                         if (TheElement2.GetAttribute("class").Contains("infoMessageBox"))
                         {
                             Console.WriteLine("Error: " + TheElement.Text+"\n"+ "File: " + name + "\n");                            

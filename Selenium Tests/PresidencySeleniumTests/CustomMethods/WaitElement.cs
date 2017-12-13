@@ -33,9 +33,10 @@ namespace PresidencySeleniumTests
             return wait.Until(ExpectedConditions.ElementToBeClickable(element));
         }
 
-        public static IWebElement WaitShort(By element)
+        
+        public static IWebElement WaitGivenSeconds(By element, int sec)
         {
-            WebDriverWait wait = new WebDriverWait(PresidencyProperties.driver, TimeSpan.FromSeconds(70));
+            WebDriverWait wait = new WebDriverWait(PresidencyProperties.driver, TimeSpan.FromSeconds(sec));
             return wait.Until(ExpectedConditions.ElementIsVisible(element));
         }
     }

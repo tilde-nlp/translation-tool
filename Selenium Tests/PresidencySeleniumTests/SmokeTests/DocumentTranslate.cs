@@ -28,6 +28,7 @@ namespace PresidencySeleniumTests.SmokeTests
         public void Cleanup()
         {
             Console.Write("Automated test has been completed!");
+            PresidencyProperties.driver.Close();
             PresidencyProperties.driver.Quit();
         }
        

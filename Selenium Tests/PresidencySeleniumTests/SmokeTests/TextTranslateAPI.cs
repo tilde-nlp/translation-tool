@@ -37,7 +37,7 @@ namespace PresidencySeleniumTests
 			}
         }
 
-
+        //gonna change to HttpClient from Webrequest afterwards
         public string HttpGetWithToken(string url, string token)
         {
             HttpWebRequest req = WebRequest.Create(url) as HttpWebRequest;

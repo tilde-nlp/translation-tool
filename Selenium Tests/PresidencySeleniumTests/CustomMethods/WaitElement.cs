@@ -12,7 +12,7 @@ namespace PresidencySeleniumTests
     {
         public static IWebElement Wait(By element)
         {
-            WebDriverWait wait = new WebDriverWait(PresidencyProperties.driver, TimeSpan.FromMinutes(10));
+            WebDriverWait wait = new WebDriverWait(PresidencyProperties.driver, TimeSpan.FromMinutes(2));
             return wait.Until(ExpectedConditions.ElementIsVisible(element));
         }
         public static IWebElement WaitTTC(By element)

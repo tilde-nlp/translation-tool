@@ -24,6 +24,7 @@ namespace PresidencySeleniumTests.SmokeTests
         public void Cleanup()
         {
             Console.Write("Automated test has been completed!");
+            PresidencyProperties.driver.Close();
             PresidencyProperties.driver.Quit();
         }
      
@@ -39,6 +40,7 @@ namespace PresidencySeleniumTests.SmokeTests
             foreach (string language in PresidencyProperties.supportedLanguagesSrc)
             {
                 webPageObj.inputUrl.SendKeys(TestData.urlArray[i]);
+                Thread.Sleep(1000);
                 webPageObj.btnGo.Click();
                 WaitElement.Wait(webPageObj.waitTranslateBtn);             
                 if (!checkActiveLanguage(language))
@@ -59,7 +61,8 @@ namespace PresidencySeleniumTests.SmokeTests
             WebTranslatePage webPageObj = new WebTranslatePage();
             WaitElement.Wait(webPageObj.waitGoBtn);  
             webPageObj.inputUrl.SendKeys(TestData.urlArray[1]);
-            webPageObj.btnGo.Click();
+            Thread.Sleep(1000); 
+            webPageObj.btnGo.Click();           
             WaitElement.Wait(webPageObj.waitTranslateBtn);
             try
             {

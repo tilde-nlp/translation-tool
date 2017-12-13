@@ -54,22 +54,28 @@ namespace PresidencySeleniumTests.SmokeTests
             }
             else{ Assert.Fail("There was no error message or the message text was incorrect"); }
         }
-
+/// <summary>
+/// Test for checking supported docs with ET NMT system
+/// </summary>
         [Test]
-        public void SupportedFileTypesETEN()
+        public void TranslateSupportedFilesETEN()
         {
             DocumentTranslatePage docPageObj = new DocumentTranslatePage();
-            WaitElement.Wait(docPageObj.waitDocumentInput);
-            int ErrorCount = 0;
-            ErrorCount = TranslateDocument(TestData.filesET, docPageObj);
-            if (ErrorCount > 0)
-            { Assert.Fail("Error translating or failed to translate in 60 seconds"); }
+            WaitElement.Wait(docPageObj.waitDocumentInput);           
+            Stack<string> failedDocuments= TranslateDocument(TestData.filesET, docPageObj);
+            if (failedDocuments.Count > 0)
+            { Assert.Fail(string.Join(", \n", failedDocuments)); }
         }
 
-//-----------------------------------------------------------------------------------------------------------------------
-        private int TranslateDocument(string[] fileList, DocumentTranslatePage DocTranslate)
+/// <summary>
+/// Uploads and translates supported documents
+/// </summary>
+/// <param name="fileList"></param>
+/// <param name="DocTranslate"></param>
+/// <returns></returns>
+        private Stack<string> TranslateDocument(string[] fileList, DocumentTranslatePage DocTranslate)
         {
-            int ErrorCount = 0;
+            Stack<string> failedDocuments = new Stack<string>();
             foreach (string name in fileList)
             {
                 if (!name.Contains("Thumbs"))
@@ -79,9 +85,8 @@ namespace PresidencySeleniumTests.SmokeTests
                         DocTranslate.inputDocUpload.SendKeys(name);
                         var TheElement = WaitElement.WaitGivenSeconds(DocTranslate.btnTranslateFinderOrError, 70);
                         if (TheElement.GetAttribute("class").Contains("infoMessageBox"))
-                        {
-                            Console.WriteLine("Error: " + TheElement.Text + "\n" + "File: " + name + "\n");
-                            ErrorCount++;
+                        {                          
+                            failedDocuments.Push(name + ": " + TheElement.Text);
                             continue;
                         }
 
@@ -89,20 +94,18 @@ namespace PresidencySeleniumTests.SmokeTests
                         var TheElement2 = WaitElement.WaitGivenSeconds(DocTranslate.btnDownloadFinderOrError,70);
                         if (TheElement2.GetAttribute("class").Contains("infoMessageBox"))
                         {
-                            Console.WriteLine("Error: " + TheElement.Text+"\n"+ "File: " + name + "\n");                            
-                            ErrorCount++;
+                            failedDocuments.Push(name + ": " + TheElement2.Text);
                             continue;
                         }
-                        DocTranslate.btnDownload.Click();
-                        Console.WriteLine("File: " + name + " translated \n");
+                        DocTranslate.btnDownload.Click();                       
                         Thread.Sleep(3000); //pause while file is being downloaded
                     }
-                    catch (WebDriverTimeoutException) { Console.WriteLine("Failed to translate in 60 seconds: " + name); ErrorCount++; }
+                    catch (WebDriverTimeoutException) { failedDocuments.Push(name + ": " + "Failed to translate in 70 seconds"); }
                     DocTranslate.btnCancel.Click();     
                  
                 }
             }
-            return ErrorCount;
+            return failedDocuments;
         }
 
     }

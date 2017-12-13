@@ -28,9 +28,9 @@ namespace PresidencySeleniumTests.SmokeTests
             PresidencyProperties.driver.Quit();
         }
      
-         /// <summary>
-        /// checks detected source language vs an array of websites (for now breaks after 2nd, cause there is no use of checking more)
-        /// </summary>
+/// <summary>
+/// checks detected source language vs an array of websites (for now breaks after 2nd, cause there is no use of checking more)
+/// </summary>
        [Test]
         public void CheckLanguageDetection()
         {
@@ -53,16 +53,16 @@ namespace PresidencySeleniumTests.SmokeTests
                 if (i == 2) break;
             } 
         }
-        /// <summary>
-        /// goes to website, translates, waits for Restore button to appear
-        /// </summary>
+/// <summary>
+/// goes to website, translates, waits for Restore button to appear
+/// </summary>
         [Test]
         public void TranslateWebPage()
         {           
             WebTranslatePage webPageObj = new WebTranslatePage();
             WaitElement.Wait(webPageObj.waitGoBtn);  
             webPageObj.inputUrl.SendKeys(TestData.urlArray[1]);
-            Thread.Sleep(1000); 
+            Thread.Sleep(1000);  //yes there really has to be a thread sleep
             webPageObj.btnGo.Click();           
             WaitElement.Wait(webPageObj.waitTranslateBtn);
             try
@@ -73,9 +73,9 @@ namespace PresidencySeleniumTests.SmokeTests
             catch { Assert.Fail("Website was not translated"); }
            
         }   
-        /// <summary>
-        /// checks if an Error message for a wrong address is displayed
-        /// </summary>
+/// <summary>
+/// checks if an Error message for a wrong address is displayed
+/// </summary>
         [Test]
         public void CheckErrorBadWebpageUrl()
         {
@@ -91,10 +91,10 @@ namespace PresidencySeleniumTests.SmokeTests
             {
                 Assert.Fail("No error message present");
             }
-          
-          
         }
-
+/// <summary>
+/// Checks link to text translate
+/// </summary>
         [Test]
         public void GotoTextTranslate()
         {
@@ -102,9 +102,10 @@ namespace PresidencySeleniumTests.SmokeTests
             WaitElement.Wait(webPageObj.waitGoBtn);
             webPageObj.btnTextTranslate.Click();
             if (!PresidencyProperties.driver.Url.Contains(PresidencyProperties.txtUrl)) { Assert.Fail("Went to: " + PresidencyProperties.driver.Url); }
-
         }
-
+/// <summary>
+/// Checks link to doc. translate
+/// </summary>
        [Test]
         public void GotoDocTranslate()
         {
@@ -113,7 +114,9 @@ namespace PresidencySeleniumTests.SmokeTests
             webPageObj.btnDocTranslate.Click();
             if (!PresidencyProperties.driver.Url.Contains(PresidencyProperties.documentUrl)){ Assert.Fail("Went to: "+ PresidencyProperties.driver.Url); }
         }
-
+/// <summary>
+/// Checks back button
+/// </summary>
         [Test]
         public void GotoBack()
         {
@@ -122,8 +125,11 @@ namespace PresidencySeleniumTests.SmokeTests
             webPageObj.btnBack.Click();
             if (!PresidencyProperties.driver.Url.Contains(PresidencyProperties.txtUrl)) { Assert.Fail("Went to: "+ PresidencyProperties.driver.Url); }
         }
-
-        //-----------------------------------------------------------------------------
+  /// <summary>
+  /// func to get the current Active language
+  /// </summary>
+  /// <param name="language"></param>
+  /// <returns></returns>
         private bool checkActiveLanguage(string language)
         {
             WebTranslatePage webPageObj = new WebTranslatePage();

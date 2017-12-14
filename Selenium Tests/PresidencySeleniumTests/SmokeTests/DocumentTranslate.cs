@@ -58,11 +58,11 @@ namespace PresidencySeleniumTests.SmokeTests
 /// Test for checking supported docs with ET NMT system
 /// </summary>
         [Test]
-        public void TranslateSupportedFilesETEN()
+        public void TranslateSupportedFilesDefaultSystem()
         {
             DocumentTranslatePage docPageObj = new DocumentTranslatePage();
             WaitElement.Wait(docPageObj.waitDocumentInput);           
-            Stack<string> failedDocuments= TranslateDocument(TestData.filesET, docPageObj);
+            Stack<string> failedDocuments= TranslateDocument(PresidencyProperties.filesDefault, docPageObj);
             if (failedDocuments.Count > 0)
             { Assert.Fail(string.Join(", \n", failedDocuments)); }
         }

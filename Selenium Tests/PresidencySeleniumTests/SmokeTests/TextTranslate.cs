@@ -78,28 +78,27 @@ namespace PresidencySeleniumTests.SmokeTests
         /// translates several sentences, checks if there is any translation, then if it matches the previously translated one
         /// </summary>
         [Test]
-        public void TranslateSeveralSentencesETEN()
+        public void TranslateSeveralSentencesDefaultSystem()
         {
             TextTranslatePage txtPageObj = new TextTranslatePage();          
-            WaitElement.Wait(txtPageObj.waitLanguageList);
-            txtPageObj.setSrcLanguageET.Click();
+            WaitElement.Wait(txtPageObj.waitLanguageList);           
             int i= 0;
-            foreach (string source in TestData.textArrayET)
+            foreach (string source in PresidencyProperties.textArraySourceDefault)
             {                
                 IWebElement textOutput = txtPageObj.outputTrgText;           
                 txtPageObj.inputSrcText.SendKeys(source + "\n");
                 txtPageObj.btnTranslate.Click();              
                 //wait to be translated, check if target contains source
                 WaitElement.Wait(txtPageObj.waitClearText);
-                Thread.Sleep(1000);               
+                Thread.Sleep(2000);               
                 if (txtPageObj.outputTrgText.Text.Contains(source))
                 {
                     Assert.Fail("The text was not translated.");
                 }
                 else
                 {
-                    if (!txtPageObj.outputTrgText.Text.Contains(TestData.translationArrayETEN[i]))
-                    {
+                    if (!txtPageObj.outputTrgText.Text.Contains(PresidencyProperties.textArrayTargetDefault[i]))
+                    {                        
                         Assert.Fail("The translation does not match the previously translated one"+"\n"+ txtPageObj.outputTrgText.Text);
                     }
                     txtPageObj.clearText.Click();
@@ -134,8 +133,8 @@ namespace PresidencySeleniumTests.SmokeTests
         public void ClearText()
         {
             TextTranslatePage txtPageObj = new TextTranslatePage();
-            WaitElement.Wait(txtPageObj.waitTranslateInput);            
-            string sourceTxt = TestData.textArrayEN[0];
+            WaitElement.Wait(txtPageObj.waitTranslateInput);
+            string sourceTxt = PresidencyProperties.textArrayTargetDefault[0];
             WaitElement.Wait(txtPageObj.waitLanguageList);
             txtPageObj.setSrcLanguageEN.Click();
             txtPageObj.inputSrcText.SendKeys(sourceTxt);

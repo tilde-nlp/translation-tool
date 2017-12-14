@@ -15,7 +15,9 @@ namespace PresidencySeleniumTests
         public static IWebDriver driver { get; set; }
         //baseUrl
         public static string baseUrl = @"https://www.translate2017.eu/";
-       // public static string baseUrl = @"http://test-web2.tilde.lv:8081";       
+	   //public static string baseUrl = @"https://www.translate2018.eu/";
+		//public static string baseUrl = @"http://test-web1.tilde.lv:8081"; //2018
+       // public static string baseUrl = @"http://test-web2.tilde.lv:8081";  //2017   
         //text translate
         public static string txtUrl = @"#/text";
         //document translate
@@ -32,22 +34,26 @@ namespace PresidencySeleniumTests
         public static string workshopUrl = "#/workshop";      
 
        //supported languages
-        public static string[] supportedLanguagesSrc = { "English","Estonian", "German", "French"};        
-        public static string[] supportedLanguagesTrg = { "Estonian", "German", "French" }; //from english
+        public static string[] supportedLanguagesSrc = { "English","Estonian", "German", "French", "Bulgarian"};        
+        public static string[] supportedLanguagesTrg = { "Estonian", "German", "French", "Bulgarian" }; //from english			
+		
        //supported formats
        public static string[] supportedFileFormats = { "doc", "docx", "xlsx", "pptx", "odt", "odp", "ods", "rtf", "html", "htm", "xhtml", "xht", "txt", "tmx", "xlf", "xlif", "xliff", "sdlxliff", "ttx", "pages" };
 
         //links in About and Contacts page
-        public static string urlPresidencyPage = @"https://www.eu2017.ee/";
-        public static string urlCEFeTranslation = @"https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eTranslation";
-        public static string urlTilde = @"https://www.tilde.com";
-        public static string emailSupport = @"mailto:support@translate2017.eu";
-        public static string emailInfo = @"mailto:info@translate2017.eu";
-
+       public static string urlPresidencyPage = TestData.urlPresidencyPageBG;
+       public static string urlCEFeTranslation = TestData.urlCEFeTranslationBG;
+       public static string urlTilde = TestData.urlTildeBG;
+       public static string emailSupport = TestData.emailSupportBG;
+       public static string emailInfo = TestData.emailInfoBG;
+		
+		
        //input placeholder text  
-        public static string[,] placeholderArray = {
-                                    {"Enter the text you want to translate","Machine translation results help to understand the meaning of a source text, but do not equal translation by a human."},
-                                    {"Sisesta tekst, mida soovid tõlkida","Masintõlge aitab teksti sisust aru saada, kuid ei asenda inimtõlget"}};      
+       public static string[,] placeholderArray = TestData.placeholderArrayBG;
+       //files and text for transaltion
+       public static string[] filesDefault = TestData.filesBG;
+       public static string[] textArraySourceDefault = TestData.textArraySourceBG;
+       public static string[] textArrayTargetDefault = TestData.textArrayTargetBG;
    }
 
    class API_properties
@@ -55,7 +61,7 @@ namespace PresidencySeleniumTests
        public static string apiBaseUrl = "https://letsmt.eu/";
        public static string appId = "Tilde|EU+Presidency|Web";
        public static string token = " u-dc4cd3c5-ebc9-4213-ac9d-593c896bc0ea";
-       public static string uiLang = "en";//default
+       public static string uiLang = "en";//default      
        public static string[] systemList =
         {
             "smt-e-transl-lv-en",
@@ -100,10 +106,8 @@ namespace PresidencySeleniumTests
             "smt-e-transl-sk-en",
             "smt-e-transl-bg-en",
             "smt-e-transl-en-fi",
-            "smt-f313a5e6-f532-47f4-aa8c-5a963e933a0b",
             "smt-85a613e5-5b6f-473a-84a4-d3fdfb0d187e",
-            "smt-35abecbd-565f-44e3-9999-b6decc5a6eac",
-            "smt-3ea525f9-e9b4-4b30-8c14-febb66e40f6e"
+            "smt-35abecbd-565f-44e3-9999-b6decc5a6eac"            
         };
    }
         

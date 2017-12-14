@@ -8,7 +8,30 @@ using System.IO;
 namespace PresidencySeleniumTests
 {
     class TestData
-    { 
+    {
+
+
+        public static string[,] placeholderArrayET = {
+                                    {"Enter the text you want to translate","Machine translation results help to understand the meaning of a source text, but do not equal translation by a human."},
+                                    {"Sisesta tekst, mida soovid tõlkida","Masintõlge aitab teksti sisust aru saada, kuid ei asenda inimtõlget"}};
+
+        public static string[,] placeholderArrayBG = {
+                                    {"Enter the text you want to translate","Machine translation results help to understand the meaning of a source text, but do not equal translation by a human."}};
+
+
+        public static string urlPresidencyPageBG = @"https://eu2018bg.bg/";
+        public static string urlCEFeTranslationBG = @"https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eTranslation";
+        public static string urlTildeBG = @"https://www.tilde.com";
+        public static string emailSupportBG = @"mailto:support@translate2018.eu";
+        public static string emailInfoBG = @"mailto:info@translate2018.eu";	
+
+        public static string urlPresidencyPageET = @"https://www.eu2017.ee/";
+        public static string urlCEFeTranslationET = @"https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eTranslation";
+        public static string urlTildeET = @"https://www.tilde.com";
+        public static string emailSupportET = @"mailto:support@translate2017.eu";
+        public static string emailInfoET = @"mailto:info@translate2017.eu";
+
+
         //website URLs for testing web translate
         public static string[] urlArray = {
             @"www.bbc.co.uk",
@@ -26,29 +49,34 @@ namespace PresidencySeleniumTests
 
         //unsupported file
        public static string fileUnsupported = @"\\tilde.lv\ad\Testing\letsmt\testData\FileTranslate\badFiles\cenas2.png";
-
-         //text to translate
-       public static string[] textArrayEN =
-          {
-           "By letter dated 6 August 2007, France notified the Commission of restructuring aid for the FagorBrandt group.",
-           "rows 3.2.12.2.8.1 and 3.2.12.2.8.2 are replaced by the following:",
-           "French Revolution: The execution of Louis XVI on the Place de la Révolution (now Place de la Concorde) (January 21, 1793)"
-          };
-
-        public static string[] textArrayET =
+              
+        //For translating through UI with default set system 
+        // Translate 2017
+       public static string[] textArraySourceET =
          {
             "Prantsusmaa teatas 6. augusti 2007. aasta kirjas komisjonile FagorBrandti kontserni ümberkorraldusabi.",
             "read 3.2.12.2.8.1 ja 3.2.12.2.8.2 asendatakse järgmisega:",
             "Prantsuse revolutsioon: Louis XVI hukkamine Place de la Révolution (praegu Place de la Concorde) (21. jaanuar 1793)"
           };
-
-        //translated with ET-EN NMT system (smt-85a613e5-5b6f-473a-84a4-d3fdfb0d187e)
-        public static string[] translationArrayETEN = {
+       public static string[] textArrayTargetET = {
             "By letter dated 6 August 2007, France notified the Commission of the restructuring aid of the FagorBrandt Group.",
             "rows 3.2.12.2.8.1 and 3.2.12.2.8.2 are replaced by the following:",
             "French Revolution: Louis XVI execution Place de la Révolution (currently Place de la Concorde) (21 January 1793)"
         };
 
+        //Translate 2018
+        public static string[] textArraySourceBG = {
+            "С писмо от 6 август 2007 г. Франция уведоми Комисията за помощта за преструктуриране на групата FagorBrandt.",
+            "редове 3.2.12.2.8.1 и 3.2.12.2.8.2 се заменят със следното:",
+            "Френска революция: Louis XVI екзекуция Place de la Révolution (понастоящем Place de la Concorde) (21 януари 1793 г.)"
+        };
+        public static string[] textArrayTargetBG = {
+            "By letter dated 6 August 2007. France informed the Commission of the restructuring aid of the FagorBrandt Group.",
+            "rows 3.2.12.2.8.1 and 3.2.12.2.8.2 are replaced by the following:",
+            "French Revolution: Louis XVI execution Place de la Révolution (currently Place de la Concorde) (21 January 1793)"
+        };
+       
+        //For checking other systems through requests
         public static string[][] translationDataArray = { 
             new string[]{"smt-e-transl-de-en","Dies ist Sparta","This is Sparta"},
             new string[] {"smt-e-transl-en-de","This is Sparta","Dies ist Sparta."},
@@ -56,6 +84,8 @@ namespace PresidencySeleniumTests
 			new string[]{"smt-e-transl-en-fr","This is Sparta","Il s’agit Sparte"},
 			new string[]{"smt-85a613e5-5b6f-473a-84a4-d3fdfb0d187e","See on Sparta","It's Sparta."},
 			new string[]{"smt-35abecbd-565f-44e3-9999-b6decc5a6eac","This is Sparta","See on Sparta."},
+            new string[]{"smt-d44cd645-bc44-4c65-820e-65c4425a0f46","This is Sparta","Това е Спартма"},
+			new string[]{"smt-5831a8d1-9657-4c45-b657-9797fc4ba8e2","Това е Спартма","This is Sparta"},
 		/*	new string[]{"smt-e-transl-en-cs","",""},
 			new string[]{"smt-e-transl-en-cs","",""},
 			new string[]{"smt-e-transl-en-it","",""},
@@ -90,8 +120,6 @@ namespace PresidencySeleniumTests
 			new string[]{"smt-e-transl-nl-en","",""},
 			new string[]{"smt-e-transl-en-et","",""},
 			new string[]{"smt-e-transl-en-et","",""},
-			new string[]{"smt-e-transl-en-bg","",""},
-			new string[]{"smt-e-transl-bg-en","",""},
 			new string[]{"smt-e-transl-en-sv","",""},
 			new string[]{"smt-e-transl-sv-en","",""},
 			new string[]{"smt-e-transl-en-pl","",""},

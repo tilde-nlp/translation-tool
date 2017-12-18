@@ -1,5 +1,4 @@
-﻿
-var app = angular.module("myTranslatorApp", ['ngRoute', 'angular.filter', 'pascalprecht.translate'])
+﻿var app = angular.module("myTranslatorApp", ['ngRoute', 'angular.filter', 'pascalprecht.translate'])
     .run(function ($rootScope) {
         $rootScope.language = 'en';
         $rootScope.languages = ['en', 'bg'];
@@ -16,58 +15,58 @@ var app = angular.module("myTranslatorApp", ['ngRoute', 'angular.filter', 'pasca
     }]);
 
 app.config(['$routeProvider',
-  function ($routeProvider, $filter) {
-      $routeProvider
-        .when('/about', {
-            templateUrl: 'templates/about.html',
-            controller: 'myPageCtrl'
-        })
-        .when('/home', {
-            templateUrl: 'templates/translate-text.html',
-            controller: 'TranslateCtrl'
-        })
-        .when('/contactUs', {
-            templateUrl: 'templates/contactUs.html',
-            controller: 'myPageCtrl'
-          })
-        .when('/plugin', {
-            templateUrl: 'templates/plugin.html',
-            controller: 'myPageCtrl'
-        })
-        .when('/workshop', {
-            templateUrl: 'templates/workshop.html',
-            controller: 'myPageCtrl'
-        })
-        .when('/text', {
-            templateUrl: 'templates/translate-text.html',
-            controller: 'TranslateCtrl'
-        })
-        .when('/www', {
-            templateUrl: 'templates/translate-website.html',
-            controller: 'websiteTranslatorCtrl'
-        })
-        .when('/website', {
-            templateUrl: 'templates/translate-website.html',
-            controller: 'websiteTranslatorCtrl'
-        })
-        .when('/document', {
-            templateUrl: 'templates/translate-document.html',
-            controller: 'DocumentCtrl'
-        })
-        .otherwise({
-            redirectTo: '/text'
-        });
-  }
+    function ($routeProvider, $filter) {
+        $routeProvider
+            .when('/about', {
+                templateUrl: 'templates/about.html',
+                controller: 'myPageCtrl'
+            })
+            .when('/home', {
+                templateUrl: 'templates/translate-text.html',
+                controller: 'TranslateCtrl'
+            })
+            .when('/contactUs', {
+                templateUrl: 'templates/contactUs.html',
+                controller: 'myPageCtrl'
+            })
+            .when('/plugin', {
+                templateUrl: 'templates/plugin.html',
+                controller: 'myPageCtrl'
+            })
+            .when('/workshop', {
+                templateUrl: 'templates/workshop.html',
+                controller: 'myPageCtrl'
+            })
+            .when('/text', {
+                templateUrl: 'templates/translate-text.html',
+                controller: 'TranslateCtrl'
+            })
+            .when('/www', {
+                templateUrl: 'templates/translate-website.html',
+                controller: 'websiteTranslatorCtrl'
+            })
+            .when('/website', {
+                templateUrl: 'templates/translate-website.html',
+                controller: 'websiteTranslatorCtrl'
+            })
+            .when('/document', {
+                templateUrl: 'templates/translate-document.html',
+                controller: 'DocumentCtrl'
+            })
+            .otherwise({
+                redirectTo: '/text'
+            });
+    }
 ]);
 
 app.config(function ($translateProvider) {
     $translateProvider.translations('en', {
         SUBTITLE: 'in cooperation with the Bulgarian Presidency of the Council of the EU',
         MENU: 'Menu',
-        MENU_ABOUT: 'About Translate 2018',
+        MENU_ABOUT: 'About EU Council Presidency Translator',
         MENU_CONTACT: 'Contact us',
         MENU_PLUGIN: 'SDL Trados Studio plug-in',
-        MENU_WORKSHOP: 'Translate 2018 workshop',
+        MENU_WORKSHOP: 'EU Council Presidency Translator workshop',
         TEXT: 'Translate text',
         TEXT_SHORT: 'Text',
         DOC: 'Translate document',
@@ -80,14 +79,14 @@ app.config(function ($translateProvider) {
         WEB_RETURN: 'Back',
         POWERED: 'Powered by <a class="footer_link" href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eTranslation" target="_blank">eTranslation</a>, the EU\'s automated translation service',
         DEVELOPED: 'Developed by <a class="footer_link" href="https://www.tilde.com" target="_blank">Tilde</a>',
-        CONTACT1: 'For more information about Translate 2018, or to receive a consultation about how to use the service, please contact us at <a href="mailto:info@translate2018.eu">info@translate2018.eu</a>.',
+        CONTACT1: 'For more information about EU Council Presidency Translator, or to receive a consultation about how to use the service, please contact us at <a href="mailto:info@translate2018.eu">info@translate2018.eu</a>.',
         CONTACT2: 'Staff translators working for the Bulgarian public administration can request a SDL Trados Studio plugin for EU Council Presidency Translator and receive customer support by contacting <a href="mailto:support@translate2018.eu">support@translate2018.eu</a>.',
-        ABOUT1: 'TThe EU Council Presidency Translator is a multilingual communication tool that enables delegates, journalists, translators, and visitors to cross language barriers and access information during the Presidency of the Council of the EU in 2017-2018.',
+        ABOUT1: 'The EU Council Presidency Translator is a multilingual communication tool that enables delegates, journalists, translators, and visitors to cross language barriers and access information during the Presidency of the Council of the EU in 2017-2018.',
         ABOUT2: 'The tool enables users to automatically translate texts, full documents, and local websites with the European Commission’s <a href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eTranslation" target="_blank">CEF eTranslation</a> platform, which includes secure machine translation (MT) systems for all official EU languages.',
         ABOUT3: 'To provide more fluent translations for the local languages of the hosting countries in 2017-2018, the tool also features AI-powered Neural MT systems. When translating, Neural MT systems examine the full context of a sentence, producing highly readable translations that are almost human-like in style.',
         ABOUT4: 'The EU Council Presidency Translator was designed and developed by <a href="http://www.tilde.com/" target="_blank">Tilde</a>, a language technology company that specializes in Neural MT, in close partnership with the <a href="http://ibl.bas.bg/en/" target="_blank">Institute for Bulgarian Language</a> and the <a href="https://www.univie.ac.at/en/" target="_blank">University of Vienna</a> and support from the CEF eTranslation building block.',
         PLUGIN1: 'Instructions for use',
-        PLUGIN2: '<ul><li>Download and install the EU Council Presidency Translator plug-in for SDL Trados Studio.</li><li>In SDL Trados, select your language pair in Project Settings.</li><li>Check "Use different translation providers for this language pair".</li><li>Add Translate 2018.</li><li>Enter your ID in the authentication window (<a href="#/contactUs" ng-click="routeMe(\' / contactUs\');">request an ID</a>).</li><li>Start your project.</li><li>Translation suggestions from your Translate 2018 system will appear on screen during the translation process (users can also apply Translate 2018 to pre-translate files in batch processing).</li></ul>',
+        PLUGIN2: '<ul><li>Download and install the EU Council Presidency Translator plug-in for SDL Trados Studio.</li><li>In SDL Trados, select your language pair in Project Settings.</li><li>Check "Use different translation providers for this language pair".</li><li>Add EU Council Presidency Translator.</li><li>Enter your ID in the authentication window (<a href="#/contactUs" ng-click="routeMe(\' / contactUs\');">request an ID</a>).</li><li>Start your project.</li><li>Translation suggestions from your EU Council Presidency Translator system will appear on screen during the translation process (users can also apply EU Council Presidency Translator to pre-translate files in batch processing).</li></ul>',
         PLUGIN3: 'I accept the end-user license agreement.',
         PLUGIN4: 'Read agreement',
         PLUGIN5: 'Download',
@@ -105,55 +104,55 @@ app.config(function ($translateProvider) {
         CO_FINANCED_ALT: 'Co-financed by the European Union',
         ETRANSLATION: 'You have chosen to translate with a <b>CEF eTranslation system</b>, developed by the European Commission.'
     })
-    .translations('et', {
-        SUBTITLE: 'koostöös Euroopa Nõukogu Eesti eesistumisega',
-        MENU: 'Menüü',
-        MENU_ABOUT: 'Teenusest Translate 2017',
-        MENU_CONTACT: 'Kontaktteave',
-        MENU_PLUGIN: 'SDL Trados Studio lisandmoodul ',
-        MENU_WORKSHOP: 'EL-i eesistumise tõlketööriista töötuba',
-        TEXT: 'Tõlgi tekst',
-        TEXT_SHORT: 'Tekst',
-        DOC: 'Tõlgi dokument',
-        DOC_SHORT: 'Dokument',
-        WEB: 'Tõlgi veebileht',
-        WEB_SHORT: 'Veebileht',
-        WEB_PLACEHOLDER: 'Kirjuta web-i aadress siia...',
-        WEB_EXAMPLES: 'Lingid Eesti meedia ja informatsiooni allikatele:',
-        WEB_REFRESH: 'Uuendada',
-        WEB_RETURN: 'Tagasi',
-        POWERED: 'Platvorm: EL-i automaattõlketeenus <a class="footer_link" href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eTranslation" target="_blank">eTranslation</a>',
-        DEVELOPED: 'Välja töötanud <a class="footer_link" href="https://www.tilde.com" target="_blank">Tilde</a>',
-        CONTACT1: 'Teenuse Translate 2017 kohta lisateabe saamiseks või teenuse kasutamise kohta nõu küsimiseks võtke meiega ühendust meiliaadressil <a href="mailto:info@translate2017.eu">info@translate2017.eu</a>.',
-        CONTACT2: 'Meiliaadressi <a href="mailto:support@translate2017.eu">support@translate2017.eu</a> kaudu saavad Eesti riigiasutuste tõlkijad teenuse Translate 2017 jaoks taotleda SDL Trados Studio lisandmoodulit ja võtta ühendust klienditoega.',
-        ABOUT1: 'EL-i Nõukogu eesistumise tõlketööriist on mitmekeelne tehisintellektil põhinev suhtlusvahend, mis võimaldab kiiresti tõlkida tekste, dokumente ja veebilehti eesti ja inglise keeles. ',
-        ABOUT2: 'Tööriist, mis on mõeldud spetsiaalselt Eesti <a href="https://www.eu2017.ee/" target="_blank">EL-i Nõukogu 2017. aasta eesistumisega</a> seotud delegaatidele, ajakirjanikele ja tõlkijatele, on esimene eesti keele jaoks loodud masintõlkesüsteem, mis põhineb närvivõrkudel ja tehisintellektil.',
-        ABOUT3: 'Tõlkimise käigus uurivad närvivõrkudel põhinevad masintõlkesüsteemid lause kogu konteksti ning loovad senisest soravama, paremini loetava ja inimlähedasema tõlketeksti.',
-        ABOUT4: 'EL-i Nõukogu eesistumise tõlketööriist täiendab Eesti e-valitsuse lahendusi ning on osa Euroopa Komisjoni platvormist <a href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eTranslation" target="_blank">CEF eTranslation</a>, mille eesmärk on muuta digiteenused täielikult mitmekeelseks. ',
-        PLUGIN1: 'Kasutusjuhend',
-        PLUGIN2: '<ul><li>Laadige alla ja installige EL-i eesistumise tõlketööriista lisandmoodul SDL Trados Studio jaoks.</li><li>Valige SDL Tradose jaotises „Project Settings“ (Projekti sätted) oma keelepaar.</li><li>Märkige ruut „Use different translation providers for this language pair“ (Kasuta selle keelepaari jaoks erinevaid tõlketeenuse pakkujaid).</li><li>Lisage EL-i eesistumise tõlketööriist.</li><li>Sisestage autentimisaknasse oma ID (<a href="#/contactUs" ng-click="routeMe(\' / contactUs\');">ID-d saab taotleda veebilehel</a>)</li><li>Avage oma projekt.</li><li>Tõlkimise käigus kuvatakse EL-i eesistumise tõlketööriistas tõlkesoovitused (kasutajatel on võimalus lasta EL-i eesistumise tõlketööriistal failid pakktöötlustoiminguga ka eeltõlkida).</li></ul>',
-        PLUGIN3: 'Nõustun lõppkasutaja litsentsilepinguga.',
-        PLUGIN4: 'Lugege lepingut',
-        PLUGIN5: 'Laadi alla',
-        WORKSHOP_URL: 'presidency-translator-workshop-registration-ee',
-        WORKSHOP1: '<table  id="agenda" class="workshop_table"><tr><td>Üritus:</td><td>EL-i Nõukogu eesistumise tõlketööriista kasutamise töötuba</td></tr><tr><td>Sihtrühm:</td><td>2017. a. EL-i Nõukogu eesistumisega seotud tõlkijad, töötajad ja Eesti avaliku sektori kommunikatsioonispetsialistid</td></tr><tr><td>Toimumiskoht:</td><td><a href="http://www.nlib.ee/kuppelsaal-4/" target="_blank">Eesti Rahvusraamatukogu, Kuppelsaal</a></td></tr><tr><td>Aeg:</td><td>27. september, 13.30–16.00</td></tr></table>',
-        WORKSHOP2: '<p>Registreerimine on kohustuslik. Palun täida ning saada meile allolev registreerimisvorm.</p><br/><br/>Teave',
-        WORKSHOP3: 'Euroopa Liidu Nõukogu eesistumisega seotud tõlkijatel, töötajatel ja Eesti avaliku sektori kommunikatsioonispetsialistidel on võimalus osaleda töötoas, kus tutvustatakse EL-i Nõukogu eesistumise tõlketööriista – automaattõlketeenust, mis on välja töötatud just Eesti Euroopa Liidu Nõukogu 2017. aasta eesistumise jaoks.',
-        WORKSHOP4: 'EL-i Nõukogu eesistumise tõlketööriist on mitmekeelne suhtlusvahend, mis võimaldab kasutajatel tõlkida kiiresti tekste, dokumente ja veebilehti eesti ja inglise keeles. Tõlketööriist hõlmab maailma esimest eesti-inglise-eesti masintõlkesüsteemi, mille loomisel on kasutatud ulatuslikult tehisintellektile ja masinõppele tuginevaid närvivõrke. Tõlkimise käigus uurivad närvivõrkudel põhineva masintõlke süsteemid lause kogu konteksti ja loovad seni saavutatust oluliselt soravama, paremini loetava ja inimlähedasema tõlketeksti.</p><p>Tõlketööriist on vabalt kättesaadav kõigile Eesti avaliku sektori tõlkijatele kogu Eesti Euroopa Liidu Nõukogu eesistumise ajaks. Seda saab kasutada kas veebis või programmi SDL Trados Studio jaoks mõeldud tõlketööriista lisandmooduli abil. Tõlketööriist töötab platvormil <a target="_blank" href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eTranslation"> CEF eTranslation</a>.',
-        WORKSHOP5: 'Keeletehnoloogiaettevõtte Tilde korraldatud töötoas tutvuvad tõlkijad ja teised kommunikatsioonispetsialistid järgnevaga:<ul><li>kuidas kasutada töös masintõlget, mis aitab muuta igapäevase tõlketöö lihtsamaks ja tõhusamaks,</li><li>millised eeliseid annab närvivõrkudel põhinev masintõlge, mille soravad ja hästiloetavad tõlketekstid on tegemas revolutsiooni tõlkemaailmas,</li><li>milline on Euroopa Liidu panus üleeuroopalise automaattõlke platvormi (CEF eTranslation) loomisse riigiasutuste ja kodanike jaoks ning,</li><li>omandavad praktilisi teadmisi kuidas tõlketööriista abil oma tõlkeviljakust suurendada,</li><li>kuidas töötab tõlketööriist programmis SDL Trados Studio, vaadates selle kohta praktilist demonstratsiooni.</li></ul>',
-        WORKSHOP6: 'Päevakava',
-        WORKSHOP7: '<table class="workshop_table"><tr><td>13:30-13:45</td><td><b>Masintõlketehnoloogia arengusuunad<br/><i>Rihards Kalnins, Tilde (inglise keeles)</i></b><p>Kuulajatele tutvustatakse masintõlketehnoloogia uudiseid, eriti viimaseid suundumusi närvivõrkudel põhineva masintõlke vallas; masintõlke uusimaid rakendusi lokaliseerimise, tehnoloogia, e-kaubanduse ja avaliku sektori valdkondades; ning eeliseid, mida pakub närvivõrkudel põhinev masintõlge, mille soravad, hästiloetavad ja peaaegu inimloodule vastavad tõlketekstid teevad tõlkemaailmas revolutsiooni.</p></td></tr><tr><td>13:45-14:00</td><td><b>Euroopa Liidu automaattõlke platvormi CEF eTranslation integreerimine<br/><i>Rihards Kalnins, Tilde (inglise keeles)</i></b><p>EL-i automaattõlke platvorm CEF eTranslation võimaldab riigiasutustel vahetada teavet ilma keelebarjääridesse takerdumata. Praegu toimub platvormi integreerimine piiriüleste digitaalsete platvormidega, sealhulgas EL-i Nõukogu eesistumise tõlketööriistaga. Selles ettekandes tutvustatakse lähemalt platvormi CEF eTranslation integreerimise kulgu.</p></td></tr><tr><td>14:00-14:15</td><td><b>Maailma esimeste närvivõrkudel põhinevate eesti-inglise masintõlkemootorite tutvustus<br/><i>Kaspars Kaulins, Tilde (eesti keeles)</i></b><p>EL-i Nõukogu eesistumise tõlketööriist hõlmab maailma esimest eesti keele masintõlkesüsteemi, mille loomisel on kasutatud ulatuslikult tehisintellektile tuginevaid närvivõrke. Ettekande käigus demonstreeritakse süsteemi jõudlust eestikeelsete tekstide tõlkimisel ning tutvustatakse tõlketööriista arvukaid eeliseid ja praktilisi kasutusvõimalusi.</p></td></tr><tr><td>14:15-15:00</td><td><b>Eestikeelsete tekstide järeltoimetamine EL-i Nõukogu eesistumise tõlketööriista veebiversiooni abil<br/><i>Martin Luts, Tilde (eesti keeles)</i></b><p>Praktilise ettekande käigus tutvustatakse EL-i Nõukogu eesistumise tõlketööriista veebiversiooni kasutamist tekstide, dokumentide ja veebilehtede tõlkimisel ning jagatakse praktilisi nõuandeid tõlgete hõlpsaks järeltoimetamiseks. Samuti käsitletakse spetsiifilisi tahke eesti keele masintõlke arendamisel.</p></td></tr><tr><td>15:00-15:20</td><td><b>Kohvipaus</b></td></tr><tr><td>15:20-16:00</td><td><b>Näpunäiteid eestikeelsete tekstide järeltoimetamiseks SDL Trados Studio lisandmooduli abil<br/><i>Katre Sepp, Tilde (eesti keeles)</i></b><p>EL-i Nõukogu eesistumise tõlketööriist on saadaval ka programmi SDL Trados Studio lisandmoodulina, mis aitab tõlkijatel suurenda oma igapäevast tööviljakust. Põhjalikus ettekandes tutvustatakse lisandmooduli kasutamist ning antakse soovitusi ja näpunäiteid eestikeelsete tekstide järeltoimetamiseks arvutipõhiste tõlketööriistadega.</p></td></tr></table>',
-        WORKSHOP8: 'Registreerimine',
-        WORKSHOP9: 'https://www.tilde.lv/presidency-translator-workshop-registration-ee',
-        CO_FINANCED_LOGO: 'img/CoFinanced_ee.png',
-        CO_FINANCED_ALT: 'Kaasrahastatud Euroopa Liidu poolt',
-        ETRANSLATION: 'Valisite tõlkimiseks Euroopa Komisjoni arendatava <b>CEF eTranslation süsteemi</b>.'
-    });
+        .translations('et', {
+            SUBTITLE: 'koostöös Euroopa Nõukogu Eesti eesistumisega',
+            MENU: 'Menüü',
+            MENU_ABOUT: 'Teenusest Translate 2017',
+            MENU_CONTACT: 'Kontaktteave',
+            MENU_PLUGIN: 'SDL Trados Studio lisandmoodul ',
+            MENU_WORKSHOP: 'EL-i eesistumise tõlketööriista töötuba',
+            TEXT: 'Tõlgi tekst',
+            TEXT_SHORT: 'Tekst',
+            DOC: 'Tõlgi dokument',
+            DOC_SHORT: 'Dokument',
+            WEB: 'Tõlgi veebileht',
+            WEB_SHORT: 'Veebileht',
+            WEB_PLACEHOLDER: 'Kirjuta web-i aadress siia...',
+            WEB_EXAMPLES: 'Lingid Eesti meedia ja informatsiooni allikatele:',
+            WEB_REFRESH: 'Uuendada',
+            WEB_RETURN: 'Tagasi',
+            POWERED: 'Platvorm: EL-i automaattõlketeenus <a class="footer_link" href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eTranslation" target="_blank">eTranslation</a>',
+            DEVELOPED: 'Välja töötanud <a class="footer_link" href="https://www.tilde.com" target="_blank">Tilde</a>',
+            CONTACT1: 'Teenuse Translate 2017 kohta lisateabe saamiseks või teenuse kasutamise kohta nõu küsimiseks võtke meiega ühendust meiliaadressil <a href="mailto:info@translate2017.eu">info@translate2017.eu</a>.',
+            CONTACT2: 'Meiliaadressi <a href="mailto:support@translate2017.eu">support@translate2017.eu</a> kaudu saavad Eesti riigiasutuste tõlkijad teenuse Translate 2017 jaoks taotleda SDL Trados Studio lisandmoodulit ja võtta ühendust klienditoega.',
+            ABOUT1: 'EL-i Nõukogu eesistumise tõlketööriist on mitmekeelne tehisintellektil põhinev suhtlusvahend, mis võimaldab kiiresti tõlkida tekste, dokumente ja veebilehti eesti ja inglise keeles. ',
+            ABOUT2: 'Tööriist, mis on mõeldud spetsiaalselt Eesti <a href="https://www.eu2017.ee/" target="_blank">EL-i Nõukogu 2017. aasta eesistumisega</a> seotud delegaatidele, ajakirjanikele ja tõlkijatele, on esimene eesti keele jaoks loodud masintõlkesüsteem, mis põhineb närvivõrkudel ja tehisintellektil.',
+            ABOUT3: 'Tõlkimise käigus uurivad närvivõrkudel põhinevad masintõlkesüsteemid lause kogu konteksti ning loovad senisest soravama, paremini loetava ja inimlähedasema tõlketeksti.',
+            ABOUT4: 'EL-i Nõukogu eesistumise tõlketööriist täiendab Eesti e-valitsuse lahendusi ning on osa Euroopa Komisjoni platvormist <a href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eTranslation" target="_blank">CEF eTranslation</a>, mille eesmärk on muuta digiteenused täielikult mitmekeelseks. ',
+            PLUGIN1: 'Kasutusjuhend',
+            PLUGIN2: '<ul><li>Laadige alla ja installige EL-i eesistumise tõlketööriista lisandmoodul SDL Trados Studio jaoks.</li><li>Valige SDL Tradose jaotises „Project Settings“ (Projekti sätted) oma keelepaar.</li><li>Märkige ruut „Use different translation providers for this language pair“ (Kasuta selle keelepaari jaoks erinevaid tõlketeenuse pakkujaid).</li><li>Lisage EL-i eesistumise tõlketööriist.</li><li>Sisestage autentimisaknasse oma ID (<a href="#/contactUs" ng-click="routeMe(\' / contactUs\');">ID-d saab taotleda veebilehel</a>)</li><li>Avage oma projekt.</li><li>Tõlkimise käigus kuvatakse EL-i eesistumise tõlketööriistas tõlkesoovitused (kasutajatel on võimalus lasta EL-i eesistumise tõlketööriistal failid pakktöötlustoiminguga ka eeltõlkida).</li></ul>',
+            PLUGIN3: 'Nõustun lõppkasutaja litsentsilepinguga.',
+            PLUGIN4: 'Lugege lepingut',
+            PLUGIN5: 'Laadi alla',
+            WORKSHOP_URL: 'presidency-translator-workshop-registration-ee',
+            WORKSHOP1: '<table  id="agenda" class="workshop_table"><tr><td>Üritus:</td><td>EL-i Nõukogu eesistumise tõlketööriista kasutamise töötuba</td></tr><tr><td>Sihtrühm:</td><td>2017. a. EL-i Nõukogu eesistumisega seotud tõlkijad, töötajad ja Eesti avaliku sektori kommunikatsioonispetsialistid</td></tr><tr><td>Toimumiskoht:</td><td><a href="http://www.nlib.ee/kuppelsaal-4/" target="_blank">Eesti Rahvusraamatukogu, Kuppelsaal</a></td></tr><tr><td>Aeg:</td><td>27. september, 13.30–16.00</td></tr></table>',
+            WORKSHOP2: '<p>Registreerimine on kohustuslik. Palun täida ning saada meile allolev registreerimisvorm.</p><br/><br/>Teave',
+            WORKSHOP3: 'Euroopa Liidu Nõukogu eesistumisega seotud tõlkijatel, töötajatel ja Eesti avaliku sektori kommunikatsioonispetsialistidel on võimalus osaleda töötoas, kus tutvustatakse EL-i Nõukogu eesistumise tõlketööriista – automaattõlketeenust, mis on välja töötatud just Eesti Euroopa Liidu Nõukogu 2017. aasta eesistumise jaoks.',
+            WORKSHOP4: 'EL-i Nõukogu eesistumise tõlketööriist on mitmekeelne suhtlusvahend, mis võimaldab kasutajatel tõlkida kiiresti tekste, dokumente ja veebilehti eesti ja inglise keeles. Tõlketööriist hõlmab maailma esimest eesti-inglise-eesti masintõlkesüsteemi, mille loomisel on kasutatud ulatuslikult tehisintellektile ja masinõppele tuginevaid närvivõrke. Tõlkimise käigus uurivad närvivõrkudel põhineva masintõlke süsteemid lause kogu konteksti ja loovad seni saavutatust oluliselt soravama, paremini loetava ja inimlähedasema tõlketeksti.</p><p>Tõlketööriist on vabalt kättesaadav kõigile Eesti avaliku sektori tõlkijatele kogu Eesti Euroopa Liidu Nõukogu eesistumise ajaks. Seda saab kasutada kas veebis või programmi SDL Trados Studio jaoks mõeldud tõlketööriista lisandmooduli abil. Tõlketööriist töötab platvormil <a target="_blank" href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eTranslation"> CEF eTranslation</a>.',
+            WORKSHOP5: 'Keeletehnoloogiaettevõtte Tilde korraldatud töötoas tutvuvad tõlkijad ja teised kommunikatsioonispetsialistid järgnevaga:<ul><li>kuidas kasutada töös masintõlget, mis aitab muuta igapäevase tõlketöö lihtsamaks ja tõhusamaks,</li><li>millised eeliseid annab närvivõrkudel põhinev masintõlge, mille soravad ja hästiloetavad tõlketekstid on tegemas revolutsiooni tõlkemaailmas,</li><li>milline on Euroopa Liidu panus üleeuroopalise automaattõlke platvormi (CEF eTranslation) loomisse riigiasutuste ja kodanike jaoks ning,</li><li>omandavad praktilisi teadmisi kuidas tõlketööriista abil oma tõlkeviljakust suurendada,</li><li>kuidas töötab tõlketööriist programmis SDL Trados Studio, vaadates selle kohta praktilist demonstratsiooni.</li></ul>',
+            WORKSHOP6: 'Päevakava',
+            WORKSHOP7: '<table class="workshop_table"><tr><td>13:30-13:45</td><td><b>Masintõlketehnoloogia arengusuunad<br/><i>Rihards Kalnins, Tilde (inglise keeles)</i></b><p>Kuulajatele tutvustatakse masintõlketehnoloogia uudiseid, eriti viimaseid suundumusi närvivõrkudel põhineva masintõlke vallas; masintõlke uusimaid rakendusi lokaliseerimise, tehnoloogia, e-kaubanduse ja avaliku sektori valdkondades; ning eeliseid, mida pakub närvivõrkudel põhinev masintõlge, mille soravad, hästiloetavad ja peaaegu inimloodule vastavad tõlketekstid teevad tõlkemaailmas revolutsiooni.</p></td></tr><tr><td>13:45-14:00</td><td><b>Euroopa Liidu automaattõlke platvormi CEF eTranslation integreerimine<br/><i>Rihards Kalnins, Tilde (inglise keeles)</i></b><p>EL-i automaattõlke platvorm CEF eTranslation võimaldab riigiasutustel vahetada teavet ilma keelebarjääridesse takerdumata. Praegu toimub platvormi integreerimine piiriüleste digitaalsete platvormidega, sealhulgas EL-i Nõukogu eesistumise tõlketööriistaga. Selles ettekandes tutvustatakse lähemalt platvormi CEF eTranslation integreerimise kulgu.</p></td></tr><tr><td>14:00-14:15</td><td><b>Maailma esimeste närvivõrkudel põhinevate eesti-inglise masintõlkemootorite tutvustus<br/><i>Kaspars Kaulins, Tilde (eesti keeles)</i></b><p>EL-i Nõukogu eesistumise tõlketööriist hõlmab maailma esimest eesti keele masintõlkesüsteemi, mille loomisel on kasutatud ulatuslikult tehisintellektile tuginevaid närvivõrke. Ettekande käigus demonstreeritakse süsteemi jõudlust eestikeelsete tekstide tõlkimisel ning tutvustatakse tõlketööriista arvukaid eeliseid ja praktilisi kasutusvõimalusi.</p></td></tr><tr><td>14:15-15:00</td><td><b>Eestikeelsete tekstide järeltoimetamine EL-i Nõukogu eesistumise tõlketööriista veebiversiooni abil<br/><i>Martin Luts, Tilde (eesti keeles)</i></b><p>Praktilise ettekande käigus tutvustatakse EL-i Nõukogu eesistumise tõlketööriista veebiversiooni kasutamist tekstide, dokumentide ja veebilehtede tõlkimisel ning jagatakse praktilisi nõuandeid tõlgete hõlpsaks järeltoimetamiseks. Samuti käsitletakse spetsiifilisi tahke eesti keele masintõlke arendamisel.</p></td></tr><tr><td>15:00-15:20</td><td><b>Kohvipaus</b></td></tr><tr><td>15:20-16:00</td><td><b>Näpunäiteid eestikeelsete tekstide järeltoimetamiseks SDL Trados Studio lisandmooduli abil<br/><i>Katre Sepp, Tilde (eesti keeles)</i></b><p>EL-i Nõukogu eesistumise tõlketööriist on saadaval ka programmi SDL Trados Studio lisandmoodulina, mis aitab tõlkijatel suurenda oma igapäevast tööviljakust. Põhjalikus ettekandes tutvustatakse lisandmooduli kasutamist ning antakse soovitusi ja näpunäiteid eestikeelsete tekstide järeltoimetamiseks arvutipõhiste tõlketööriistadega.</p></td></tr></table>',
+            WORKSHOP8: 'Registreerimine',
+            WORKSHOP9: 'https://www.tilde.lv/presidency-translator-workshop-registration-ee',
+            CO_FINANCED_LOGO: 'img/CoFinanced_ee.png',
+            CO_FINANCED_ALT: 'Kaasrahastatud Euroopa Liidu poolt',
+            ETRANSLATION: 'Valisite tõlkimiseks Euroopa Komisjoni arendatava <b>CEF eTranslation süsteemi</b>.'
+        });
 
     $translateProvider.preferredLanguage('en');
 });
 
 
-    
+
 
 

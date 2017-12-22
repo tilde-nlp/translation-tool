@@ -68,14 +68,14 @@ uiResources = $.extend(true, uiResources, {
         "W_SENTENCE_TOO_LONG": "Mõnda lauset ei tõlgitud, kuna need on liiga pikad."
     },
     'bg': {
-        "E_DEFAULT_ERROR": "Error occurred while translating.",
-        "E_UNKNOWN_FILE_TYPE": "Unknown file type.",
+        "E_DEFAULT_ERROR": "Грешка в процеса на превод.",
+        "E_UNKNOWN_FILE_TYPE": "Непознат формат на файл.",
         "E_CANNOT_READ_FILE": "Cannot read file, file may be corrupted.",
-        "E_FAILED_IN_TRANSLATION": "Error occurred while translating.",
-        "E_FORMAT_TRACK_CHANGES": "Could not translate because track changes was turned on. Changes must first be accepted.",
-        "E_UNKNOWN_ERROR": "An unknown error occurred.",
-        "E_UNAUTHORIZED": "Document translation was denied.",
-        "W_TIMEOUT": "Some sentences are not translated, because translation took too much time.",
-        "W_SENTENCE_TOO_LONG": "Some sentences are not translated, because they are too long."
+        "E_FAILED_IN_TRANSLATION": "Файлът не се чете, файлът може би е повреден.",
+        "E_FORMAT_TRACK_CHANGES": "Преводът не можа да бъде осъществен, защото режимът „Проследете промените“ е включен. Направените промени трябва да бъдат одобрени.",
+        "E_UNKNOWN_ERROR": "Възникна неизвестна грешка.",
+        "E_UNAUTHORIZED": "Преводът на документа бе отказан.",
+        "W_TIMEOUT": "Някои изречения не са преведени, защото преводът отне твърде много време.",
+        "W_SENTENCE_TOO_LONG": "Някои изречения не са преведени, защото са прекалено дълги."
     },
 });

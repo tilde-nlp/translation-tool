@@ -4,7 +4,7 @@ uiResources = $.extend(true, uiResources, {
     'en': {
         "clearTranslation": "Clear",
         // RL
-        "sourceTextTooltip": "Enter the text you want to translate",
+        "sourceTextTooltip": "Enter the text you want to translate.",
         //"sourceTextTooltip": "Enter the text you would like to translate...",
         //
         "noInternet": "No internet connection",
@@ -19,7 +19,6 @@ uiResources = $.extend(true, uiResources, {
         "translationEditOriginal": "Original sentence",
         "translationEditTranslation": "Translation",
         "translationEditDescription": "Your translation suggestion will be used to improve the quality of machine translation."
-
     },
     'fr': {
         "clearTranslation": "Effacer",
@@ -101,5 +100,21 @@ uiResources = $.extend(true, uiResources, {
         "translationEditOriginal": "Algne lause",
         "translationEditTranslation": "Tõlge",
         "translationEditDescription": "Teie tõlkesoovitust kasutatakse masintõlke kvaliteedi parandamiseks."
-    }
+    },
+    'bg': {
+        "clearTranslation": "Изчисти",
+        "sourceTextTooltip": "Въведете текста, който искате да преведете.",
+        "noInternet": "Няма възка с интернет.",
+        "targetTextTooltip": "Резултатите от машинния превод помагат да се разбере смисъла на изходния текст, но не са равностойни на превод, направен от човек.",
+        "transLimit": "Достигнахте максималния лимит за думите за една заявка за превод. За да преведете непреведената част от документа, моля да направите друга заявка.",
+        "seeFullEntry": "Прочети пълния запис",
+        "speaker": "Чуй",
+        "editButton": "Редактирай",
+        "editButtonTooltip": "Предложи по-добър превод",
+        "translationEditSave": "Помогнете ни",
+        "translationEditClose": "Затвори",
+        "translationEditOriginal": "Изречение в оригинал",
+        "translationEditTranslation": "Превод",
+        "translationEditDescription": "Вашето предложение за превод ще бъде използвано за подобряване качеството на машинния превод."
+    },
 });

@@ -15,7 +15,8 @@ var uiResources = {
         "fr": "French",
         "ru": "Russian",
         "et": "Estonian",
-        "ar": "Arabic"
+        "ar": "Arabic",
+        "bg": "Bulgarian"
     },
     'fr': {
         "sourceSystem": "From:",
@@ -55,7 +56,8 @@ var uiResources = {
         "fr": "Franču",
         "ru": "Krievu",
         "et": "Igauņu",
-        "ar": "Arābu"
+        "ar": "Arābu",
+        "bg": "Bulgāru"
     },
     'ru': {
         "sourceSystem": "Направление перевода",
@@ -88,5 +90,22 @@ var uiResources = {
         "et": "Eesti",
         "ru": "Vene",
         "ar": "Araabia"
-    }
+    },
+    'bg': {
+        "sourceSystem": "От:",
+        "targetSystem": "На:",
+        "systemSelect": "Система",
+        "swapLanguage": "Обратно",
+        "translateButton": "Тематична област",
+        "systemDomain": "Domain",
+        "systemLoadError": "Грешка при зареждане на системите",
+        "en": "Английски",
+        "lv": "Латвийски",
+        "lt": "Литовски",
+        "fr": "Френски",
+        "ru": "Руски",
+        "et": "Естонски",
+        "ar": "Арабски",
+        "bg": "Български"
+    },
 };

@@ -67,4 +67,15 @@ uiResources = $.extend(true, uiResources, {
         "W_TIMEOUT": "Mõni lause jäi tõlkimata, kuna tõlkimisel ilmnes ajalõpp.",
         "W_SENTENCE_TOO_LONG": "Mõnda lauset ei tõlgitud, kuna need on liiga pikad."
     },
+    'bg': {
+        "E_DEFAULT_ERROR": "Error occurred while translating.",
+        "E_UNKNOWN_FILE_TYPE": "Unknown file type.",
+        "E_CANNOT_READ_FILE": "Cannot read file, file may be corrupted.",
+        "E_FAILED_IN_TRANSLATION": "Error occurred while translating.",
+        "E_FORMAT_TRACK_CHANGES": "Could not translate because track changes was turned on. Changes must first be accepted.",
+        "E_UNKNOWN_ERROR": "An unknown error occurred.",
+        "E_UNAUTHORIZED": "Document translation was denied.",
+        "W_TIMEOUT": "Some sentences are not translated, because translation took too much time.",
+        "W_SENTENCE_TOO_LONG": "Some sentences are not translated, because they are too long."
+    },
 });

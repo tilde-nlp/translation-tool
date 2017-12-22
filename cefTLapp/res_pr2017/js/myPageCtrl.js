@@ -15,14 +15,9 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         return active;
     };
 
-    $scope.web_samples = [
-        { "url": "www.delfi.ee", "title": "Delfi", "description": "News site", "description_ee": "Uudiste lehekülg", "image": "url('../img/examples/delfi.png')" },
-        { "url": "ekspress.delfi.ee", "title": "Eesti Ekspress", "description": "News site", "description_ee": "Uudiste lehekülg", "image": "url('../img/examples/eesti_ekspress.png')" },
-        { "url": "www.postimees.ee", "title": "Postimees", "description": "Business news", "description_ee": "Äriuudised", "image": "url('../img/examples/postimees.png')" },
-        { "url": "www.err.ee", "title": "ERR.ee", "description": "News site", "description_ee": "Uudiste lehekülg", "image": "url('../img/examples/err.png')" },
-        { "url": "www.aripaev.ee", "title": "Äripäev", "description": "News site", "description_ee": "Uudiste lehekülg", "image": "url('../img/examples/aripaev.png')" },
-        { "url": "eesti.ee", "title": "Eesti.ee", "description": "Public e-services", "description_ee": "Avalikud e-teenused", "image": "url('../img/examples/eesti.png')" }
-    ];
+    /*$scope.web_samples = [
+        { "url": "", "title": "", "description": "", "description_<lang>": "", "image": "" },
+    ];*/
     $scope.updateWebsite = function (url) {
         $("input#url").val(url);
         $("#web_translateButton").trigger('click');
@@ -73,7 +68,7 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
     };
     
     $scope.localize = function (word) {
-        var Estonian = {
+        var Bulgarian = {
             "Bulgarian": "Bulgaaria",
             "Croatian": "Horvaatia",
             "Czech": "Tšehhi",
@@ -179,8 +174,8 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         }
 
         if (word.length) {
-            if ($rootScope.language === 'et') {
-                return (Estonian[word]);
+            if ($rootScope.language === 'bg') {
+                return (Bulgarian[word]);
             } else if ($rootScope.language === 'en') {
                 return (English[word]);
             }

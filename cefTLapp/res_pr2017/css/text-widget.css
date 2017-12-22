@@ -33,6 +33,11 @@
     left: 50%;
 }
 
+@media (max-width: 525px) {
+    .verticalLine {
+        top: 180px;
+    }
+}
 @media (max-width: 464px) {
     .verticalLine {
         display: none;

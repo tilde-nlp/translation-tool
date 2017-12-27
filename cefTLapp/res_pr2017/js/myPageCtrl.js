@@ -461,6 +461,14 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
         iframeShow();
     });
 
+    $("input#url").keypress(function (e) {
+        var keycode = (e.keyCode ? e.keyCode : e.which);
+        if (keycode == '13') {
+            $(".loadButton", webWidget.settings.container).click();
+        }
+    });
+
+
     function iframeHide() {
         $("#websiteFrame").css('display','none');
     }

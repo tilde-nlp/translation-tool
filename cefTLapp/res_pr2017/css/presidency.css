@@ -942,7 +942,8 @@ div.fancy-select ul.options li.hover {
 .text .translateTextResult, .text .translateTextSource {
     text-align: justify;
     overflow: auto;
-    min-width: 150px;
+    /*min-width: 150px;*/
+    min-width: 350px;
 }
 
 .text .translateTextTempSourceContainer, .translateTextSource, .translateTextResult {
@@ -996,12 +997,25 @@ div.fancy-select ul.options li.hover {
     line-height: 1.5;
 }
 
-    .button:hover, .button:focus, .button:active, .buttonDownDoc:hover, .buttonDownDoc:focus, .buttonDownDoc:active {
+    .button:hover,
+    .button:focus,
+    .button:active,
+    .buttonDownDoc:hover,
+    .buttonDownDoc:focus,
+    .buttonDownDoc:active {
         background: none;
         background-color: #017dc5;
         color: #fff000;
         text-decoration: none;
     }
+
+#web_menu .button,
+#web_menu .button:hover,
+#web_menu .button:focus,
+#web_menu .button:active {
+    background-color: #014e9e;
+}
+
 
 #translate_button_div .button {
     line-height: 2;
@@ -2404,4 +2418,9 @@ iframe {
         font-size: 0.8rem;
         margin-top: -50px;
     }
+}
+
+/* MOBILE SAFARI INNER SHADOW REMOVAL */
+textarea, input[type="text"] {
+    -webkit-appearance: none;
 }

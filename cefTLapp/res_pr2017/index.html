@@ -38,11 +38,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <!--2018-->
-    <!--<link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/img/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" href="/img/icons/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="/img/icons/favicon-16x16.png" sizes="16x16">
     <link rel="manifest" href="/img/icons/manifest.json">
-    <link rel="mask-icon" href="/img/icons/safari-pinned-tab.svg" color="#1791ff">-->
+    <link rel="mask-icon" href="/img/icons/safari-pinned-tab.svg" color="#1791ff">
 
     <link rel="stylesheet" type="text/css" href="css/presidency.css?n=#{Build.BuildID}#" />
     <link rel="stylesheet" type="text/css" href="css/text-widget.css?n=#{Build.BuildID}#" />
@@ -79,7 +79,7 @@
                             <div id="logo_translate2018_wrapper">
                                 <h1 id="main_logo_translate2018">
                                     <a ng-click="routeMe('/text')" title="https://www.translate2018.eu/">
-                                        EU Council Presidency Translator
+                                        EU Council Presidency <span id="title_new_line" style="display: none"><br /></span>Translator
                                     </a>
                                 </h1>
                                 <p id="main_coop"><a ng-click="routeMe('/text')" title="https://www.translate2018.eu/">{{ 'SUBTITLE' | translate }}</a></p>
@@ -97,22 +97,20 @@
         <div ng-show="(!isActive('website') && !isActive('www'))" class="section" id="translation_type_section">
             <div class="container">
                 <div class="row" id="transl_types">
-                    <div class="col-sm-8 col-xs-7 no_padding_left no_padding_right">
-                        <div id="translation_types">
-                            <ul class="list-inline">
-                                <li>
-                                    <a id="translation_type_text" href="#/text" ng-click="routeMe('/text');" ng-class="{ active: isActive('text') }" title="{{ 'TEXT' | translate }}" class="transl_type transl_text"><span class="transl_type_long">{{ 'TEXT' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'TEXT_SHORT' | translate }}</span></a>
-                                </li>
-                                <li class="hidden-xs">
-                                    <a id="translation_type_doc" href="#/document" ng-class="{ active: isActive('document') }" title="{{ 'DOC' | translate }}" class="transl_type transl_document"><span class="transl_type_long">{{ 'DOC' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'DOC_SHORT' | translate }}</span></a>
-                                </li>
-                                <li>
-                                    <a id="translation_type_web" href="#/www" ng-click="routeMe('/www');" ng-class="{ active: isActive('website') || isActive('www')  }" title="{{ 'WEB' | translate }}" class="transl_type transl_website"><span class="transl_type_long">{{ 'WEB' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'WEB_SHORT' | translate }}</span></a>
-                                </li>
-                            </ul>
-                        </div>
+                    <div id="translation_types" class="col-sm-8 col-xs-8 no_padding_left no_padding_right">
+                        <ul class="list-inline">
+                            <li>
+                                <a id="translation_type_text" href="#/text" ng-click="routeMe('/text');" ng-class="{ active: isActive('text') }" title="{{ 'TEXT' | translate }}" class="transl_type transl_text"><span class="transl_type_long">{{ 'TEXT' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'TEXT_SHORT' | translate }}</span></a>
+                            </li>
+                            <li class="hidden-xs">
+                                <a id="translation_type_doc" href="#/document" ng-class="{ active: isActive('document') }" title="{{ 'DOC' | translate }}" class="transl_type transl_document"><span class="transl_type_long">{{ 'DOC' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'DOC_SHORT' | translate }}</span></a>
+                            </li>
+                            <li>
+                                <a id="translation_type_web" href="#/www" ng-click="routeMe('/www');" ng-class="{ active: isActive('website') || isActive('www')  }" title="{{ 'WEB' | translate }}" class="transl_type transl_website"><span class="transl_type_long">{{ 'WEB' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'WEB_SHORT' | translate }}</span></a>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="col-sm-4 col-xs-5" id="main_menu">
+                    <div class="col-sm-4 col-xs-4" id="main_menu">
                         <div class="menu_wrapper">
                             <div class="dropdown">
                                 <button id="dropdown_button" class="btn btn-primary btn-block dropdown-toggle menu_text" type="button" data-toggle="dropdown" translate="{{ 'MENU' | translate }}"></button>
@@ -125,7 +123,7 @@
                             </div>
                             <div id="language_selection">
                                 <button id="language_selection_en" class="btn lang_select menu_text" ng-class="{ active: language === languages[0] }" ng-model="language" ng-click="setLanguage(languages[0])">EN</button>
-                                <button id="language_selection_bg" class="btn lang_select menu_text" ng-class="{ active: language === languages[1] }" ng-model="language" ng-click="">BG</button>
+                                <button id="language_selection_bg" class="btn lang_select menu_text" ng-class="{ active: language === languages[1] }" ng-model="language" ng-click="setLanguage(languages[1])">BG</button>
                             </div>
                         </div>
                     </div>

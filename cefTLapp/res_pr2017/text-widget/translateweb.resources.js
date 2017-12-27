@@ -24,5 +24,11 @@ uiResources = $.extend(true, uiResources, {
         "loadButton": "Laadi veebileht",
         "cancelButton": "Tühista",
         "restoreButton": "Taasta"
+    },
+    'bg': {
+        "address": "Адрес",
+        "loadButton": "Зареждане на страница",
+        "cancelButton": "Отказ",
+        "restoreButton": "Възстанови"
     }
 });

@@ -130,4 +130,27 @@ uiResources = $.extend(true, uiResources, {
         "docSupportedTypes": "Tõlketugi on olemas järgmiste failivormingute puhul: {extensions}. Vajalik on kodeering UTF-8 või UTF-16."
         // / RL
     },
+    'bg': {
+        "docTempTarget": "Резултатите от машинния превод на документи помагат да се разбере смисълът на изходния текст, но не са равностойни на превод, направен от човек.",
+        "docDownload": "Свали",
+        "docCancel": "Отказ",
+        "docUploadTooltip": "Зареди документ",
+        "docUploadMsgType": "Файлът \{file}\" не беше разпознат. Преводът се поддържа за следните формати: {extensions}.",
+        "docUploadMsgSize": "Файлът \{file}\" е прекалено голям. Допустимият размер за файл е {sizeLimit}.",
+        "docUploadMsgEmpty": "Файлът  \{file}\" е празен. Моля, изберете файл със съдържание.",
+        "docUploadMsgWordcnt": "Максималният брой думи за един превод ({wordCount}) е превишен.",
+        "docUploadFilename": "Име на документ:",
+        "docUploadFilesize": "Размер на документ:",
+        "docUploadWordcount": "Брой думи:",
+        "docUploadFailed": "Зареждането на файл не беше успешно.",
+        "docTranslFailed": "Документът не беше преведен. Моля, опитайте отново.",
+        "docUploadNewDoc": "Изтрий",
+        "docStarting": "Преводът на документа започва...",
+        "docPreviewError": "Не може да се генерира предварителен изглед на документа.",
+        "docAppleLimited": "Зареждането на файлове на устройства с iOS е ограничено.",
+        "docTranslInProgress": "В момента се извършва превод на документа. Ако излезете от тази страница, преводът ще бъде загубен.",
+        "docSupportedTypes": "Понастоящем системата поддържа следните {extensions} файлови формати. Необходимо е кодиране на UTF-8 или UTF-16.",
+        "docLimit": "Моля, имайте предвид, че само първите {limit} части от всеки документ ще бъдат преведени за Вас като потребител на демо версия. Любезно Ви каним да се свържете с нас на имейл mt@tilde.com, за да получите пълен достъп.",
+        "advancedOptions": "Настройки▾"
+    },
 });

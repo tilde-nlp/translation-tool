@@ -6,7 +6,11 @@
                 <div class="web_container">
                     <div class="row" id="web_menu">
                         <div id="web_logo" class="col-sm-1 hidden-xs no_padding_left">
-                            <a href="https://eu2018bg.bg/" target="_blank" title="https://eu2018bg.bg/"><img src="img/eu2018bg.svg" alt="eu2018bg.bg" title="eu2018bg.bg" /></a>
+                            <div ng-hide="isInIFrame()">
+                                <a href="https://eu2018bg.bg/" target="_blank" title="https://eu2018bg.bg/">
+                                    <img src="img/eu2018bg.svg" alt="eu2018bg.bg" title="eu2018bg.bg" />
+                                </a>
+                            </div>
                         </div>
                         <div id="web_main" class="col-sm-8 col-xs-12 no_padding_right">
                             <div id="address" class="input-group">

@@ -325,7 +325,7 @@ div.fancy-select ul.options.open {
 
 #translation_types li {
     line-height: 1.5;
-    margin-right: 40px;
+    margin-right: 30px;
     margin-left: 0px;
     margin-top: 4px;
     padding-left: 0;
@@ -1793,7 +1793,7 @@ iframe {
 }
 
 .eTranslation {
-    background-color: gray;
+    background-color: #014e9e;
     color: white;
     bottom: 0;
     position: fixed;
@@ -2165,12 +2165,24 @@ iframe {
 }
 
 @media (max-width: 320px) {
-    #dropdown_button {
-        margin-left: 0;
+    #main {
+        margin-left: -15px;
     }
 
-    #main_logo_translate2018 {
-        margin-bottom: 0;
+    #main_menu {
+        width: 30%;
+    }
+
+    .text .translateTextResult, .text .translateTextSource {
+        min-width: 200px !important;
+    }
+
+    #translation_types {
+        width: 70%;
+    }
+
+    #dropdown_button {
+        margin-left: 0;
     }
 
     #target_lang_div {
@@ -2189,22 +2201,25 @@ iframe {
         padding: 1px 2px;
     }
 
-    #title_collumn, #main_menu
+    #title_collumn
     {
         width: 100%;
     }
 
-    #dropdown_button, #language_selection {
-        margin-top: 0px !important;
+    #dropdown_button, #language_selection button {
         margin-bottom: 8px;
+        font-size: 1.3em !important;
+        text-align: right;
     }
 
     #logo_translate2018_wrapper {
-        margin-top: 12px;
-        margin-bottom: 0px;
+        margin-top: 6px;
+        margin-bottom: 4px;
     }
 
     #main_logo_translate2018 {
+        font-size: 1.75em;
+        margin-bottom: 0;
         height: 56px;
     }
 
@@ -2215,6 +2230,11 @@ iframe {
 
     #textWidiget .swapLanguage {
         margin-right: 16px;
+    }
+
+    #options_section .container {
+        padding-right: 0;
+        padding-left: 0;
     }
 
     .button {

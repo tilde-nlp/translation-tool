@@ -96,7 +96,7 @@ var uiResources = {
         "targetSystem": "На:",
         "systemSelect": "Система",
         "swapLanguage": "Обратно",
-        "translateButton": "Тематична област",
+        "translateButton": "Превеждам",
         "systemDomain": "Domain",
         "systemLoadError": "Грешка при зареждане на системите",
         "en": "Английски",

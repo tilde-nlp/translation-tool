@@ -15,6 +15,14 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         return active;
     };
 
+    $scope.isInIFrame = function () {
+        try {
+            return window.self !== window.top;
+        } catch (e) {
+            return true;
+        }
+    }
+
     /*$scope.web_samples = [
         { "url": "", "title": "", "description": "", "description_<lang>": "", "image": "" },
     ];*/
@@ -69,55 +77,55 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
     
     $scope.localize = function (word) {
         var Bulgarian = {
-            "Bulgarian": "Bulgaaria",
-            "Croatian": "Horvaatia",
-            "Czech": "Tšehhi",
-            "Danish": "Taani",
-            "Dutch": "Hollandi",
-            "English": "Inglise",
-            "Estonian": "Eesti",
-            "Finnish": "Soome",
-            "French": "Prantsuse",
-            "German": "Saksa",
-            "Greek": "Kreeka",
-            "Hungarian": "Ungari",
-            "Irish": "Iiri",
-            "Italian": "Itaalia",
-            "Latvian": "Läti",
-            "Lithuanian": "Leedu",
-            "Maltese": "Malta",
-            "Polish": "Poola",
-            "Portuguese": "Portugali",
-            "Romanian": "Rumeenia",
-            "Slovak": "Slovaki",
-            "Slovenian": "Sloveeni",
-            "Spanish": "Hispaania",
-            "Swedish": "Rootsi",
-            // et -> en
-            "Bulgaaria": "Bulgaaria",
-            "Horvaatia": "Horvaatia",
-            "Tšehhi": "Tšehhi",
-            "Taani": "Taani",
-            "Hollandi": "Hollandi",
-            "Inglise": "Inglise",
-            "Eesti": "Eesti",
-            "Soome": "Soome",
-            "Prantsuse": "Prantsuse",
-            "Saksa": "Saksa",
-            "Kreeka": "Kreeka",
-            "Ungari": "Ungari",
-            "Iiri": "Iiri",
-            "Itaalia": "Itaalia",
-            "Läti": "Läti",
-            "Leedu": "Leedu",
-            "Malta": "Malta",
-            "Poola": "Poola",
-            "Portugali": "Portugali",
-            "Rumeenia": "Rumeenia",
-            "Slovaki": "Slovaki",
-            "Sloveeni": "Sloveeni",
-            "Hispaania": "Hispaania",
-            "Rootsi": "Rootsi",
+            "Bulgarian": "Български",
+            "Croatian": "Хърватски",
+            "Czech": "Чешки",
+            "Danish": "Датски",
+            "Dutch": "Холандски",
+            "English": "Английски",
+            "Estonian": "Естонски",
+            "Finnish": "Фински",
+            "French": "Френски",
+            "German": "Немски",
+            "Greek": "Гръцки",
+            "Hungarian": "Унгарски",
+            "Irish": "Ирландски",
+            "Italian": "Италиански",
+            "Latvian": "Латвийски",
+            "Lithuanian": "Литовски",
+            "Maltese": "Малтийски",
+            "Polish": "Полски",
+            "Portuguese": "Португалски",
+            "Romanian": "Румънски",
+            "Slovak": "Словашки",
+            "Slovenian": "Словенски",
+            "Spanish": "Испански",
+            "Swedish": "Шведски",
+            // bg -> en
+            "Български": "Български",
+            "Хърватски": "Хърватски",
+            "Чешки": "Чешки",
+            "Датски": "Датски",
+            "Холандски": "Холандски",
+            "Английски": "Английски",
+            "Естонски": "Естонски",
+            "Фински": "Фински",
+            "Френски": "Френски",
+            "Немски": "Немски",
+            "Гръцки": "Гръцки",
+            "Унгарски": "Унгарски",
+            "Ирландски": "Ирландски",
+            "Италиански": "Италиански",
+            "Латвийски": "Латвийски",
+            "Литовски": "Литовски",
+            "Малтийски": "Малтийски",
+            "Полски": "Полски",
+            "Португалски": "Португалски",
+            "Румънски": "Румънски",
+            "Словашки": "Словашки",
+            "Словенски": "Словенски",
+            "Испански": "Испански",
+            "Шведски": "Шведски",
         }
 
         var English = {
@@ -146,31 +154,31 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
             "Slovenian": "Slovenian",
             "Spanish": "Spanish",
             "Swedish": "Swedish",
-            // en->et
-            "Bulgaaria": "Bulgarian",
-            "Horvaatia": "Croatian",
-            "Tšehhi": "Czech",
-            "Taani": "Danish",
-            "Hollandi": "Dutch",
-            "Inglise": "English",
-            "Eesti": "Estonian",
-            "Soome": "Finnish",
-            "Prantsuse": "French",
-            "Saksa": "German",
-            "Kreeka": "Greek",
-            "Ungari": "Hungarian",
-            "Iiri": "Irish",
-            "Itaalia": "Italian",
-            "Läti": "Latvian",
-            "Leedu": "Lithuanian",
-            "Malta": "Maltese",
-            "Poola": "Polish",
-            "Portugali": "Portuguese",
-            "Rumeenia": "Romanian",
-            "Slovaki": "Slovak",
-            "Sloveeni": "Slovenian",
-            "Hispaania": "Spanish",
-            "Rootsi": "Swedish",
+            // en->bg
+            "Български": "Bulgarian",
+            "Хърватски": "Croatian",
+            "Чешки": "Czech",
+            "Датски": "Danish",
+            "Холандски": "Dutch",
+            "Английски": "English",
+            "Естонски": "Estonian",
+            "Фински": "Finnish",
+            "Френски": "French",
+            "Немски": "German",
+            "Гръцки": "Greek",
+            "Унгарски": "Hungarian",
+            "Ирландски": "Irish",
+            "Италиански": "Italian",
+            "Латвийски": "Latvian",
+            "Литовски": "Lithuanian",
+            "Малтийски": "Maltese",
+            "Полски": "Polish",
+            "Португалски": "Portuguese",
+            "Румънски": "Romanian",
+            "Словашки": "Slovak",
+            "Словенски": "Slovenian",
+            "Испански": "Spanish",
+            "Шведски": "Swedish",
         }
 
         if (word.length) {
@@ -265,6 +273,20 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         });
     }
 
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    var getLangParam = getParameterByName('lang');
+    if (getLangParam == 'bg') {
+        $scope.setLanguage($scope.languages[1])
+    }
 });
 
 app.controller('TranslateCtrl', function ($scope, $routeParams, $rootScope) {

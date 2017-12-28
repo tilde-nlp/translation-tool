@@ -64,7 +64,7 @@ app.config(function ($translateProvider) {
     $translateProvider.translations('en', {
         SUBTITLE: 'in cooperation with the Bulgarian Presidency of the Council of the EU',
         MENU: 'Menu',
-        MENU_ABOUT: 'About the EU Council Presidency Translator',
+        MENU_ABOUT: 'About',
         MENU_CONTACT: 'Contact us',
         MENU_PLUGIN: 'SDL Trados Studio plug-in',
         MENU_WORKSHOP: 'EU Council Presidency Translator workshop',
@@ -84,7 +84,7 @@ app.config(function ($translateProvider) {
         ABOUT1: 'The EU Council Presidency Translator is a multilingual communication tool that enables delegates, journalists, translators, and visitors to cross language barriers and access information during the Presidency of the Council of the EU in 2017-2018.',
         ABOUT2: 'The tool enables users to automatically translate texts, full documents, and local websites with the European Commission’s <a href="https://ec.europa.eu/cefdigital/wiki/display/CEFDIGITAL/eTranslation" target="_blank">CEF eTranslation</a> platform, which includes secure machine translation (MT) systems for all official EU languages.',
         ABOUT3: 'To provide more fluent translations for the local languages of the hosting countries in 2017-2018, the tool also features AI-powered Neural MT systems. When translating, Neural MT systems examine the full context of a sentence, producing highly readable translations that are almost human-like in style.',
-        ABOUT4: 'The EU Council Presidency Translator was designed and developed by <a href="http://www.tilde.com/" target="_blank">Tilde</a>, a language technology company that specializes in Neural MT, in close partnership with the <a href="http://ibl.bas.bg/en/" target="_blank">Institute for Bulgarian Language</a> and the <a href="https://www.univie.ac.at/en/" target="_blank">University of Vienna</a> and support from the CEF eTranslation building block.',
+        ABOUT4: 'The EU Council Presidency Translator was designed and developed by <a href="http://www.tilde.com/" target="_blank">Tilde</a>, a language technology company that specializes in Neural MT, in close partnership with the <a href="http://ibl.bas.bg/" target="_blank">Institute for Bulgarian Language</a> and the <a href="https://www.univie.ac.at/en/" target="_blank">University of Vienna</a> and support from the CEF eTranslation building block.',
         PLUGIN1: 'Instructions for use',
         PLUGIN2: '<ul><li>Download and install the EU Council Presidency Translator plug-in for SDL Trados Studio.</li><li>In SDL Trados, select your language pair in Project Settings.</li><li>Check "Use different translation providers for this language pair".</li><li>Add the EU Council Presidency Translator.</li><li>Enter your ID in the authentication window (<a href="#/contactUs" ng-click="routeMe(\' / contactUs\');">request an ID</a>).</li><li>Start your project.</li><li>Translation suggestions from your EU Council Presidency Translator system will appear on screen during the translation process (users can also apply EU Council Presidency Translator to pre-translate files in batch processing).</li></ul>',
         PLUGIN3: 'I accept the end-user license agreement.',
@@ -105,12 +105,12 @@ app.config(function ($translateProvider) {
         ETRANSLATION: 'You have chosen to translate with a <b>CEF eTranslation system</b>, developed by the European Commission.'
     })
         .translations('bg', {
-            SUBTITLE: '<fix needed>',
+            SUBTITLE: 'в сътрудничество с Българското председателство на Съвета на ЕС',
             MENU: 'Меню',
-            MENU_ABOUT: 'Повече информация на Преводача за Председателството на Съвета на ЕС',
+            MENU_ABOUT: 'Повече информация',
             MENU_CONTACT: 'Контакти',
             MENU_PLUGIN: 'Приставка SDL Trados Studio',
-            MENU_WORKSHOP: '<fix needed>',
+            MENU_WORKSHOP: '...',
             TEXT: 'Преведи текста',
             TEXT_SHORT: 'Текст',
             DOC: 'Преведи документа',
@@ -129,7 +129,7 @@ app.config(function ($translateProvider) {
             ABOUT3: 'За да осигури по-ясен и близък до естествения език превод за националните езици на страните - домакини на Председателството на Съвета на ЕС през 2017 и 2018 г., инструментът използва системи за машинен превод, които са основани на невронни мрежи и използват изкуствен интелект. При превод системите за машинен превод, основани на невронни мрежи, анализират пълния контекст на изречението, за да направят прецизен и разбираем превод, който е много близък стилистично до превода, направен от човек.',
             ABOUT4: 'Преводачът за Председателството на Съвета на ЕС е проектиран и разработен от езиковотехнологичната компания <a href="http://www.tilde.com/" target="_blank">Tilde</a>, която работи в областта на машинния превод, базиран на невронни мрежи, в тясно сътрудничество с <a href="http://ibl.bas.bg/en/" target="_blank">Института за български език</a> и <a href="https://www.univie.ac.at/en/" target="_blank">Виенския университет</a> и с подкрепата на градивния елемент eTranslation на Механизма за свързване на Европа.',
             PLUGIN1: 'Инструкции за употреба',
-            PLUGIN2: 'fix needed',
+            PLUGIN2: '<ul><li> Изтеглете и инсталирайте приставката за Преводач за Председателството на Съвета на ЕС за SDL Trados Studio.</li><li>В SDL Trados изберете желаната езикова двойка от Настройки на проекта.</li><li>Проверете „Използвайте различни доставчици на превод за тази езикова двойка".</li><li>Добавете Преводач за Председателството на Съвета на ЕС.</li><li>Въведете идентификационния си номер в прозореца за удостоверяване (<a href="#/contactUs" ng-click="routeMe(\' / contactUs\');">поискайте идентификационен номер</a>).</ li ><li>Стартирайте проекта си.</li><li>Предложенията за превод от системата Преводач за Председателството на Съвета на ЕС ще се появят на екрана по време на превода (потребителите могат да използват Преводача за Председателството на Съвета на ЕС, за да превеждат файлове в пакетна обработка).</li></ul >',
             PLUGIN3: 'Приемам условията на лицензионния договор като краен потребител.',
             PLUGIN4: 'Прочетете договора',
             PLUGIN5: 'Свали',

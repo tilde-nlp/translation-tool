@@ -33,9 +33,16 @@
     left: 50%;
 }
 
+.inIframe .verticalLine {
+    top: 94px;
+}
+
 @media (max-width: 525px) {
     .verticalLine {
         top: 180px;
+    }
+    .verticalLine.inIframe {
+        top: 64px;
     }
 }
 @media (max-width: 464px) {

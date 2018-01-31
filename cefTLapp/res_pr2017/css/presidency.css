@@ -2209,7 +2209,7 @@ iframe {
     #dropdown_button, #language_selection button {
         margin-bottom: 8px;
         font-size: 1.3em !important;
-        text-align: right;
+        text-align: center;
     }
 
     #logo_translate2018_wrapper {
@@ -2245,7 +2245,7 @@ iframe {
     }
 
     .dropdown-menu {
-        right: -70px;
+        right: -10px;
     }
 
     .popSourceLangs li {

@@ -1816,6 +1816,11 @@ iframe {
     cursor: pointer;
 }
 
+.eTranslation .warning {
+    color: #fbea24;
+    font-weight: bold;
+}
+
 #web_main a.translateButton {
     font-size: 1rem;
     margin-left: 0 !important;

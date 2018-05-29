@@ -133,7 +133,9 @@
         <div ng-view></div>
         <!--IS A eTRANSLATION SYSTEM-->
         <div ng-show="sysType.eTranslation && (isActive('text') || isActive('document') || isActive('www'))" class="eTranslation">
-            <p translate="{{ 'ETRANSLATION' | translate }}"></p><span id="eTranslation_close" class="glyphicon glyphicon-remove-circle" ng-click="sysType.eTranslation = false"></span>
+            <p translate="{{ 'ETRANSLATION' | translate }}"></p>
+            <p class="warning">Please note: Translating with CEF eTranslation systems may take longer than usual or you may not receive the translation at all rarely as of heavy use of the CEF eTranslaion platform. Sorry for the inconvenience.</p>
+            <span id="eTranslation_close" class="glyphicon glyphicon-remove-circle" ng-click="sysType.eTranslation = false"></span>
         </div>
     </div>
 

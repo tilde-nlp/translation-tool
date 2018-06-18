@@ -1,4 +1,5 @@
 ﻿html {
+    font-family: 'Roboto', sans-serif !important;
     font-size: 16px;
     height: 100%;
 }
@@ -15,21 +16,21 @@ body {
     color: #fff000;
 }
 
-#main_section {
-    background: linear-gradient(to right, #017dc5 0%,#017dc5 50%,#014e9e 50%,#014e9e 100%);
-}
-
 #main {
     z-index: -10000;
     margin-left: 0;
     margin-right: 0;
     padding-bottom: 5px;
     padding-top: 5px;
-    background-image: url('../img/ornament.svg?n=#{Build.BuildID}#');
-    background-position: 0px -1px;
+    background-image: url('../img/background.png?n=#{Build.BuildID}#');
+    background-position: center center;
     background-repeat: no-repeat;
-    background-size: auto 102%;
-    background-color: #014e9e;
+    background-size: contain;
+}
+
+#main_logo_a {
+    display: block;
+    height: 84px;
 }
 
 #main_logo_eu2018 {
@@ -39,7 +40,6 @@ body {
     cursor: pointer;
     margin-top: 10px;
     margin-bottom: 10px;
-    float: right;
 }
 
 #logo_translate2018_wrapper {
@@ -279,9 +279,6 @@ div.fancy-select ul.options.open {
 }
 
 /*text widget*/
-#translation_type_section {
-    background-color: #017dc5;
-}
 #translation_type_section .container {
     height: 100%;
 }

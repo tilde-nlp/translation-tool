@@ -3,10 +3,7 @@
 uiResources = $.extend(true, uiResources, {
     'en': {
         "clearTranslation": "Clear",
-        // RL
         "sourceTextTooltip": "Enter the text you want to translate.",
-        //"sourceTextTooltip": "Enter the text you would like to translate...",
-        //
         "noInternet": "No internet connection",
         "targetTextTooltip": "Machine translation results help to understand the meaning of a source text, but do not equal translation by a human.",
         "transLimit": "You have reached the maximum word limit for one translation request. To translate the untranslated part please make another request.",
@@ -84,10 +81,7 @@ uiResources = $.extend(true, uiResources, {
     },
     'et': {
         "clearTranslation": "Tühjenda",
-        // RL
-        //"sourceTextTooltip": "Sisestage soovitud tekst",
         "sourceTextTooltip": "Sisesta tekst, mida soovid tõlkida...",
-        // /RL
         "noInternet": "No internet connection",
         "targetTextTooltip": "Masintõlge aitab teksti sisust aru saada, kuid ei asenda inimtõlget.",
         "transLimit": "Ühe tõlketaotluse suurim sõnaarv on täis. Tõlkimata osa tõlkimiseks esitage uus taotlus.",
@@ -116,5 +110,21 @@ uiResources = $.extend(true, uiResources, {
         "translationEditOriginal": "Изречение в оригинал",
         "translationEditTranslation": "Превод",
         "translationEditDescription": "Вашето предложение за превод ще бъде използвано за подобряване качеството на машинния превод."
+    },
+    'de': {
+        "clearTranslation": "Löschen",
+        "sourceTextTooltip": "Geben Sie den Text ein, den Sie übersetzen möchten.",
+        "noInternet": "Keine Internetverbindung",
+        "targetTextTooltip": "Die Ergebnisse der maschinellen Übersetzung helfen dabei, den Inhalt eines Ausgangstextes zu verstehen, aber sie sind nicht mit von Menschen gemachten Übersetzungen gleichzusetzen.",
+        "transLimit": "Sie haben die maximale Wortanzahl für eine Übersetzungsanfrage erreicht. Um den restlichen Teil des Dokuments übersetzen zu lassen, stellen Sie bitte eine weitere Anfrage.",
+        "seeFullEntry": "Den kompletten Eintrag lesen",
+        "speaker": "Anhören",
+        "editButton": "Bearbeiten",
+        "editButtonTooltip": "Eine bessere Übersetzung vorschlagen",
+        "translationEditSave": "Beitragen",
+        "translationEditClose": "Schließen",
+        "translationEditOriginal": "Originalsatz",
+        "translationEditTranslation": "Übersetzung",
+        "translationEditDescription": "Wir werden Ihren Übersetzungsvorschlag verwenden, um die Qualität der maschinellen Übersetzung zu verbessern."
     },
 });

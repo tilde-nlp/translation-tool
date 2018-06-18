@@ -16,7 +16,8 @@ var uiResources = {
         "ru": "Russian",
         "et": "Estonian",
         "ar": "Arabic",
-        "bg": "Bulgarian"
+        "bg": "Bulgarian",
+        "de": "German"
     },
     'fr': {
         "sourceSystem": "From:",
@@ -57,7 +58,8 @@ var uiResources = {
         "ru": "Krievu",
         "et": "Igauņu",
         "ar": "Arābu",
-        "bg": "Bulgāru"
+        "bg": "Bulgāru",
+        "de": "Vācu"
     },
     'ru': {
         "sourceSystem": "Направление перевода",
@@ -81,10 +83,7 @@ var uiResources = {
         "translateButton": "Tõlgi",
         "systemDomain": "Domain",
         "systemLoadError": "Süsteemide laadimise tõrge",
-        // RL
-        //"en": "Īnglise",
         "en": "Inglise",
-        // /RL
         "lv": "Läti",
         "lt": "Leedu",
         "et": "Eesti",
@@ -108,4 +107,23 @@ var uiResources = {
         "ar": "Арабски",
         "bg": "Български"
     },
+    'de': {
+        "sourceSystem": "Ausgangssprache:",
+        "targetSystem": "Zielsprache:",
+        "systemSelect": "System",
+        "swapLanguage": "Rückgängig machen",
+        "translateButton": "Übersetzen",
+        "systemDomain": "Domain",
+        "systemLoadError": "Fehler beim Laden des Systems",
+        "en": "Englisch",
+        "lv": "Lettisch",
+        "lt": "Litauisch",
+        "fr": "Französisch",
+        "ru": "Russisch",
+        "et": "Estnisch",
+        "ar": "Arabisch",
+        "bg": "Bulgarisch",
+        "de": "Deutsch"
+    },
+    }
 };

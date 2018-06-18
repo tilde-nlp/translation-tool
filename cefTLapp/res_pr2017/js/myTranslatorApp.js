@@ -118,7 +118,7 @@ app.config(function ($translateProvider) {
             MENU_ABOUT: 'Über den EU Council Presidency Translator',
             MENU_CONTACT: 'Kontakt',
             MENU_PLUGIN: 'SDL Trados Studio Plug-in',
-            MENU_WORKSHOP: 'Семинар „Преводач 2018“',
+            MENU_WORKSHOP: '',
             TEXT: 'Text übersetzen',
             TEXT_SHORT: 'Text',
             DOC: 'Dokument übersetzen',

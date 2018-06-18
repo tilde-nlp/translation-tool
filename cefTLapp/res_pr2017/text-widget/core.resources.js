@@ -125,5 +125,4 @@ var uiResources = {
         "bg": "Bulgarisch",
         "de": "Deutsch"
     },
-    }
 };

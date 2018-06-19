@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: #000;
+    background-color: #fff;
 }
 
 *:focus {
@@ -42,22 +42,27 @@ body {
     background-position: top center;
     border: none;
     text-align: left;
-    padding-top: 40px;
+    padding-top: 34px;
     background-size: 32px 32px;
     margin-top: 8px;
     text-align: center;
+    color: #e5242e;
+    font-size: .8rem;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
 }
 
     #dropdown_button:focus {
         outline: none;
         box-shadow: none;
-        color: #fff000;
         background-color: transparent;
-        text-decoration: underline;
+        text-decoration: none;
     }
 
+    #dropdown_button:active,
     #dropdown_button:hover {
+        box-shadow: none;
         background-color: transparent;
+        text-decoration: underline;
     }
 
 .menu_wrapper {
@@ -70,16 +75,49 @@ body {
 
 .dropdown-menu {
     box-shadow: none;
-    border: solid 1px #017dc5;
+    border: solid 1px #e5242e;
     background-color: white;
     border-radius: 0;
-    top: 51px;
+    top: 64px;
     left: auto;
     right: 10px;
     padding-top: 0;
     padding-bottom: 0;
     transition: all 240ms ease-out;
+    -webkit-animation-name: appear;
+    animation-name: appear;
+    -webkit-animation-duration: 0.2s;
+    animation-duration: 0.2s;
 }
+
+@-webkit-keyframes appear {
+    0% {
+        opacity: 0.2;
+    }
+
+    80% {
+        opacity: 0.9;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0.2;
+    }
+
+    80% {
+        opacity: 0.9;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
 
         .dropdown-menu li a {
             font-size: 0.8rem;
@@ -98,7 +136,7 @@ body {
 
 .dropdown-menu li a:hover,
 .dropdown-menu li a:focus, .dropdown-menu li a:active {
-    color: #017dc5 !important;
+    color: #e5242e !important;
     background-color: transparent !important;
 }
 
@@ -112,7 +150,7 @@ button.lang_select:focus {
     float: left;
     padding-top: 6px;
     padding-bottom: 6px;
-    margin-top: 8px;
+    margin-top: 15px;
 }
 
 .lang_select {
@@ -217,7 +255,7 @@ div.fancy-select ul.options.open {
     margin-bottom: 0;
     margin-top: 0;
     margin-left: 0px;
-    color: #017dc5;
+    color: #e5242e;
     padding-left: 15px;
 }
 
@@ -288,14 +326,6 @@ div.fancy-select ul.options.open {
     margin-right: 0;
 }
 
-.popSourceLangs li.active, .popTargetLangs li.active {
-    color: #017dc5;
-    border-bottom: none;
-}
-.popSourceLangs li:hover, .popTargetLangs li:hover {
-    color: #017dc5;
-}
-
 div.fancy-select div.trigger {
     padding-right: 1.5em;
     padding-left: 0.3em;
@@ -312,7 +342,7 @@ div.fancy-select div.trigger {
         position: absolute;
         width: 0.7em;
         height: 0.7em;
-        background-image: url('../img/dropdown.svg?n=#{Build.BuildID}#');
+        background-image: url('../img/dropdown.png?n=#{Build.BuildID}#');
         background-size: 11px;
         background-repeat: no-repeat;
         background-position: 85% top;
@@ -336,7 +366,7 @@ div.fancy-select ul.options li {
 
 div.fancy-select ul.options li.hover {
     background-color: white;
-    color: #017dc5;
+    color: #e5242e;
 }
 
 .popSourceLangs, .popTargetLangs {
@@ -366,8 +396,8 @@ div.fancy-select ul.options li.hover {
 }
 
 .swapLanguage {
-    background-image: url('../img/lang_swap.svg?n=#{Build.BuildID}#');
-    background-size: 17px 17px;
+    background-image: url('../img/swap.png?n=#{Build.BuildID}#');
+    background-size: 19px 18px;
     float: none;
     margin-right: auto;
     margin-left: auto;
@@ -382,17 +412,10 @@ div.fancy-select ul.options li.hover {
 }
 
 /* translation highlight */
-
-.mt-translation.latestHighlight {
-    /*background-color: #c9e2ff;
-    */
-}
-
 .classMTsource.latestHighlight {
-    /*background-color: #c9e2ff;*/
     color: #c9e2ff;
 }
-/* / translation highlight */
+
 
 .text .translateTextSourceContainer {
     height: 300px;
@@ -451,7 +474,7 @@ div.fancy-select ul.options li.hover {
 
 .button {
     background: none;
-    background-color: #017dc5;
+    background-color: #e5242e;
     color: #fff;
     border-radius: 3px;
     font-size: 0.875rem;
@@ -464,9 +487,9 @@ div.fancy-select ul.options li.hover {
 
     .button:hover, .button:focus, .button:active, .buttonDownDoc:hover, .buttonDownDoc:focus, .buttonDownDoc:active {
         background: none;
-        background-color: #017dc5;
-        color: #fff000;
-        text-decoration: none;
+        background-color: #e5242e;
+        text-decoration: underline;
+        color: white;
     }
 
 #translate_button_div .button {
@@ -495,9 +518,9 @@ div.fancy-select ul.options li.hover {
     top: 10px;
 }
 
-.buttonCancelDoc:hover, .docUploadNewDoc:hover, .translateResultClear:hover, .translateResultClear>div>div:hover {
-    background-color: #2C384B;
-}
+    .buttonCancelDoc:hover, .docUploadNewDoc:hover, .translateResultClear:hover, .translateResultClear > div > div:hover {
+        background-color: #891448;
+    }
 
 .translateResultClear>div {
     background-color: none;
@@ -600,16 +623,6 @@ div.fancy-select ul.options li.hover {
     padding-right: 25px;
 }
 
-/*.file .qq-upload-button {
-    position: absolute !important;
-    background-repeat: no-repeat;
-    background-position: center top;
-    background-size: 80px 100px;
-    height: 40%;
-    overflow: visible !important;
-    top: 0%;
-}*/
-
 .file .translateContainerRight {
     background-color: transparent;
 }
@@ -626,11 +639,6 @@ div.fancy-select ul.options li.hover {
     position: absolute;
 }
 
-/*.file .docTempTarget {
-    top: 36%;
-    height: 30%;
-}*/
-
 .file .transItem {
     top: 20%;
 }
@@ -644,7 +652,7 @@ div.fancy-select ul.options li.hover {
 .file .progressImage > div{
     width: 18px;
     height: 18px;
-    background-color: #017dc5;
+    background-color: #e5242e;
     margin-left: 5px;
     border-radius: 100%;
     display: inline-block;
@@ -663,38 +671,6 @@ div.fancy-select ul.options li.hover {
 .file .progressImage .bounce2 {
     -webkit-animation-delay: -0.16s;
     animation-delay: -0.16s;
-}
-
-@-webkit-keyframes bouncedelay {
-    0%, 80%, 100% {
-        -webkit-transform: scale(0.0);
-        transform: scale(0.0);
-    }
-
-    40% {
-        -webkit-transform: scale(1.0);
-        transform: scale(1.0);
-    }
-}
-
-@keyframes bouncedelay {
-    0%, 80%, 100% {
-        transform: scale(0.0);
-        -webkit-transform: scale(0.0);
-    }
-
-    40% {
-        transform: scale(1.0);
-        -webkit-transform: scale(1.0);
-    }
-}
-
-
-.file #docSourcePreview, .file .translateResult, .file .docTempTarget {
-    /*padding: 0rem 1.3rem 0.7rem 1.4rem;*/
-    padding-top: 25px;
-    padding-left: 15px;
-    padding-right: 15px;
 }
 
 #docSourcePreview, .translateResult {
@@ -720,7 +696,7 @@ div.fancy-select ul.options li.hover {
 }
 
     .file .translateResult a:active, .file .translateResult a:hover {
-        color: #017dc5 !important;
+        color: #e5242e !important;
         text-decoration: none !important;
     }   
 
@@ -745,14 +721,13 @@ web_container .translateContainerHeader {
     background-color: white;
 }
 
-
-
 .popSourceLangs li.active, .popTargetLangs li.active {
-    color: #017dc5;
+    color: #e5242e;
+    font-weight: 700;
     border-bottom: none;
 }
 .popSourceLangs li:hover, .popTargetLangs li:hover {
-    color: #017dc5;
+    color: #e5242e;
 }
 
 div.fancy-select div.trigger {
@@ -782,7 +757,7 @@ div.fancy-select ul.options li {
 
 div.fancy-select ul.options li.hover {
     background-color: white;
-    color: #017dc5;
+    color: #e5242e;
 }
 
 .popSourceLangs, .popTargetLangs {
@@ -811,50 +786,13 @@ div.fancy-select ul.options li.hover {
     font-size: 14px !important;
 }
 
-.swapLanguage {
-    background-image: url('../img/lang_swap.svg?n=#{Build.BuildID}#');
-    background-size: 17px 17px;
-    float: none;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 0;
-    width: 21px;
-    height: 21px;
-    display: block !important;
-}
-
-.swapLanguage, div.fancy-select div.trigger {
-    opacity: 1 !important;
-}
-
-/* translation highlight */
-
-.mt-translation.latestHighlight {
-    /*background-color: #c9e2ff;
-    */
-}
-
-.classMTsource.latestHighlight {
-    /*background-color: #c9e2ff;*/
-    color: #c9e2ff;
-}
-/* / translation highlight */
-
-.text .translateTextSourceContainer {
-    height: 300px;
-    overflow: hidden;
-}
-
 .translateTextSource, .text .translateTextTempSourceContainer {
     padding-left: 0px !important;
 }
 
-
-
 .text .translateTextResult, .text .translateTextSource {
     text-align: justify;
     overflow: auto;
-    /*min-width: 150px;*/
     min-width: 350px;
 }
 
@@ -866,6 +804,7 @@ div.fancy-select ul.options li.hover {
 .text .translateTextResult.translateTextTemp, .text .translateTextTempSourceContainer.translateTextTemp {
     padding: 15px;
 }
+
 .text .translateTextResult.translateTextTemp {
     padding-left: 0px;
 }
@@ -898,7 +837,7 @@ div.fancy-select ul.options li.hover {
 
 .button {
     background: none;
-    background-color: #017dc5;
+    background-color: #e5242e;
     color: #fff;
     border-radius: 3px;
     font-size: 0.875rem;
@@ -916,9 +855,8 @@ div.fancy-select ul.options li.hover {
     .buttonDownDoc:focus,
     .buttonDownDoc:active {
         background: none;
-        background-color: #017dc5;
-        color: #fff000;
-        text-decoration: none;
+        background-color: #e5242e;
+        text-decoration: underline;
     }
 
 #web_menu .button,
@@ -955,9 +893,9 @@ div.fancy-select ul.options li.hover {
     top: 10px;
 }
 
-.buttonCancelDoc:hover, .docUploadNewDoc:hover, .translateResultClear:hover, .translateResultClear>div>div:hover {
-    background-color: #2C384B;
-}
+    .buttonCancelDoc:hover, .docUploadNewDoc:hover, .translateResultClear:hover, .translateResultClear > div > div:hover {
+        background-color: #891448;
+    }
 
 .translateResultClear>div {
     background-color: none;
@@ -1104,7 +1042,7 @@ div.fancy-select ul.options li.hover {
 .file .progressImage > div{
     width: 18px;
     height: 18px;
-    background-color: #017dc5;
+    background-color: #e5242e;
     margin-left: 5px;
     border-radius: 100%;
     display: inline-block;
@@ -1151,10 +1089,7 @@ div.fancy-select ul.options li.hover {
 
 
 .file #docSourcePreview, .file .translateResult, .file .docTempTarget {
-    /*padding: 0rem 1.3rem 0.7rem 1.4rem;*/
-    padding-top: 25px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 25px 15px 0 21px;
 }
 
 #docSourcePreview, .translateResult {
@@ -1180,7 +1115,7 @@ div.fancy-select ul.options li.hover {
 }
 
     .file .translateResult a:active, .file .translateResult a:hover {
-        color: #017dc5 !important;
+        color: #e5242e !important;
         text-decoration: none !important;
     }   
 
@@ -1206,17 +1141,12 @@ iframe {
     .web_container .popSourceLangs li:hover,
     .web_container .popTargetLangs li:hover,
     .web_container .popSourceLangs li.active,
-    .web_container .popTargetLangs li.active 
-    {
-        color: #fff000;
+    .web_container .popTargetLangs li.active {
+        color: #e5242e;
     }
 
 #web_section {
-    /*border-bottom: 5px solid #017dc5;
-    -webkit-box-shadow: 0 3px 6px -4px black;
-    -moz-box-shadow: 0 3px 6px -4px black;
-    box-shadow: 0 3px 6px -4px black;*/
-    background-color: #017dc5;
+    background-color:#3278bd
 }
 
 #web_menu {
@@ -1262,10 +1192,10 @@ iframe {
 }
 
 .web_button {
-    background-color: #017dc5;
+    background-color: #e5242e;
     height: 31px;
     box-shadow: none;
-    border: 1px solid #017dc5;
+    border: 1px solid #e5242e;
     border-radius: 0px !important;
     color: white;
     font-size: 1.1875rem;
@@ -1275,7 +1205,7 @@ iframe {
 
     .web_button:focus, .web_button:active, .web_button:hover, .web_button:target {
         box-shadow: none;
-        border: 1px solid #017dc5 !important;
+        border: 1px solid #e5242e !important;
         color: white !important;
     }
 
@@ -1308,7 +1238,7 @@ iframe {
 }
 
 #web_main div.trigger:after {
-    background-image: url(../img/web_dropdown.svg?n=#{Build.BuildID}#);
+    background-image: url(../img/web_dropdown.png?n=#{Build.BuildID}#);
 }
 
 .web_transl_types {
@@ -1334,8 +1264,7 @@ iframe {
 
 
 #web_transl_types a:active, #web_transl_types a.active {
-    color: #fff000;
-    text-decoration: none !important;
+    text-decoration: underline;
 }
 
 #web_main .translateSourceLang, #web_main .translateTargetLang {
@@ -1655,7 +1584,7 @@ iframe {
 
 .footer_link {
     text-decoration: none;
-    color: #017dc5;
+    color: #e5242e;
 }
 #footer_row {
     margin-left: 0;
@@ -1671,7 +1600,7 @@ iframe {
 }
 
 .article a, .article a:focus, .article a:hover, .article a:active {
-    color: #017dc5;
+    color: #e5242e;
 }
 
 .info_images {
@@ -1705,7 +1634,7 @@ iframe {
 }
 
 .eTranslation {
-    background-color: #014e9e;
+    background-color: #891448;
     color: white;
     bottom: 0;
     position: fixed;
@@ -1729,8 +1658,12 @@ iframe {
 }
 
 .eTranslation .warning {
-    color: #fbea24;
+    color: #fff;
     font-weight: bold;
+}
+
+.translateButton:hover, .translateButton:active, .translateButton:focus {
+    color: #fff;
 }
 
 #web_main a.translateButton {
@@ -1791,7 +1724,7 @@ iframe {
 		display: none;
 	}
     .trigger {
-        color: #017dc5;
+        color: #e5242e;
         padding-right: 25px !important;
     }
 
@@ -2102,7 +2035,7 @@ iframe {
             }
 
             div.fancy-select ul.options li.selected {
-                color: #017dc5;
+                color: #e5242e;
             }
 
     div.fancy-select div.trigger {

@@ -84,7 +84,9 @@
                     <div class="col-sm-4 col-sm-offset-3 col-xs-4 no_padding_right" id="main_menu">
                         <div class="menu_wrapper">
                             <div class="dropdown">
-                                <button id="dropdown_button" class="btn btn-primary btn-block dropdown-toggle menu_text" type="button" data-toggle="dropdown" translate="{{ 'MENU' | translate }}"></button>
+                                <button id="dropdown_button" class="btn btn-primary btn-block dropdown-toggle menu_text" type="button" data-toggle="dropdown">
+                                    <span translate="{{ 'MENU' | translate }}"></span>
+                                </button>
                                 <ul class="dropdown-menu">
                                     <li class="dropdown-menu-first"><a id="menu_about" href="#/about" ng-click="routeMe('/about');" translate="{{ 'MENU_ABOUT' | translate }}" title="{{ 'MENU_ABOUT' | translate }}"></a></li>
                                     <li class="dropdown-menu-last"><a id="menu_contactUs" href="#/contactUs" ng-click="routeMe('/contactUs');" translate="{{ 'MENU_CONTACT' | translate }}" title="{{ 'MENU_CONTACT' | translate }}"></a></li>

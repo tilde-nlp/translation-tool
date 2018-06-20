@@ -676,7 +676,7 @@ div.fancy-select ul.options li.hover {
 
 .file #docPreviewContent.no-preview .type {
     font-size: 1.5rem !important;
-    color: #a9bbd6;
+    color: #5d5d5d;
 }
 
 .file .translateResult a {
@@ -893,18 +893,6 @@ div.fancy-select ul.options li.hover {
     background-color: none;
     background: none;
     padding: 0;
-}
-
-.qq-upload-button-image {
-    background-image: url('../img/Doc.png?n=#{Build.BuildID}#');
-    left: 10%;
-    right: 10%;
-    top: 20%;
-    bottom: 15%;
-}
-
-#docPreviewContent.no-preview {
-    background-image: url('../img/filetype.svg?n=#{Build.BuildID}#');
 }
 
 /*.translated-no-preview {
@@ -1140,25 +1128,6 @@ div.fancy-select ul.options li.hover {
     padding: 25px 15px 0 21px;
 }
 
-#docSourcePreview, .translateResult {
-    overflow-y: auto;
-}
-
-.file #docPreviewContent.no-preview {
-    height: 50%;
-    top: 25%;
-}
-
-.file #docPreviewContent.no-preview .type {
-    font-size: 1.5rem !important;
-    color: #a9bbd6;
-}
-
-.file .supTypesList {
-    font-style: normal;
-    top: 22px;
-    font-size: 0.9rem;
-}
 /*/doc widget*/
 /*web widget*/
 iframe {

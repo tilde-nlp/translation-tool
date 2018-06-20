@@ -69,6 +69,7 @@ app.config(function ($translateProvider) {
     $translateProvider.translations('en', {
         SUBTITLE: 'in cooperation with the Austrian Presidency of the Council of the EU',
         MENU: 'Menu',
+        MENU_CLOSE: 'Close',
         MENU_ABOUT: 'About the EU Council Presidency Translator',
         MENU_CONTACT: 'Contact us',
         MENU_PLUGIN: 'SDL Trados Studio plug-in',
@@ -115,6 +116,7 @@ app.config(function ($translateProvider) {
         .translations('de', {
             SUBTITLE: 'in Kooperation mit dem Exekutivsekretariat des österreichischen EU-Ratsvorsitzes 2018',
             MENU: 'Menü',
+            MENU_CLOSE: 'Schließen',
             MENU_ABOUT: 'Über den EU Council Presidency Translator',
             MENU_CONTACT: 'Kontakt',
             MENU_PLUGIN: 'SDL Trados Studio Plug-in',

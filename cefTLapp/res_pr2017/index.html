@@ -76,16 +76,17 @@
         <div id="main_section" ng-hide="isActive('website') || isActive('www') || isInIFrame()" class="section">
             <div class="container">
                 <div class="row" id="main">
-                    <div class="col-sm-5 col-xs-7 no_padding_left">
+                    <div class="col-sm-5 col-xs-6 no_padding_left">
                         <a href="https://www.eu2018.at/" target="_blank" title="https://www.eu2018.at/">
                             <img id="main_logo_eu2018" src="img/logo.png" alt="https://www.eu2018.at/" title="https://www.eu2018.at/" />
                         </a>
                     </div>
-                    <div class="col-sm-4 col-sm-offset-3 col-xs-4 no_padding_right" id="main_menu">
+                    <div class="col-sm-4 col-sm-offset-3 col-xs-6 no_padding_right" id="main_menu">
                         <div class="menu_wrapper">
                             <div class="dropdown">
                                 <button id="dropdown_button" class="btn btn-primary btn-block dropdown-toggle menu_text" type="button" data-toggle="dropdown">
-                                    <span translate="{{ 'MENU' | translate }}"></span>
+                                    <span id="dropdown_open" translate="{{ 'MENU' | translate }}"></span>
+                                    <span id="dropdown_close" translate="{{ 'MENU_CLOSE' | translate }}"></span>
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li class="dropdown-menu-first"><a id="menu_about" href="#/about" ng-click="routeMe('/about');" translate="{{ 'MENU_ABOUT' | translate }}" title="{{ 'MENU_ABOUT' | translate }}"></a></li>
@@ -107,15 +108,15 @@
         <div ng-show="(!isActive('website') && !isActive('www'))" class="section" id="translation_type_section">
             <div class="container">
                 <div class="row" id="transl_types">
-                    <div id="translation_types" class="col-sm-8 col-xs-8 no_padding_left no_padding_right">
+                    <div id="translation_types" class="col-sm-8 col-xs-12 no_padding_left no_padding_right">
                         <ul class="list-inline">
-                            <li class="transl_text">
+                            <li class="transl_text" ng-class="{ active: isActive('text') }">
                                 <a id="translation_type_text" href="#/text" ng-click="routeMe('/text');" ng-class="{ active: isActive('text') }" title="{{ 'TEXT' | translate }}" class="transl_type"><span class="transl_type_long">{{ 'TEXT' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'TEXT_SHORT' | translate }}</span></a>
                             </li>
-                            <li class="hidden-xs transl_document">
+                            <li class="hidden-xs transl_document" ng-class="{ active: isActive('document') }">
                                 <a id="translation_type_doc" href="#/document" ng-class="{ active: isActive('document') }" title="{{ 'DOC' | translate }}" class="transl_type"><span class="transl_type_long">{{ 'DOC' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'DOC_SHORT' | translate }}</span></a>
                             </li>
-                            <li class="transl_website">
+                            <li class="transl_website" ng-class="{ active: isActive('website') || isActive('www')  }">
                                 <a id="translation_type_web" href="#/www" ng-click="routeMe('/www');" ng-class="{ active: isActive('website') || isActive('www')  }" title="{{ 'WEB' | translate }}" class="transl_type"><span class="transl_type_long">{{ 'WEB' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'WEB_SHORT' | translate }}</span></a>
                             </li>
                         </ul>
@@ -125,7 +126,7 @@
         </div>
         <div ng-view></div>
         <!--IS A eTRANSLATION SYSTEM-->
-        <div ng-show="sysType.eTranslation && (isActive('text') || isActive('document') || isActive('www'))" class="eTranslation">
+        <div class="eTranslation" ng-class="{ active: sysType.eTranslation == true && (isActive('text') || isActive('document') || isActive('www')) }">
             <p translate="{{ 'ETRANSLATION' | translate }}"></p>
             <p class="warning">Please note: Translating with CEF eTranslation systems may take longer than usual as heavy use is reducing performance. Sorry for the inconvenience.</p>
             <span id="eTranslation_close" class="glyphicon glyphicon-remove-circle" ng-click="sysType.eTranslation = false"></span>

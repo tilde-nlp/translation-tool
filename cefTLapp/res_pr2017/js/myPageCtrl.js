@@ -329,7 +329,7 @@ function initTextWidget($scope, $rootScope) {
         _replaceContainer: false,
         _useRecentLangSelector: true,
         _defaultSourceLang: 'en',
-        _defaultTargetLang: 'bg',
+        _defaultTargetLang: 'de',
         _replaceSourceWithBlock: 'false',
         _onSystemChanged: function () {
             $scope.isETranslationSystem($widget.activeSystemId);
@@ -375,7 +375,7 @@ function initFileWidget($scope, $rootScope) {
         _previewUrl: 'https://letsmt.eu/ws/Files/GetDocumentPreview',
         _checkStatusUrl: 'https://letsmt.eu/ws/Files/GetStatus',
         _defaultSourceLang: 'en',
-        _defaultTargetLang: 'bg',
+        _defaultTargetLang: 'de',
         _clientId: $clientId,
         _templateId: 'translatefile-template',
         _appId: "Tilde|EU Presidency|Web",
@@ -439,7 +439,7 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
         _systemSelectType: 'language',
         _appId: "Tilde|EU Presidency|Web",
         _defaultSourceLang: 'en',
-        _defaultTargetLang: 'bg',
+        _defaultTargetLang: 'de',
         _getFilteredSystems: false,
         _replaceSourceWithBlock: 'false',
         _apiIsInTheSameDomain: false,

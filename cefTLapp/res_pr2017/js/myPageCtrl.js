@@ -226,14 +226,17 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
     // blur effect on option list
     $('body').click(function (event) {
         var target = $(event.target);
-        if (!target.is(".trigger")) {
-            $(".options.open").removeClass("open");
-        } else { // if it is a trigger
+        if (target.is(".trigger")) {
             $(".options.open").each(function () {
                 if ($(this).parent().parent().attr('id') !== target.parent().parent().attr('id')) {
                     $(this).removeClass('open');
                 }
             });
+        } else {
+            $(".options.open").removeClass("open");            
+            if (target.is(".popSourceLangs li") || target.is(".popTargetLangs li") || target.is(".fancy-select ul.options li")) {
+                console.log(target.text() + console.log(target.attr("data-value")));
+            }
         }
     });
 
@@ -257,18 +260,6 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
             }
         }
 
- /*       for (a of $widget.settings._systems) {
-            if (a.ID === activeSys) {
-                for (b of a.Metadata) {
-                    if (b.Key === 'decoder' && b.Value === 'cefat-etranslation') {
-                        etr = true;
-                        break;
-                    }
-                }
-                break;
-            }
-        }
-*/
         $scope.$apply(function () {
             $scope.sysType.eTranslation = etr;
         });

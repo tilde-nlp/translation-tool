@@ -30,5 +30,11 @@ uiResources = $.extend(true, uiResources, {
         "loadButton": "Зареждане на страница",
         "cancelButton": "Отказ",
         "restoreButton": "Възстанови"
+    },
+    'de': {
+        "address": "Adresse",
+        "loadButton": "Webseite laden",
+        "cancelButton": "Abbrechen",
+        "restoreButton": "Wiederherstellen"
     }
 });

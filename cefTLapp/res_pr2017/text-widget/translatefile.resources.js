@@ -153,4 +153,27 @@ uiResources = $.extend(true, uiResources, {
         "docLimit": "Моля, имайте предвид, че само първите {limit} части от всеки документ ще бъдат преведени за Вас като потребител на демо версия. Любезно Ви каним да се свържете с нас на имейл mt@tilde.com, за да получите пълен достъп.",
         "advancedOptions": "Настройки▾"
     },
+    'de': {
+        "docTempTarget": "Die Ergebnisse der maschinellen Übersetzung helfen dabei, den Inhalt eines Ausgangstextes zu verstehen, aber sie sind nicht mit von Menschen gemachten Übersetzungen gleichzusetzen.",
+        "docDownload": "Download",
+        "docCancel": "Abbrechen",
+        "docUploadTooltip": "Dokument hochladen",
+        "docUploadMsgType": "Das Dateiformat \{file}\" wird nicht erkannt. Für die folgenden Dokumentformate wird die Übersetzung unterstützt: {extensions}.",
+        "docUploadMsgSize": "Die Datei \{file}\" ist zu groß. Die maximale Dateigröße beträgt {sizeLimit}.",
+        "docUploadMsgEmpty": "Die Datei \{file}\" ist leer. Bitte wählen Sie eine Datei mit Inhalt.",
+        "docUploadMsgWordcnt": "Die maximale Wortanzahl für eine Übersetzung ({wordCount}) wurde überschritten.",
+        "docUploadFilename": "Dokumenttitel:",
+        "docUploadFilesize": "Dokumentgröße:",
+        "docUploadWordcount": "Wortanzahl:",
+        "docUploadFailed": "Das Hochladen der Datei war nicht erfolgreich.",
+        "docTranslFailed": "Das Dokument konnte nicht übersetzt werden. Bitte versuchen Sie es noch einmal.",
+        "docUploadNewDoc": "Löschen",
+        "docStarting": "Mit der Übersetzung des Dokuments wird begonnen...",
+        "docPreviewError": "Eine Vorschau des Dokuments konnte nicht erstellt werden.",
+        "docAppleLimited": "Der Dateiupload auf iOS-Geräten ist nur begrenzt möglich.",
+        "docTranslInProgress": "Die Übersetzung des Dokuments wird bearbeitet. Wenn Sie diese Seite verlassen, geht die Übersetzung verloren.",
+        "docSupportedTypes": "Derzeit unterstützt das System {extensions} Dateiformate. Es sind die Kodierungen UTF-8 oder UTF-16 erforderlich.",
+        "docLimit": "Bitte beachten Sie, dass Sie als DEMO-BenutzerIn nur die ersten {limit} Segmente eines einzelnen Dokuments übersetzen lassen können. Wir laden Sie herzlich ein, uns unter mt@tilde.com zu kontaktieren, um Vollzugriff zu erhalten.",
+        "advancedOptions": "Optionen▾"
+    },
 });

@@ -7,13 +7,13 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="description" content="EU Presidency Translator is an automated translation service specially designed for the 2018 Bulgarian Presidency of the Council of the European Union.">
-    <meta name="keywords" content="Translate, Automated translation service, Estonian Presidency, European Union">
+    <meta name="keywords" content="Translate, Automated translation service, Austrian Presidency, European Union">
 
     <!-- Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="EU Presidency Translator | Estonian Presidency of the Council of the European Union">
+    <meta property="og:title" content="EU Presidency Translator | Austrian Presidency of the Council of the European Union">
     <meta property="og:url" content="https://translate2018.eu">
-    <meta property="og:image" content="https://translate2018.eu/img/EU2018bg.svg">
+    <meta property="og:image" content="https://translate2018.eu/img/logo.png">
     <meta property="og:site_name" content="EU Presidency Translator">
 
     <!-- Microsoft -->
@@ -44,8 +44,10 @@
     <link rel="manifest" href="/img/icons/manifest.json">
     <link rel="mask-icon" href="/img/icons/safari-pinned-tab.svg" color="#1791ff">
 
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/presidency.css?n=#{Build.BuildID}#" />
     <link rel="stylesheet" type="text/css" href="css/text-widget.css?n=#{Build.BuildID}#" />
+
     <script src="js/angular.min.js"></script>
     <script src="js/angular-route.min.js"></script>
     <script src="js/angular-filter.js"></script>
@@ -74,65 +76,57 @@
         <div id="main_section" ng-hide="isActive('website') || isActive('www') || isInIFrame()" class="section">
             <div class="container">
                 <div class="row" id="main">
-                    <div class="col-sm-5 col-xs-7 no_padding_left">
-                        <div id="main_title">
-                            <div id="logo_translate2018_wrapper">
-                                <h1 id="main_logo_translate2018">
-                                    <a ng-click="routeMe('/text')" title="https://www.translate2018.eu/">
-                                        EU Council Presidency <span id="title_new_line" style="display: none"><br /></span>Translator
-                                    </a>
-                                </h1>
-                                <p id="main_coop"><a ng-click="routeMe('/text')" title="https://www.translate2018.eu/">{{ 'SUBTITLE' | translate }}</a></p>
-                            </div>
-
-                        </div>
+                    <div class="col-sm-5 col-xs-6 no_padding_left">
+                        <a href="https://www.eu2018.at/" target="_blank" title="https://www.eu2018.at/">
+                            <img id="main_logo_eu2018" src="img/logo.png" alt="https://www.eu2018.at/" title="https://www.eu2018.at/" />
+                        </a>
                     </div>
-                    <div class="col-sm-offset-5 col-sm-2">
-                        <a href="https://eu2018bg.bg/" target="_blank" title="https://eu2018bg.bg/"><img id="main_logo_eu2018" src="img/EU2018bg.svg" alt="eu2018bg.bg" title="eu2018bg.bg" /></a>
+                    <div class="col-sm-4 col-sm-offset-3 col-xs-6 no_padding_right" id="main_menu">
+                        <div class="menu_wrapper">
+                            <div class="dropdown">
+                                <button id="dropdown_button" class="btn btn-primary btn-block dropdown-toggle menu_text" type="button" data-toggle="dropdown">
+                                    <span id="dropdown_open" translate="{{ 'MENU' | translate }}"></span>
+                                    <span id="dropdown_close" translate="{{ 'MENU_CLOSE' | translate }}"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li class="dropdown-menu-first"><a id="menu_about" href="#/about" ng-click="routeMe('/about');" translate="{{ 'MENU_ABOUT' | translate }}" title="{{ 'MENU_ABOUT' | translate }}"></a></li>
+                                    <li class="dropdown-menu-last"><a id="menu_contactUs" href="#/contactUs" ng-click="routeMe('/contactUs');" translate="{{ 'MENU_CONTACT' | translate }}" title="{{ 'MENU_CONTACT' | translate }}"></a></li>
+                                    <li class="dropdown-menu-last"><a id="menu_plugin" href="#/plugin" ng-click="routeMe('/plugin');" translate="{{ 'MENU_PLUGIN' | translate }}" title="{{ 'MENU_PLUGIN' | translate }}"></a></li>
+                                    <!--<li class="dropdown-menu-last"><a id="menu_workshop" href="#/workshop" ng-click="routeMe('/workshop');" translate="{{ 'MENU_WORKSHOP' | translate }}" title="{{ 'MENU_WORKSHOP' | translate }}"></a></li>-->
+                                </ul>
+                            </div>
+                            <div id="language_selection">
+                                <button id="language_selection_en" class="btn lang_select menu_text" ng-class="{ active: language === languages[0] }" ng-model="language" ng-click="setLanguage(languages[0])">EN</button>
+                                <button id="language_selection_de" class="btn lang_select menu_text" ng-class="{ active: language === languages[1] }" ng-model="language" ng-click="setLanguage(languages[1])">DE</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <!--TYPE-->
-        <div ng-show="(!isActive('website') && !isActive('www'))" class="section" id="translation_type_section">
+        <div ng-show="(!isActive('website') && !isActive('www'))" class="section" id="translation_type_section" ng-class="{inIframe: isInIFrame()}">
             <div class="container">
                 <div class="row" id="transl_types">
-                    <div id="translation_types" class="col-sm-8 col-xs-8 no_padding_left no_padding_right">
+                    <div id="translation_types" class="col-sm-8 col-xs-12 no_padding_left no_padding_right">
                         <ul class="list-inline">
-                            <li>
-                                <a id="translation_type_text" href="#/text" ng-click="routeMe('/text');" ng-class="{ active: isActive('text') }" title="{{ 'TEXT' | translate }}" class="transl_type transl_text"><span class="transl_type_long">{{ 'TEXT' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'TEXT_SHORT' | translate }}</span></a>
+                            <li class="transl_text" ng-class="{ active: isActive('text') }">
+                                <a id="translation_type_text" href="#/text" ng-click="routeMe('/text');" ng-class="{ active: isActive('text') }" title="{{ 'TEXT' | translate }}" class="transl_type"><span class="transl_type_long">{{ 'TEXT' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'TEXT_SHORT' | translate }}</span></a>
                             </li>
-                            <li class="hidden-xs">
-                                <a id="translation_type_doc" href="#/document" ng-class="{ active: isActive('document') }" title="{{ 'DOC' | translate }}" class="transl_type transl_document"><span class="transl_type_long">{{ 'DOC' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'DOC_SHORT' | translate }}</span></a>
+                            <li class="hidden-xs transl_document" ng-class="{ active: isActive('document') }">
+                                <a id="translation_type_doc" href="#/document" ng-class="{ active: isActive('document') }" title="{{ 'DOC' | translate }}" class="transl_type"><span class="transl_type_long">{{ 'DOC' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'DOC_SHORT' | translate }}</span></a>
                             </li>
-                            <li>
-                                <a id="translation_type_web" href="#/www" ng-click="routeMe('/www');" ng-class="{ active: isActive('website') || isActive('www')  }" title="{{ 'WEB' | translate }}" class="transl_type transl_website"><span class="transl_type_long">{{ 'WEB' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'WEB_SHORT' | translate }}</span></a>
+                            <li class="transl_website" ng-class="{ active: isActive('website') || isActive('www')  }">
+                                <a id="translation_type_web" href="#/www" ng-click="routeMe('/www');" ng-class="{ active: isActive('website') || isActive('www')  }" title="{{ 'WEB' | translate }}" class="transl_type"><span class="transl_type_long">{{ 'WEB' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'WEB_SHORT' | translate }}</span></a>
                             </li>
                         </ul>
-                    </div>
-                    <div class="col-sm-4 col-xs-4" id="main_menu">
-                        <div class="menu_wrapper">
-                            <div class="dropdown">
-                                <button id="dropdown_button" class="btn btn-primary btn-block dropdown-toggle menu_text" type="button" data-toggle="dropdown" translate="{{ 'MENU' | translate }}"></button>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-menu-first"><a id="menu_about" href="#/about" ng-click="routeMe('/about');" translate="{{ 'MENU_ABOUT' | translate }}" title="{{ 'MENU_ABOUT' | translate }}"></a></li>
-                                    <li class="dropdown-menu-last"><a id="menu_contactUs" href="#/contactUs" ng-click="routeMe('/contactUs');" translate="{{ 'MENU_CONTACT' | translate }}" title="{{ 'MENU_CONTACT' | translate }}"></a></li>
-                                    <li class="dropdown-menu-last"><a id="menu_plugin" href="#/plugin" ng-click="routeMe('/plugin');" translate="{{ 'MENU_PLUGIN' | translate }}" title="{{ 'MENU_PLUGIN' | translate }}"></a></li>
-                                    <li class="dropdown-menu-last"><a id="menu_workshop" href="#/workshop" ng-click="routeMe('/workshop');" translate="{{ 'MENU_WORKSHOP' | translate }}" title="{{ 'MENU_WORKSHOP' | translate }}"></a></li>
-                                </ul>
-                            </div>
-                            <div id="language_selection">
-                                <button id="language_selection_en" class="btn lang_select menu_text" ng-class="{ active: language === languages[0] }" ng-model="language" ng-click="setLanguage(languages[0])">EN</button>
-                                <button id="language_selection_bg" class="btn lang_select menu_text" ng-class="{ active: language === languages[1] }" ng-model="language" ng-click="setLanguage(languages[1])">BG</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div ng-view></div>
         <!--IS A eTRANSLATION SYSTEM-->
-        <div ng-show="sysType.eTranslation && (isActive('text') || isActive('document') || isActive('www'))" class="eTranslation">
+        <div class="eTranslation" ng-class="{ active: sysType.eTranslation == true && (isActive('text') || isActive('document') || isActive('www')) }">
             <p translate="{{ 'ETRANSLATION' | translate }}"></p>
             <p class="warning">Please note: Translating with CEF eTranslation systems may take longer than usual as heavy use is reducing performance. Sorry for the inconvenience.</p>
             <span id="eTranslation_close" class="glyphicon glyphicon-remove-circle" ng-click="sysType.eTranslation = false"></span>

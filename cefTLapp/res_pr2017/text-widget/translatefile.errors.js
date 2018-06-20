@@ -78,4 +78,15 @@ uiResources = $.extend(true, uiResources, {
         "W_TIMEOUT": "Някои изречения не са преведени, защото преводът отне твърде много време.",
         "W_SENTENCE_TOO_LONG": "Някои изречения не са преведени, защото са прекалено дълги."
     },
+    'de': {
+        "E_DEFAULT_ERROR": "Beim Übersetzen ist ein Fehler aufgetreten.",
+        "E_UNKNOWN_FILE_TYPE": "Unbekannter Dateityp.",
+        "E_CANNOT_READ_FILE": "Die Datei kann nicht gelesen werden. Die Datei könnte beschädigt sein.",
+        "E_FAILED_IN_TRANSLATION": "Beim Übersetzen ist ein Fehler aufgetreten.",
+        "E_FORMAT_TRACK_CHANGES": "Übersetzen war nicht möglich, da \"Änderungen nachverfolgen\" aktiviert ist. Die Änderungen müssen zuerst angenommen werden.",
+        "E_UNKNOWN_ERROR": "Ein unbekannter Fehler ist aufgetreten.",
+        "E_UNAUTHORIZED": "Die Übersetzung des Dokuments wurde verweigert.",
+        "W_TIMEOUT": "Manche Sätze wurden nicht übersetzt, da die Übersetzung zu viel Zeit in Anspruch nahm.",
+        "W_SENTENCE_TOO_LONG": "Manche Sätze wurden nicht übersetzt, da sie zu lang sind."
+    },
 });

@@ -863,7 +863,7 @@ div.fancy-select ul.options li.hover {
 #web_menu .button:hover,
 #web_menu .button:focus,
 #web_menu .button:active {
-    background-color: #014e9e;
+    background-color: #e5242e;
 }
 
 
@@ -1170,10 +1170,9 @@ iframe {
 
 #web_logo img {
     margin-left: 25%;
-    width: 80%;
-    height: 80%;
+    width: 72px;
+    height: 72px;
     cursor: pointer;
-    margin-top: 12px;
 }
 
 #web_main #url {
@@ -1217,10 +1216,9 @@ iframe {
     outline: none !important;
 }
 
-    .web_button:focus, .web_button:active, .web_button:hover, .web_button:target {
+    .web_button:focus, .web_button:hover {
         box-shadow: none;
-        border: 1px solid #e5242e !important;
-        color: white !important;
+        border: 1px solid #fff !important;
     }
 
 #web_refresh_button {
@@ -1229,14 +1227,14 @@ iframe {
     height: 33px;
     display: block;
     background-repeat: no-repeat;
-    background-position: 11px 9px;
+    background-position: center center;
+    background-size: 40% 40%;
     margin-right: 10px;
-    background-color: #014e9e;
+    background-color: #e5242e;
     margin-top: -1px;
 }
 
 #web_translateButton {
-    background-color: #014e9e;
     background-image: url(../img/web_search.svg?n=#{Build.BuildID}#);
     width: 32px;
     height: 33px;
@@ -1260,7 +1258,8 @@ iframe {
 }
 
 #web_transl_types li {
-    list-style-type: none;;
+    list-style-type: none;
+    margin-bottom: 8px;
     margin-top: 4px;
 }
 
@@ -1360,7 +1359,7 @@ iframe {
 /*/pages*/
 /*SDL Trados plugin*/
 .plugin_text li {
-    list-style-image: url('../img/Checkmark.svg?n=#{Build.BuildID}#');
+    list-style-image: url('../img/bullet.svg?n=#{Build.BuildID}#');
     line-height: 2;
     margin-left: -14px;
 }
@@ -1438,7 +1437,7 @@ iframe {
 
         /* checked mark aspect */
     [type="checkbox"] + label:after {
-        background-image: url('../img/Checkmark.svg?n=#{Build.BuildID}#');
+        background-image: url('../img/checkmark.svg?n=#{Build.BuildID}#');
         width: 22px;
         height: 14px;
         content: '';
@@ -1467,34 +1466,35 @@ iframe {
 /* /checkbox */
 
 #get_plugin_wrapper {
-    width: 180px;
-    height: 57px;
+    width: 100px;
+    height: 26px;
     border-radius: 3px;
     margin-top: 14px;
     background: #0598e4; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(#0598e4, #0566d4); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(#0598e4, #0566d4); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(#0598e4, #0566d4); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#0598e4, #0566d4); /* Standard syntax */
+    background: -webkit-linear-gradient(#e5242e, #891448); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#e5242e, #891448); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#e5242e, #891448); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#e5242e, #891448); /* Standard syntax */
     -moz-box-shadow: inset 0 7px 1px -6px #40b4ee;
     box-shadow: inset 0 7px 1px -6px #40b4ee;
     -webkit-box-shadow: inset 0 7px 1px -6px #40b4ee;
 }
 
 #get_plugin {
-    width: 180px;
-    height: 57px;
+    width: 100px;
+    height: 26px;
     color: #fff;
-    font-size: 1rem;
-    font-weight: bold;
-    border: 1px solid #0853a1;
+    font-size: 14px;
+    font-weight: normal;
+    border: 1px solid #e5242e;
     border-radius: 3px;
     cursor: pointer;
     background-image: url('../img/Download.svg?n=#{Build.BuildID}#');
     background-size: 16px 16px;
     background-repeat: no-repeat;
     background-color: transparent;
-    background-position: 24px center;
+    background-position: 5px center;
+    padding-left: 24px;
 }
 
     #get_plugin:disabled {

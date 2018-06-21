@@ -183,7 +183,7 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         }
 
         if (word.length) {
-            if ($rootScope.language === 'bg') {
+            if ($rootScope.language === 'de') {
                 return (Bulgarian[word]);
             } else if ($rootScope.language === 'en') {
                 return (English[word]);
@@ -276,7 +276,7 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
     }
 
     var getLangParam = getParameterByName('lang');
-    if (getLangParam == 'bg') {
+    if (getLangParam == 'de') {
         $scope.setLanguage($scope.languages[1])
     }
 });

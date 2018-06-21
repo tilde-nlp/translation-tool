@@ -8,8 +8,9 @@ var app = angular.module("myTranslatorApp", ['ngRoute', 'angular.filter', 'pasca
             'de': 'https://www.tilde.lv/presidency-translator-workshop-registration-de'
         };
         $rootScope.eTranslationSystem = false;
-        $rootScope.sourceLang = 'en';
-        $rootScope.targetlang = 'de';
+        $rootScope.sourceLanguageOrder = ["en", "de", "bg", "cs", "da", "el", "es", "et", "fi", "fr", "ga", "hr", "hu", "it", "lt", "lv", "mt", "nl", "pl", "pt", "ro", "sk", "sl", "sv"];
+        $rootScope.targetLanguageOrder = ["de", "en", "bg", "cs", "da", "el", "es", "et", "fi", "fr", "ga", "hr", "hu", "it", "lt", "lv", "mt", "nl", "pl", "pt", "ro", "sk", "sl", "sv"];
+        console.log('init');
     })
     .filter('trustAsResourceUrl', ['$sce', function ($sce) {
         return function (val) {

@@ -182,7 +182,7 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
             "Schwedisch": "Swedish",
         }
 
-        if (word.length) {
+        if (word) {
             if ($rootScope.language === 'de') {
                 return (Bulgarian[word]);
             } else if ($rootScope.language === 'en') {
@@ -191,6 +191,64 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         }
 
         return word;
+    }
+
+    $scope.getLanguageCode = function(lang) {
+        var languageCodes = {
+            "Bulgarian": "bg",
+            "Croatian": "hr",
+            "Czech": "cs",
+            "Danish": "da",
+            "Dutch": "nl",
+            "English": "en",
+            "Estonian": "et",
+            "Finnish": "fi",
+            "French": "fr",
+            "German": "de",
+            "Greek": "el",
+            "Hungarian": "hu",
+            "Irish": "ga",
+            "Italian": "it",
+            "Latvian": "lv",
+            "Lithuanian": "lt",
+            "Maltese": "mt",
+            "Polish": "pl",
+            "Portuguese": "pt",
+            "Romanian": "ro",
+            "Slovak": "sk",
+            "Slovene": "sl",
+            "Slovenian": "sl",
+            "Spanish": "es",
+            "Swedish": "sv",
+            "Bulgarisch": "bg",
+            "Kroatisch": "hr",
+            "Tschechisch": "cs",
+            "Dänisch": "da",
+            "Niederländisch": "nl",
+            "Englisch": "en",
+            "Estnisch": "et",
+            "Finnisch": "fi",
+            "Französisch": "fr",
+            "Deutsch": "de",
+            "Griechisch": "el",
+            "Ungarisch": "hu",
+            "Irisch": "ga",
+            "Italienisch": "it",
+            "Lettisch": "lv",
+            "Litauisch": "lt",
+            "Maltesisch": "mt",
+            "Polnisch": "pl",
+            "Portugiesisch": "pt",
+            "Rumänisch": "ro",
+            "Slowakisch": "sk",
+            "Slowenisch": "sl",
+            "Spanisch": "es",
+            "Schwedisch": "sv",
+        }
+        if (languageCodes[lang]) {
+            return languageCodes[lang];
+        }
+        return 'en';
     }
 
     $scope.setLanguage = function (newLang) {
@@ -234,11 +292,78 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
             });
         } else {
             $(".options.open").removeClass("open");            
-            if (target.is(".popSourceLangs li") || target.is(".popTargetLangs li") || target.is(".fancy-select ul.options li")) {
-                console.log(target.text() + console.log(target.attr("data-value")));
+
+            let srcLng = $rootScope.sourceLanguageOrder[0];
+            let trgLng = $rootScope.targetLanguageOrder[0];
+
+            if (target.is(".popSourceLangs li")) {
+                _tempSource = target.text();
+
+                if (_tempSource === getCurrentTargetLang()) {
+                    trgLng = getCurrentSourceLang();
+                } else {
+                    trgLng = getCurrentTargetLang();
+                }
+
+                srcLng = _tempSource;
+
+            } else if (target.is(".popTargetLangs li")) {
+                trgLng = target.text();
+                srcLng = getCurrentSourceLang();
+            } else if (target.is("#source_lang_div .fancy-select ul.options li")) {
+                srcLng = target.text();
+                trgLng = getCurrentTargetLang()
+            } else if (target.is("#target_lang_div .fancy-select ul.options li")) {
+                trgLng = target.text();
+                srcLng = getCurrentSourceLang();
+            } else if (target.is('.swapLanguage') || target.is('#language_selection button')) {
+                srcLng = getCurrentSourceLang();
+                trgLng = getCurrentTargetLang();
+            }
+
+            // renews language order
+            let srcCode = $scope.getLanguageCode(srcLng);
+            let arrLngth = $rootScope.sourceLanguageOrder.length;
+            for (var i = 0; i < arrLngth; i++) {
+                if ($rootScope.sourceLanguageOrder[i] === srcCode) {
+                    let arrIndx = i;
+                    $rootScope.sourceLanguageOrder = array_move($rootScope.sourceLanguageOrder, i, 0);
+                    $rootScope.apply;
+                    break;
+                }
+            }
+
+            let trgCode = $scope.getLanguageCode(trgLng);
+            arrLngth = $rootScope.targetLanguageOrder.length;
+            for (var i = 0; i < arrLngth; i++) {
+                if ($rootScope.targetLanguageOrder[i] === trgCode) {
+                    let arrIndx = i;
+                    $rootScope.targetLanguageOrder = array_move($rootScope.targetLanguageOrder, i, 0);
+                    $rootScope.apply;
+                    break;
+                }
             }
         }
     });
+
+    function getCurrentSourceLang() {
+        return $(".popSourceLangs li.active").first().text();
+    }
+
+    function getCurrentTargetLang() {
+        return $(".popTargetLangs li.active").first().text();
+    }
+
+    function array_move(arr, old_index, new_index) {
+        if (new_index >= arr.length) {
+            var k = new_index - arr.length + 1;
+            while (k--) {
+                arr.push(undefined);
+            }
+        }
+        arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+        return arr; // for testing
+    };
 
     // check if the system is from eTranslation
     $scope.isETranslationSystem = function (activeSys) {
@@ -315,15 +440,18 @@ function initTextWidget($scope, $rootScope) {
                    if (isCharacterKeyPress(e) && $scope.isActive('www') && !$("#url").is(":focus")) {
                        $(".bigText input").focus();
                    }
-               });
+                });
         },
         _replaceContainer: false,
         _useRecentLangSelector: true,
-        _defaultSourceLang: 'en',
-        _defaultTargetLang: 'de',
+        //_defaultSourceLang: 'en',
+        //_defaultTargetLang: 'de',
+        _sourceLanguageOrder: $rootScope.sourceLanguageOrder,
+        _targetLanguageOrder: $rootScope.targetLanguageOrder,
         _replaceSourceWithBlock: 'false',
         _onSystemChanged: function () {
             $scope.isETranslationSystem($widget.activeSystemId);
+              
         },
         _onWidgetTemplateLoaded: function () {
             $widget.pluginInitializers = [];
@@ -331,7 +459,7 @@ function initTextWidget($scope, $rootScope) {
             $widget.pluginInitializers.push(Tilde.TranslatorWidget.prototype.recentlangsPluginInit);
         },
     });
-    
+
     $scope.setLanguage($rootScope.language);
 }
 
@@ -365,8 +493,10 @@ function initFileWidget($scope, $rootScope) {
         _translateUrl: 'https://letsmt.eu/ws/Files/StartTranslation',
         _previewUrl: 'https://letsmt.eu/ws/Files/GetDocumentPreview',
         _checkStatusUrl: 'https://letsmt.eu/ws/Files/GetStatus',
-        _defaultSourceLang: 'en',
-        _defaultTargetLang: 'de',
+        //_defaultSourceLang: 'en',
+        //_defaultTargetLang: 'de',
+        _sourceLanguageOrder: $rootScope.sourceLanguageOrder,
+        _targetLanguageOrder: $rootScope.targetLanguageOrder,
         _clientId: $clientId,
         _templateId: 'translatefile-template',
         _appId: "Tilde|EU Presidency|Web",
@@ -400,7 +530,6 @@ function initFileWidget($scope, $rootScope) {
         _showAllowedFileInfo: true,
         _replaceContainer: false,
         _useRecentLangSelector: true,
-        //_customSelectText: '&nbsp;',
         _onSystemChanged: function () {
             $scope.isETranslationSystem($widget.activeSystemId);
         },
@@ -413,8 +542,9 @@ function initFileWidget($scope, $rootScope) {
                // removes the popup bug from transition from website to document transition
         },
     });
-
+    
     $scope.setLanguage($rootScope.language);
+
 }
 
 
@@ -429,8 +559,10 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
         _clientId: $clientId,
         _systemSelectType: 'language',
         _appId: "Tilde|EU Presidency|Web",
-        _defaultSourceLang: 'en',
-        _defaultTargetLang: 'de',
+        //_defaultSourceLang: 'en',
+        //_defaultTargetLang: 'de',
+        _sourceLanguageOrder: $rootScope.sourceLanguageOrder,
+        _targetLanguageOrder: $rootScope.targetLanguageOrder,
         _getFilteredSystems: false,
         _replaceSourceWithBlock: 'false',
         _apiIsInTheSameDomain: false,
@@ -440,7 +572,7 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
         _websiteTranslationUrl: "https://readymt.tilde.com/Translate/WebsiteEmbedded?embeddedStyle=noUI", // address of website translation page (that uses TranslateProxy)
         _systemListUrl: 'https://letsmt.eu/ws/service.svc/json/GetSystemList',
         _onWidgetLoaded: function () {
-                    localizeLanguages($scope, $rootScope);
+            localizeLanguages($scope, $rootScope);
         },
         _onSystemChanged: function () {
             $scope.isETranslationSystem($widget.activeSystemId);
@@ -451,6 +583,7 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
             $widget.pluginInitializers.push(Tilde.TranslatorWidget.prototype.recentlangsPluginInit);
         },
     });
+
 
     $scope.setLanguage($rootScope.language);
        

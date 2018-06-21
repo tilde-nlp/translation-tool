@@ -32,7 +32,7 @@ Tilde.TranslatorWidgetDefaultOptions = {
     _onWidgetLoaded: null, //on widget fully loaded callback function
     _onWidgetTemplateLoaded: null, //on widget template shown callback function
     _loginUrl: null, // where to redirect if http status 401 (not authorized) is received
-    _sourceLanguageOrder: null, //force order of source languages if _systemSelectType = "language" or "domain"
+    _sourceLanguageOrder: null , //force order of source languages if _systemSelectType = "language" or "domain"
     _targetLanguageOrder: null //force order of target languages if _systemSelectType = "language" or "domain"
 };
 

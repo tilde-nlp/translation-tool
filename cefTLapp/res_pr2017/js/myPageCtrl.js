@@ -11,6 +11,9 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         console.log(err.message);
     }*/
 
+    $scope.sourceLanguageOrder = ["en", "de", "bg", "cs", "da", "el", "es", "et", "fi", "fr", "ga", "hr", "hu", "it", "lt", "lv", "mt", "nl", "pl", "pt", "ro", "sk", "sl", "sv"];
+    $scope.targetLanguageOrder = ["de", "en", "bg", "cs", "da", "el", "es", "et", "fi", "fr", "ga", "hr", "hu", "it", "lt", "lv", "mt", "nl", "pl", "pt", "ro", "sk", "sl", "sv"];
+
     $scope.isActive = function (viewLocation) {
         var active = ("/" + viewLocation === $location.path());
         return active;
@@ -293,8 +296,8 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         } else {
             $(".options.open").removeClass("open");            
 
-            let srcLng = $rootScope.sourceLanguageOrder[0];
-            let trgLng = $rootScope.targetLanguageOrder[0];
+            let srcLng = '';
+            let trgLng = '';
 
             if (target.is(".popSourceLangs li")) {
                 _tempSource = target.text();
@@ -321,25 +324,40 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
                 trgLng = getCurrentTargetLang();
             }
 
+            var srcCode = '', trgCode = '';
+            if (!srcLng.length) {
+                srcCode = $scope.sourceLanguageOrder[0]
+            } else {
+                srcCode = $scope.getLanguageCode(srcLng);
+            }
+
+            if (!trgLng.length) {
+                trgCode = $scope.targetLanguageOrder[0]
+            } else {
+                trgCode = $scope.getLanguageCode(trgLng);
+            }
+
             // renews language order
-            let srcCode = $scope.getLanguageCode(srcLng);
-            let arrLngth = $rootScope.sourceLanguageOrder.length;
+            let srcArr = $scope.sourceLanguageOrder;
+            console.log(srcCode + ':  '+ srcArr);
+            console.log($scope.sourceLanguageOrder);
+            let arrLngth = srcArr.length;
             for (var i = 0; i < arrLngth; i++) {
-                if ($rootScope.sourceLanguageOrder[i] === srcCode) {
+                if (srcArr[i] === srcCode && i != 0) {
                     let arrIndx = i;
-                    $rootScope.sourceLanguageOrder = array_move($rootScope.sourceLanguageOrder, i, 0);
-                    $rootScope.apply;
+                    srcArr = array_move(srcArr, i, 0);
+                    $scope.sourceLanguageOrder = srcArr;
                     break;
                 }
             }
 
-            let trgCode = $scope.getLanguageCode(trgLng);
-            arrLngth = $rootScope.targetLanguageOrder.length;
+            let trgArr = $scope.targetLanguageOrder;
+            arrLngth = trgArr.length;
             for (var i = 0; i < arrLngth; i++) {
-                if ($rootScope.targetLanguageOrder[i] === trgCode) {
+                if (trgArr[i] === trgCode) {
                     let arrIndx = i;
-                    $rootScope.targetLanguageOrder = array_move($rootScope.targetLanguageOrder, i, 0);
-                    $rootScope.apply;
+                    trgArr = array_move(trgArr, i, 0);
+                        $scope.targetLanguageOrder = trgArr;
                     break;
                 }
             }
@@ -411,7 +429,6 @@ app.controller('TranslateCtrl', function ($scope, $routeParams, $rootScope) {
     $('#webWidget').empty();
 
     $scope.sysType.eTranslation = false;
-
     initTextWidget($scope, $rootScope);
 });
 
@@ -432,22 +449,22 @@ function initTextWidget($scope, $rootScope) {
                 localizeLanguages($scope, $rootScope);
             }
             $(document)
-               .keydown(function (e) {
-                   if (isCharacterKeyPress(e) && $scope.isActive('text')) {
-                       $(".translateTextSource").click();
+                .keydown(function (e) {
+                    if (isCharacterKeyPress(e) && $scope.isActive('text')) {
+                        $(".translateTextSource").click();
 
-                   }
-                   if (isCharacterKeyPress(e) && $scope.isActive('www') && !$("#url").is(":focus")) {
-                       $(".bigText input").focus();
-                   }
+                    }
+                    if (isCharacterKeyPress(e) && $scope.isActive('www') && !$("#url").is(":focus")) {
+                        $(".bigText input").focus();
+                    }
                 });
         },
         _replaceContainer: false,
         _useRecentLangSelector: true,
         //_defaultSourceLang: 'en',
         //_defaultTargetLang: 'de',
-        _sourceLanguageOrder: $rootScope.sourceLanguageOrder,
-        _targetLanguageOrder: $rootScope.targetLanguageOrder,
+        _sourceLanguageOrder: $scope.sourceLanguageOrder,
+        _targetLanguageOrder: $scope.targetLanguageOrder,
         _replaceSourceWithBlock: 'false',
         _onSystemChanged: function () {
             $scope.isETranslationSystem($widget.activeSystemId);
@@ -495,8 +512,8 @@ function initFileWidget($scope, $rootScope) {
         _checkStatusUrl: 'https://letsmt.eu/ws/Files/GetStatus',
         //_defaultSourceLang: 'en',
         //_defaultTargetLang: 'de',
-        _sourceLanguageOrder: $rootScope.sourceLanguageOrder,
-        _targetLanguageOrder: $rootScope.targetLanguageOrder,
+        _sourceLanguageOrder: $scope.sourceLanguageOrder,
+        _targetLanguageOrder: $scope.targetLanguageOrder,
         _clientId: $clientId,
         _templateId: 'translatefile-template',
         _appId: "Tilde|EU Presidency|Web",
@@ -561,8 +578,8 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
         _appId: "Tilde|EU Presidency|Web",
         //_defaultSourceLang: 'en',
         //_defaultTargetLang: 'de',
-        _sourceLanguageOrder: $rootScope.sourceLanguageOrder,
-        _targetLanguageOrder: $rootScope.targetLanguageOrder,
+        _sourceLanguageOrder: $scope.sourceLanguageOrder,
+        _targetLanguageOrder: $scope.targetLanguageOrder,
         _getFilteredSystems: false,
         _replaceSourceWithBlock: 'false',
         _apiIsInTheSameDomain: false,

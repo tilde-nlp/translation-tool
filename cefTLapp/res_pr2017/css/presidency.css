@@ -444,9 +444,6 @@ div.fancy-select ul.options li.hover {
 .text .translateTextResult.translateTextTemp, .text .translateTextTempSourceContainer.translateTextTemp {
     padding: 15px;
 }
-.text .translateTextResult.translateTextTemp {
-    padding-left: 0px;
-}
 
 #sourceText {
     position: absolute;
@@ -791,13 +788,6 @@ div.fancy-select ul.options li.hover {
     font-size: 1em;
     position: relative;
     font-style: italic;
-}
-.text .translateTextResult.translateTextTemp, .text .translateTextTempSourceContainer.translateTextTemp {
-    padding: 15px;
-}
-
-.text .translateTextResult.translateTextTemp {
-    padding-left: 0px;
 }
 
 #sourceText {
@@ -1797,6 +1787,16 @@ iframe {
         margin-right: 10px;
     }
 
+    .row.menu-row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+        .row.menu-row #source_lang_div,
+        .row.menu-row #target_lang_div {
+            padding-left: 0;
+        }
+
     #fileWidget #widget_section .container {
         width: 100%;
         margin-left: 0px;
@@ -1857,7 +1857,7 @@ iframe {
     }
 
     #translate_button_div {
-        margin-top: 7px;
+        margin-top: 11px;
     }
 
     .translateSourceSystemLabel, .translateTargetSystemLabel, .fancy-select {
@@ -1898,6 +1898,12 @@ iframe {
     }
     #main_menu {
         width: 100%;
+    }
+}
+
+@media (max-width: 464px) {
+    .translateTextTemp {
+        padding-left: 0 !important;
     }
 }
 
@@ -2062,14 +2068,14 @@ iframe {
 @media (min-height: 900px) {
     .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
         min-height: 600px !important;
-        height: 600px;
+        height: 650px;
     }
 }
 
 @media (min-height: 1000px) {
     .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
         min-height: 700px !important;
-        height: 700px;
+        height: 800px;
     }
 }
 

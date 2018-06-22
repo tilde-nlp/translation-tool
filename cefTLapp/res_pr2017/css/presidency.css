@@ -253,6 +253,8 @@ div.fancy-select ul.options.open {
 
 .infoMessageBox {
     font-size: 0.9rem !important;
+    color: #e5242e;
+    margin-top: 8px;
 }
 
 #translation_type_section {

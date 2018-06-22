@@ -108,8 +108,8 @@ var uiResources = {
         "bg": "Български"
     },
     'de': {
-        "sourceSystem": "Ausgangssprache:",
-        "targetSystem": "Zielsprache:",
+        "sourceSystem": "Aus:",
+        "targetSystem": "Zu:",
         "systemSelect": "System",
         "swapLanguage": "Rückgängig machen",
         "translateButton": "Übersetzen",

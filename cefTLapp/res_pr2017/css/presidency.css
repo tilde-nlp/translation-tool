@@ -154,7 +154,7 @@ button.lang_select:focus {
 
 #language_selection button.active, #language_selection button:target, #language_selection button:active {
     box-shadow: none;
-    text-decoration: none;
+    text-decoration: underline;
 }
 
 

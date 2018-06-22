@@ -339,8 +339,6 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
 
             // renews language order
             let srcArr = $scope.sourceLanguageOrder;
-            console.log(srcCode + ':  '+ srcArr);
-            console.log($scope.sourceLanguageOrder);
             let arrLngth = srcArr.length;
             for (var i = 0; i < arrLngth; i++) {
                 if (srcArr[i] === srcCode && i != 0) {

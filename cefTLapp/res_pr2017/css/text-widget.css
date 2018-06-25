@@ -28,7 +28,7 @@
 .verticalLine {
     border-left: 1px solid #96abbd;
     position: absolute;
-    top: 210px;
+    top: 190px;
     bottom: 0px;
     left: 50%;
 }
@@ -39,7 +39,7 @@
 
 @media (max-width: 525px) {
     .verticalLine {
-        top: 180px;
+        top: 140px;
     }
     .verticalLine.inIframe {
         top: 64px;

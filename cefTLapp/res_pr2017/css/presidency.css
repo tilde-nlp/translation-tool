@@ -253,6 +253,8 @@ div.fancy-select ul.options.open {
 
 .infoMessageBox {
     font-size: 0.9rem !important;
+    color: #e5242e;
+    margin-top: 8px;
 }
 
 #translation_type_section {
@@ -327,6 +329,7 @@ div.fancy-select ul.options.open {
 }
 
 div.fancy-select div.trigger {
+    margin-top: -1px;
     padding-right: 1.5em;
     padding-left: 0.3em;
      -webkit-touch-callout: none; /* iOS Safari */
@@ -336,6 +339,7 @@ div.fancy-select div.trigger {
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
+
     div.fancy-select div.trigger:after {
         content: '';
         display: block;
@@ -442,9 +446,6 @@ div.fancy-select ul.options li.hover {
 .text .translateTextResult.translateTextTemp, .text .translateTextTempSourceContainer.translateTextTemp {
     padding: 15px;
 }
-.text .translateTextResult.translateTextTemp {
-    padding-left: 0px;
-}
 
 #sourceText {
     position: absolute;
@@ -477,7 +478,7 @@ div.fancy-select ul.options li.hover {
     background-color: #e5242e;
     color: #fff;
     border-radius: 3px;
-    font-size: 0.875rem;
+    font-size: 14px;
     padding: 5px 18px;
     margin: 0;
     display: inline;
@@ -730,17 +731,6 @@ web_container .translateContainerHeader {
     color: #e5242e;
 }
 
-div.fancy-select div.trigger {
-    padding-right: 1.5em;
-    padding-left: 0.3em;
-     -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-       -moz-user-select: none; /* Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
-}
-
 div.fancy-select ul.options {
     border: 1px solid lightgray;
     border-radius: 1px;
@@ -801,13 +791,6 @@ div.fancy-select ul.options li.hover {
     position: relative;
     font-style: italic;
 }
-.text .translateTextResult.translateTextTemp, .text .translateTextTempSourceContainer.translateTextTemp {
-    padding: 15px;
-}
-
-.text .translateTextResult.translateTextTemp {
-    padding-left: 0px;
-}
 
 #sourceText {
     position: absolute;
@@ -840,7 +823,7 @@ div.fancy-select ul.options li.hover {
     background-color: #e5242e;
     color: #fff;
     border-radius: 3px;
-    font-size: 0.875rem;
+    font-size: 14px;
     padding: 5px 18px;
     margin: 0;
     display: inline;
@@ -858,6 +841,15 @@ div.fancy-select ul.options li.hover {
         background-color: #e5242e;
         text-decoration: none;
     }
+
+#source_lang_div {
+    margin-right: 4.3%;
+}
+
+#target_lang_div {
+    margin-right: -4.3%;
+    z-index: 999;
+}
 
 #web_menu .button,
 #web_menu .button:hover,
@@ -1245,7 +1237,7 @@ iframe {
 }
 
 #web_main .swapLanguage {
-    margin-right: 0px;
+    margin: 0 auto;
     background-image: url(../img/swap.png?n=#{Build.BuildID}#);
 }
 
@@ -1265,7 +1257,7 @@ iframe {
 
     #web_transl_types li a {
         color: #fff;
-        font-size: 16px;
+        font-size: 14px;
         padding: 4px 12px;
         line-height: 1.5;
         outline: none;
@@ -1550,7 +1542,7 @@ iframe {
 }
 
 #workshop_about li {
-    font-size: 1rem;
+    font-size: 16px;
     line-height: 2;
 }
 
@@ -1605,7 +1597,7 @@ iframe {
 
 .article p {
     margin-top: 14px;
-    font-size: 1rem;
+    font-size: 16px;
     margin-left: 0px;
     margin-right: 0px;
     text-align: justify;
@@ -1687,12 +1679,19 @@ iframe {
 }
 
 #web_main a.translateButton {
-    font-size: 1rem;
+    font-size: 14px;
     margin-left: 0 !important;
     margin-right: 0 !important;
     padding-right: 8px !important;
     padding-left: 8px !important;
 }
+
+    #web_main a.translateButton,
+    #web_main a.cancelButton,
+    #web_main a.restoreButto {
+        float: right;
+        margin-top: 0px !important;
+    }
 
 /* CUSTOM SCROLLBAR */
 ::-webkit-scrollbar {
@@ -1719,24 +1718,9 @@ iframe {
 /* /CUSTOM SCROLLBAR */
 
 @media (max-width: 1199px) {
-    #web_transl_types .transl_type_long {
-        display: none;
-    }
 
-    #web_transl_types .transl_type_short {
-        display: inline !important;
-    }
-    #web_main #address {
-        margin-left: 15px;
-    }
-    #web_main .translateSourceSystemLabel {
-        margin-left: 15px;
-    }
-    #web_source_lang_div .trigger {
-        margin-left: 15px;
-    }
 }
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
     .popSourceLangs {
 		display: none;
 	}
@@ -1764,7 +1748,26 @@ iframe {
 
     #translation_types .transl_type_short {
         display: inline !important;
-        /*font-size: 1rem;*/
+    }
+
+    #web_transl_types .transl_type_long {
+        display: none;
+    }
+
+    #web_transl_types .transl_type_short {
+        display: inline !important;
+    }
+
+    #web_main #address {
+        margin-left: 15px;
+    }
+
+    #web_main .translateSourceSystemLabel {
+        margin-left: 15px;
+    }
+
+    #web_source_lang_div .trigger {
+        margin-left: 15px;
     }
 }
 
@@ -1785,6 +1788,16 @@ iframe {
         margin-left: 10px;
         margin-right: 10px;
     }
+
+    .row.menu-row {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+        .row.menu-row #source_lang_div,
+        .row.menu-row #target_lang_div {
+            padding-left: 0;
+        }
 
     #fileWidget #widget_section .container {
         width: 100%;
@@ -1810,6 +1823,10 @@ iframe {
     #web_main {
         padding-left: 0px;
     }
+
+    #web_transl_types ul {
+        padding-right: 0;
+    }
 }
 
 @media (max-width: 800px) {
@@ -1820,7 +1837,7 @@ iframe {
 
 @media (max-width: 767px) {
     .button {
-        font-size: 1rem;
+        font-size: 14px;
         margin-left: 0 !important;
         margin-right: 0 !important;
         padding-right: 8px !important;
@@ -1839,11 +1856,10 @@ iframe {
     .translate_column_height {
         padding-left: 0px;
         padding-right: 0px;
-        padding-top: 12px;
     }
 
     #translate_button_div {
-        margin-top: 7px;
+        margin-top: 11px;
     }
 
     .translateSourceSystemLabel, .translateTargetSystemLabel, .fancy-select {
@@ -1884,6 +1900,12 @@ iframe {
     }
     #main_menu {
         width: 100%;
+    }
+}
+
+@media (max-width: 464px) {
+    .translateTextTemp {
+        padding-left: 0 !important;
     }
 }
 
@@ -1954,7 +1976,7 @@ iframe {
     }
 }
 
-@media (min-width: 1001px) {
+@media (min-width: 1201px) {
     .trigger {
           text-indent: -9999px;
           white-space: nowrap;
@@ -2048,14 +2070,14 @@ iframe {
 @media (min-height: 900px) {
     .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
         min-height: 600px !important;
-        height: 600px;
+        height: 650px;
     }
 }
 
 @media (min-height: 1000px) {
     .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
         min-height: 700px !important;
-        height: 700px;
+        height: 800px;
     }
 }
 

@@ -1280,8 +1280,8 @@ iframe {
 }
 
 #websiteFrameContainer {
-    -webkit-overflow-scrolling: touch;
-    overflow-y: scroll;
+    overflow: scroll !important;
+    -webkit-overflow-scrolling: touch !important;
 }
 
 #websiteFrame {

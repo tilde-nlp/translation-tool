@@ -1287,6 +1287,8 @@ iframe {
     right: 0;
     height: calc(100% - 115px);
     width: 100%;
+    -webkit-overflow-scrolling: touch;
+    overflow: auto;
 }
 
 .no-ui#letsmt-translate-page-content #letsmt-translate-page-iframe-container {

@@ -1279,7 +1279,7 @@ iframe {
     padding-right: 15%;
 }
 
-#websiteFrame {
+#websiteFrameContainer {
     position: absolute;
     bottom: 0;
     top: 102px;
@@ -1287,8 +1287,13 @@ iframe {
     right: 0;
     height: calc(100% - 115px);
     width: 100%;
-    -webkit-overflow-scrolling: touch;
-    overflow: auto;
+    -webkit-overflow-scrolling: touch !important;
+    overflow: scroll !important;
+}
+
+#websiteFrame {
+    width: 100%;
+    height: calc(100% - 115px);
 }
 
 .no-ui#letsmt-translate-page-content #letsmt-translate-page-iframe-container {

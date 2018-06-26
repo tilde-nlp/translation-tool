@@ -36,7 +36,7 @@ body {
 }
 
 #dropdown_button {
-    background-image: url(../img/menu.png?n=#{Build.BuildID}#);
+    background-image: url(../img/menu.svg?n=#{Build.BuildID}#);
     background-color: transparent;
     background-repeat: no-repeat;
     background-position: top center;

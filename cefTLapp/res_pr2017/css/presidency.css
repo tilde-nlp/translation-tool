@@ -1279,6 +1279,11 @@ iframe {
     padding-right: 15%;
 }
 
+#websiteFrameContainer {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: scroll;
+}
+
 #websiteFrame {
     position: absolute;
     bottom: 0;

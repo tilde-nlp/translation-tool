@@ -1293,7 +1293,7 @@ iframe {
 
 #websiteFrame {
     width: 100%;
-    height: calc(100% - 115px);
+    height: 100%;
 }
 
 .no-ui#letsmt-translate-page-content #letsmt-translate-page-iframe-container {

@@ -1695,9 +1695,9 @@ iframe {
 
     #web_main a.translateButton,
     #web_main a.cancelButton,
-    #web_main a.restoreButto {
+    #web_main a.restoreButton {
         float: right;
-        margin-top: 0px !important;
+        margin-top: -5px !important;
     }
 
 /* CUSTOM SCROLLBAR */

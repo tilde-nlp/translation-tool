@@ -735,10 +735,8 @@ div.fancy-select ul.options {
     border: 1px solid lightgray;
     border-radius: 1px;
     left: 0;
-}
-
-div.fancy-select ul.options {
-    min-width: 110px;
+    min-width: 120px;
+    overflow-x: hidden;
 }
 
 div.fancy-select ul.options li {
@@ -1288,7 +1286,7 @@ iframe {
     height: calc(100% - 115px);
     width: 100%;
     -webkit-overflow-scrolling: touch !important;
-    overflow: scroll !important;
+    /* overflow: scroll !important; */
 }
 
 #websiteFrame {
@@ -1920,6 +1918,11 @@ iframe {
     #web_links_container {
         margin-left: 5%;
         margin-top: 5%;
+    }
+
+    #web_source_lang_div .trigger,
+    #web_main #address {
+        margin-left: -5px;
     }
 }
 

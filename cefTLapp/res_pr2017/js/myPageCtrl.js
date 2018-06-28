@@ -313,10 +313,10 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
             } else if (target.is(".popTargetLangs li")) {
                 trgLng = target.text();
                 srcLng = getCurrentSourceLang();
-            } else if (target.is("#source_lang_div .fancy-select ul.options li")) {
+            } else if (target.is("#source_lang_div .fancy-select ul.options li") || target.is("#web_source_lang_div .fancy-select ul.options li")) {
                 srcLng = target.text();
                 trgLng = getCurrentTargetLang()
-            } else if (target.is("#target_lang_div .fancy-select ul.options li")) {
+            } else if (target.is("#target_lang_div .fancy-select ul.options li") || target.is("#web_target_lang_div .fancy-select ul.options li")) {
                 trgLng = target.text();
                 srcLng = getCurrentSourceLang();
             } else if (target.is('.swapLanguage') || target.is('#language_selection button')) {

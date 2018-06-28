@@ -105,7 +105,7 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
             "Slovenian": "Slowenisch",
             "Spanish": "Spanisch",
             "Swedish": "Schwedisch",
-            // bg -> en
+            // de -> en
             "Bulgarisch": "Bulgarisch",
             "Kroatisch": "Kroatisch",
             "Tschechisch": "Tschechisch",
@@ -158,7 +158,7 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
             "Slovenian": "Slovenian",
             "Spanish": "Spanish",
             "Swedish": "Swedish",
-            // en->bg
+            // en->de
             "Bulgarisch": "Bulgarian",
             "Kroatisch": "Croatian",
             "Tschechisch": "Czech",
@@ -359,6 +359,8 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
                     break;
                 }
             }
+
+            localizeLanguages($scope, $rootScope);
         }
     });
 

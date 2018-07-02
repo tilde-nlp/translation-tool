@@ -28,6 +28,9 @@ body {
     padding-top: 5px;
 }
 
+#main_logo_wrapper {
+    display: inline-table;
+}
 #main_logo_eu2018 {
     width: auto;
     display: block;
@@ -35,21 +38,42 @@ body {
     margin-top: 16px;
 }
 
-#dropdown_button {
-    background-image: url(../img/menu.svg?n=#{Build.BuildID}#);
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-position: top center;
-    border: none;
-    text-align: left;
-    padding-top: 34px;
-    background-size: 32px 32px;
-    margin-top: 8px;
-    text-align: center;
-    color: #e5242e;
-    font-size: .8rem;
-    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+#main_title_wrapper {
+    display: inline-table;
+    vertical-align: top;
+    margin-left: 16px;
 }
+
+h1#main_title {
+    margin-top: 13px;
+}
+
+#main_title a {
+    color: #e5242e;
+    vertical-align: middle;
+    display: table-cell;
+    cursor: pointer;
+}
+
+    #main_title a:hover {
+        text-decoration: none;
+    }
+
+    #dropdown_button {
+        background-image: url(../img/menu.svg?n=#{Build.BuildID}#);
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-position: top center;
+        border: none;
+        text-align: left;
+        padding-top: 34px;
+        background-size: 32px 32px;
+        margin-top: 8px;
+        text-align: center;
+        color: #e5242e;
+        font-size: .8rem;
+        text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+    }
 
     #dropdown_button:focus {
         outline: none;
@@ -1714,14 +1738,15 @@ iframe {
     background: rgba(232, 234, 236, 0.4);
 }
 /* /CUSTOM SCROLLBAR */
-
-@media (max-width: 1199px) {
-
-}
 @media (max-width: 1200px) {
+    #main_title {
+        font-size: 28px;
+        margin-top: 13px;
+    }
+
     .popSourceLangs {
-		display: none;
-	}
+        display: none;
+    }
     .popTargetLangs {
 		display: none;
 	}
@@ -1766,6 +1791,16 @@ iframe {
 
     #web_source_lang_div .trigger {
         margin-left: 15px;
+    }
+}
+
+@media (max-width: 991px) {
+    #main_title {
+        font-size: 20px;
+    }
+
+    #title_new_line {
+        display: inline !important;
     }
 }
 
@@ -1834,6 +1869,10 @@ iframe {
 }
 
 @media (max-width: 767px) {
+    #main_title {
+        font-size: 18px;
+    }
+
     .button {
         font-size: 14px;
         margin-left: 0 !important;
@@ -1869,7 +1908,36 @@ iframe {
     }
 }
 
+@media (max-width: 696px) {
+    #main_title_wrapper {
+        margin-left: 0;
+        margin-bottom: 0;
+        line-height: 1.2;
+    }
+
+    #main_title {
+        font-size: 18px;
+    }
+
+    #main_logo_wrapper,
+    #main_logo_eu2018 {
+        display: none;
+    }
+
+    #title_new_line {
+        display: none !important;
+    }
+}
+
 @media (max-width: 612px) {
+    #title_col {
+        width: 60%;
+    }
+
+    #main_menu {
+        width: 40%;
+    }
+
     .dropdown {
         width: 54px;
     }
@@ -1887,17 +1955,18 @@ iframe {
         margin-left: 0px;
     }
 
-    .translateSourceSystemLabel, .translateTargetSystemLabel{
-        display:none;
+    .translateSourceSystemLabel, .translateTargetSystemLabel {
+        display: none;
     }
 }
 
-@media (max-width: 480px) {
-    #main_logo_eu2018 {
-        display: none;
+@media (max-width: 540px) {
+    #main_title_wrapper {
+        margin-top: 0;
     }
-    #main_menu {
-        width: 100%;
+
+    #main_title {
+        font-size: 2.7vh;
     }
 }
 
@@ -1905,9 +1974,20 @@ iframe {
     .translateTextTemp {
         padding-left: 0 !important;
     }
+    #title_new_line {
+        display: inline !important;
+    }
 }
 
 @media (max-width: 400px) {
+    #title_col {
+        width: 50%;
+    }
+
+    #main_menu {
+        width: 50%;
+    }
+
     #web_links_container {
         margin-left: 5%;
         margin-top: 5%;
@@ -1919,9 +1999,16 @@ iframe {
     }
 }
 
+@media (max-width: 333px) {
+    #main_title {
+        font-size: 14px;
+    }
+}
 @media (max-width: 320px) {
-    #main {
-        margin-left: -15px;
+    #main_title {
+        font-size: 16px;
+        margin-bottom: 0;
+        height: 56px;
     }
 
     .text .translateTextResult, .text .translateTextSource {

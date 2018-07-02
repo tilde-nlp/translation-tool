@@ -76,12 +76,17 @@
         <div id="main_section" ng-hide="isActive('website') || isActive('www') || isInIFrame()" class="section">
             <div class="container">
                 <div class="row" id="main">
-                    <div class="col-sm-5 col-xs-6 no_padding_left">
-                        <a href="https://www.eu2018.at/" target="_blank" title="https://www.eu2018.at/">
-                            <img id="main_logo_eu2018" src="img/logo.svg?n=#{Build.BuildID}#" alt="https://www.eu2018.at/" title="https://www.eu2018.at/" />
-                        </a>
+                    <div class="col-sm-9 col-xs-7 no_padding_left no_padding_right" id="title_col">
+                        <div id="main_logo_wrapper">
+                            <a href="https://www.eu2018.at/" target="_blank" title="https://www.eu2018.at/">
+                                <img id="main_logo_eu2018" src="img/logo.svg?n=#{Build.BuildID}#" alt="https://www.eu2018.at/" title="https://www.eu2018.at/" />
+                            </a>
+                        </div>
+                        <div id="main_title_wrapper">
+                            <h1 id="main_title"><a ng-click="routeMe('/text')" title="https://www.translate2018.eu/">EU Council Presidency<span id="title_new_line" style="display: none"><br /></span> Translator</a></h1>
+                        </div>
                     </div>
-                    <div class="col-sm-4 col-sm-offset-3 col-xs-6 no_padding_right" id="main_menu">
+                    <div class="col-sm-3 col-xs-5 no_padding_left no_padding_right" id="main_menu">
                         <div class="menu_wrapper">
                             <div class="dropdown">
                                 <button id="dropdown_button" class="btn btn-primary btn-block dropdown-toggle menu_text" type="button" data-toggle="dropdown">

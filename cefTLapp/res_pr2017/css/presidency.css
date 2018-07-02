@@ -1915,10 +1915,6 @@ iframe {
         line-height: 1.2;
     }
 
-    #main_title {
-        font-size: 18px;
-    }
-
     #main_logo_wrapper,
     #main_logo_eu2018 {
         display: none;
@@ -1966,7 +1962,7 @@ iframe {
     }
 
     #main_title {
-        font-size: 2.7vh;
+        font-size: 14px;
     }
 }
 

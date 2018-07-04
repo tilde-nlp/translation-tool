@@ -1696,6 +1696,10 @@ iframe {
     font-weight: bold;
 }
 
+.eTranslation .about {
+    margin-bottom: 24px;
+}
+
 .translateButton:hover, .translateButton:active, .translateButton:focus {
     color: #fff;
 }

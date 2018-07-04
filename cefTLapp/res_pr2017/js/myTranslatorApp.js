@@ -111,8 +111,7 @@ app.config(function ($translateProvider) {
         WORKSHOP11: '',
         CO_FINANCED_LOGO: 'img/CoFinanced_en.png',
         CO_FINANCED_ALT: 'Co-financed by the European Union',
-        ETRANSLATION: 'You have chosen to translate with a <b>CEF eTranslation system</b>, developed by the European Commission.',
-        ETRANSLATION2: 'Please note: Translating with CEF eTranslation systems may take longer than usual as heavy use is reducing performance. Sorry for the inconvenience.'
+        ETRANSLATION: 'You have chosen to translate with a <b>CEF eTranslation system</b>, developed by the European Commission.'
     })
         .translations('de', {
             SUBTITLE: 'in Kooperation mit dem Exekutivsekretariat des österreichischen EU-Ratsvorsitzes 2018',
@@ -159,8 +158,7 @@ app.config(function ($translateProvider) {
             WORKSHOP11: '',
             CO_FINANCED_LOGO: 'img/CoFinanced_en.png',
             CO_FINANCED_ALT: 'Mitfinanziert von der Europäischen Union.',
-            ETRANSLATION: 'Sie haben sich entschieden, mit einem <b>CEF eTranslation-System</b> zu arbeiten, das von der Europäischen Kommission entwickelt wurde.',
-            ETRANSLATION2: 'Please note: Translating with CEF eTranslation systems may take longer than usual as heavy use is reducing performance. Sorry for the inconvenience.'
+            ETRANSLATION: 'Sie haben sich entschieden, mit einem <b>CEF eTranslation-System</b> zu arbeiten, das von der Europäischen Kommission entwickelt wurde.'
         });
 
     $translateProvider.preferredLanguage('en');

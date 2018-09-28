@@ -1,0 +1,131 @@
+﻿div.fancy-select {
+	position: relative;
+    float: left;
+}
+
+div.fancy-select.disabled {
+	opacity: 0.5;
+}
+
+div.fancy-select select:focus + div.trigger.open {
+	box-shadow: none;
+}
+
+div.fancy-select div.trigger {
+    cursor: pointer;
+	padding: 0.1em 2em 0.3em 0.7em;
+	white-space: nowrap;
+	overflow: hidden;
+	position: relative;
+
+	transition: all 240ms ease-out;
+	-webkit-transition: all 240ms ease-out;
+	-moz-transition: all 240ms ease-out;
+	-ms-transition: all 240ms ease-out;
+	-o-transition: all 240ms ease-out;
+}
+
+div.fancy-select div.trigger:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 1.8em;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    /*background-color: #273347;
+    background: linear-gradient(to right, rgba(39,51,71,0.83) 0%, #273347 100%);*/
+    border-radius: 0 2em 2em 0;
+}
+
+div.fancy-select div.trigger:after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0.7em;
+    height: 0.7em;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH3gwICC8SCxIKjAAAAR1JREFUeNrtmc1tQjEQBp9FaUSBFEB+JOiJJBItQFJGrrmnhnTxcUIyB4R4Xu/avJkGvDO23u8wAAAAAAAAAAAAwDUk/SqjgXlyfjwXy5kHiK8uDeMtf+LBUf7l2jDe8icWLcibRpD0r9uYRxz7C/x57n7OsoL865hBogKYRhgrHx3A5MIo6blkAIsAs8IIy4K116Hy2SDfhREeR6z5VrjmzvoidPA6CaU7L+mz1m2oegRJmyblPSI0L18zQjfyhhGeDOU/ol5FiyN0K28YoV/54AhtyAdFaEveOUKb8k4R3nv5cHqYrHwWYT9ZeeMIfcobRehbvjDC9t7+KO0nK39jhPuUzyJ8tfKQk4JDnH20TCmlAQAAAAAAAABqcwQA5OgEVxvaGAAAAABJRU5ErkJggg==') /*../img/arrow.png*/;
+    background-size: 11px;
+    background-repeat: no-repeat;
+    background-position: 85% center;
+    top: 0.5em;
+    right: 0.5em;
+}
+
+div.fancy-select ul.options {
+	list-style: none;
+	margin: 0;
+	position: absolute;
+	top: 40px;
+	left: 0;
+	visibility: hidden;
+	opacity: 0;
+	z-index: 50;
+	max-height: 200px;
+	overflow: auto;
+	background: #ffffff;
+	
+	border: 1px solid #273347;
+    border-radius: 3px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+	min-width: 150px;
+    padding-left: 0;
+
+	transition: opacity 300ms ease-out, top 300ms ease-out, visibility 300ms ease-out;
+	-webkit-transition: opacity 300ms ease-out, top 300ms ease-out, visibility 300ms ease-out;
+	-moz-transition: opacity 300ms ease-out, top 300ms ease-out, visibility 300ms ease-out;
+	-ms-transition: opacity 300ms ease-out, top 300ms ease-out, visibility 300ms ease-out;
+	-o-transition: opacity 300ms ease-out, top 300ms ease-out, visibility 300ms ease-out;
+}
+
+div.fancy-select ul.options.open {
+	visibility: visible;
+	top: 35px;
+	opacity: 1;
+
+	transition: opacity 300ms ease-out, top 300ms ease-out;
+	-webkit-transition: opacity 300ms ease-out, top 300ms ease-out;
+	-moz-transition: opacity 300ms ease-out, top 300ms ease-out;
+	-ms-transition: opacity 300ms ease-out, top 300ms ease-out;
+	-o-transition: opacity 300ms ease-out, top 300ms ease-out;
+}
+
+div.fancy-select ul.options.overflowing {
+	top: auto;
+	bottom: 40px;
+
+	transition: opacity 300ms ease-out, bottom 300ms ease-out, visibility 300ms ease-out;
+	-webkit-transition: opacity 300ms ease-out, bottom 300ms ease-out, visibility 300ms ease-out;
+	-moz-transition: opacity 300ms ease-out, bottom 300ms ease-out, visibility 300ms ease-out;
+	-ms-transition: opacity 300ms ease-out, bottom 300ms ease-out, visibility 300ms ease-out;
+	-o-transition: opacity 300ms ease-out, bottom 300ms ease-out, visibility 300ms ease-out;
+}
+
+div.fancy-select ul.options.overflowing.open {
+	top: auto;
+	bottom: 50px;
+
+	transition: opacity 300ms ease-out, bottom 300ms ease-out;
+	-webkit-transition: opacity 300ms ease-out, bottom 300ms ease-out;
+	-moz-transition: opacity 300ms ease-out, bottom 300ms ease-out;
+	-ms-transition: opacity 300ms ease-out, bottom 300ms ease-out;
+	-o-transition: opacity 300ms ease-out, bottom 300ms ease-out;
+}
+
+div.fancy-select ul.options li {
+	padding: 8px 12px;
+	color: #000000;
+	cursor: pointer;
+	white-space: nowrap;
+
+	transition: all 150ms ease-out;
+	-webkit-transition: all 150ms ease-out;
+	-moz-transition: all 150ms ease-out;
+	-ms-transition: all 150ms ease-out;
+	-o-transition: all 150ms ease-out;
+}
+
+div.fancy-select ul.options li.hover {
+	color: #2C384B;
+    background-color: #C6CACF;
+}

@@ -18,9 +18,9 @@ Copyright (C) Microsoft Corporation. All rights reserved.
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{598ec0f4-8106-4fc7-896e-a6f19dfce4ad}</ProjectGuid>
     <SourceWebPhysicalPath>$(MSBuildThisFileDirectory)</SourceWebPhysicalPath>
-    <SourceWebVirtualPath>/res_pr2017</SourceWebVirtualPath>
+    <SourceWebVirtualPath>/res_mnkc</SourceWebVirtualPath>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <SourceWebProject>http://localhost:1514</SourceWebProject>
+    <SourceWebProject>http://localhost:49503</SourceWebProject>
     <SourceWebMetabasePath>/IISExpress/7.5/LM/W3SVC/5/ROOT</SourceWebMetabasePath>
   </PropertyGroup>
   <PropertyGroup>

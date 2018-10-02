@@ -88,5 +88,5 @@ uiResources = $.extend(true, uiResources, {
         "E_UNAUTHORIZED": "Die Übersetzung des Dokuments wurde verweigert.",
         "W_TIMEOUT": "Manche Sätze wurden nicht übersetzt, da die Übersetzung zu viel Zeit in Anspruch nahm.",
         "W_SENTENCE_TOO_LONG": "Manche Sätze wurden nicht übersetzt, da sie zu lang sind."
-    },
+    }
 });

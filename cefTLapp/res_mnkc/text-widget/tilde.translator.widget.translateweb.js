@@ -4,7 +4,8 @@ $.extend(Tilde.TranslatorWidgetDefaultOptions, {
     _websiteTranslationUrl: 'http://localhost:53130/Translate/WebsiteEmbedded?embeddedStyle=noUI', // address of website translation page (that uses TranslateProxy)
     _debug: false, // should debug information be logged to console
     _onWebTranslateUrlLoaded: null, // callback on web page loaded
-    _webLangAutodetect: true // after page is loaded auto detect language and change active system  
+    _webLangAutodetect: true, // after page is loaded auto detect language and change active system
+    _localizeMTSystems: true
 });
 
 $.extend(Tilde.TranslatorWidget.prototype, {
@@ -30,8 +31,8 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 websiteTranslationUrl.indexOf("://") + 3));
 
         $widget.translateWeb_Url = $('.url', $widget.settings.container);
-        $widget.translateWeb_Iframe = $('#websiteFrame')[0];
-        $widget.translateWeb_IframeContainer = $('#websiteFrameContainer');
+        $widget.translateWeb_Iframe = $('#websiteFrame', $widget.settings.container)[0];
+        $widget.translateWeb_IframeContainer = $('#websiteFrameContainer', $widget.settings.container);
         $widget.translateWeb_translateButton = $('.translateButton', $widget.settings.container);
         $widget.translateWeb_cancelButton = $('.cancelButton', $widget.settings.container);
         $widget.translateWeb_restoreButton = $('.restoreButton', $widget.settings.container);
@@ -310,30 +311,22 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             console.info("Message sent to iframe:" + JSON.stringify(message));
         }
 
-        // RL
-        // $widget.translateWeb_Iframe.contentWindow.postMessage(
-        // message,
-        // $widget.translateWeb_IframeSchemaPortDomain);
-        
-        try {
-            $widget.translateWeb_Iframe.contentWindow.postMessage( message, $widget.translateWeb_IframeSchemaPortDomain);
-        }
-        catch (err) {
-            // console.log(err);
-        }
-        // / RL
+        $widget.translateWeb_Iframe.contentWindow.postMessage(
+            message,
+            $widget.translateWeb_IframeSchemaPortDomain);
     },
 
     translateWeb_resizeLayout: function () {
         // resize iframe to fit content on small screens and make iframe static
         // so that whole screen can be used for scrolling/zooming (scrolling the header away)
+
         if (window.innerWidth < $.fn.getDefaultFontSize()[0] * 50 || window.innerHeight < $.fn.getDefaultFontSize()[1] * 30) {
             if ($widget.translateWeb_Iframe.contentWindow && $widget.translateWeb_Iframe.contentWindow.document && $widget.translateWeb_Iframe.contentWindow.document.body) {
-                if ($widget.translateWeb_IframeLastScrollWidth != $widget.translateWeb_Iframe.contentWindow.document.body.scrollWidth
-                    || $widget.translateWeb_IframeLastScrollHeight != $widget.translateWeb_Iframe.contentWindow.document.body.scrollHeight) {
-                    $widget.translateWeb_IframeLastScrollWidth = $widget.translateWeb_Iframe.contentWindow.document.body.scrollWidth;
+                if ($widget.translateWeb_IframeLastScrollWidth != Math.max($widget.translateWeb_Iframe.contentWindow.document.body.scrollWidth, window.innerWidth)
+                    || $widget.translateWeb_IframeLastScrollHeight != $widget.translateWeb_Iframe.contentWindow.document.body.scrollHeight + 32) {
+                    $widget.translateWeb_IframeLastScrollWidth = Math.max($widget.translateWeb_Iframe.contentWindow.document.body.scrollWidth, window.innerWidth);
                     $widget.translateWeb_IframeContainer.width($widget.translateWeb_IframeLastScrollWidth);
-                    $widget.translateWeb_IframeLastScrollHeight = $widget.translateWeb_Iframe.contentWindow.document.body.scrollHeight;
+                    $widget.translateWeb_IframeLastScrollHeight = $widget.translateWeb_Iframe.contentWindow.document.body.scrollHeight + 32;
                     $widget.translateWeb_IframeContainer.height($widget.translateWeb_IframeLastScrollHeight);
                 }
             } else {
@@ -352,6 +345,6 @@ $.extend(Tilde.TranslatorWidget.prototype, {
     }
 });
 
-// RL
-// Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.webPluginInit);
-// / RL
+if (typeof $customWidgetInit === "undefined" || !$customWidgetInit) {
+    Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.webPluginInit);
+}

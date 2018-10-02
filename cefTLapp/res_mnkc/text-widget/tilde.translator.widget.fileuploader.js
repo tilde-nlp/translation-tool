@@ -820,14 +820,12 @@ qq.UploadButton.prototype = {
                     filteredMimeTypes.push(this._options.allowedMimetypes[counter]);
                 }
             }
-            // RL
-            // with this upload on MS Edge is not working at all
-            //input.setAttribute("accept", filteredMimeTypes.join(', '));
-            // / RL
+            input.setAttribute("accept", filteredMimeTypes.join(', '));
         } else {
             input.setAttribute("accept", this._options.allowedMimetypes.join(', '));
         }
         input.setAttribute("name", this._options.name);
+        input.setAttribute("title", " ");
         
         qq.css(input, {
             position: 'absolute',
@@ -1166,7 +1164,7 @@ qq.UploadHandlerXhr.isSupported = function(){
 };
 
 // @inherits qq.UploadHandlerAbstract
-qq.extend(qq.UploadHandlerXhr.prototype, qq.UploadHandlerAbstract.prototype)
+qq.extend(qq.UploadHandlerXhr.prototype, qq.UploadHandlerAbstract.prototype);
 
 qq.extend(qq.UploadHandlerXhr.prototype, {
     /**

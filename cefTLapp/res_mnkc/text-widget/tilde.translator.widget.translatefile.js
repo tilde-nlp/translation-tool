@@ -1,13 +1,14 @@
 ﻿/* tilde.translator.widget.TRANSLATEFILE.js */
 
 $.extend(Tilde.TranslatorWidgetDefaultOptions, {
-    _uploadUrl: 'https://letsmt.eu/ws/Files/Upload',
-    _deleteUrl: 'https://letsmt.eu/ws/Files/Delete',
-    _downloadUrl: 'https://letsmt.eu/ws/Files/Download',
-    _translateUrl: 'https://letsmt.eu/ws/Files/StartTranslation',
-    _previewUrl: 'https://letsmt.eu/ws/Files/GetDocumentPreview',
-    _checkStatusUrl: 'https://letsmt.eu/ws/Files/GetStatus',
-    _languageNamesUrl: 'https://letsmt.eu/ws/Files/GetLanguageNames',
+    _uploadUrl: 'https://yoursite/ws/Files/Upload',
+    _deleteUrl: 'https://yoursite/ws/Files/Delete',
+    _downloadUrl: 'https://yoursite/ws/Files/Download',
+    _translateUrl: 'https://yoursite/ws/Files/StartTranslation',
+    _previewUrl: 'https://yoursite/ws/Files/GetDocumentPreview',
+    _checkStatusUrl: 'https://yoursite/ws/Files/GetStatus',
+    _languageNamesUrl: 'https://yoursite/ws/Files/GetLanguageNames',
+    _assistantUrl: 'https://yoursite/Files/SendToAssistant',
     _landingView: false, //intro box with tooltip
     _allowedFileTypes: [{ ext: "txt", mime: "text/plain" }], //file translation types
     _showAllowedFileInfo: false, //show list of supported file types
@@ -25,7 +26,11 @@ $.extend(Tilde.TranslatorWidgetDefaultOptions, {
     _onDocTranslationFinished: null, //callback function on document finished translation 
     _onDocTranslationError: null, //callback function on document error translation
     _onDocTranslationProgress: null, // Callback function on document translation progress; 1st parameter is translated percentage
-    _advancedOptions: false //show advenced file translation options
+    _advancedOptions: false, //show advenced file translation options
+    _translationAssistant: false, //use translation assistant
+    _fileTranslateBtn: '.translateButton', // translate button selector
+    _extraFileDownloadLink: true,
+    _bsalertCloseVerbalization: "Close"
 });
 
 $.extend(Tilde.TranslatorWidget.prototype, {
@@ -63,8 +68,14 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         }
 
         $widget.onSystemChangedHandlers.push(function () {
-            $("#docSourcePreview", $widget.settings.container).attr("lang", $widget.getActiveSystemObj().SourceLanguage.Code);
-            $(".translateResult", $widget.settings.container).attr("lang", $widget.getActiveSystemObj().TargetLanguage.Code);
+            if ($widget.getActiveSystemObj()) {
+                $("#docSourcePreview", $widget.settings.container).attr("lang", $widget.getActiveSystemObj().SourceLanguage.Code);
+                $(".translateResult", $widget.settings.container).attr("lang", $widget.getActiveSystemObj().TargetLanguage.Code);
+            }
+            else {
+                $("#docSourcePreview", $widget.settings.container).removeAttr("lang");
+                $(".translateResult", $widget.settings.container).removeAttr("lang");
+            }
         });
 
         // supported formats
@@ -88,34 +99,31 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             debug: false,
             sizeLimit: $widget.settings._uploadSizeLimit,
             template: '<div class="qq-uploader">' +
-                      ' <div class="qq-upload-drop-area"></div>' +
-                      '	<div href="#" class="qq-upload-button">' +
-                      '  <div class="qq-upload-button-image"></div>' +
-                      '  <div class="qq-upload-button-text">' +
-                      // RL
-                      //'     <span data-text="docUploadTooltip">' + uiResources[$widget.settings._language]['docUploadTooltip'] + '</span>' + formatsHtml +
-                      '     <span data-text="docUploadTooltip">' + /*uiResources[$widget.settings._language]['docUploadTooltip'] +*/ '</span>' + formatsHtml +
-                      // /RL
-                      '  </div>' +
-                      ' </div>' +
-                	  '	<ul class="qq-upload-list hide"></ul>' +
-                	  '</div>',
+                ' <div class="qq-upload-drop-area"></div>' +
+                '	<div href="#" class="qq-upload-button icon icon-folder justify-content-md-center p-0 py-md-3">' +
+                '  <div class="qq-upload-button-image"></div>' +
+                '  <div class="qq-upload-button-text">' +
+                '     <span>' + uiResources[$widget.settings._language]['docUploadTooltip'] + '</span>' + formatsHtml +
+                '  </div>' +
+                ' </div>' +
+                '	<ul class="qq-upload-list hide"></ul>' +
+                '</div>',
             fileTemplate: '<li>' +
-                          ' <div class="qq-upload-meta">' +
-                          '     <span class="qq-upload-meta-title">' + uiResources[$widget.settings._language]['docUploadFilename'] + '</span>' +
-                          '     <span class="qq-upload-file"></span>' +
-                          '     <span class="qq-upload-failed-text">' + uiResources[$widget.settings._language]['docUploadFailed'] + '</span>' +
-                          '     <a class="qq-upload-cancel hide"></a>' +
-                          ' </div>' +
-                          ' <div class="qq-upload-meta">' +
-                          '     <span class="qq-upload-meta-title">' + uiResources[$widget.settings._language]['docUploadFilesize'] + '</span>' +
-                          '     <span class="qq-upload-size"></span>' +
-                          ' </div>' +
-                          ' <div class="qq-upload-meta">' +
-                          '     <span class="qq-upload-meta-title">' + uiResources[$widget.settings._language]['docUploadWordcount'] + '</span>' +
-                          '     <span class="qq-upload-wordcount"></span>' +
-                          ' </div>' +
-                          '</li>',
+                ' <div class="qq-upload-meta">' +
+                '     <span class="qq-upload-meta-title">' + uiResources[$widget.settings._language]['docUploadFilename'] + '</span>' +
+                '     <span class="qq-upload-file"></span>' +
+                '     <span class="qq-upload-failed-text">' + uiResources[$widget.settings._language]['docUploadFailed'] + '</span>' +
+                '     <a class="qq-upload-cancel hide"></a>' +
+                ' </div>' +
+                ' <div class="qq-upload-meta">' +
+                '     <span class="qq-upload-meta-title">' + uiResources[$widget.settings._language]['docUploadFilesize'] + '</span>' +
+                '     <span class="qq-upload-size"></span>' +
+                ' </div>' +
+                ' <div class="qq-upload-meta">' +
+                '     <span class="qq-upload-meta-title">' + uiResources[$widget.settings._language]['docUploadWordcount'] + '</span>' +
+                '     <span class="qq-upload-wordcount"></span>' +
+                ' </div>' +
+                '</li>',
             messages: {
                 typeError: uiResources[$widget.settings._language]['docUploadMsgType'],
                 sizeError: uiResources[$widget.settings._language]['docUploadMsgSize'],
@@ -128,7 +136,14 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
             showMessage: function (message) {
                 $('.translateProgress').addClass('hide');
-                $('.infoMessageBox').html(message).removeClass('hide');
+                if ($widget.settings._bootstrap) {
+                    bsalert({
+                        title: message,
+                        closeVerbalization: $widget.settings._bsalertCloseVerbalization
+                    });
+                } else {
+                    $('.infoMessageBox').html(message).removeClass('hide');
+                }
             }
         });
 
@@ -204,7 +219,12 @@ $.extend(Tilde.TranslatorWidget.prototype, {
     },
 
     filePluginUploadOnSubmit: function () {
-        $('.qq-upload-list, .infoMessageBox').html('').addClass('hide');
+        if ($widget.settings._bootstrap) {
+            bsalertClear();
+        } else {
+            $('.infoMessageBox').html('').addClass('hide');
+        }
+        $('.qq-upload-list').html('').addClass('hide');
         $('.translateProgress').removeClass('hide');
     },
 
@@ -218,7 +238,8 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
             $('.transFileMeta').html($('.qq-upload-success').html());
             $('.docUploadNewDoc').removeClass('hide');
-            $('.translateButton').removeClass('hide');
+            $($widget.settings._textSource).attr('disabled', true);
+            $($widget.settings._fileTranslateBtn).removeClass('hide');
             $widget.enableSystemChange();
             $('#sendEmail, #sendEmailLabel').removeClass('hide');
             $('#sendEmail').removeAttr("disabled");
@@ -262,7 +283,16 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             if ($widget.settings._docMaxWordCount !== 0 && $widget.settings._docMaxWordCount < parseInt(wordcount)) {
                 var message = uiResources[$widget.settings._language]['docUploadMsgWordcnt'].replace('{wordCount}', wordcount);
                 $('.qq-upload-wordcount').addClass('warning');
-                $('.infoMessageBox').html(message).removeClass('hide');
+
+                if ($widget.settings._bootstrap) {
+                    bsalert({
+                        title: message,
+                        closeVerbalization: $widget.settings._bsalertCloseVerbalization
+                    });
+                } else {
+                    $('.infoMessageBox').html(message).removeClass('hide');
+                }
+
                 if ($widget.settings._onDocTranslationError && typeof ($widget.settings._onDocTranslationError) === "function") {
                     $widget.settings._onDocTranslationError('FT_ERR_WORDCOUNT', message);
                 }
@@ -275,7 +305,16 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         else if (responseJSON.error || jQuery.isEmptyObject(responseJSON)) {
             var message = uiResources[$widget.settings._language]['docUploadFailed'];
             $('.translateProgress').addClass('hide');
-            $('.infoMessageBox').html(message).show();
+
+            if ($widget.settings._bootstrap) {
+                bsalert({
+                    title: message,
+                    closeVerbalization: $widget.settings._bsalertCloseVerbalization
+                });
+            } else {
+                $('.infoMessageBox').html(message).show();
+            }
+
             if ($widget.settings._onDocTranslationError && typeof ($widget.settings._onDocTranslationError) === "function") {
                 $widget.settings._onDocTranslationError('FT_ERR_UPLOAD', message);
             }
@@ -284,10 +323,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
     filePluginTranslate: function () {
         $widget.disableSystemChange();
-        // RL
-        // $('.translateButton, .docUploadNewDoc').addClass('hide');
-        $('.translateButton').addClass('hide');
-        // RL
+        $($widget.settings._fileTranslateBtn + ', .docUploadNewDoc').addClass('hide');
         if ($widget.settings._advancedOptions) {
             $('.advancedOptions').addClass("hide");
             $('.buttonAdvancedOptions').addClass("hide");
@@ -321,7 +357,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             tmpname: $('#hidTranslRealFilename').val(),
             wordlimit: $widget.settings._docMaxWordCount,
             segmentlimit: $widget.settings._docMaxSegmentCount,
-            termcorpusid: ($widget.termCorpusId && $widget.getSelectedTermCorpusStatus() == "Ready") ? $widget.termCorpusId : null,
+            termcorpusid: ($widget.termCorpusId && $widget.getSelectedTermCorpusStatus() == "Ready") ? $widget.termCorpusId : null
         };
 
         if ($widget.settings._advancedOptions) {
@@ -346,64 +382,38 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             headers: $widget.getAuthHeaders(),
             data: data,
             success: function (response) {
-                if (response.success) {
-                    if ($widget.settings._warnWhenRunningAway) {
-                        // IE10 somehow manages to rise unload event when starting
-                        // this ajax request, so, must wait until it gets response before listening to "unload"
-                        $(window).bind('beforeunload.warn', function () {
-                            return uiResources[$widget.settings._language]["docTranslInProgress"];
-                        });
-                    }
-                    if ($('#hidUploadTempId').length == 0) {
-                        $('.docTranslateContent').after($('<input>', {
-                            type: 'hidden',
-                            id: 'hidUploadTempId',
-                            value: response.docid
-                        }));
-                    }
-                    else {
-                        $('#hidUploadTempId').val(response.docid);
-                    }
-
-                    $widget.filePluginTranslateProgress(response.docid);
-
-                    if (typeof ($widget.checkSystemStatus) !== "undefined")
-                    {
-                        $widget.checkSystemStatus();
-                    }
+                if ($widget.settings._warnWhenRunningAway) {
+                    // IE10 somehow manages to rise unload event when starting
+                    // this ajax request, so, must wait until it gets response before listening to "unload"
+                    $(window).bind('beforeunload.warn', function () {
+                        return uiResources[$widget.settings._language]["docTranslInProgress"];
+                    });
+                }
+                if ($('#hidUploadTempId').length === 0) {
+                    $('.docTranslateContent').after($('<input>', {
+                        type: 'hidden',
+                        id: 'hidUploadTempId',
+                        value: response
+                    }));
                 }
                 else {
+                    $('#hidUploadTempId').val(response);
+                }
 
-                    //error
-                    if ($widget.settings._onDocTranslationError && typeof ($widget.settings._onDocTranslationError) === "function") {
-                        $widget.settings._onDocTranslationError('', uiResources[$widget.settings._language]['E_FAILED_IN_TRANSLATION']);
-                    }
+                $widget.filePluginTranslateProgress(response);
 
-                    if ($widget.settings._onDocTranslationStop && typeof ($widget.settings._onDocTranslationStop) === "function") {
-                        $widget.settings._onDocTranslationStop();
-                    }
-
-                    $('.infoMessageBox').html(uiResources[$widget.settings._language]['E_FAILED_IN_TRANSLATION']).removeClass('hide');
-                    $('.buttonDelDoc').addClass('hide');
-                    $('.docUploadNewDoc').removeClass('hide');
-                    $('.translateContainerRight').removeClass('docProgress');
-                    $('#translProgress').html('');
-                    if ($widget.settings._advancedOptions) {
-                        $('.buttonAdvancedOptions').removeClass("hide");
-                    }
-                    if (typeof (console) !== "undefined") {
-                        console.log(response);
-                    }
+                if (typeof ($widget.checkSystemStatus) !== "undefined") {
+                    $widget.checkSystemStatus();
                 }
             },
-            error: function (response, status, error) {
+            error: function (response) {
                 //error
 
-                if (response.status == 401 && $widget.settings._loginUrl) {
+                if (response.status === 401 && $widget.settings._loginUrl) {
                     window.location = $widget.settings._loginUrl;
                 }
 
-                if (response.status == 403) {
+                if (response.status === 403) {
                     var errorMsg = uiResources[$widget.settings._language]['E_UNAUTHORIZED'];
                 }
                 else {
@@ -418,17 +428,21 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                     $widget.settings._onDocTranslationStop();
                 }
 
-                $('.infoMessageBox').html(errorMsg).removeClass('hide');
+                if ($widget.settings._bootstrap) {
+                    bsalert({
+                        title: errorMsg,
+                        closeVerbalization: $widget.settings._bsalertCloseVerbalization
+                    });
+                } else {
+                    $('.infoMessageBox').html(errorMsg).removeClass('hide');
+                }
+
                 $('.buttonDelDoc').addClass('hide');
                 $('.docUploadNewDoc').removeClass('hide');
                 $('.translateContainerRight').removeClass('docProgress');
                 $('#translProgress').html('');
                 if ($widget.settings._advancedOptions) {
                     $('.buttonAdvancedOptions').removeClass("hide");
-                }
-
-                if (typeof (console) !== "undefined") {
-                    console.error(error);
                 }
             },
             complete: function () {
@@ -453,8 +467,8 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             }
             $widget.filePluginDeleteFile();
         });
-        
-        $('.translateButton', $widget.settings.container).on('click', function () {
+
+        $($widget.settings._fileTranslateBtn, $widget.settings.container).on('click', function () {
             if ($(this).attr('data-disabled') === 'true') {
                 return false;
             }
@@ -470,24 +484,39 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 }
             });
         }
+
+        if ($widget.settings._translationAssistant) {
+            $('.buttonAssistant', $widget.settings.container).on('click', function () {
+                $widget.filePluginSendToAssistant($('#hidUploadTempId').val());
+            });
+        }
     },
 
     filePluginUploadNew: function () {
-        
         var uploadId = $('#hidUploadTempId').val();
         if (typeof (uploadId) == 'undefined') { uploadId = ''; }
 
         this.filePluginDeleteFileOnServer();
 
+        $(".translateContainerRight").removeClass("p-3");
         $('.docUploadNewDoc').addClass('hide');
+        $($widget.settings._textSource).removeAttr('disabled');
         $('.buttonDownDoc').removeAttr('href').addClass('hide');
-        $('#hidTranslRealFilename').remove();
         $('#hidTranslTempFilename').remove();
         $('#hidUploadTempId').remove();
         $('.uploadedDocumentName').text('').addClass('hide');
         $('.qq-upload-list').html('');
         $('.transFileMeta').html('');
-        $('.infoMessageBox').html('').addClass('hide');
+
+        $("#docTransPercent").html("");
+        $("#docTransPercent").attr("aria-valuenow", 0);
+
+        if ($widget.settings._bootstrap) {
+            bsalertClear();
+        } else {
+            $('.infoMessageBox').html('').addClass('hide');
+        }
+
         $('#hidStopTranslation').val('false');
         $('#docUploadFile').removeClass('hide');
         $('#docSourcePreview').empty();
@@ -497,11 +526,14 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         if ($widget.settings._advancedOptions) {
             $('.buttonAdvancedOptions').removeClass("hide");
         }
+        if ($widget.settings._translationAssistant) {
+            $('.buttonAssistant').addClass('hide');
+        }
 
         $widget.filePluginSetTempTextResult();
 
         $widget.enableSystemChange();
-        $('.translateButton').addClass('hide');
+        $($widget.settings._fileTranslateBtn).addClass('hide');
 
         if ($widget.settings._onDocTranslationCancel && typeof ($widget.settings._onDocTranslationCancel) === "function") {
             $widget.settings._onDocTranslationCancel(uploadId);
@@ -547,17 +579,12 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 data: {
                     docid: uploadId
                 },
-                success: function (response) {
-                    if (!response.success) {
-                        if (typeof (console) !== "undefined") {
-                            console.error('error while deleting: ' + response.error);
-                        }
-                    }
+                success: function () {
                     $widget.enableSystemChange();
                 },
                 error: function (response) {
                     if (typeof (console) !== "undefined") {
-                        console.error('error while deleting: ' + response.error);
+                        console.error('error while deleting: ' + response.responseJSON);
                     }
                     if (response.status == 401 && $widget.settings._loginUrl) {
                         window.location = $widget.settings._loginUrl;
@@ -567,6 +594,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             });
         }
     },
+
     filePluginTranslateProgress: function (docid) {
         if ($('#hidStopTranslation').val() === 'true') {
             return;
@@ -590,44 +618,9 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                 $('#translProgress').removeClass('starting');
                 $('#translProgress .percent').text(completed + '%');
 
-                // callback on error
-                if (response.status === 'error') {
-                    var error_msg = uiResources[$widget.settings._language]['E_DEFAULT_ERROR'];
-
-                    if (uiResources[$widget.settings._language][response.error]) {
-                        error_msg = uiResources[$widget.settings._language][response.error];
-                    }
-
-                    $('.docUploadNewDoc').removeClass('hide');
-                    $('.buttonCancelDoc').addClass('hide');
-                    $('.infoMessageBox').html(error_msg).removeClass('hide');
-                    $('#translProgress').html('');
-
-                    if ($widget.settings._onDocTranslationError && typeof ($widget.settings._onDocTranslationError) === "function") {
-                        $widget.settings._onDocTranslationError('', error_msg);
-                    }
-
-                    if ($widget.settings._onDocTranslationStop && typeof ($widget.settings._onDocTranslationStop) === "function") {
-                        $widget.settings._onDocTranslationStop();
-                    }
-                }
-
-                if (response.reload) {
-                    $('.buttonCancelDoc').removeClass('hide');
-
-                    if ($widget.settings._onDocTranslationProgress && typeof $widget.settings._onDocTranslationProgress === 'function') {
-                        $widget.settings._onDocTranslationProgress(completed);
-                    }
-
-                    setTimeout(function () {
-                        $widget.filePluginTranslateProgress(docid);
-                    }, 5 * 1000); //refresh interval -> 10 seconds
-                }
-                else if (response.status === 'completed') {
-
-                    if (response.warnings)
-                    {
-                        var warnings = response.warnings.split(",");
+                if (response.status === 'completed') {
+                    if (response.warnings && response.warnings.length > 0) {
+                        var warnings = response.warnings;
                         var errorMessages = [];
                         for (counter = 0; counter < warnings.length; counter++) {
                             if (uiResources[$widget.settings._language][warnings[counter]]) {
@@ -636,7 +629,16 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                                 errorMessages.push(warnings[counter]);
                             }
                         }
-                        $('.infoMessageBox').html(errorMessages.join("<br /> ")).removeClass('hide');
+
+                        if ($widget.settings._bootstrap) {
+                            bsalert({
+                                title: errorMessages.join("<br /> "),
+                                closeVerbalization: $widget.settings._bsalertCloseVerbalization
+                            });
+                        } else {
+                            $('.infoMessageBox').html(errorMessages.join("<br /> ")).removeClass('hide');
+                        }
+
                     }
 
                     var down = $widget.settings._downloadUrl + '?docid=' + encodeURIComponent(docid)
@@ -644,7 +646,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
                     var authHeders = $widget.getAuthHeaders();
                     if (authHeders) {
-                        if(authHeders["client-id"]){
+                        if (authHeders["client-id"]) {
                             down += "&clientId=" + encodeURIComponent(authHeders["client-id"]);
                         }
                         if (authHeders["website-auth-cookie"]) {
@@ -655,12 +657,15 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                     $('.buttonDownDoc').attr('href', down).removeClass('hide');
                     $('.buttonDelDoc').addClass('hide');
                     $('.buttonCancelDoc').addClass('hide');
-                    $('#hidTranslRealFilename').remove();
                     $('#hidTranslTempFilename').remove();
                     $('.docUploadNewDoc').removeClass('hide');
 
                     if ($widget.settings._warnWhenRunningAway) {
                         $(window).unbind('beforeunload.warn');
+                    }
+
+                    if ($widget.settings._translationAssistant) {
+                        $('.buttonAssistant').removeClass('hide');
                     }
 
                     // translation finish callback
@@ -681,20 +686,27 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                         },
                         success: function (response) {
                             if (response.success) {
+                                $(".translateContainerRight").addClass("p-3");
                                 if (response.preview) {
                                     $('.translateResult').html(response.preview);
                                     $('.translateResult').removeClass("bigIcon");
                                 }
                                 else {
-                                    // RL
-                                    // $('.translateResult').html('<a href="' + down + '" target="_blank"><div class="translated-no-preview"></div><span>' + downloadFileName + '</span></a>');
-                                    $('.translateResult').html('<a href="' + down + '" download><div class="translated-no-preview"></div><span>' + downloadFileName + '</span></a>');
-                                    // / RL
-                                    $('.translateResult').addClass("bigIcon");
+                                    if ($widget.settings._extraFileDownloadLink) {
+                                        $('.translateResult').html('<a href="' + down + '" target="_blank"><div class="translated-no-preview"></div><span>' + downloadFileName + '</span></a>');
+                                        $('.translateResult').addClass("bigIcon");
+                                    }
                                 }
                             }
                             else {
-                                $('.infoMessageBox').html(uiResources[$widget.settings._language]['docPreviewError']).removeClass('hide');
+                                if ($widget.settings._bootstrap) {
+                                    bsalert({
+                                        title: uiResources[$widget.settings._language]['docPreviewError'],
+                                        closeVerbalization: $widget.settings._bsalertCloseVerbalization
+                                    });
+                                } else {
+                                    $('.infoMessageBox').html(uiResources[$widget.settings._language]['docPreviewError']).removeClass('hide');
+                                }
                             }
                             $('.translateContainerRight').removeClass('docProgress');
                             $('#translProgress').html('');
@@ -703,31 +715,66 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                             if (response.status == 401 && $widget.settings._loginUrl) {
                                 window.location = $widget.settings._loginUrl;
                             }
-                            //error
-                            $('.infoMessageBox').html(uiResources[$widget.settings._language]['docPreviewError']).removeClass('hide');
+
+                            if ($widget.settings._bootstrap) {
+                                bsalert({
+                                    title: uiResources[$widget.settings._language]['docPreviewError'],
+                                    closeVerbalization: $widget.settings._bsalertCloseVerbalization
+                                });
+                            } else {
+                                $('.infoMessageBox').html(uiResources[$widget.settings._language]['docPreviewError']).removeClass('hide');
+                            }
+
                             $('.translateContainerRight').removeClass('docProgress');
                             $('#translProgress').html('');
                         }
                     });
+                }
+                else {
+                    // Keep waiting for translations complete or error
+                    $('.buttonCancelDoc').removeClass('hide');
+
+                    if ($widget.settings._onDocTranslationProgress && typeof $widget.settings._onDocTranslationProgress === 'function') {
+                        $widget.settings._onDocTranslationProgress(completed);
+                    }
+
+                    setTimeout(function () {
+                        $widget.filePluginTranslateProgress(docid);
+                    }, 5 * 1000); //refresh interval -> 10 seconds
                 }
             },
             error: function (response) {
                 if ($widget.settings._warnWhenRunningAway) {
                     $(window).unbind('beforeunload.warn');
                 }
-                if (response.status == 401 && $widget.settings._loginUrl) {
+                if (response.status === 401 && $widget.settings._loginUrl) {
                     window.location = $widget.settings._loginUrl;
                 } else {
-                    var errorMsg = uiResources[$widget.settings._language]['docTranslFailed'];
+                    var error_msg = uiResources[$widget.settings._language]['docTranslFailed'];
+                    if (response.responseJSON && uiResources[$widget.settings._language][response.responseJSON]) {
+                        error_msg = uiResources[$widget.settings._language][response.responseJSON];
+                    }
 
                     $('.docUploadNewDoc').removeClass('hide');
-                    $('.infoMessageBox').html(errorMsg).removeClass('hide');
+                    $('.buttonCancelDoc').addClass('hide');
+                    if ($widget.settings._bootstrap) {
+                        bsalert({
+                            title: error_msg,
+                            closeVerbalization: $widget.settings._bsalertCloseVerbalization
+                        });
+                    } else {
+                        $('.infoMessageBox').html(error_msg).removeClass('hide');
+                    }
+                    $('#translProgress').html('');
 
                     if ($widget.settings._onDocTranslationError && typeof ($widget.settings._onDocTranslationError) === "function") {
-                        $widget.settings._onDocTranslationError('FT_ERR_DOCSTATUS', errorMsg);
+                        $widget.settings._onDocTranslationError('', error_msg);
+                    }
+
+                    if ($widget.settings._onDocTranslationStop && typeof ($widget.settings._onDocTranslationStop) === "function") {
+                        $widget.settings._onDocTranslationStop();
                     }
                 }
-
             }
         });
     },
@@ -756,20 +803,68 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         var txt = uiResources[$widget.settings._language]['docTempTarget'];
 
         if ($widget.settings._systemSelectType === 'domain') {
-            var domain = $('.translateDomain option:selected', $widget.settings.container).text(),
-                descr = uiResources[$widget.settings._language]['DOMAIN_' + domain.toUpperCase()];
+            if ($widget.settings._bootstrap) {
+                let $domain = $(".translate-domain .dropdown-toggle-reverse").text();
+                let $description = uiResources[$widget.settings._language]["DOMAIN_" + $domain.toUpperCase()];
 
-            if (descr !== undefined) {
-                txt = descr + '<p>' + txt + '</p>';
+                if (descr !== "undefined") {
+                    txt = descr + "<p>" + txt + "</p>";
+                }
+            } else {
+                var domain = $('.translateDomain option:selected', $widget.settings.container).text(),
+                    descr = uiResources[$widget.settings._language]['DOMAIN_' + domain.toUpperCase()];
+
+                if (descr !== undefined) {
+                    txt = descr + '<p>' + txt + '</p>';
+                }
             }
         }
 
         $('.docTempTarget', $widget.settings.container).html(txt).removeClass('hide');
         $('.translateResult', $widget.settings.container).addClass('hide');
-    }
+    },
 
+    filePluginSendToAssistant: function (docId) {
+        toggleLoading();
+
+        if ($widget.settings._userIsAuthenticated) {
+            $.ajax({
+                url: $widget.settings._assistantFileServiceUrl,
+                data: {
+                    docId: docId
+                },
+                headers: $widget.getAuthHeaders(),
+                type: "post",
+                dataType: "json",
+                success: function (response) {
+                    window.open(response, '_blank').focus();
+                },
+                error: function (jqXHR) {
+                    bsalert({
+                        title: jqXHR.responseJSON,
+                        closeVerbalization: $widget.settings._bsalertCloseVerbalization
+                    });
+                },
+                complete: function () {
+                    toggleLoading();
+                }
+            });
+        } else {
+            toggleLoading();
+            bsalert({
+                title: uiResources[$widget.settings._language]["authorizeForMatecatApiUse"],
+                alertStyling: "warning",
+                closeVerbalization: $widget.settings._bsalertCloseVerbalization
+            });
+        }
+
+        function toggleLoading() {
+            $(".buttonAssistant").toggleClass("hide");
+            $(".assistantLoading").toggleClass("hide");
+        }
+    }
 });
 
-// RL
-// Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.filePluginInit);
-// / RL
+if (typeof $customWidgetInit === "undefined" || !$customWidgetInit) {
+    Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.filePluginInit);
+}

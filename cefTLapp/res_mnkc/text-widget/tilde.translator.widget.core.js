@@ -3,17 +3,20 @@
 if (typeof (Tilde) === 'undefined') Tilde = {};
 
 Tilde.TranslatorWidgetDefaultOptions = {
-    _systemListUrl: 'https://letsmt.eu/ws/Service.svc/json/GetSystemList',
+    _systemListUrl: 'https://yoursite/ws/Service.svc/json/GetSystemList',
     _apiIsInTheSameDomain: false, //is API WS in the same domain as the page that contains the widget
     _jsonType: 'json', //jsonp or json
-    _appId: '', //appid of widget - used to get systems and translations
-    _clientId: '',
+    _appId: 'unknown', //appid of widget - used to get systems and translations
+    _clientId: 'u-bfcaf986-8147-4901-a131-f0d618a7354b',
+    _jwtAuth: false, //use JWT token authorization
     _systems: null, //configurable system list in JSON format. If contains values system list is not loaded from server but from given data
     _allowedSystemStatuses: 'running', //filter system list with specified statuses
     _templateId: null,
+    _adminEnv: false,
     _replaceContainer: false, //if true then instead of putting widget inside of container div, it will be put instead of container div
     _translations: {}, //used to owerride default labels and translations
     _language: 'en', //interface language
+    _localizeMTSystems: false,
 
     _useFancySelect: true, //use custom FancySelect plugin for system select box
     _systemSelectType: 'language', //system choose type: 'system', 'language', 'domain'
@@ -24,6 +27,7 @@ Tilde.TranslatorWidgetDefaultOptions = {
     _defaultSystem: null, //default system id (only if _systemSelectType: 'language', 'system')
     _customSelectText: '', //active fancy select element will be replaced with static text (like 'more')
     _swapLanguages: true, //swap source and target languages
+    _swapLanguagesButtonSelector: ".swapLanguage", //there are two swap language buttons in translation tool
     _getFilteredSystems: false, //if true then systems will be filtered in server side by appid
 
     _onGetSystemListError: null, //on system load ajax error callback function
@@ -32,8 +36,9 @@ Tilde.TranslatorWidgetDefaultOptions = {
     _onWidgetLoaded: null, //on widget fully loaded callback function
     _onWidgetTemplateLoaded: null, //on widget template shown callback function
     _loginUrl: null, // where to redirect if http status 401 (not authorized) is received
-    _sourceLanguageOrder: null , //force order of source languages if _systemSelectType = "language" or "domain"
-    _targetLanguageOrder: null //force order of target languages if _systemSelectType = "language" or "domain"
+    _sourceLanguageOrder: null, //force order of source languages if _systemSelectType = "language" or "domain"
+    _targetLanguageOrder: null, //force order of target languages if _systemSelectType = "language" or "domain"
+    _bootstrap: false //do things the bootstrap way (and may the god help us deal with custom javascript for each new designn)
 };
 
 Tilde.TranslatorWidget = function (container, options) {
@@ -102,12 +107,16 @@ Tilde.TranslatorWidget.prototype = {
         }
     },
 
-    getAuthHeaders: function(){
+    getAuthHeaders: function () {
         var authHeaders = {};
 
-        if ($widget.settings._clientId !== null) {
-            authHeaders = {
-                'client-id': $widget.settings._clientId
+        if ($widget.settings._jwtAuth) {
+            var jwt = Cookies.get('jwt');
+            if (jwt != null) {
+                authHeaders['Authorization'] = 'Bearer ' + jwt;
+            }
+            else {
+                console.warn('Cannot find JWT token in cookies');
             }
         }
 
@@ -117,6 +126,12 @@ Tilde.TranslatorWidget.prototype = {
                 authHeaders["website-auth-cookie"] = websiteAuthCookie;
             }
         }
+
+        if ($widget.settings._clientId !== null
+            && Object.keys(authHeaders).length == 0) { //don't use clientid if harder auth method is available
+            authHeaders['client-id'] = $widget.settings._clientId;
+        }
+
         return authHeaders;
     },
 
@@ -131,7 +146,7 @@ Tilde.TranslatorWidget.prototype = {
         var params = {
             appID: $widget.settings._appId,
             uiLanguageID: $widget.settings._language
-        }
+        };
 
         if ($widget.settings._getFilteredSystems) {
             params["options"] = "filter";
@@ -139,7 +154,7 @@ Tilde.TranslatorWidget.prototype = {
 
         if ($widget.readCookie("show-public-systems")) {
             if (params["options"]) {
-                params["options"] += ",public"
+                params["options"] += ",public";
             } else {
                 params["options"] = "public";
             }
@@ -163,10 +178,26 @@ Tilde.TranslatorWidget.prototype = {
                     }
                 });
 
-                if (!$widget.settings._systems.length && !$widget.readCookie("show-public-systems") && !$widget.readCookie("show-private-systems")) {
-                    document.cookie = "show-public-systems=true";
-                    $widget.retrieveSystemData();
-                    return;
+                if (!$widget.settings._systems.length) {
+                    if (!$widget.readCookie("show-public-systems") && !$widget.readCookie("show-private-systems")) {
+                        document.cookie = "show-public-systems=true";
+                        $widget.retrieveSystemData();
+                        return;
+
+                    } else {
+                        if (!$widget.settings._adminEnv) {
+                            if ($widget.settings._onGetSystemListError && typeof ($widget.settings._onGetSystemListError) === "function") {
+                                $widget.settings._onGetSystemListError();
+                            }
+
+                            $('.systemsLoading').addClass('hide');
+                            $('.translateContainerHeader').removeClass('hide');
+
+                            $widget.settings.container
+                                .text(uiResources[$widget.settings._language]['systemLoadError'])
+                                .addClass('noNetwork');
+                        }
+                    }
                 }
 
                 $.each($widget.onSystemListLoadedHandlers, function (idx, systemListLoadHandler) {
@@ -278,15 +309,9 @@ Tilde.TranslatorWidget.prototype = {
             // default system
             if ($widget.settings._defaultSystem !== null) {
                 $('.translateSystem', $widget.settings.container).val($widget.settings._defaultSystem);
-            } else
-            {
-                if ($widget.settings._systems.length > 0) {
-                    $('.translateSystem', $widget.settings.container).val($widget.settings._systems[0].ID);
-                }
             }
 
-            if(!$widget.fancySystem.parent().hasClass("fancy-select"))
-            {
+            if (!$widget.fancySystem.parent().hasClass("fancy-select")) {
                 $widget.fancySystem.fancySelect({
                     useNativeSelect: !$widget.settings._useFancySelect,
                     includeBlank: true,
@@ -350,8 +375,7 @@ Tilde.TranslatorWidget.prototype = {
                 });
             }
 
-            if ($widget.settings._defaultSystem)
-            {
+            if ($widget.settings._defaultSystem) {
                 $.each($widget.settings._systems, function (idx, sys) {
                     if (sys.ID === $widget.settings._defaultSystem) {
                         $widget.settings._defaultSourceLang = sys.SourceLanguage.Code;
@@ -359,20 +383,33 @@ Tilde.TranslatorWidget.prototype = {
                     }
                 });
             }
-            // bind source lang list
+
             if ($widget.settings._systems) {
                 $.each($widget.settings._systems, function (idx, sys) {
-                    if ($('.translateSourceLang option[value="' + sys.SourceLanguage.Code + '"]', $widget.settings.container).length == 0) {
-                        $('.translateSourceLang', $widget.settings.container).append($('<option>', {
-                            value: sys.SourceLanguage.Code,
-                            text: uiResources[$widget.settings._language][sys.SourceLanguage.Code] ? uiResources[$widget.settings._language][sys.SourceLanguage.Code] : sys.SourceLanguage.Name.Text
-                        }));
+                    if ($widget.settings._bootstrap) {
+                        if ($(".translate-source-language .dropdown-item[data-value=\"" + sys.SourceLanguage.Code + "\"]").length === 0) {
+                            $(".translate-source-language .dropdown-menu").append($("<button>", {
+                                text: uiResources[$widget.settings._language][sys.SourceLanguage.Code] ? uiResources[$widget.settings._language][sys.SourceLanguage.Code] : sys.SourceLanguage.Name.Text,
+                                class: "dropdown-item p-2 border-md border-md-right-0",
+                                type: "button",
+                                "data-value": sys.SourceLanguage.Code
+                            }));
+                        }
+                    } else {
+                        if ($('.translateSourceLang option[value="' + sys.SourceLanguage.Code + '"]', $widget.settings.container).length == 0) {
+                            $('.translateSourceLang', $widget.settings.container).append($('<option>', {
+                                value: sys.SourceLanguage.Code,
+                                text: uiResources[$widget.settings._language][sys.SourceLanguage.Code] ? uiResources[$widget.settings._language][sys.SourceLanguage.Code] : sys.SourceLanguage.Name.Text
+                            }));
+                        }
                     }
                 });
             }
 
             // if only one, replace source select with block
             if ($('.translateSourceLang option', $widget.settings.container).length === 1 && $widget.settings._replaceSourceWithBlock) {
+                // skipping refactoring to bootstrap dropdowns for now
+                // since it was not fixed to work after the initial redesign
                 var srcSelect = $('.translateSourceLang', $widget.settings.container),
                     srcVal = srcSelect.val(),
                     srcText = srcSelect.text();
@@ -382,34 +419,54 @@ Tilde.TranslatorWidget.prototype = {
             }
             else {
                 // default source lang
-                if ($widget.settings._defaultSourceLang !== null) {
-                    $('.translateSourceLang option[value="' + $widget.settings._defaultSourceLang + '"]', $widget.settings.container).attr('selected', true);
-                }
+                if ($widget.settings._bootstrap) {
+                    if ($widget.settings._defaultSourceLang !== null) {
+                        var $activeItem = $(".translate-source-language .dropdown-item[data-value=\"" + $widget.settings._defaultSourceLang + "\"]"),
+                            $sourceButton = $(".translate-source-language .dropdown-toggle");
 
-                $widget.fancySource = $('.translateSourceLang', $widget.settings.container);
-                $widget.fancySource.fancySelect({
-                    useNativeSelect: !$widget.settings._useFancySelect,
-                    triggerTemplate: function (el) {
-                        var targ = $widget.fancyTarget,
-                            lang = targ && targ.length ? (targ[0].options && targ[0].options.length ?
-                                   targ[0].options[targ[0].selectedIndex].lang : null) : $widget.settings._defaultTargetLang;
-                        $widget.loadTargetLangList(el.val(), lang, ($widget.settings._systemSelectType === 'language'));
-                        return ($widget.settings._customSelectText != '') ? $widget.settings._customSelectText : el.text();
+                        $activeItem.addClass("active");
+                        $sourceButton.attr("data-value", $widget.settings._defaultSourceLang);
+                        $sourceButton.text($activeItem.text());
+
+                        var $target = $("translate-target-language"),
+                            $targetValue = $target.find(".dropdown-toggle").attr("data-value"),
+                            $targetActiveItem = $("translate-target-language .dropdown-item.active");
+
+                        var $targetLanguage = $targetValue;
+                        if (!$targetLanguage || $targetLanguage === "undefined") {
+                            $targetLanguage = $targetActiveItem.attr("data-value");
+                            if (!$targetLanguage || $targetLanguage === "undefined") {
+                                $targetLanguage = $targetActiveItem.attr("lang");
+                                if (!$targetLanguage || $targetLanguage === "undefined") {
+                                    $targetLanguage = $widget.settings._defaultTargetLang === "undefined" ? null : $widget.settings._defaultTargetLang;
+                                }
+                            }
+                        }
+
+                        $widget.loadTargetLangList($sourceButton.attr("data-value"), $targetLanguage, ($widget.settings._systemSelectType === "language"));
                     }
-                });
+                } else {
+                    if ($widget.settings._defaultSourceLang !== null) {
+                        $('.translateSourceLang option[value="' + $widget.settings._defaultSourceLang + '"]', $widget.settings.container).attr('selected', true);
+                    }
+
+                    $widget.fancySource = $('.translateSourceLang', $widget.settings.container);
+                    $widget.fancySource.fancySelect({
+                        useNativeSelect: !$widget.settings._useFancySelect,
+                        triggerTemplate: function (el) {
+                            var targ = $widget.fancyTarget,
+                                lang = targ && targ.length ? (targ[0].options && targ[0].options.length ?
+                                    targ[0].options[targ[0].selectedIndex].lang : null) : $widget.settings._defaultTargetLang;
+                            $widget.loadTargetLangList(el.val(), lang, ($widget.settings._systemSelectType === 'language'));
+                            return ($widget.settings._customSelectText != '') ? $widget.settings._customSelectText : el.text();
+                        }
+                    });
+                }
             }
 
             // swap system source and target
             if ($widget.settings._swapLanguages) {
-                $('.swapLanguage', $widget.settings.container).off('click');
-                $('.swapLanguage', $widget.settings.container).on('click', function () {
-                    $widget.swapSystemLanguages();
-                });
-
-
-                $('#webSwapLanguage').off('click');
-
-                $('#webSwapLanguage').on('click', function () {
+                $($widget.settings._swapLanguagesButtonSelector).click(function () {
                     $widget.swapSystemLanguages();
                 });
             }
@@ -426,10 +483,10 @@ Tilde.TranslatorWidget.prototype = {
                         // show or hide reverse system button
                         if ($widget.settings._swapLanguages) {
                             if ($widget.checkReverseSystem()) {
-                                $('.swapLanguage', $widget.settings.container).removeClass('hide');
+                                $($widget.settings._swapLanguagesButtonSelector, $widget.settings.container).removeClass('hide');
                             }
                             else {
-                                $('.swapLanguage', $widget.settings.container).addClass('hide');
+                                $($widget.settings._swapLanguagesButtonSelector, $widget.settings.container).addClass('hide');
                             }
                         }
 
@@ -449,53 +506,162 @@ Tilde.TranslatorWidget.prototype = {
         }
 
         if ($widget.settings._systemSelectType === 'domain') {
-            $('.translateDomainContainer', $widget.settings.container).removeClass('hide');
+            if ($widget.settings._bootstrap) {
+                $(".translate-domain").removeClass("hide"); // unsure whether this isn't redundant
 
-            // default target lang
-            if ($widget.settings._defaultTargetLang !== null) {
-                $('.translateTargetLang option[lang="' + $widget.settings._defaultTargetLang + '"]', $widget.settings.container).val($widget.settings._defaultTargetLang);
+                var $targetToggler = $(".translate-target-language .dropdown-toggle"); 
+
+                if ($widget.settings._defaultTargetLang !== null) {
+                    var $activeItem = $(".translate-target-language .dropdown-item[data-value=\"" + $widget.settings._defaultTargetLang + "\"]");
+
+                    $activeItem.addClass("active");
+
+                    $targetToggler.attr("data-value", $widget.settings._defaultTargetLang);
+                    $targetToggler.attr("lang", $widget.settings._defaultTargetLang);
+                    $targetToggler.text($activeItem.text());
+                }
+
+                $widget.loadDomainList(
+                    $(".translate-source-language .dropdown-toggle").attr("data-value"),
+                    $targetToggler.attr("data-value")
+                );
+            } else {
+                $('.translateDomainContainer', $widget.settings.container).removeClass('hide');
+
+                // default target lang
+                if ($widget.settings._defaultTargetLang !== null) {
+                    $('.translateTargetLang option[lang="' + $widget.settings._defaultTargetLang + '"]', $widget.settings.container).val($widget.settings._defaultTargetLang);
+                }
+
+                $widget.fancyTarget = $('.translateTargetLang', $widget.settings.container);
+                $widget.fancyTarget.fancySelect({
+                    useNativeSelect: !$widget.settings._useFancySelect,
+                    triggerTemplate: function (el) {
+                        var srcLang = $('.translateSourceLang', $widget.settings.container).val();
+                        if ($('.translateSingleSourceLang', $widget.settings.container).length !== 0) {
+                            srcLang = $('.translateSingleSourceLang', $widget.settings.container).attr('data-value');
+                        }
+                        $widget.loadDomainList(srcLang, el.val());
+                        return el.text();
+                    }
+                });
             }
 
-            $widget.fancyTarget = $('.translateTargetLang', $widget.settings.container);
-            $widget.fancyTarget.fancySelect({
-                useNativeSelect: !$widget.settings._useFancySelect,
-                triggerTemplate: function (el) {
-                    var srcLang = $('.translateSourceLang', $widget.settings.container).val();
-                    if ($('.translateSingleSourceLang', $widget.settings.container).length !== 0) {
-                        srcLang = $('.translateSingleSourceLang', $widget.settings.container).attr('data-value');
-                    }
-                    $widget.loadDomainList(srcLang, el.val());
-                    return el.text();
+            if ($widget.settings._bootstrap) {
+                $widget.activeSystemId = $(".translate-domain .dropdown-toggle-reverse").attr("domain");
+                // TODO: Make sure whether checkreversesystem() here is needed
+            } else {
+                // default domain
+                if ($widget.settings._defaultDomain !== null) {
+                    $('.translateDomain option[domain="' + $widget.settings._defaultDomain + '"]', $widget.settings.container).prop('selected', true);
                 }
-            });
 
-            // default domain
-            if ($widget.settings._defaultDomain !== null) {
-                $('.translateDomain option[domain="' + $widget.settings._defaultDomain + '"]', $widget.settings.container).prop('selected', true);
+                // domain init fancySelect
+                $widget.fancyDomain = $('.translateDomain', $widget.settings.container);
+                $widget.fancyDomain.fancySelect({
+                    useNativeSelect: !$widget.settings._useFancySelect,
+                    triggerTemplate: function (el) {
+                        if ($widget.activeSystemId !== el.val() && typeof (el.val()) !== "undefined") {
+                            $widget.activeSystemId = el.val();
+
+                            if ($widget.settings._onSystemChanged && typeof ($widget.settings._onSystemChanged) === "function") {
+                                $widget.settings._onSystemChanged($widget.activeSystemId);
+                            }
+
+                            // show or hide reverse system button
+                            if ($widget.settings._swapLanguages) {
+                                if ($widget.checkReverseSystem()) {
+                                    $($widget.settings._swapLanguagesButtonSelector, $widget.settings.container).removeClass('hide');
+                                }
+                                else {
+                                    $($widget.settings._swapLanguagesButtonSelector, $widget.settings.container).addClass('hide');
+                                }
+                            }
+
+                            if ($widget.onSystemChangedHandlers) {
+                                $.each($widget.onSystemChangedHandlers, function (idx, systemChangedHandler) {
+                                    systemChangedHandler($widget.activeSystemId);
+                                });
+                            }
+                        }
+                        return el.text();
+                    }
+                });
+            }
+        }
+
+        if ($widget.settings._bootstrap) {
+            $widget.setDropdownItemClickEvents(".translate-source-language");
+        }
+    },
+
+    setDropdownItemClickEvents: function (dropdown) {
+        var $items = $(dropdown + " .dropdown-item"),
+            $toggler = dropdown === ".translate-domain" ? $(dropdown + " .dropdown-toggle-reverse") : $(dropdown + " .dropdown-toggle"),
+            action = chooseAction(dropdown);
+
+        $items.click(function () {
+            action($(this), $toggler, $items);
+
+            if ($widget.settings._onSystemChanged && typeof ($widget.settings._onSystemChanged) === "function") {
+                $widget.settings._onSystemChanged($widget.activeSystemId);
             }
 
-            // domain init fancySelect
-            $widget.fancyDomain = $('.translateDomain', $widget.settings.container);
-            $widget.fancyDomain.fancySelect({
-                useNativeSelect: !$widget.settings._useFancySelect,
-                triggerTemplate: function (el) {
-                    if ($widget.activeSystemId !== el.val() && typeof(el.val()) !== "undefined") {
-                        $widget.activeSystemId = el.val();
+            if ($widget.onSystemChangedHandlers) {
+                $.each($widget.onSystemChangedHandlers, function (idx, systemChangedHandler) {
+                    systemChangedHandler($widget.activeSystemId);
+                });
+            }
+        });
 
-                        if ($widget.settings._onSystemChanged && typeof ($widget.settings._onSystemChanged) === "function") {
-                            $widget.settings._onSystemChanged($widget.activeSystemId);
-                        }
+        function chooseAction(dropdown) {
+            switch (dropdown) {
+                case ".translate-source-language":
+                    return function (item, toggler, items) {
+                        var source = item.attr("data-value");
 
-                        if ($widget.onSystemChangedHandlers) {
-                            $.each($widget.onSystemChangedHandlers, function (idx, systemChangedHandler) {
-                                systemChangedHandler($widget.activeSystemId);
-                            });
-                        }
-                    }
-                    return el.text();
-                }
-            });
+                        toggler.attr("data-value", source);
+                        toggler.attr("lang", item.attr("lang"));
+                        toggler.text(item.text());
 
+                        items.removeClass("active");
+                        item.addClass("active");
+
+                        $widget.loadTargetLangList(
+                            source,
+                            $(".translate-target-language .dropdown-toggle").attr("data-value")
+                        );
+                    };
+                case ".translate-target-language":
+                    return function (item, toggler, items) {
+                        var target = item.attr("data-value");
+
+                        toggler.attr("data-value", target);
+                        toggler.attr("lang", item.attr("lang"));
+                        toggler.text(item.text());
+
+                        items.removeClass("active");
+                        item.addClass("active");
+
+                        $widget.loadDomainList(
+                            $(".translate-source-language .dropdown-toggle").attr("data-value"),
+                            target
+                        );
+                    };
+                case ".translate-domain":
+                    return function (item, toggler, items) {
+                        var domain = item.attr("domain");
+
+                        toggler.attr("domain", domain);
+                        toggler.attr("data-value", item.attr("data-value"));
+                        toggler.find(".name").text(item.text());
+
+                        items.removeClass("active");
+                        item.addClass("active");
+
+                        $widget.activeSystemId = domain;
+                    };
+            }
         }
     },
 
@@ -504,7 +670,7 @@ Tilde.TranslatorWidget.prototype = {
         // by calling window onresize handlers after page content is loaded
         $(document).trigger("resize");
     },
-    
+
     initWidgetTemplate: function () {
         $widget.onWidgetActivated();
 
@@ -512,7 +678,7 @@ Tilde.TranslatorWidget.prototype = {
             if ($widget.settings._replaceContainer) {
                 var template = $('#' + $widget.settings._templateId).html(),
                     remContainer = $widget.settings.container;
-                
+
                 $(template).insertBefore($widget.settings.container);
                 $widget.settings.container = $widget.settings.container.parent();
                 remContainer.remove();
@@ -540,14 +706,18 @@ Tilde.TranslatorWidget.prototype = {
             $('[data-text="' + id + '"]', $widget.settings.container).text(txt);
             $('[data-html="' + id + '"]', $widget.settings.container).html(txt);
             $('[data-title="' + id + '"]', $widget.settings.container).attr('title', txt);
+            $('[data-aria-label="' + id + '"]', $widget.settings.container).attr('aria-label', txt);
         });
     },
 
     setActiveSystem: function (systemId) {
-        if (systemId === $widget.activeSystemId) { return; }
+        if (systemId === $widget.activeSystemId)
+            return;
 
-        var src = '', trg = '';
-        if ($widget.settings._systems != null) {
+        $widget.activeSystemId = systemId;
+
+        var src = "", trg = "";
+        if ($widget.settings._systems !== null) {
             $.each($widget.settings._systems, function (idx, sys) {
                 if (sys.ID === systemId) {
                     src = sys.SourceLanguage.Code;
@@ -558,56 +728,54 @@ Tilde.TranslatorWidget.prototype = {
         }
 
         if ($widget.settings._systemSelectType === 'language' || $widget.settings._systemSelectType === 'domain') {
-            $('.translateSourceLang option[selected="selected"]', $widget.settings.container).removeAttr('selected');
-            $('.translateSourceLang option[value="' + src + '"]', $widget.settings.container).prop('selected', true);
+            if ($widget.settings._bootstrap) {
+                var $source = $(".translate-source-language"),
+                    $toggler = $source.find(".dropdown-toggle"),
+                    $activeItem = $source.find(".dropdown-item[data-value=\"" + src + "\"]");
 
-            if($widget.settings._systemSelectType === 'language'){
+                $source.find(".dropdown-item.active").removeClass("active");
+                $toggler.attr("data-value", src);
+                $toggler.text($activeItem.text());
+                $activeItem.addClass("active");
+            } else {
+                $('.translateSourceLang option[selected="selected"]', $widget.settings.container).removeAttr('selected');
+                $('.translateSourceLang option[value="' + src + '"]', $widget.settings.container).prop('selected', true);
+            }
+
+            if ($widget.settings._systemSelectType === 'language') {
                 $widget.loadTargetLangList(src, trg, true);
             } else if ($widget.settings._systemSelectType === 'domain') {
-                $widget.loadTargetLangList(src, trg, false);
+                $widget.loadTargetLangList(src, trg);
             }
 
-            if ($widget.fancySource !== null) {
-               // // RL
-                //var newTriggerText = $('.translateSourceLang option[value="' + src + '"]', $widget.settings.container).html();
-                //newTriggerText = angular.element($("#my_translator_app")).scope().localize(newTriggerText);
-                //$('#source_lang_div .trigger').first().html(newTriggerText);
-                $('#source_lang_div .options li').each(function () {
-                    if ($(this).data("raw-value") != src) {
-                        $(this).removeClass('selected');
-                    } else {
-                        $(this).addClass('selected');
-                    }
-                });
-                // /RL
-                $widget.fancySource.trigger('change.fs');
+            if (!$widget.settings._bootstrap) {
+                if ($widget.fancySource !== null)
+                    $widget.fancySource.trigger('change.fs');
             }
-
-            // RL
-            if ($('.w .translateSourceLang') !== null) {
-                $('.web_transl_types .options li').each(function () {
-                    if ($(this).data("raw-value") != src) {
-                        $(this).removeClass('selected');
-                    } else {
-                        $(this).addClass('selected');
-                    }
-                });
-            }
-            // /RL
         } else {
             $('.translateSystem option[selected="selected"]', $widget.settings.container).removeAttr('selected');
             $('.translateSystem option[value="' + systemId + '"]', $widget.settings.container).prop('selected', true);
 
             if ($('.translateSystem.fancified', $widget.settings.container)) {
-                $('.translateSystem.fancified', $widget.settings.container).trigger('change.fs');
+                $('.translateSystem.fancified', $widget.settings.container).trigger('update.fs');
             }
+        }
+
+        if ($widget.settings._onSystemChanged && typeof ($widget.settings._onSystemChanged) === "function") {
+            $widget.settings._onSystemChanged($widget.activeSystemId);
+        }
+
+        if ($widget.onSystemChangedHandlers) {
+            $.each($widget.onSystemChangedHandlers, function (idx, systemChangedHandler) {
+                systemChangedHandler($widget.activeSystemId);
+            });
         }
     },
 
     getActiveSystemObj: function () {
-        if (!$widget.settings._systems) {
+        if (!$widget.settings._systems)
             return null;
-        }
+
         var system = null;
         $.each($widget.settings._systems, function (idx, sys) {
             if (sys.ID === $widget.activeSystemId) {
@@ -615,66 +783,42 @@ Tilde.TranslatorWidget.prototype = {
                 return false;
             }
         });
+
         return system;
     },
 
     checkReverseSystem: function () {
-        if (!$widget.settings._systems)
-            return false;
-
-        var src = '', trg = '', exist = false;
-
-        // get active source and target
-        $.each($widget.settings._systems, function (idx, sys) {
-            if (sys.ID === $widget.activeSystemId) {
-                src = sys.SourceLanguage.Code;
-                trg = sys.TargetLanguage.Code;
-            }
-        });
-
-        // find reverse
-        $.each($widget.settings._systems, function (idx, sys) {
-            if (sys.SourceLanguage.Code === trg && sys.TargetLanguage.Code === src) {
-                exist = true;
-            }
-        });
-
-        return exist;
+        return $widget.getReverseSystem() !== null;
     },
 
     swapSystemLanguages: function () {
-        var src = '', trg = '';
-        
-        // RL
-        if (!$widget.activeSystemId) {
-            $widget.activeSystemId = $widget.settings._systems[0].ID;
-        }
-        // /RL
+        var reverseSys = $widget.getReverseSystem();
 
-        // get active source and target
-        $.each($widget.settings._systems, function (idx, sys) {
-            if (sys.ID === $widget.activeSystemId) {
-                src = sys.SourceLanguage.Code;
-                trg = sys.TargetLanguage.Code;
-                // RL
-                return false;
-                // /RL
-            }
-        });
+        if (reverseSys) {
+            $widget.setActiveSystem(reverseSys.ID);
+        }
+    },
+
+    getReverseSystem: function () {
+        if (!$widget.settings._systems)
+            return null;
+
+        var activeSys = $widget.getActiveSystemObj();
 
         // find reverse
+        var reverseSys = null;
         $.each($widget.settings._systems, function (idx, sys) {
-            if (sys.SourceLanguage.Code === trg && sys.TargetLanguage.Code === src) {
-                $widget.setActiveSystem(sys.ID);
-                // RL
-                return false;
-                // /RL
+            if (sys.SourceLanguage.Code === activeSys.TargetLanguage.Code && sys.TargetLanguage.Code === activeSys.SourceLanguage.Code
+                && (sys.Domain === activeSys.Domain || reverseSys === null)) {
+                reverseSys = sys;
             }
         });
+
+        return reverseSys;
     },
 
     disableSystemChange: function () {
-        $('.swapLanguage').attr('data-disabled', true);
+        $($widget.settings._swapLanguagesButtonSelector).attr('data-disabled', true);
 
         if ($widget.fancySource) $widget.fancySource.trigger('disable');
         if ($widget.fancyTarget) $widget.fancyTarget.trigger('disable');
@@ -684,7 +828,7 @@ Tilde.TranslatorWidget.prototype = {
     },
 
     enableSystemChange: function () {
-        $('.swapLanguage').attr('data-disabled', false);
+        $($widget.settings._swapLanguagesButtonSelector).attr('data-disabled', false);
 
         if ($widget.fancySource) $widget.fancySource.trigger('enable');
         if ($widget.fancyTarget) $widget.fancyTarget.trigger('enable');
@@ -694,28 +838,77 @@ Tilde.TranslatorWidget.prototype = {
     },
 
     loadTargetLangList: function (source, selTarget, putSystemId) {
-        $('.translateTargetLang', $widget.settings.container).empty();
+        if ($widget.settings._bootstrap) {
+            $(".translate-target-language .dropdown-menu").empty();
+        } else {
+            $('.translateTargetLang', $widget.settings.container).empty();
+        }
 
         if ($widget.settings._systems) {
             $.each($widget.settings._systems, function (idx, sys) {
                 if (sys.SourceLanguage.Code === source) {
                     if (putSystemId) {
                         // check unique in lang attribute
-                        if ($('.translateTargetLang option[lang="' + sys.TargetLanguage.Code + '"]', $widget.settings.container).length === 0) {
-                            $('.translateTargetLang', $widget.settings.container).append($('<option>', {
-                                value: sys.ID,
-                                text: uiResources[$widget.settings._language][sys.TargetLanguage.Code] ? uiResources[$widget.settings._language][sys.TargetLanguage.Code] : sys.TargetLanguage.Name.Text,
-                                lang: sys.TargetLanguage.Code
-                            }));
+                        if ($widget.settings._bootstrap) {
+                            if ($(".translate-target-language .dropdown-item[data-value=\"" + sys.TargetLanguage.Code + "\"]").length === 0) {
+                                $(".translate-target-language .dropdown-menu").append($("<button>", {
+                                    text: uiResources[$widget.settings._language][sys.TargetLanguage.Code] ? uiResources[$widget.settings._language][sys.TargetLanguage.Code] : sys.TargetLanguage.Name.Text,
+                                    class: "dropdown-item p-2 border-md border-md-right-0",
+                                    type: "button",
+                                    "data-value": sys.ID,
+                                    lang: sys.TargetLanguage.Code
+                                }));
+                            }
+                        } else {
+                            if ($('.translateTargetLang option[lang="' + sys.TargetLanguage.Code + '"]', $widget.settings.container).length === 0) {
+                                $('.translateTargetLang', $widget.settings.container).append($('<option>', {
+                                    value: sys.ID,
+                                    text: uiResources[$widget.settings._language][sys.TargetLanguage.Code] ? uiResources[$widget.settings._language][sys.TargetLanguage.Code] : sys.TargetLanguage.Name.Text,
+                                    lang: sys.TargetLanguage.Code
+                                }));
+                            }
                         }
                     }
+                    // check unique in value attribute
+                    else if ($widget.settings._systemSelectType === 'domain' && $widget.settings._useRecentLangSelector) {
+                        if ($widget.settings._bootstrap) {
+                            if ($(".translate-target-language .dropdown-item[data-value=\"" + sys.TargetLanguage.Code + "\"]").length === 0) {
+                                $(".translate-target-language .dropdown-menu").append($("<button>", {
+                                    text: uiResources[$widget.settings._language][sys.TargetLanguage.Code] ? uiResources[$widget.settings._language][sys.TargetLanguage.Code] : sys.TargetLanguage.Name.Text,
+                                    class: "dropdown-item p-2 border-md border-md-right-0",
+                                    type: "button",
+                                    "data-value": sys.TargetLanguage.Code,
+                                    lang: sys.TargetLanguage.Code
+                                }));
+                            }
+                        } else {
+                            if ($('.translateTargetLang option[value="' + sys.TargetLanguage.Code + '"]', $widget.settings.container).length === 0) {
+                                $('.translateTargetLang', $widget.settings.container).append($('<option>', {
+                                    value: sys.TargetLanguage.Code,
+                                    text: uiResources[$widget.settings._language][sys.TargetLanguage.Code] ? uiResources[$widget.settings._language][sys.TargetLanguage.Code] : sys.TargetLanguage.Name.Text,
+                                    lang: sys.TargetLanguage.Code
+                                }));
+                            }
+                        }
+                    }
+                    // check unique in value attribute
                     else {
-                        // check unique in value attribute
-                        if ($('.translateTargetLang option[lang="' + sys.TargetLanguage.Code + '"]', $widget.settings.container).length === 0) {
-                            $('.translateTargetLang', $widget.settings.container).append($('<option>', {
-                                value: sys.TargetLanguage.Code,
-                                text: uiResources[$widget.settings._language][sys.TargetLanguage.Code] ? uiResources[$widget.settings._language][sys.TargetLanguage.Code] : sys.TargetLanguage.Name.Text
-                            }));
+                        if ($widget.settings._bootstrap) {
+                            if ($(".translate-target-language .dropdown-item[data-value=\"" + sys.TargetLanguage.Code + "\"]").length === 0) {
+                                $(".translate-target-language .dropdown-menu").append($("<button>", {
+                                    text: uiResources[$widget.settings._language][sys.TargetLanguage.Code] ? uiResources[$widget.settings._language][sys.TargetLanguage.Code] : sys.TargetLanguage.Name.Text,
+                                    class: "dropdown-item",
+                                    type: "button",
+                                    "data-value": sys.TargetLanguage.Code
+                                }));
+                            }
+                        } else {
+                            if ($('.translateTargetLang option[lang="' + sys.TargetLanguage.Code + '"]', $widget.settings.container).length === 0) {
+                                $('.translateTargetLang', $widget.settings.container).append($('<option>', {
+                                    value: sys.TargetLanguage.Code,
+                                    text: uiResources[$widget.settings._language][sys.TargetLanguage.Code] ? uiResources[$widget.settings._language][sys.TargetLanguage.Code] : sys.TargetLanguage.Name.Text
+                                }));
+                            }
                         }
                     }
                 }
@@ -724,49 +917,135 @@ Tilde.TranslatorWidget.prototype = {
 
         // select target
         if (typeof selTarget !== 'undefined' && selTarget !== null) {
-            var option = $('.translateTargetLang option[lang="' + selTarget + '"]', $widget.settings.container);
-            if (option.length == 1) {
-                $(option[0]).prop('selected', true);
-            } else if ($widget.settings._defaultTargetLang) {
-                $('.translateTargetLang option[lang="' + $widget.settings._defaultTargetLang + '"]', $widget.settings.container).prop('selected', true);
-            }
-        }
+            if ($widget.settings._bootstrap) {
+                var $dropdown = $(".translate-target-language"),
+                    $entry = $dropdown.find(".dropdown-item[data-value=\"" + selTarget + "\"]"),
+                    $toggler = $dropdown.find(".dropdown-toggle");
 
-        if ($widget.fancyTarget !== null) {
-            $widget.fancyTarget.trigger('update.fs');
+                if (!$entry.length) {
+                    $entry = $dropdown.find(".dropdown-item[data-value=\"" + $widget.settings._defaultTargetLang + "\"]");
+                    selTarget = $entry.attr("data-value");
+
+                    if (!$entry.length) {
+                        $entry = $dropdown.find(".dropdown-item:first");
+                        selTarget = $entry.attr("data-value");
+                    }
+                }
+
+                $entry.addClass("active");
+                $toggler.attr("data-value", $entry.attr("data-value"));
+                $toggler.attr("lang", $entry.attr("lang"));
+                $toggler.text($entry.text());
+
+                $widget.loadDomainList(
+                    source,
+                    selTarget
+                );
+
+                $widget.setDropdownItemClickEvents(".translate-target-language");
+            } else {
+                var option = $('.translateTargetLang option[lang="' + selTarget + '"]', $widget.settings.container);
+                if (option.length == 1) {
+                    $(option[0]).prop('selected', true);
+                } else if ($widget.settings._defaultTargetLang) {
+                    $('.translateTargetLang option[lang="' + $widget.settings._defaultTargetLang + '"]', $widget.settings.container).prop('selected', true);
+                }
+
+                if ($widget.fancyTarget !== null) {
+                    $widget.fancyTarget.trigger('update.fs');
+                }
+            }
         }
     },
 
     loadDomainList: function (source, target) {
-        var core = this,
-            prevDomain = '';
+        var core = this, initialLoad = true;
 
-        if ($('.translateDomain option:selected', $widget.settings.container).length !== 0) {
-            prevDomain = $('.translateDomain option:selected', $widget.settings.container).attr('domain');
-        }
+        if ($widget.settings._bootstrap) {
+            var $domain = $(".translate-domain"),
+                $domainActive = $domain.find(".dropdown-toggle-reverse"),
+                $domainList = $domain.find(".dropdown-menu"),
+                subjectOfPreviousDomain = $domainActive.attr("data-value");
 
-        $('.translateDomain', $widget.settings.container).empty();
-
-        $.each($widget.settings._systems, function (idx, sys) {
-            if (sys.SourceLanguage.Code === source && sys.TargetLanguage.Code === target) {
-                $('.translateDomain', $widget.settings.container).append($('<option>', {
-                    value: sys.ID,
-                    domain: sys.Domain,
-                    text: sys.Domain
-                }));
+            if ($domain.find(".dropdown-item.active").length !== 0) {
+                initialLoad = false;
             }
-        });
 
-        // default selected
-        if (prevDomain === '') {
-            $('.translateDomain', $widget.settings.container).val($('.translateDomain option:first', $widget.settings.container).val());
-        }
-        else {
-            $('.translateDomain option[domain="' + prevDomain + '"]', $widget.settings.container).prop('selected', true);
-        }
+            $domainList.empty();
 
-        if ($widget.fancyDomain !== null) {
-            $widget.fancyDomain.trigger('update.fs');
+            $.each($widget.settings._systems, function (idx, sys) {
+                if (sys.SourceLanguage.Code === source && sys.TargetLanguage.Code === target) {
+                    var MTSystemName = sys.Domain;
+
+                    if ($widget.settings._localizeMTSystems) {
+                        if (typeof uiResources[$widget.settings._language]["MTSystem-" + sys.Domain] !== "undefined") {
+                            MTSystemName = uiResources[$widget.settings._language]["MTSystem-" + sys.Domain];
+                        }
+                    }
+
+                    $domainList.append($("<button>", {
+                        "data-value": sys.Domain,
+                        type: "button",
+                        class: "dropdown-item",
+                        domain: sys.ID,
+                        text: MTSystemName
+                    }));
+                }
+            });
+
+            var $domainActiveListItem = $domainList.find(".dropdown-item[data-value=\"" + subjectOfPreviousDomain + "\"]");
+
+            if (initialLoad || $domainActiveListItem.length === 0) {
+                $domainActiveListItem = $domainList.find(".dropdown-item:first");
+            }
+
+            $domainActive.attr("data-value", $domainActiveListItem.attr("data-value"));
+            $domainActive.attr("domain", $domainActiveListItem.attr("domain"));
+            $domainActive.find(".name").text($domainActiveListItem.text());
+
+            $domainActiveListItem.addClass("active");
+
+            $widget.activeSystemId = $domainActiveListItem.attr("domain");
+
+            $widget.setDropdownItemClickEvents(".translate-domain");
+        } else {
+            var prevDomain = "";
+
+            if ($('.translateDomain option:selected', $widget.settings.container).length !== 0) {
+                prevDomain = $('.translateDomain option:selected', $widget.settings.container).attr('domain');
+            }
+
+            $('.translateDomain', $widget.settings.container).empty();
+
+            $.each($widget.settings._systems, function (idx, sys) {
+                if (sys.SourceLanguage.Code === source && sys.TargetLanguage.Code === target) {
+                    var MTSystemName = sys.Domain;
+
+                    if ($widget.settings._localizeMTSystems) {
+                        if (typeof uiResources[$widget.settings._language]["MTSystem-" + sys.Domain] !== "undefined") {
+                            MTSystemName = uiResources[$widget.settings._language]["MTSystem-" + sys.Domain];
+                        }
+                    }
+
+                    $('.translateDomain', $widget.settings.container).append($('<option>', {
+                        value: sys.ID,
+                        domain: sys.Domain,
+                        text: MTSystemName
+                    }));
+                }
+            });
+
+            // default selected
+            if (prevDomain === "") {
+                $('.translateDomain', $widget.settings.container).val($('.translateDomain option:first', $widget.settings.container).val());
+            }
+            else {
+                $('.translateDomain option[domain="' + prevDomain + '"]', $widget.settings.container).prop('selected', true);
+            }
+
+            if ($widget.fancyDomain !== null) {
+                $widget.fancyDomain.trigger('update.fs');
+            }
         }
     },
 

@@ -16,6 +16,7 @@ var uiResources = {
         "ru": "Russian",
         "et": "Estonian",
         "ar": "Arabic",
+        "pl": "Polish",
         "bg": "Bulgarian",
         "de": "German"
     },
@@ -41,7 +42,8 @@ var uiResources = {
         "lt": "Lietuvių",
         "ru": "Rusų",
         "et": "Estų",
-        "ar": "Arabų"
+        "ar": "Arabų",
+        "pl": "Lenkų"
     },
     'lv': {
         "sourceSystem": "No:",
@@ -58,6 +60,7 @@ var uiResources = {
         "ru": "Krievu",
         "et": "Igauņu",
         "ar": "Arābu",
+        "pl": "Poļu",
         "bg": "Bulgāru",
         "de": "Vācu"
     },
@@ -74,6 +77,7 @@ var uiResources = {
         "lt": "Литовский",
         "fr": "Французский",
         "ru": "Русский",
+        "pl": "Польский"
     },
     'et': {
         "sourceSystem": "Lähtekeel:",
@@ -83,12 +87,13 @@ var uiResources = {
         "translateButton": "Tõlgi",
         "systemDomain": "Domain",
         "systemLoadError": "Süsteemide laadimise tõrge",
-        "en": "Inglise",
+        "en": "Īnglise",
         "lv": "Läti",
         "lt": "Leedu",
         "et": "Eesti",
         "ru": "Vene",
-        "ar": "Araabia"
+        "ar": "Araabia",
+        "pl": "Poola"
     },
     'bg': {
         "sourceSystem": "От:",
@@ -124,5 +129,5 @@ var uiResources = {
         "ar": "Arabisch",
         "bg": "Bulgarisch",
         "de": "Deutsch"
-    },
+    }
 };

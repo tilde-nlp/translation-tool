@@ -22,7 +22,9 @@ uiResources = $.extend(true, uiResources, {
         "docTranslInProgress": "Document translation is in progress. If you leave the page, the translation will be lost.",
         "docSupportedTypes": "Currently the system supports {extensions} file formats. UTF-8 or UTF-16 coding required.",
         "docLimit": "Please be informed that only first {limit} segments of each document will be translated for you as a DEMO user. We kindly invite you to contact us <a href=\"mailto:mt@tilde.com\">mt@tilde.com</a> to get full access",
-        "advancedOptions": "Options▾"
+        "advancedOptions": "Options▾",
+        "useAssistant": "Open with translation assistant",
+        "assistLoading": "preparing document..."
     },
     'lv': {
         "docTempTarget": "Dokumentu mašīntulkošanas rezultāti ļauj saprast teksta nozīmi, bet nevar aizstāt cilvēka radītu tulkojumu.",
@@ -37,12 +39,17 @@ uiResources = $.extend(true, uiResources, {
         "docUploadFilesize": "Dokumenta lielums:",
         "docUploadWordcount": "Vārdu skaits:",
         "docUploadFailed": "Neizdevās ielādēt failu.",
+        "docTranslFailed": "Document translation failed. Please try again.",
         "docUploadNewDoc": "Izdzēst",
         "docStarting": "Tiek sākta dokumenta tulkošana...",
         "docPreviewError": "Neizdevās izveidot dokumenta priekšskatījumu.",
         "docAppleLimited": "iOS iekārtās failu augšupielāde ir ierobežota.",
         "docTranslInProgress": "Patreiz notiek dokumenta tulkošana. Pametot lapu, tulkojums tiks pazaudēts.",
-        "docSupportedTypes": "Tiek atbalstīti šādi dokumentu formāti: {extensions}. Nepieciešams UTF-8 vai UTF-16 kodējums."
+        "docSupportedTypes": "Tiek atbalstīti šādi dokumentu formāti: {extensions}. Nepieciešams UTF-8 vai UTF-16 kodējums.",
+        "docLimit": "Please be informed that only first {limit} segments of each document will be translated for you as a DEMO user. We kindly invite you to contact us <a href=\"mailto:mt@tilde.com\">mt@tilde.com</a> to get full access",
+        "advancedOptions": "Options▾",
+        "useAssistant": "Atvērt ar tulkošanas asistentu",
+        "assistLoading": "sagatavojam dokumentu..."
     },
     'ru': {
         "docTempTarget": "Результаты машинного перевода документов позволяют понять значение текста, но не позволяют заменить сделанный человеком перевод.",
@@ -57,12 +64,17 @@ uiResources = $.extend(true, uiResources, {
         "docUploadFilesize": "Размер документа:",
         "docUploadWordcount": "Количество слов:",
         "docUploadFailed": "Файл не удалось загрузить.",
+        "docTranslFailed": "Document translation failed. Please try again.",
         "docUploadNewDoc": "Удалить",
         "docStarting": "Начат перевод документа...",
         "docPreviewError": "Не удалось создать предварительный просмотр документа.",
         "docAppleLimited": "Загрузка файла на устройствах IOS ограничено.",
         "docTranslInProgress": "Перевод документов в процессе. Если вы уйдете со страницы, перевод будет потерян.",
-        "docSupportedTypes": "Currently the system supports {extensions} file formats. UTF-8 or UTF-16 coding required."
+        "docSupportedTypes": "Currently the system supports {extensions} file formats. UTF-8 or UTF-16 coding required.",
+        "docLimit": "Please be informed that only first {limit} segments of each document will be translated for you as a DEMO user. We kindly invite you to contact us <a href=\"mailto:mt@tilde.com\">mt@tilde.com</a> to get full access",
+        "advancedOptions": "Options▾",
+        "useAssistant": "Open with translation assistant",
+        "assistLoading": "preparing document..."
     },
     'lt': {
         "docTempTarget": "Dokumentų mašininio vertimo rezultatai padeda suprasti originalo teksto prasmę, tačiau jo kokybės negalima lyginti su žmonių atliekamu vertimu.",
@@ -125,10 +137,7 @@ uiResources = $.extend(true, uiResources, {
         "docPreviewError": "Dokumendi eelvaate loomine nurjus.",
         "docAppleLimited": "Failide üleslaadimine iOS-seadmetest on piiratud.",
         "docTranslInProgress": "Dokumendi tõlkimine on pooleli. Kui lehelt lahkute, läheb tõlge kaotsi.",
-        // RL
-        // "docSupportedTypes": "Praegu toetab süsteem järgmisi failivorminguid: {extensions}. Vajalik on kodeering UTF-8 või UTF-16."
-        "docSupportedTypes": "Tõlketugi on olemas järgmiste failivormingute puhul: {extensions}. Vajalik on kodeering UTF-8 või UTF-16."
-        // / RL
+        "docSupportedTypes": "Praegu toetab süsteem järgmisi failivorminguid: {extensions}. Vajalik on kodeering UTF-8 või UTF-16."
     },
     'bg': {
         "docTempTarget": "Резултатите от машинния превод на документи помагат да се разбере смисълът на изходния текст, но не са равностойни на превод, направен от човек.",
@@ -175,5 +184,5 @@ uiResources = $.extend(true, uiResources, {
         "docSupportedTypes": "Derzeit unterstützt das System {extensions} Dateiformate. Es sind die Kodierungen UTF-8 oder UTF-16 erforderlich.",
         "docLimit": "Bitte beachten Sie, dass Sie als DEMO-BenutzerIn nur die ersten {limit} Segmente eines einzelnen Dokuments übersetzen lassen können. Wir laden Sie herzlich ein, uns unter mt@tilde.com zu kontaktieren, um Vollzugriff zu erhalten.",
         "advancedOptions": "Optionen▾"
-    },
+    }
 });

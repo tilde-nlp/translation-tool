@@ -26,6 +26,10 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             }
             $('.translateSourceLang option[value="' + $(this).attr('data-value') + '"]').prop('selected', true);
             $widget.fancySource.trigger('update.fs');
+
+            $(".translate-source-language .dropdown-item[data-value=\"" + $(this).attr("data-value") + "\"]").addClass("active");
+            $(".translate-source-language .dropdown-toggle").attr("data-value", $(this).attr("data-value"));
+            $(".translate-source-language .dropdown-toggle").text($(this).text());
         });
 
         $(document).on('click', '.popTargetLangs li', function () {
@@ -35,6 +39,10 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             }
             $('.translateTargetLang option[lang="' + $(this).attr('data-value') + '"]').prop('selected', true);
             $widget.fancyTarget.trigger('update.fs');
+
+            $(".translate-target-language .dropdown-item[data-value=\"" + $(this).attr("data-value") + "\"]").addClass("active");
+            $(".translate-target-language .dropdown-toggle").attr("data-value", $(this).attr("data-value"));
+            $(".translate-target-language .dropdown-toggle").text($(this).text());
         });
 
         $(window).on('resize', function () {
@@ -61,10 +69,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         var list = '';
         $('.translateSourceLang option').each(function (idx) {
             if ($.inArray(idx, languageIndexes) >= 0) {
-                // RL
-                //list += '<li data-value="' + $(this).val() + '"' + ($(this).val() === $(this).parent().val() ? ' class="active"' : '') + '>' + $(this).text() + '</li>';
-                list += '<li data-value="' + $(this).val() + '"' + ($(this).val() === $(this).parent().val() ? ' class="active"' : '') + '>' + angular.element($("#my_translator_app")).scope().localize($(this).text()) + '</li>';
-                // / RL
+                list += '<li data-value="' + $(this).val() + '" class="page-item' + ($(this).val() === $(this).parent().val() ? ' active"' : '"') + '><a tabindex=0 class="page-link" title="' + $(this).text() + '">' + $(this).text() + '</a></li>';
             }
         });
         $(".translateSystemContainerLeft .fancy-select").toggle($('.translateSourceLang option').length > languageCount);
@@ -92,10 +97,8 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         var list = '';
         $('.translateTargetLang option').each(function (idx) {
             if ($.inArray(idx, languageIndexes) >= 0) {
-                // RL
-                // list += '<li data-value="' + $(this).attr('lang') + '"' + ($(this).val() === $(this).parent().val() ? ' class="active"' : '') + '>' + $(this).text() + '</li>';
-                list += '<li data-value="' + $(this).attr('lang') + '"' + ($(this).val() === $(this).parent().val() ? ' class="active"' : '') + '>' + angular.element($("#my_translator_app")).scope().localize($(this).text()) + '</li>';
-                // RL
+                var lng = ($(this).attr('lang')) ? $(this).attr('lang') : $(this).val();
+                list += '<li data-value="' + lng + '" class="page-item' + ($(this).val() === $(this).parent().val() ? ' active"' : '"') + '><a tabindex=0 class="page-link" title="' + $(this).text() + '">' + $(this).text() + '</a></li>';
             }
         });
         $(".translateSystemContainerRight .fancy-select").toggle($('.translateTargetLang option').length > languageCount);
@@ -119,11 +122,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             $('.popSourceLangs li[data-value="' + src + '"]').addClass('active');
         }
         else {
-            // RL
-            // $('.popSourceLangs').prepend('<li data-value="' + src + '" class="active">' + $('.translateSourceLang :selected').text() + '</li>');
-            var newText = angular.element($("#my_translator_app")).scope().localize($('.translateSourceLang :selected').text());
-            $('.popSourceLangs').prepend('<li data-value="' + src + '" class="active">' + newText + '</li>');
-            // / RL
+            $('.popSourceLangs').prepend('<li data-value="' + src + '" class="page-item active"><a class="page-link" tabindex=0 title="' + $('.translateSourceLang :selected').text() + '">' + $('.translateSourceLang :selected').text() + '</a></li>');
             $('.popSourceLangs li').last().remove();
             if ($('.popSourceLangs li').length > 1 && $(".translateSystemContainerLeft").height() > 50) {
                 $('.popSourceLangs li').last().remove();
@@ -136,11 +135,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             $('.popTargetLangs li[data-value="' + trg + '"]').addClass('active');
         }
         else {
-            // RL
-            //$('.popTargetLangs').prepend('<li data-value="' + trg + '" class="active">' + $('.translateTargetLang :selected').text() + '</li>');
-            var newText = angular.element($("#my_translator_app")).scope().localize($('.translateTargetLang :selected').text());
-            $('.popTargetLangs').prepend('<li data-value="' + trg + '" class="active">' + newText + '</li>');
-            // /RL
+            $('.popTargetLangs').prepend('<li data-value="' + trg + '" class="page-item active"><a tabindex=0 class="page-link" title="' + $('.translateTargetLang :selected').text() + '">' + $('.translateTargetLang :selected').text() + '</a></li>');
             $('.popTargetLangs li').last().remove();
             if ($('.popTargetLangs li').length > 1 && $(".translateSystemContainerRight").height() > 50)
             {
@@ -151,6 +146,6 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
 });
 
-// RL
-// Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.recentlangsPluginInit);
-// / RL
+if (typeof $customWidgetInit === "undefined" || !$customWidgetInit) {
+    Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.recentlangsPluginInit);
+}

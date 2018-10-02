@@ -13,6 +13,12 @@ uiResources = $.extend(true, uiResources, {
         "cancelButton": "Atcelt",
         "restoreButton": "Atjaunot"
     },
+    'ru': {
+        "address": "[Adrese]",
+        "loadButton": "[Ielādēt lapu]",
+        "cancelButton": "[Atcelt]",
+        "restoreButton": "[Atjaunot]"
+    },
     'lt': {
         "address": "Adresas",
         "loadButton": "Įkelti svetainę",

@@ -215,6 +215,6 @@
         $.fn.defaultFontSize = [who.offsetWidth, who.offsetHeight];
         pa.removeChild(who);
         return $.fn.defaultFontSize;
-    }
+    };
 
 })();

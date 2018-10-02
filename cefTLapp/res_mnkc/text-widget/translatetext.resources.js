@@ -15,7 +15,15 @@ uiResources = $.extend(true, uiResources, {
         "translationEditClose": "Close",
         "translationEditOriginal": "Original sentence",
         "translationEditTranslation": "Translation",
-        "translationEditDescription": "Your translation suggestion will be used to improve the quality of machine translation."
+        "translationEditDescription": "Your translation suggestion will be used to improve the quality of machine translation.",
+        "examples": "examples",
+        "dictionary-entry-word-class-noun": "[noun]",
+        "dictionary-entry-word-class-adj": "[adj]",
+        "dictionary-entry-word-class-verb": "[verb]",
+        "dictionary-entry-word-class-adv": "[adv]",
+        "dictionary-entry-word-class-conj": "[conj]",
+        "dictionary-entry-word-class-interjection": "[interjection]",
+        "dictionary-entry-word-class-pron": "[pron]"
     },
     'fr': {
         "clearTranslation": "Effacer",
@@ -30,7 +38,8 @@ uiResources = $.extend(true, uiResources, {
         "translationEditClose": "Close",
         "translationEditOriginal": "Original sentence",
         "translationEditTranslation": "Translation",
-        "translationEditDescription": "Your translation suggestion will be used to improve the quality of machine translation."
+        "translationEditDescription": "Your translation suggestion will be used to improve the quality of machine translation.",
+        "examples": "examples"
     },
     'lt': {
         "clearTranslation": "Ištrinti",
@@ -46,7 +55,8 @@ uiResources = $.extend(true, uiResources, {
         "translationEditClose": "Uždaryti",
         "translationEditOriginal": "Originalo sakinys",
         "translationEditTranslation": "Vertimas",
-        "translationEditDescription": "Jūsų vertimo pasiūlymą naudosime, kad pagerintume mašininio vertimo kokybę."
+        "translationEditDescription": "Jūsų vertimo pasiūlymą naudosime, kad pagerintume mašininio vertimo kokybę.",
+        "examples": "examples"
     },
     'lv': {
         "clearTranslation": "Notīrīt",
@@ -62,7 +72,15 @@ uiResources = $.extend(true, uiResources, {
         "translationEditClose": "Aizvērt",
         "translationEditOriginal": "Sākotnējais teikums",
         "translationEditTranslation": "Tulkojums",
-        "translationEditDescription" : "Jūsu tulkojuma ieteikums tiks izmantots tulkošanas kvalitātes uzlabošanai."
+        "translationEditDescription": "Jūsu tulkojuma ieteikums tiks izmantots tulkošanas kvalitātes uzlabošanai.",
+        "examples": "piemēri",
+        "dictionary-entry-word-class-noun": "[noun]",
+        "dictionary-entry-word-class-adj": "[adj]",
+        "dictionary-entry-word-class-verb": "[verb]",
+        "dictionary-entry-word-class-adv": "[adv]",
+        "dictionary-entry-word-class-conj": "[conj]",
+        "dictionary-entry-word-class-interjection": "[interjection]",
+        "dictionary-entry-word-class-pron": "[pron]"
     },
     'ru': {
         "clearTranslation": "Очистить",
@@ -73,15 +91,24 @@ uiResources = $.extend(true, uiResources, {
         "seeFullEntry": "Read complete entry",
         "speaker": "Listen",
         "editButton": "Edit",
+        "editButtonTooltip": "[Ieteikt labāku tulkojumu]",
         "translationEditSave": "Contribute",
         "translationEditClose": "Close",
         "translationEditOriginal": "Original sentence",
         "translationEditTranslation": "Translation",
-        "translationEditDescription": "Your translation suggestion will be used to improve the quality of machine translation."
+        "translationEditDescription": "Your translation suggestion will be used to improve the quality of machine translation.",
+        "examples": "examples",
+        "dictionary-entry-word-class-noun": "[noun]",
+        "dictionary-entry-word-class-adj": "[adj]",
+        "dictionary-entry-word-class-verb": "[verb]",
+        "dictionary-entry-word-class-adv": "[adv]",
+        "dictionary-entry-word-class-conj": "[conj]",
+        "dictionary-entry-word-class-interjection": "[interjection]",
+        "dictionary-entry-word-class-pron": "[pron]"
     },
     'et': {
         "clearTranslation": "Tühjenda",
-        "sourceTextTooltip": "Sisesta tekst, mida soovid tõlkida...",
+        "sourceTextTooltip": "Sisestage soovitud tekst",
         "noInternet": "No internet connection",
         "targetTextTooltip": "Masintõlge aitab teksti sisust aru saada, kuid ei asenda inimtõlget.",
         "transLimit": "Ühe tõlketaotluse suurim sõnaarv on täis. Tõlkimata osa tõlkimiseks esitage uus taotlus.",
@@ -93,7 +120,8 @@ uiResources = $.extend(true, uiResources, {
         "translationEditClose": "Sule",
         "translationEditOriginal": "Algne lause",
         "translationEditTranslation": "Tõlge",
-        "translationEditDescription": "Teie tõlkesoovitust kasutatakse masintõlke kvaliteedi parandamiseks."
+        "translationEditDescription": "Teie tõlkesoovitust kasutatakse masintõlke kvaliteedi parandamiseks.",
+        "examples": "examples"
     },
     'bg': {
         "clearTranslation": "Изчисти",
@@ -126,5 +154,5 @@ uiResources = $.extend(true, uiResources, {
         "translationEditOriginal": "Originalsatz",
         "translationEditTranslation": "Übersetzung",
         "translationEditDescription": "Wir werden Ihren Übersetzungsvorschlag verwenden, um die Qualität der maschinellen Übersetzung zu verbessern."
-    },
+    }
 });

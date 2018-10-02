@@ -224,16 +224,10 @@
                     opt = $(opt);
                     if (!opt.prop('disabled') && (opt.val() || settings.includeBlank)) {
                         optHtml = settings.optionTemplate(opt);
-                        if (opt.prop('selected')) {
-                            // RL
-                            //return options.append("<li data-raw-value=\"" + (opt.val()) + "\" class=\"selected\">" + optHtml + "</li>");
-                            return options.append("<li data-raw-value=\"" + (opt.val()) + "\" class=\"selected\">" + angular.element($("#my_translator_app")).scope().localize(optHtml) + "</li>");
-                            // /RL
+                        if(opt.prop('selected')) {
+                            return options.append("<li data-raw-value=\"" + (opt.val()) + "\" class=\"selected\">" + optHtml + "</li>");
                         } else {
-                            // RL
-                            //return options.append("<li data-raw-value=\"" + (opt.val()) + "\">" + optHtml + "</li>");
-                            return options.append("<li data-raw-value=\"" + (opt.val()) + "\">" + angular.element($("#my_translator_app")).scope().localize(optHtml) + "</li>");
-                            // /RL
+                            return options.append("<li data-raw-value=\"" + (opt.val()) + "\">" + optHtml + "</li>");
                         }
                     }
                 });

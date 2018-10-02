@@ -1,12 +1,16 @@
 ﻿/* tilde.translator.widget.TRANSLATETEXT.js */
 
 $.extend(Tilde.TranslatorWidgetDefaultOptions, {
-    _translationUrl: 'https://letsmt.eu/ws/Service.svc/json/Translate',
-    _updateTranslationUrl: 'https://letsmt.eu/ws/Service.svc/json/UpdateTranslation',
-    _dictionaryUrl: 'https://yoursite/api/ajax/GetDictionaryEntry',
+    _translationUrl: 'https://yoursite/ws/Service.svc/json/Translate',
+    _updateTranslationUrl: 'https://yoursite/ws/Service.svc/json/UpdateTranslation',
+    _dictionaryLetonikaUrl: 'https://yoursite/api/ajax/GetDictionaryEntry',
+    _dictionaryUrl: 'https://yoursite/ws/Service.svc/json/GetDictionaryEntry',
     _ttsUrl: 'https://yoursite/TTS/GetSound',
     _textSource: '.translateTextSource', // source container <textarea>
     _textResult: '.translateTextResult', // target container <div>
+    _textTranslateBtn: '.translateButton', // translate button selector
+    _updateTranslation: true, // enable update translation functionality
+    _customUpdateTranslationForm: false, // if true form markup is taken from widget template
     _landingView: false, // intro box with tooltip
     _enableParallelHover: true, // enable translation and source paralel hover
     _highlightTranslated: true, // toggle latest translation highlight in source and target
@@ -16,8 +20,10 @@ $.extend(Tilde.TranslatorWidgetDefaultOptions, {
     _focusAfterLoad: false, // source field focus after widget is loaded
     _translateAll: false, // allways translate all text (when?)
     _translationLimit: -1, // sentence count to translate. if -1 then no limit
+    _useDictionaryLetonika: false, // use dictionary when translating one word
     _useDictionary: false, // use dictionary when translating one word
     _useSpeakers: false, // use latvian tts
+    _ttsV2: false, // use latvian tts V2
     _onTranslationStarted: null,
     _onTranslationFinished: null,
     _onUrlEntered: null,
@@ -32,9 +38,19 @@ $.extend(Tilde.TranslatorWidget.prototype, {
     hoveredElements: [],
 
     textPluginInit: function () {
-
         if ($('.translateTextSource', $widget.settings.container).length === 0)
             return;
+
+        if (typeof (history) !== 'undefined') {
+            window.onpopstate = function (event) {
+                if (event.state) {
+                    $widget.suppressTranslationOnSystemChange = true;
+                    $widget.setActiveSystem(event.state.system);
+                    $widget.suppressTranslationOnSystemChange = false;
+                    $widget.textTranslator.setSourceText(event.state.text);
+                }
+            };
+        }
 
         if ($widget.settings._focusAfterLoad) {
             // sets the focus to input textarea, while still showing the "Enter the text you want to translate" message
@@ -60,17 +76,23 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         ));
 
         if ($widget.settings._text) {
-            $($widget.settings._textSource, $widget.settings.container).text($widget.settings._text);
-            $($widget.settings._textSource, $widget.settings.container).trigger('paste');
+
+            $widget.textTranslator.pta.setSourceText($widget.settings._text);
         }
         else {
             $widget.textPluginSetTempText();
         }
 
         $widget.onSystemChangedHandlers.push(function () {
-            $(".translateTextSource", $widget.settings.container).attr("lang", $widget.getActiveSystemObj().SourceLanguage.Code);
-            $(".backGroundSource", $widget.settings.container).attr("lang", $widget.getActiveSystemObj().SourceLanguage.Code);
-            $(".translateTextResult", $widget.settings.container).attr("lang", $widget.getActiveSystemObj().TargetLanguage.Code);
+            if ($widget.getActiveSystemObj()) {
+                $(".translateTextSource", $widget.settings.container).attr("lang", $widget.getActiveSystemObj().SourceLanguage.Code);
+                $(".backGroundSource", $widget.settings.container).attr("lang", $widget.getActiveSystemObj().SourceLanguage.Code);
+                $(".translateTextResult", $widget.settings.container).attr("lang", $widget.getActiveSystemObj().TargetLanguage.Code);
+            } else {
+                $(".translateTextSource", $widget.settings.container).removeAttr("lang");
+                $(".backGroundSource", $widget.settings.container).removeAttr("lang");
+                $(".translateTextResult", $widget.settings.container).removeAttr("lang");
+            }
         });
 
         $widget.onSystemChangedHandlers.push($widget.textPluginTranslate);
@@ -78,158 +100,220 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             $widget.termCorpusChangedHandlers.push($widget.textPluginTranslate);
         }
 
-        $('.editButton', $widget.settings.container).click(function () {
-            //disable keyboard focus for background elements
-            $.each($("input,select,a,textarea"), function (index, focusableElement) {
-                jQueryFocusableElement = $(focusableElement);
-                jQueryFocusableElement.data("old-tab-index", jQueryFocusableElement.attr("tabindex"));
-                jQueryFocusableElement.attr("tabindex", "-1");
-            });
-            if ($(".translateTextResult .selected", $widget.settings.container).length == 0) {
-                //select first sentence if none is selected
-                $(".translateTextResult p .sentence", $widget.settings.container).first().addClass("selected");
-                $(".backGroundSource div .sentence", $widget.settings.container).first().addClass("selected");
-            }
+        if ($widget.settings._updateTranslation) {
+            $widget.initUpdateTranslation();
+        }
 
-            var originalText = $(".backGroundSource .selected", $widget.settings.container).text();
-            var translation = $(".translateTextResult .selected", $widget.settings.container).text();
-
-            //draw the form
-            $("body").append($("<div></div>", { "id": "translationEditBackground" }));
-            var form = $("<div></div>", { "id": "translationEditForm", "class": "form" });
-            $("body").append(form);
-            form.append($("<a></a>", {"href":"javascript:;", id:"translationEditClose", "title": uiResources[$widget.settings._language]['translationEditClose']}));
-            form.append($("<label></label>").text(uiResources[$widget.settings._language]['translationEditOriginal']));
-            form.append($("<p>", { "id": "translationEditOriginal" }).text(originalText));
-            form.append($("<label></label>", {"for": "translationEditTranslation"}).text(uiResources[$widget.settings._language]['translationEditTranslation']));
-            textarea = $("<textarea></textarea>", { "id": "translationEditTranslation", "autofocus" : "autofocus", "maxlength" : "5000" }).val(translation);
-            form.append(textarea);
-            form.append($("<div></div>", {"id": "translationEditDescription"}).text(uiResources[$widget.settings._language]['translationEditDescription']));
-            form.append($('<div class="translateProgress progress hide"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>'));
-            var buttons = $("<div></div>", { "id": "translationEditButtons" });
-            form.append(buttons);
-            buttons.append($("<a></a>", { "class": "button", "id": "translationEditBack", "href": "javascript:;" }).text("◄"));
-            buttons.append($("<a></a>", {"class":"button", "id": "translationEditSave", "href": "javascript:;"}).text(uiResources[$widget.settings._language]['translationEditSave']));
-            buttons.append($("<a></a>", { "class": "button", "id": "translationEditForward", "href": "javascript:;" }).text("►"));
-            
-
-            $widget.resizeEditForm();
-            
-            $(window).on("keydown.translationEditForm", function (event) {
-                if (event.which == 27) {
-                    $("#translationEditClose").trigger("click");
-                }
-            });
-
-            $("#translationEditClose").click(function () {
-                if ($(this).is("[disabled]")) {
-                    event.preventDefault();
-                    return;
-                }
-
-                $(window).off("keydown.translatioEditForm");
-
-                $("#translationEditForm").remove();
-                $("#translationEditBackground").remove();
-
-                //restore keyboard focus to background elements
-                $.each($("input,select,a,textarea"), function (index, focusableElement) {
-                    jQueryFocusableElement = $(focusableElement);
-                    if (typeof (jQueryFocusableElement.data("old-tab-index")) == "undefined") {
-                        jQueryFocusableElement.removeAttr("tabindex");
-                    } else {
-                        jQueryFocusableElement.attr("tabindex", jQueryFocusableElement.data("old-tab-index"));
-                    }
-                });
-            });
-
-            $("#translationEditBack").click(function () {
-                var originalSentences = $(".backGroundSource .sentence", $widget.settings.container);
-                var translationSentences = $(".translateTextResult .sentence", $widget.settings.container);
-                var selectedTranslation = $(".translateTextResult .sentence.selected", $widget.settings.container);
-                var selectedSentenceIndex = -1;
-                for (var i = 0; i < translationSentences.length; i++) {
-                    if (translationSentences[i] == selectedTranslation[0]) {
-                        selectedSentenceIndex = i;
-                        break;
-                    }
-                }
-
-                $(originalSentences[selectedSentenceIndex]).removeClass("selected");
-                $(translationSentences[selectedSentenceIndex]).removeClass("selected");
-                var previousSentenceIndex = selectedSentenceIndex > 0 ? selectedSentenceIndex - 1 : selectedSentenceIndex;
-                $(originalSentences[previousSentenceIndex]).addClass("selected");
-                $(translationSentences[previousSentenceIndex]).addClass("selected");
-
-                $("#translationEditOriginal").text($(originalSentences[previousSentenceIndex]).text());
-                $("#translationEditTranslation").val($(translationSentences[previousSentenceIndex]).text());
-
-                $widget.resizeEditForm();
-            });
-
-            $("#translationEditForward").click(function () {
-                var originalSentences = $(".backGroundSource .sentence", $widget.settings.container);
-                var translationSentences = $(".translateTextResult .sentence", $widget.settings.container);
-                var selectedTranslation = $(".translateTextResult .sentence.selected", $widget.settings.container);
-                var selectedSentenceIndex = -1;
-                for (var i = 0; i < translationSentences.length; i++) {
-                    if (translationSentences[i] == selectedTranslation[0]) {
-                        selectedSentenceIndex = i;
-                        break;
-                    }
-                }
-
-                $(originalSentences[selectedSentenceIndex]).removeClass("selected");
-                $(translationSentences[selectedSentenceIndex]).removeClass("selected");
-                var nextSentenceIndex = selectedSentenceIndex < translationSentences.length - 1 ? selectedSentenceIndex + 1 : selectedSentenceIndex;
-                $(originalSentences[nextSentenceIndex]).addClass("selected");
-                $(translationSentences[nextSentenceIndex]).addClass("selected");
-
-                $("#translationEditOriginal").text($(originalSentences[nextSentenceIndex]).text());
-                $("#translationEditTranslation").val($(translationSentences[nextSentenceIndex]).text());
-
-                $widget.resizeEditForm();
-            });
-
-            $("#translationEditSave").click(function () {
-                $("#translationEditButtons").addClass("hide")
-                $("#translationEditForm .translateProgress").removeClass("hide");
-                
-                $.ajax({
-                        url: $widget.settings._updateTranslationUrl,
-                        headers: $widget.getAuthHeaders(),
-                        method: "POST",
-                        dataType: 'text',
-                        type: 'GET',
-                        contentType: 'application/json',
-                        data: JSON.stringify({
-                                appID: $widget.settings._appId,
-                                systemID: $widget.activeSystemId,
-                                text: $("#translationEditOriginal").text(),
-                                translation: $("#translationEditTranslation").val(),
-                                options: "suggestion"}),
-                        success: function () {
-                            $(".translateTextResult .sentence.selected", $widget.settings.container).text($("#translationEditTranslation").val());
-                            $("#translationEditClose").trigger("click");
-                        },
-                        error: function (e) {
-                            $("#translationEditButtons").removeClass("hide")
-                            $("#translationEditForm .translateProgress").addClass("hide");
-                            if (typeof (console) !== 'undefined') {
-                                console.error(e);
-                            }
-                        }
-                });
-            });
-
-            $("#translationEditTranslation").focus();
-        });
+        $($widget.settings._textTranslateBtn).removeClass('hide');
 
         if (typeof ($widget.onSystemWokenUpHandlers) !== 'undefined') {
             $widget.onSystemWokenUpHandlers.push(function () {
                 $widget.textTranslator.doTranslation({ translateAll: true });
             });
         }
+    },
+
+    initUpdateTranslation: function () {
+        $('.editButton', $widget.settings.container).click(function () {
+            if ($("#translationEditSave").length) {
+                $("#translationEditSave").off();
+            }
+
+            if ($("#translationEditClose").length) {
+                $("#translationEditClose").off();
+            }
+
+            if ($("#translationEditBack").length) {
+                $("#translationEditBack").off();
+            }
+
+            if ($("#translationEditForward").length) {
+                $("#translationEditForward").off();
+            }
+
+            if (!$widget.settings._customUpdateTranslationForm) {
+
+                //disable keyboard focus for background elements
+                $.each($('input,select,a,textarea'), function (index, focusableElement) {
+                    jQueryFocusableElement = $(focusableElement);
+                    jQueryFocusableElement.data('old-tab-index', jQueryFocusableElement.attr('tabindex'));
+                    jQueryFocusableElement.attr('tabindex', '-1');
+                }); 
+            }
+
+            var inDictionary = $(".dictionarySource").length > 0;
+
+            if (!inDictionary && $('.translateTextResult .selected', $widget.settings.container).length == 0) {
+                //select first sentence if none is selected
+                $('.translateTextResult p .sentence', $widget.settings.container).first().addClass('selected');
+                $('.backGroundSource div .sentence', $widget.settings.container).first().addClass('selected');
+            }
+
+            var originalText = inDictionary
+                ? $(".dictionarySource").text()
+                : $('.backGroundSource .selected', $widget.settings.container).text();
+            var translation = inDictionary
+                ? $(".dictionaryTranslationTranslation").first().text()
+                : $('.translateTextResult .selected', $widget.settings.container).text();
+
+            if (!$widget.settings._customUpdateTranslationForm) {
+                //draw the form
+                $('body').append($('<div></div>', { 'id': 'translationEditBackground' }));
+                var form = $('<div></div>', { 'id': 'translationEditForm', 'class': 'form' });
+                $('body').append(form);
+                form.append($('<a></a>', { 'href': 'javascript:;', id: 'translationEditClose', 'title': uiResources[$widget.settings._language]['translationEditClose'] }));
+                form.append($('<label></label>').text(uiResources[$widget.settings._language]['translationEditOriginal']));
+                form.append($('<p>', { 'id': 'translationEditOriginal' }).text(originalText));
+                form.append($('<label></label>', { 'for': 'translationEditTranslation' }).text(uiResources[$widget.settings._language]['translationEditTranslation']));
+                textarea = $('<textarea></textarea>', { 'id': 'translationEditTranslation', 'autofocus': 'autofocus', 'maxlength': '5000' }).val(translation);
+                form.append(textarea);
+                form.append($('<div></div>', { 'id': 'translationEditDescription' }).text(uiResources[$widget.settings._language]['translationEditDescription']));
+                form.append($('<div class="translateProgress progress hide"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>'));
+                var buttons = $('<div></div>', { 'id': 'translationEditButtons' });
+                form.append(buttons);
+                buttons.append($('<a></a>', { 'class': 'button', 'id': 'translationEditBack', 'href': 'javascript:;' }).text('◄'));
+                buttons.append($('<a></a>', { 'class': 'button', 'id': 'translationEditSave', 'href': 'javascript:;' }).text(uiResources[$widget.settings._language]['translationEditSave']));
+                buttons.append($('<a></a>', { 'class': 'button', 'id': 'translationEditForward', 'href': 'javascript:;' }).text('►'));
+
+                $widget.resizeEditForm();
+            }
+            else {
+                $('#translationEditOriginal').text(originalText);
+                $('#translationEditTranslation').val(translation);
+            }
+
+            $(window).on('keydown.translationEditForm', function (event) {
+                if (event.which == 27) {
+                    $('#translationEditClose').trigger('click');
+                }
+            });
+
+            $("#translationEditClose").click(function () {
+                if ($(this).is('[disabled]')) {
+                    event.preventDefault();
+                    return;
+                }
+
+                $(window).off('keydown.translatioEditForm');
+
+                if (!$widget.settings._customUpdateTranslationForm) {
+                    $('#translationEditForm').remove();
+                    $('#translationEditBackground').remove();
+                }
+
+                //restore keyboard focus to background elements
+                $.each($('input,select,a,textarea'), function (index, focusableElement) {
+                    jQueryFocusableElement = $(focusableElement);
+                    if (typeof (jQueryFocusableElement.data('old-tab-index')) == 'undefined') {
+                        jQueryFocusableElement.removeAttr('tabindex');
+                    } else {
+                        jQueryFocusableElement.attr('tabindex', jQueryFocusableElement.data('old-tab-index'));
+                    }
+                });
+            });
+
+            if (inDictionary) {
+                $("#translationEditBack").hide();
+                $("#translationEditForward").hide();
+            } else {
+
+                $('#translationEditBack').on('click', function () {
+                    var originalSentences = $('.backGroundSource .sentence', $widget.settings.container);
+                    var translationSentences = $('.translateTextResult .sentence', $widget.settings.container);
+                    var selectedTranslation = $('.translateTextResult .sentence.selected', $widget.settings.container);
+                    var selectedSentenceIndex = -1;
+                    for (var i = 0; i < translationSentences.length; i++) {
+                        if (translationSentences[i] == selectedTranslation[0]) {
+                            selectedSentenceIndex = i;
+                            break;
+                        }
+                    }
+
+                    $(originalSentences[selectedSentenceIndex]).removeClass('selected');
+                    $(translationSentences[selectedSentenceIndex]).removeClass('selected');
+                    var previousSentenceIndex = selectedSentenceIndex > 0 ? selectedSentenceIndex - 1 : selectedSentenceIndex;
+                    $(originalSentences[previousSentenceIndex]).addClass('selected');
+                    $(translationSentences[previousSentenceIndex]).addClass('selected');
+
+                    $('#translationEditOriginal').text($(originalSentences[previousSentenceIndex]).text());
+                    $('#translationEditTranslation').val($(translationSentences[previousSentenceIndex]).text());
+
+                    if (!$widget.settings._customUpdateTranslationForm) {
+                        $widget.resizeEditForm();
+                    }
+                });
+
+                $('#translationEditForward').on('click', function () {
+                    var originalSentences = $('.backGroundSource .sentence', $widget.settings.container);
+                    var translationSentences = $('.translateTextResult .sentence', $widget.settings.container);
+                    var selectedTranslation = $('.translateTextResult .sentence.selected', $widget.settings.container);
+                    var selectedSentenceIndex = -1;
+                    for (var i = 0; i < translationSentences.length; i++) {
+                        if (translationSentences[i] == selectedTranslation[0]) {
+                            selectedSentenceIndex = i;
+                            break;
+                        }
+                    }
+
+                    $(originalSentences[selectedSentenceIndex]).removeClass('selected');
+                    $(translationSentences[selectedSentenceIndex]).removeClass('selected');
+                    var nextSentenceIndex = selectedSentenceIndex < translationSentences.length - 1 ? selectedSentenceIndex + 1 : selectedSentenceIndex;
+                    $(originalSentences[nextSentenceIndex]).addClass('selected');
+                    $(translationSentences[nextSentenceIndex]).addClass('selected');
+
+                    $('#translationEditOriginal').text($(originalSentences[nextSentenceIndex]).text());
+                    $('#translationEditTranslation').val($(translationSentences[nextSentenceIndex]).text());
+
+                    if (!$widget.settings._customUpdateTranslationForm) {
+                        $widget.resizeEditForm();
+                    }
+                });
+            }
+
+            $('#translationEditSave').on('click', function () {
+                $('#translationEditButtons').addClass('hide');
+                $('#translationEditForm .translateProgress').removeClass('hide');
+
+                $.ajax({
+                    url: $widget.settings._updateTranslationUrl,
+                    headers: $widget.getAuthHeaders(),
+                    method: 'POST',
+                    dataType: 'text',
+                    type: 'GET',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        appID: $widget.settings._appId,
+                        systemID: $widget.activeSystemId,
+                        text: $('#translationEditOriginal').text(),
+                        translation: $('#translationEditTranslation').val(),
+                        options: 'suggestion,origin=FREE_FOR_ALL'
+                    }),
+                    success: function () {
+                        $('.translateTextResult .sentence.selected', $widget.settings.container).text($('#translationEditTranslation').val());
+                        $('#translationEditClose').trigger('click');
+
+                        $('#translationEditButtons').removeClass('hide');
+                        $('#translationEditForm .translateProgress').addClass('hide');
+                    },
+                    error: function (e) {
+                        $('#translationEditButtons').removeClass('hide');
+                        $('#translationEditForm .translateProgress').addClass('hide');
+                        if ($widget.settings._bootstrap) {
+                            bsalert({
+                                title: uiResources[$widget.settings._language]["translationEditSubmitFail"],
+                                closeVerbalization: $widget.settings._bsalertCloseVerbalization
+                            });
+                            $("#translationEditForm").modal("toggle");
+                        }
+                    }
+                });
+            });
+
+            $("#translationEditForm").off();
+            $("#translationEditForm").on('shown.bs.modal', function () {
+                $("#translationEditTranslation").trigger("focus");
+            });
+        });
     },
 
     resizeEditForm: function () {
@@ -278,7 +362,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             focusEvents += " touchstart";
         }
 
-        $('.translateButton', $widget.settings.container).on('click', function () {
+        $($widget.settings._textTranslateBtn, $widget.settings.container).on('click', function () {
             if ($(this).attr('data-disabled') === 'true') {
                 return false;
             }
@@ -294,7 +378,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         });
 
         $('.targetSpeak').on('click', function () {
-            $widget.textPluginSpeak('targetAudio', $('.translateTextResult', $widget.settings.container).text());
+            $widget.textPluginSpeak('targetAudio', $(".dictionarySource").length ? $(".dictionarySource").text() : $('.translateTextResult', $widget.settings.container).text());
         });
 
         $('.translateTextSourceContainer', $widget.settings.container).bind(focusEvents, function () {
@@ -312,10 +396,11 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
         $widget.settings._onTranslationStarted = function () {
             $widget.textPluginTranslationStarted();
-        }
+        };
+
         $widget.settings._onTranslationFinished = function () {
             $widget.textPluginTranslationFinished();
-        }
+        };
 
         if ($widget.settings._enableParallelHover) {
             $(".translateTextSource").on("mousemove mouseleave", function (event) {
@@ -381,7 +466,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         $widget.textPluginSetTempText();
 
         if ($widget.settings._focusAfterClear) {
-            $($widget.settings._textSource, $widget.settings.container).focus()
+            $($widget.settings._textSource, $widget.settings.container).focus();
         }
 
         $('.translateResultClear').addClass('hide');
@@ -453,11 +538,16 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         }
     },
 
+    suppressTranslationOnSystemChange: false,
+
     textPluginTranslate: function () {
+        if ($widget.suppressTranslationOnSystemChange) {
+            return;
+        }
         if ($widget.settings._onUrlEntered) {
             $widget.textTranslator.checkTextForUrl();
         }
-        
+
         if ($widget.textTranslator) {
             $widget.textTranslator.doTranslation({ translateAll: true });
         }
@@ -477,12 +567,13 @@ $.extend(Tilde.TranslatorWidget.prototype, {
         $('.translateProgress', $widget.settings.container).addClass('hide');
         if ($widget.settings._useSpeakers) {
             $('.sourceSpeak, .targetSpeak', $widget.settings.container).addClass('hide');
+            $(".sourceSpeak, .targetSpeak", $widget.settings.container).attr("aria-hidden", true);
         }
     },
 
     textPluginSetTempTextSource: function () {
         $($widget.settings._textSource, $widget.settings.container).val('');
-        
+
         // show blink cursor
         if ($widget.settings._landingView) {
             $('.intro .fakeCursor', $widget.settings.container).removeClass('hide');
@@ -490,6 +581,7 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
         $('.translateTextTempSourceContainer', $widget.settings.container).removeClass('hide');
         $('.translateTextTempSourceContainer', $widget.settings.container).html(uiResources[$widget.settings._language]['sourceTextTooltip']);
+
         $('.translateTextTempSourceContainer', $widget.settings.container).unbind('focus');
         $('.translateTextTempSourceContainer', $widget.settings.container).bind('focus', function () {
             $('.translateTextTempSourceContainer', $widget.settings.container).addClass('hide');
@@ -524,22 +616,69 @@ $.extend(Tilde.TranslatorWidget.prototype, {
     },
 
     textPluginSpeak: function (el, text) {
-        $('audio[id="' + el + '"] source').attr('src', $widget.settings._ttsUrl + '?text=' + text.substring(0, 144));
-        var audio = document.getElementById(el);
-        if (audio.paused)
-        {
-            audio.load();
-            audio.play();
-        } else {
-            audio.pause();
+        if ($widget.settings._ttsV2) {
+            $('.' + el + 'Icon').addClass('hide');
+            $('.' + el + 'Loading').removeClass('hide');
+            // create speech synthesis task
+            $.ajax({
+                url: $widget.settings._ttsUrl + '/synthesis',
+                type: 'POST',
+                data: { appID: $widget.settings._appId, text: text.trim() },
+                headers: $widget.getAuthHeaders(),
+                success: function (synthResponse) {
+                    // get synthesized audio URL
+                    var authParams = 'clientId=' + encodeURIComponent($widget.settings._clientId);
+
+                    if (!$widget.settings._apiIsInTheSameDomain) {
+                        var websiteAuthCookie = $widget.readCookie('smts');
+                        if (websiteAuthCookie) {
+                            authParams += '&websiteAuthCookie=' + encodeURIComponent(websiteAuthCookie);
+                        }
+                    }
+
+                    $('.' + el + 'Icon').removeClass('hide');
+                    $('.' + el + 'Loading').addClass('hide');
+
+                    var audioUrl = $widget.settings._ttsUrl + '/synthesis/' + encodeURIComponent(synthResponse.request_id) + '/audio?appID=' + $widget.settings._appId + '&' + authParams;
+
+                    $('audio[id="' + el + '"] source').attr('src', audioUrl);
+                    var audio = document.getElementById(el);
+                    if (audio.paused) {
+                        audio.load();
+                        audio.play();
+                    }
+                    else {
+                        audio.pause();
+                    }
+                },
+                error: function (data) {
+                    alert('Kļūda, iespējams, ka teksts nav latviešu valodā.');
+                }
+            });
         }
+        else { // visvaris
+            $('audio[id="' + el + '"] source').attr('src', $widget.settings._ttsUrl + '?text=' + text.substring(0, 144));
+            var audio = document.getElementById(el);
+            if (audio.paused) {
+                audio.load();
+                audio.play();
+            }
+            else {
+                audio.pause();
+            }
+        }
+    },
+
+    getTTSAuthParams: function () {
+
+        return authParams;
     }
 
 });
 
-// RL
-// Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.textPluginInit);
-// / RL
+if (typeof $customWidgetInit === "undefined" || !$customWidgetInit) {
+    Tilde.TranslatorWidget.prototype.pluginInitializers.push(Tilde.TranslatorWidget.prototype.textPluginInit);
+}
 
 Tilde.TextTranslator = function (options) { this.init(options); };
 Tilde.TextTranslator.prototype = {
@@ -565,7 +704,7 @@ Tilde.TextTranslator.prototype = {
         optionsTA.onNewParagraph = $.proxy(this.onNewParagraph, this);
         optionsTA.onTextChanged = $.proxy(this.onTextChanged, this);
         optionsTA.onTextInput = $.proxy(this.onTextInput, this);
-        
+
         if (this.options._focusAfterLoad) {
             optionsTA.onTextChangedWithoutDelay = $.proxy(function () {
                 // hide input hint as soon as user starts typing
@@ -577,8 +716,7 @@ Tilde.TextTranslator.prototype = {
             }, this);
         }
 
-        if (this.options._onScrollBarWidthChanged)
-        {
+        if (this.options._onScrollBarWidthChanged) {
             $(window).resize(this.checkScrollbarWidth);
             var me = this;
 
@@ -755,7 +893,7 @@ Tilde.TextTranslator.prototype = {
                 var isTranslated = cursor.translated || txt.replace(/\s/g, '').length == 0;
                 var isEmptyLine = txt.replace(/\s/g, '').length == 0;
 
-                var translationLine = $('<p></p>', { 'cursorId': cursor.id, 'class': 'mt-translation', 'aria-haspopup': 'true', 'id': 'mt-result-' + cursor.id } );
+                var translationLine = $('<p></p>', { 'cursorId': cursor.id, 'class': 'mt-translation', 'aria-haspopup': 'true', 'id': 'mt-result-' + cursor.id });
                 if (isEmptyLine) {
                     translationLine.append($('<br />'));
                 }
@@ -766,7 +904,7 @@ Tilde.TextTranslator.prototype = {
                         && translationData.targetWordRanges
                         && translationData.phraseAlignment
                         && translationData.confidentWordAlignment) {
-                        this.drawSentencePhraseWordTags(translationLine, txt, cursor.id, translationData.targetWordRanges, translationData.translationSentenceRanges, translationData.phraseAlignment, translationData.confidentWordAlignment, 1)
+                        this.drawSentencePhraseWordTags(translationLine, txt, cursor.id, translationData.targetWordRanges, translationData.translationSentenceRanges, translationData.phraseAlignment, translationData.confidentWordAlignment, 1);
                     } else {
                         translationLine.text(txt);
                     }
@@ -794,7 +932,7 @@ Tilde.TextTranslator.prototype = {
                     translationLine.removeAttr('translationProgress');
                 }
                 else {
-                    translationLine.attr('translationProgress', 'true')
+                    translationLine.attr('translationProgress', 'true');
                 }
 
                 cursor = cursor.child;
@@ -871,6 +1009,8 @@ Tilde.TextTranslator.prototype = {
         }
     },
 
+    graphemeSplitter: GraphemeSplitter(),
+
     drawSentencePhraseWordTags: function (lineHtml, text, cursorId, wordRanges, sentenceRanges, phraseAlignment, wordAlignment, alignmentIndex) {
 
         if (alignmentIndex == 0) {
@@ -882,100 +1022,101 @@ Tilde.TextTranslator.prototype = {
             phraseAlignment = sortedPhraseAlignment;
         }
 
-        lastRangeEnd = 0;
-        phraseIndex = -1;
-        phraseHtml = null;
-        sentenceIndex = -1;
-        sentenceHtml = null;
-        for (var wordIndex = 0; wordIndex < wordRanges.length; wordIndex++) {
-            var textPrefix = null;
-            if (lastRangeEnd < wordRanges[wordIndex][0]) {
-                textPrefix = document.createTextNode(
-                    text.substring(
-                        lastRangeEnd,
-                        wordRanges[wordIndex][0]))
-            }
-            lastRangeEnd = wordRanges[wordIndex][1];
-            if (phraseIndex >= 0 && $.inArray(wordIndex, phraseAlignment[phraseIndex][alignmentIndex]) > -1) {
-                //still the same phrase
-                if (textPrefix !== null) {
-                    if ($.trim(textPrefix.nodeValue) == '') {
-                        //whitespace between words
-                        phraseHtml.append(textPrefix);
-                    } else {
-                        //if more than whitespace between words (like tags) then split the phrase
+        var lastRangeEnd = 0;
+        var phraseIndex = -1;
+        var phraseHtml = null;
+        var sentenceIndex = -1;
+        var sentenceHtml = null;
+        var charArray = this.graphemeSplitter.splitGraphemes(text);
+
+        if (wordRanges.length == 0) {
+            lineHtml.text(text);
+        } else {
+
+            for (var wordIndex = 0; wordIndex < wordRanges.length; wordIndex++) {
+                var textPrefix = null;
+                if (lastRangeEnd < wordRanges[wordIndex][0]) {
+                    textPrefix = document.createTextNode(
+                        charArray.slice(lastRangeEnd, wordRanges[wordIndex][0]).join(""));
+                }
+                lastRangeEnd = wordRanges[wordIndex][1];
+                if (phraseIndex >= 0 && $.inArray(wordIndex, phraseAlignment[phraseIndex][alignmentIndex]) > -1) {
+                    //still the same phrase
+                    if (textPrefix !== null) {
+                        if ($.trim(textPrefix.nodeValue) == '') {
+                            //whitespace between words
+                            phraseHtml.append(textPrefix);
+                        } else {
+                            //if more than whitespace between words (like tags) then split the phrase
+                            sentenceHtml.append(phraseHtml);
+                            sentenceHtml.append(textPrefix);
+                            phraseHtml = $('<span></span>', { 'class': 'phrase phrase-' + cursorId + '-' + phraseAlignment[phraseIndex][0].join("-") + "-" + phraseAlignment[phraseIndex][1].join("-") });
+                            phraseHtml.hover(alignmentIndex == 1 ? this.highlightMouseEnter : this.highlightMouseEnterWithoutBubble, alignmentIndex == 1 ? this.highlightMouseLeave : this.highlightMouseLeaveWithoutBubble);
+                        }
+                    }
+                } else {
+                    //new phrase started
+                    if (phraseHtml) {
                         sentenceHtml.append(phraseHtml);
-                        sentenceHtml.append(textPrefix);
-                        phraseHtml = $('<span></span>', { 'class': 'phrase phrase-' + cursorId + '-' + phraseAlignment[phraseIndex][0].join("-") + "-" + phraseAlignment[phraseIndex][1].join("-") });
-                        phraseHtml.hover(alignmentIndex == 1 ? this.highlightMouseEnter : this.highlightMouseEnterWithoutBubble, alignmentIndex == 1 ? this.highlightMouseLeave : this.highlightMouseLeaveWithoutBubble);
+                    }
+                    if (textPrefix !== null) {
+                        if (sentenceIndex >= 0 && (wordRanges[wordIndex][0] <= (sentenceRanges[sentenceIndex][0] + sentenceRanges[sentenceIndex][1]))) {
+                            //whitespace between phrases (and not between sentences)
+                            sentenceHtml.append(textPrefix);
+                        }
+                    }
+                    phraseIndex += 1;
+                    phraseHtml = $('<span></span>', { 'class': 'phrase phrase-' + cursorId + '-' + (phraseAlignment.length > 0 ? (phraseAlignment[phraseIndex][0].join("-") + "-" + phraseAlignment[phraseIndex][1].join("-")) : "0") });
+                    phraseHtml.hover(alignmentIndex == 1 ? this.highlightMouseEnter : this.highlightMouseEnterWithoutBubble, alignmentIndex == 1 ? this.highlightMouseLeave : this.highlightMouseLeaveWithoutBubble);
+                }
+                if (sentenceIndex < 0 || (wordRanges[wordIndex][0] > (sentenceRanges[sentenceIndex][0] + sentenceRanges[sentenceIndex][1]))) {
+                    // new sentence started
+                    if (sentenceHtml) {
+                        lineHtml.append(sentenceHtml);
+                    }
+                    if (textPrefix !== null) {
+                        // whitespace between sentences
+                        lineHtml.append(textPrefix);
+                    }
+                    sentenceIndex += 1;
+                    sentenceHtml = $('<span></span>', { 'class': 'sentence sentence-' + cursorId + '-' + sentenceIndex });
+                    sentenceHtml.hover(alignmentIndex == 1 ? this.highlightMouseEnter : this.highlightMouseEnterWithoutBubble, alignmentIndex == 1 ? this.highlightMouseLeave : this.highlightMouseLeaveWithoutBubble);
+                    if (alignmentIndex == 1) {
+                        sentenceHtml.click(this.translationSentenceClicked);
                     }
                 }
-            } else {
-                //new phrase started
-                if (phraseHtml) {
-                    sentenceHtml.append(phraseHtml);
-                }
-                if (textPrefix !== null) {
-                    if (sentenceIndex >= 0 && (wordRanges[wordIndex][0] <= (sentenceRanges[sentenceIndex][0] + sentenceRanges[sentenceIndex][1]))) {
-                        //whitespace between phrases (and not between sentences)
-                        sentenceHtml.append(textPrefix);
-                    }
-                }
-                phraseIndex += 1;
-                phraseHtml = $('<span></span>', { 'class': 'phrase phrase-' + cursorId + '-' + (phraseAlignment.length > 0 ? (phraseAlignment[phraseIndex][0].join("-") + "-" + phraseAlignment[phraseIndex][1].join("-")) : "0") });
-                phraseHtml.hover(alignmentIndex == 1 ? this.highlightMouseEnter: this.highlightMouseEnterWithoutBubble, alignmentIndex == 1 ? this.highlightMouseLeave : this.highlightMouseLeaveWithoutBubble);
-            }
-            if (sentenceIndex < 0 || (wordRanges[wordIndex][0] > (sentenceRanges[sentenceIndex][0] + sentenceRanges[sentenceIndex][1]))) {
-                // new sentence started
-                if (sentenceHtml) {
-                    lineHtml.append(sentenceHtml);
-                }
-                if (textPrefix !== null) {
-                    // whitespace between sentences
-                    lineHtml.append(textPrefix);
-                }
-                sentenceIndex += 1;
-                sentenceHtml = $('<span></span>', { 'class': 'sentence sentence-' + cursorId + '-' + sentenceIndex });
-                sentenceHtml.hover(alignmentIndex == 1 ? this.highlightMouseEnter : this.highlightMouseEnterWithoutBubble, alignmentIndex == 1 ? this.highlightMouseLeave : this.highlightMouseLeaveWithoutBubble);
-                if (alignmentIndex == 1) {
-                    sentenceHtml.click(this.translationSentenceClicked);
-                }
-            }
-            var wordClasses = [];
-            for (var i = 0; i < wordAlignment.length; i++) {
-                if (wordAlignment[i][alignmentIndex] == wordIndex) {
-                    wordClasses.push('word-' + cursorId + '-' + wordAlignment[i][0] + '-' + wordAlignment[i][1]);
-                    for (var j = 0; j < wordAlignment.length; j++) {
-                        if (wordAlignment[j][alignmentIndex == 1 ? 0 : 1] == wordAlignment[i][alignmentIndex == 1 ? 0 : 1] && j != i) {
-                            wordClasses.push('sibling-' + cursorId + '-' + wordAlignment[j][0] + '-' + wordAlignment[j][1]);
+                var wordClasses = [];
+                for (var i = 0; i < wordAlignment.length; i++) {
+                    if (wordAlignment[i][alignmentIndex] == wordIndex) {
+                        wordClasses.push('word-' + cursorId + '-' + wordAlignment[i][0] + '-' + wordAlignment[i][1]);
+                        for (var j = 0; j < wordAlignment.length; j++) {
+                            if (wordAlignment[j][alignmentIndex == 1 ? 0 : 1] == wordAlignment[i][alignmentIndex == 1 ? 0 : 1] && j != i) {
+                                wordClasses.push('sibling-' + cursorId + '-' + wordAlignment[j][0] + '-' + wordAlignment[j][1]);
+                            }
                         }
                     }
                 }
-            }
-            wordHtml = $('<span></span>', { 'class': 'word ' + wordClasses.join(' ')})
-                .text(
-                    text.substring(
-                        wordRanges[wordIndex][0],
-                        wordRanges[wordIndex][1]));
-            wordHtml.hover(alignmentIndex == 1 ? this.highlightMouseEnter : this.highlightMouseEnterWithoutBubble, alignmentIndex == 1 ? this.highlightMouseLeave : this.highlightMouseLeaveWithoutBubble);
-            phraseHtml.append(wordHtml);
 
-        }
-        //last phrase
-        if (phraseHtml.html()) {
-            sentenceHtml.append(phraseHtml);
-        }
-        //last sentence
-        if (sentenceHtml.html()) {
-            lineHtml.append(sentenceHtml);
-        }
-        //whitespace after sentence
-        if (lastRangeEnd < text.length) {
-            lineHtml.append(
-                document.createTextNode(
-                    text.substring(
-                        lastRangeEnd,
-                        text.length)));
+
+                wordHtml = $('<span></span>', { 'class': 'word ' + wordClasses.join(' ') })
+                    .text(charArray.slice(wordRanges[wordIndex][0], wordRanges[wordIndex][1]).join(""));
+                wordHtml.hover(alignmentIndex == 1 ? this.highlightMouseEnter : this.highlightMouseEnterWithoutBubble, alignmentIndex == 1 ? this.highlightMouseLeave : this.highlightMouseLeaveWithoutBubble);
+                phraseHtml.append(wordHtml);
+
+            }
+            //last phrase
+            if (phraseHtml.html()) {
+                sentenceHtml.append(phraseHtml);
+            }
+            //last sentence
+            if (sentenceHtml.html()) {
+                lineHtml.append(sentenceHtml);
+            }
+            //whitespace after sentence
+            if (lastRangeEnd < text.length) {
+                lineHtml.append(
+                    document.createTextNode(charArray.slice(lastRangeEnd, charArray.length).join("")));
+            }
         }
     },
 
@@ -1021,7 +1162,7 @@ Tilde.TextTranslator.prototype = {
         $(".backGroundSource .selected").removeClass("selected");
         $(".translateTextResult .selected").removeClass("selected");
 
-        
+
         this.redrawBackground();
 
         cursor = this.pta.obj;
@@ -1039,29 +1180,42 @@ Tilde.TextTranslator.prototype = {
         if (options.translateAll)
             this.makeAllNotTranslated();
 
-        // tts speakers
+        // TODO:
+        // Refactor this bit into a separate function so that
+        // it can be used for both source & target fields.
         if ($widget.settings._useSpeakers) {
-            $('.sourceSpeak').addClass('hide');
+            var $button = $(".sourceSpeak");
+
+            $button.addClass("hide"); // not sure yet why this is being done in the first place
+            $button.attr("aria-hidden", true);
+
             if ($widget.getActiveSystemObj() && $(".translateTextSource").val()) {
-                var src = $widget.getActiveSystemObj().SourceLanguage.Code;
-                if (src === 'lv') {
-                    $('.sourceSpeak').removeClass('hide');
+                if ($widget.getActiveSystemObj().SourceLanguage.Code === "lv") {
+                    $button.removeClass("hide");
+                    $button.removeAttr("aria-hidden");
                 }
             }
         }
 
-        // use dictonary service
-        // only if source and target are 'lv' <-> 'en'
-        // and if only one paragraph is entered
-        if ($widget.getActiveSystemObj() !== null) {
-            var sysSrcCode = $widget.getActiveSystemObj().SourceLanguage.Code,
-                sysTrgCode = $widget.getActiveSystemObj().TargetLanguage.Code,
-                lngDirection = sysSrcCode + '-' + sysTrgCode;
-            if ($widget.settings._useDictionary && (lngDirection === 'en-lv' || lngDirection === 'lv-en' || lngDirection === 'lv-ru')) {
+        // dictionaries
+        if ((typeof (options) == "undefined" || typeof (options.merryGoRound) == "undefined" || !options.merryGoRound) && $widget.getActiveSystemObj() !== null) {
+            var sourceLanguage = $widget.getActiveSystemObj().SourceLanguage.Code,
+                targetLanguage = $widget.getActiveSystemObj().TargetLanguage.Code,
+                lngDirection = sourceLanguage + '-' + targetLanguage;
+            text = $(".translateTextSource").val().trim();
+            if ($widget.settings._useDictionaryLetonika && (lngDirection === 'en-lv' || lngDirection === 'lv-en' || lngDirection === 'lv-ru')) {
                 // check if only one word is entered
-                text = $(".translateTextSource").val().trim();
                 if (text.length > 0 && text.search(/\s/g) == -1) {
-                    this.doDictionaryTranslation(sysSrcCode, sysTrgCode, cursor.string, options);
+                    this.doDictionaryLetonikaTranslation(sourceLanguage, targetLanguage, cursor.string, options);
+                    return;
+                }
+            }
+            // need to be no more than 3 words to try searching dictionary
+            else if ($widget.settings._useDictionary && text.length > 0 && text.length < 100 && text.trim().split(' ').length <= 3) {
+                var tags = $widget.getSystemMetaValue($widget.getActiveSystemObj().Metadata, 'tags');
+                // need to have "dictionary" tag in metadata
+                if (tags != null && tags.indexOf("dictionary") > -1) {
+                    this.doDictionaryTranslation(sourceLanguage, targetLanguage, text, options);
                     return;
                 }
             }
@@ -1069,7 +1223,162 @@ Tilde.TextTranslator.prototype = {
         this.doTextTranslation(options);
     },
 
-    doDictionaryTranslation: function (sysSrcCode, sysTrgCode, phrase, options) {
+    appendPageToBrowsingHistory: function () {
+        //inserts currently selected system and current source text into browsing history
+        //if it differs from previous history entry
+        if (typeof (history) !== "undefined") {
+            var text = $($widget.settings._textSource, $widget.settings.container).val();
+            var system = $widget.activeSystemId;
+            if (text && system) {
+                var translationLinkBase = document.location.href;
+                var questionIndex = translationLinkBase.indexOf("?");
+                if (questionIndex != -1) {
+                    translationLinkBase = translationLinkBase.substring(0, questionIndex);
+                }
+                if (typeof (history.state) == "undefined" || history.state == null) {
+                    history.replaceState({ "text": text, "system": system }, "", translationLinkBase + "?text=" + encodeURIComponent(text) + "&systemId=" + system);
+                } else if (history.state.text != text || history.state.system != system) {
+                    history.pushState({ "text": text, "system": system }, "", translationLinkBase + "?text=" + encodeURIComponent(text) + "&systemId=" + system);
+                }
+            }
+        }
+    },
+
+    doDictionaryTranslation: function (sourceLanguage, targetLanguage, phrase, options) {
+        if (phrase) {
+            that = this;
+            $.ajax({
+                url: $widget.settings._dictionaryUrl,
+                headers: $widget.getAuthHeaders(),
+                method: "GET",
+                dataType: 'json',
+                type: 'GET',
+                data: {
+                    word: phrase,
+                    sourceLanguage: sourceLanguage,
+                    targetLanguage: targetLanguage
+                },
+                success: function (data) {
+                    if (data) {
+                        $('.translateResultClear', $widget.settings.container).removeClass('hide');
+
+                        for (n = 0; n < data.length; n++) {
+                            $(".translateTextResult").empty();
+                            $(".translateTextResult").append($("<h2></h2>", { "text": data[n].translations[n].target_word, "class": "dictionarySource" }));
+
+                            var previousType = "banana"; //type might be empty or null, start with something that is very unlikely
+                            var translationTable = null;
+                            for (i = 0; i < data[n].translations.length; i++) {
+                                var translation = data[n].translations[i];
+                                if (translation.type !== previousType) {
+                                    if (translation.type) {
+                                        var translationType = translation.type;
+                                        if (uiResources[$widget.settings._language]["dictionary-entry-word-class-" + translation.type]) {
+                                            translationType = uiResources[$widget.settings._language]["dictionary-entry-word-class-" + translation.type];
+                                        }
+                                        $(".translateTextResult").append($("<p></p>", { "text": translationType, "class": "dictionaryWordType" }));
+                                    }
+                                    previousType = translation.type;
+                                    translationTable = $("<table></table>", { "class": "dictionaryTranslationTable" });
+                                    $(".translateTextResult").append(translationTable);
+                                }
+
+                                var translationRow = $("<tr></tr>");
+                                translationTable.append(translationRow);
+
+                                var probabilityCell = $("<td></td>", { "class": "dictionaryTranslationProbabilityCell" });
+                                translationRow.append(probabilityCell);
+                                var probability = $("<span></span>", { "class": "dictionaryTranslationProbabilityContainer" });
+                                probabilityCell.append(probability);
+                                var maxProbability = 1; //translation probability values are expected to be from 0 to maxProbability
+                                probability.append($("<span></span>", {
+                                    "class": "dictionaryTranslationProbability",
+                                    "style": "width:" + (translation.probability * 100 * (1 / maxProbability)) + "%",
+                                    "title": translation.probability.toString()
+                                }));
+
+                                var dictionaryTranslationCell = $("<td></td>", { "class": "dictionaryTranslationCell " + translation.target_word });
+                                translationRow.append(dictionaryTranslationCell);
+
+                                var translationLink = $("<a></a>", { "text": translation.target_word, "href": "javascript:;", "class": "dictionaryTranslationTranslation" });
+                                dictionaryTranslationCell.append(translationLink);
+
+                                translationLink.click(function () {
+                                    that.appendPageToBrowsingHistory();
+                                    var reverseSystem = $widget.getReverseSystem();
+
+                                    if (reverseSystem) {
+                                        $widget.suppressTranslationOnSystemChange = true;
+                                        $widget.setActiveSystem(reverseSystem.ID);
+                                        $widget.suppressTranslationOnSystemChange = false;
+                                        that.setSourceText(this.innerHTML);
+                                        that.appendPageToBrowsingHistory();
+                                    }
+                                });
+
+                                // get reverse translations
+                                var dictionaryTranslationReverseCell = $("<td></td>", { "class": "dictionaryTranslationReverseCell" });
+                                translationRow.append(dictionaryTranslationReverseCell);
+
+                                if (translation.reverse_translations) {
+                                    for (reverseTransIndex = 0; reverseTransIndex < translation.reverse_translations.length; reverseTransIndex++) {
+                                        if (dictionaryTranslationReverseCell.text().length > 0) {
+                                            dictionaryTranslationReverseCell.append(", ");
+                                        }
+                                        var backlink = $("<a></a>", { "text": translation.reverse_translations[reverseTransIndex], "class": "dictionaryTranslationReverse", "href": "javascript:;" });
+                                        dictionaryTranslationReverseCell.append(backlink);
+                                        backlink.click(function () {
+                                            that.appendPageToBrowsingHistory();
+                                            that.setSourceText(this.innerHTML);
+                                            that.appendPageToBrowsingHistory();
+                                        });
+                                    }
+                                }
+                            }
+
+                            if (typeof (data[n].examples) !== "undefined" && data[n].examples != null && data[n].examples.length > 0) {
+                                $(".translateTextResult").append($("<p></p>", { "text": uiResources[$widget.settings._language]['examples'], "class": "dictionaryExamplesTitle" }));
+                                for (i = 0; i < data[n].examples.length; i++) {
+                                    var example = data[n].examples[i];
+                                    var exampleDiv = $("<div></div>", { "class": "dictionaryExamplePair" });
+                                    exampleDiv.append($("<p></p>", { "html": example.source, "class": "dictionaryExample" }));
+                                    exampleDiv.append($("<p></p>", { "html": example.target, "class": "dictionaryExample" }));
+                                    $(".translateTextResult").append(exampleDiv);
+                                }
+                            }
+
+                            cursor.translating = false;
+                            cursor.translated = true;
+                            that.checkIfStoppedTranslating();
+                        }
+                        $(".editButtonContainer").removeClass("hide");
+
+                        if ($widget.settings._useSpeakers) {
+                            $('.targetSpeak').addClass('hide');
+                            if ($widget.getActiveSystemObj() && $(".translateTextSource").val()) {
+                                if ($widget.getActiveSystemObj().TargetLanguage.Code === 'lv') {
+                                    $('.targetSpeak').removeClass('hide');
+                                }
+                            }
+                        }
+                    } else {
+                        that.doTextTranslation(options);
+                    }
+                    if (cursor) {
+                        cursor.translating = false;
+                    }
+                },
+                error: function (e) {
+                    that.doTextTranslation(options);
+                    if (cursor) {
+                        cursor.translating = false;
+                    }
+                }
+            });
+        }
+    },
+
+    doDictionaryLetonikaTranslation: function (sysSrcCode, sysTrgCode, phrase, options) {
         $.ajax({
             context: {
                 ref: this
@@ -1077,7 +1386,7 @@ Tilde.TextTranslator.prototype = {
             dataType: this.options.jsonType,
             type: 'GET',
             contentType: 'application/json',
-            url: this.options._dictionaryUrl,
+            url: this.options._dictionaryLetonikaUrl,
             data: {
                 appid: this.options._appId,
                 srcLng: sysSrcCode,
@@ -1091,9 +1400,7 @@ Tilde.TextTranslator.prototype = {
                     //javascript replace operation replaces only the first occurance
                     //thus the strange split/join, which replaces all
                     entry = entry.split('SEE_FULL_ENTRY').join(uiResources[$widget.settings._language]['seeFullEntry']);
-                    // RL
-                    //entry = entry.split('<a href').join('<a target="_blank" href');
-                    // / RL
+                    entry = entry.split('<a href').join('<a target="_blank" href');
                     $(this.ref.options._textResult).html(entry);
 
                     $('.translateResultClear', $widget.settings.container).removeClass('hide');
@@ -1103,8 +1410,8 @@ Tilde.TextTranslator.prototype = {
 
                     this.ref.checkIfStoppedTranslating();
                 }
-                else { 
-                    this.ref.doTextTranslation(options)
+                else {
+                    this.ref.doTextTranslation(options);
                 }
             },
             error: this.onSuccess
@@ -1129,7 +1436,7 @@ Tilde.TextTranslator.prototype = {
                 this.options._onTranslationFinished();
             }
             if ($(".editButtonContainer").hasClass("hide")) {
-                if ($(".translateTextResult p").length > 0 && $(".translateTextResult p[translationprogress=true]").length == 0) {
+                if ($(".translateTextResult p").length > 0 && $(".translateTextResult p[translationprogress=true]").length == 0 && $(".translateTextResult .dictionarySource").length == 0) {
                     $(".editButtonContainer").removeClass("hide");
                 }
             }
@@ -1189,7 +1496,7 @@ Tilde.TextTranslator.prototype = {
 
                 this.redrawBackground(cursor.id, previousId);
 
-                if (typeof(cursor.translation.translation) == "undefined" && cursor.translation.replace(/\s/g, '').length == 0) {
+                if (typeof (cursor.translation.translation) == "undefined" && cursor.translation.replace(/\s/g, '').length == 0) {
                     cursor.translated = true;
                     cursor.translating = false;
                 }
@@ -1200,11 +1507,20 @@ Tilde.TextTranslator.prototype = {
 
                     $('.translateResultClear', $widget.settings.container).removeClass('hide');
 
-                    $('.sourceLang', $widget.settings.container).text($('.translateSourceLang option:selected', $widget.settings.container).text());
-                    $('.targetLang', $widget.settings.container).text($('.translateTargetLang option:selected', $widget.settings.container).text());
+                    if (this.options._bootstrap) {
+                        // no idea what this accomplishes or fixes &
+                        // unsure whether this is still revelant to hugo 
+                        // but adding just to be on the safe side
+                        $(".sourceLang", $widget.settings.container).text($(".translate-source-language .dropdown-item.active").text());
+                        $(".targetLang", $widget.settings.container).text($(".translate-target-language .dropdown-item.active").text());
+
+                    } else {
+                        $('.sourceLang', $widget.settings.container).text($('.translateSourceLang option:selected', $widget.settings.container).text());
+                        $('.targetLang', $widget.settings.container).text($('.translateTargetLang option:selected', $widget.settings.container).text());
+                    }
 
                     $($widget.settings._textResult, $widget.settings.container).removeClass('noNetwork');
-                    
+
                     // hide intro
                     if ($widget.settings._landingView) {
                         $('.fakeCursor', $widget.settings.container).addClass('hide');
@@ -1267,7 +1583,7 @@ Tilde.TextTranslator.prototype = {
                 cursor.translated = true;
                 cursor.latest = true;
                 cursor.scroll = true;
-                if (typeof (result) === 'undefined' || result == null || (result.status && result.status !== '200' ) || !(result.translation || result.replace)) {
+                if (typeof (result) === 'undefined' || result == null || (result.status && result.status !== '200') || !(result.translation || result.replace)) {
                     // system is in standby mode
                     var waking = false;
                     if (typeof (result.responseJSON) !== 'undefined')
@@ -1292,12 +1608,18 @@ Tilde.TextTranslator.prototype = {
                     }
                     cursor.translation = result;
 
-                    // tts speakers
+                    // TODO:
+                    // Refactor this bit into a separate function so that
+                    // it can be used for both source & target fields.
                     if ($widget.settings._useSpeakers) {
-                        $('.targetSpeak').addClass('hide');
-                        var trg = $widget.getActiveSystemObj().TargetLanguage.Code;
-                        if (trg === 'lv') {
-                            $('.targetSpeak').removeClass('hide');
+                        var $button = $(".targetSpeak");
+
+                        $button.addClass("hide"); // not sure yet why this is being done in the first place
+                        $button.attr("aria-hidden", true);
+
+                        if ($widget.getActiveSystemObj().TargetLanguage.Code === "lv") {
+                            $button.removeClass("hide");
+                            $button.removeAttr("aria-hidden");
                         }
                     }
                 }
@@ -1316,7 +1638,7 @@ Tilde.TextTranslator.prototype = {
         this.obj.redrawResult();
         this.obj.redrawBackground(id, previousId);
 
-        this.obj.doTranslation({ translateAll: false });
+        this.obj.doTranslation({ translateAll: false, merryGoRound: true });
     },
 
     redrawBackground: function (id, afterId) {
@@ -1324,7 +1646,7 @@ Tilde.TextTranslator.prototype = {
             $.proxy(this.onBackgroundHover, this.pta)(id, afterId);
         }
     }
-}
+};
 
 //------------------------------------------------------------------------------------------------
 
@@ -1385,7 +1707,7 @@ Tilde.ProgressiveTextAreaElement.prototype = {
 
         return copyOf;
     }
-}
+};
 
 //------------------------------------------------------------------------------------------------
 
@@ -1397,7 +1719,7 @@ Tilde.ProgressiveTextAreaOptions.prototype = {
     onTextChanged: null,
     onNewParagraph: null,
     onBackgroundHover: null
-}
+};
 
 Tilde.ProgressiveTextArea = function (options) { this.init(options); };
 Tilde.ProgressiveTextArea.prototype = {
@@ -1557,7 +1879,7 @@ Tilde.ProgressiveTextArea.prototype = {
     kayTimeout: null,
 
     onKeyStroke: function (event) {
-        if (this.options.onTextChangedWithoutDelay){
+        if (this.options.onTextChangedWithoutDelay) {
             this.options.onTextChangedWithoutDelay();
         }
 
@@ -1571,7 +1893,7 @@ Tilde.ProgressiveTextArea.prototype = {
             this.triggerOnTextInput(event);
             return;
         }
-        
+
         var e = event;
         this.kayTimeout = setTimeout($.proxy(function () {
             this.onKeyStrokeSub(e);
@@ -1582,6 +1904,9 @@ Tilde.ProgressiveTextArea.prototype = {
 
     onKeyStrokeSub: function (event) {
         var newString = $(this.options.textAreaSelector).val();
+        if (newString == undefined) {
+            return;
+        }
         var charsChanged = Math.abs(newString.length - this.oldString.length);
         var charsEqual = (newString == this.oldString);
         var range = $(this.options.textAreaSelector).getSelection();
@@ -1939,4 +2264,4 @@ Tilde.ProgressiveTextArea.prototype = {
             this.options.onTextChanged();
         }
     }
-}
+};

@@ -21,6 +21,7 @@
       "text-widget/tilde.translator.widget.library.js",
       "text-widget/tilde.translator.widget.recentlangs.js",
       "text-widget/tilde.translator.widget.translatefile.js",
+      "text-widget/grapheme-splitter.js",
       "text-widget/tilde.translator.widget.translatetext.js",
       "text-widget/tilde.translator.widget.translateweb.js",
       "text-widget/translatefile.errors.js",

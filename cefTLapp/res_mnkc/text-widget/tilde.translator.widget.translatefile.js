@@ -804,8 +804,8 @@ $.extend(Tilde.TranslatorWidget.prototype, {
 
         if ($widget.settings._systemSelectType === 'domain') {
             if ($widget.settings._bootstrap) {
-                let $domain = $(".translate-domain .dropdown-toggle-reverse").text();
-                let $description = uiResources[$widget.settings._language]["DOMAIN_" + $domain.toUpperCase()];
+                var $domain = $(".translate-domain .dropdown-toggle-reverse").text();
+                var $description = uiResources[$widget.settings._language]["DOMAIN_" + $domain.toUpperCase()];
 
                 if (descr !== "undefined") {
                     txt = descr + "<p>" + txt + "</p>";

@@ -306,10 +306,10 @@ OpenCover/
 /cefTLapp/res_pr2017/text-widget/translator.min.js
 /cefTLapp/res_pr2017/text-widget/translator.css
 /cefTLapp/res_pr2017/text-widget/translator.min.css
-/cefTLapp/res_mnk/text-widget/translator.js
-/cefTLapp/res_mnk/text-widget/translator.min.js
-/cefTLapp/res_mnk/text-widget/translator.css
-/cefTLapp/res_mnk/text-widget/translator.min.css
+/cefTLapp/res_mnkc/text-widget/translator.js
+/cefTLapp/res_mnkc/text-widget/translator.min.js
+/cefTLapp/res_mnkc/text-widget/translator.css
+/cefTLapp/res_mnkc/text-widget/translator.min.css
 /[Bb]undler.cs
 /[Bb]undler/
 /cefTLapp/res_pr2017/package-lock.json

@@ -1,6 +1,7 @@
 ﻿var $versionNumber = '1.23';
-var $clientId = '	u-3787e5c0-cbe7-4571-8f50-36791bd9ea79';
-//var $customWidgetInit = true; //telss translation widget to initialize differenctly
+var $clientId = 'u-70fbfe41-e881-4d42-8d49-f60dd8d96b05'; //'u-3787e5c0-cbe7-4571-8f50-36791bd9ea79';
+var $customWidgetInit = true; //tells translation widget not to init stuff right away
+var $domain = "hugotest.tilde.lv";
 
 app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope) {
     // debug
@@ -461,8 +462,8 @@ app.controller('TranslateCtrl', function ($scope, $routeParams, $rootScope) {
 function initTextWidget($scope, $rootScope) {
     var textWidget = new Tilde.TranslatorWidget('#textWidget', {
         _language: $rootScope.language,
-        _systemListUrl: 'https://letsmt.eu/ws/service.svc/json/GetSystemList',
-        _translationUrl: 'https://letsmt.eu/ws/service.svc/json/TranslateEx',
+        _systemListUrl: 'https://' + $domain + '/ws/service.svc/json/GetSystemList',
+        _translationUrl: 'https://' + $domain + '/ws/service.svc/json/TranslateEx',
         _clientId: $clientId,
         _templateId: 'translatetext-template',
         _appId: "Tilde|MNKC|Web",
@@ -526,13 +527,13 @@ app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
 function initFileWidget($scope, $rootScope) {
     var fileWidget = new Tilde.TranslatorWidget('#fileWidget', {
         _language: $rootScope.language,
-        _systemListUrl: 'https://letsmt.eu/ws/service.svc/json/GetSystemList',
-        _uploadUrl: 'https://letsmt.eu/ws/Files/Upload',
-        _deleteUrl: 'https://letsmt.eu/ws/Files/Delete',
-        _downloadUrl: 'https://letsmt.eu/ws/Files/Download',
-        _translateUrl: 'https://letsmt.eu/ws/Files/StartTranslation',
-        _previewUrl: 'https://letsmt.eu/ws/Files/GetDocumentPreview',
-        _checkStatusUrl: 'https://letsmt.eu/ws/Files/GetStatus',
+        _systemListUrl: 'https://' + $domain + '/ws/service.svc/json/GetSystemList',
+        _uploadUrl: 'https://' + $domain + '/ws/Files/Upload',
+        _deleteUrl: 'https://' + $domain + '/ws/Files/Delete',
+        _downloadUrl: 'https://' + $domain + '/ws/Files/Download',
+        _translateUrl: 'https://' + $domain + '/ws/Files/StartTranslation',
+        _previewUrl: 'https://' + $domain + '/ws/Files/GetDocumentPreview',
+        _checkStatusUrl: 'https://' + $domain + '/ws/Files/GetStatus',
         //_defaultSourceLang: 'en',
         //_defaultTargetLang: 'de',
         _sourceLanguageOrder: $scope.sourceLanguageOrder,
@@ -608,8 +609,8 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
         _replaceContainer: false,
         _useRecentLangSelector: true,
         //_customSelectText: '&nbsp;',
-        _websiteTranslationUrl: "https://readymt.tilde.com/Translate/WebsiteEmbedded?embeddedStyle=noUI", // address of website translation page (that uses TranslateProxy)
-        _systemListUrl: 'https://letsmt.eu/ws/service.svc/json/GetSystemList',
+        _websiteTranslationUrl: "https://' + $domain + '/Translate/WebsiteEmbedded?embeddedStyle=noUI", // address of website translation page (that uses TranslateProxy)
+        _systemListUrl: 'https://' + $domain + '/ws/service.svc/json/GetSystemList',
         _onWidgetLoaded: function () {
             localizeLanguages($scope, $rootScope);
         },

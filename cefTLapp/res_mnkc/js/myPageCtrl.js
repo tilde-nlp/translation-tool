@@ -609,7 +609,7 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
         _replaceContainer: false,
         _useRecentLangSelector: true,
         //_customSelectText: '&nbsp;',
-        _websiteTranslationUrl: "https://' + $domain + '/Translate/WebsiteEmbedded?embeddedStyle=noUI", // address of website translation page (that uses TranslateProxy)
+        _websiteTranslationUrl: 'https://' + $domain + '/Translate/WebsiteEmbedded?embeddedStyle=noUI', // address of website translation page (that uses TranslateProxy)
         _systemListUrl: 'https://' + $domain + '/ws/service.svc/json/GetSystemList',
         _onWidgetLoaded: function () {
             localizeLanguages($scope, $rootScope);

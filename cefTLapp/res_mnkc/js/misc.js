@@ -4,6 +4,9 @@
 
 jQuery(window).resize(function () {
     setHeight();
+    $("#main_section").css("background-position-x", $("#main_section .container .row")[0].getBoundingClientRect().left + "px");
+    
+
 });
 
 function setHeight() {

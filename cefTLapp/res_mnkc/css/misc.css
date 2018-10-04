@@ -13,10 +13,10 @@ body {
 }
 
 #main_section {
-    background-image: url('../img/background.jpg?n=#{Build.BuildID}#');
-    background-position: center center;
+    background-color: #568653;
+    background-image: url('../img/koku_fons_ar_egli.png?n=#{Build.BuildID}#');
+    background-position: 100px 0;
     background-repeat: no-repeat;
-    background-size: cover;
     padding-bottom: 71px;
 }
 
@@ -45,7 +45,9 @@ body {
 }
 
 h1#main_title {
-    margin-top: 13px;
+    margin-top: 23px;
+    margin-left:26px;
+    font-size:18px;
 }
 
 #main_title a {
@@ -1741,13 +1743,9 @@ iframe {
 ::-webkit-scrollbar-thumb:window-inactive {
     background: rgba(232, 234, 236, 0.4);
 }
+
 /* /CUSTOM SCROLLBAR */
 @media (max-width: 1200px) {
-    #main_title {
-        font-size: 28px;
-        margin-top: 13px;
-    }
-
     .popSourceLangs {
         display: none;
     }
@@ -1799,9 +1797,6 @@ iframe {
 }
 
 @media (max-width: 991px) {
-    #main_title {
-        font-size: 20px;
-    }
 
     #title_new_line {
         display: inline !important;
@@ -1873,9 +1868,6 @@ iframe {
 }
 
 @media (max-width: 767px) {
-    #main_title {
-        font-size: 18px;
-    }
 
     .button {
         font-size: 14px;
@@ -1960,15 +1952,6 @@ iframe {
     }
 }
 
-@media (max-width: 540px) {
-    #main_title_wrapper {
-        margin-top: 0;
-    }
-
-    #main_title {
-        font-size: 14px;
-    }
-}
 
 @media (max-width: 464px) {
     .translateTextTemp {
@@ -1999,18 +1982,7 @@ iframe {
     }
 }
 
-@media (max-width: 333px) {
-    #main_title {
-        font-size: 14px;
-    }
-}
 @media (max-width: 320px) {
-    #main_title {
-        font-size: 16px;
-        margin-bottom: 0;
-        height: 56px;
-    }
-
     .text .translateTextResult, .text .translateTextSource {
         min-width: 200px !important;
     }

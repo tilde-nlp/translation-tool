@@ -458,7 +458,6 @@ app.controller('TranslateCtrl', function ($scope, $routeParams, $rootScope) {
 });
 
 
-
 function initTextWidget($scope, $rootScope) {
     var textWidget = new Tilde.TranslatorWidget('#textWidget', {
         _language: $rootScope.language,
@@ -469,6 +468,8 @@ function initTextWidget($scope, $rootScope) {
         _appId: "Tilde|MNKC|Web",
         _swapLanguagesButtonSelector: ".swapLanguage,#webSwapLanguage",
         _getFilteredSystems: false,
+        _useDictionary: true,
+        _dictionaryUrl: 'http://localhost:57581/GetDictionaryEntry',
         _onWidgetLoaded: function () {
 
             if ($scope.isActive('www') || $scope.isActive('website')) {

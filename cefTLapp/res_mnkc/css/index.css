@@ -9,13 +9,13 @@
 html, body {height: 100%; }
 
 body {
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;          /* prevent copy paste, to allow, change 'none' to 'text' */       
-    padding:0px;
-    width:100%;   
-    font-family: Segoe UI,Arial,Helvetica,sans-serif;    
-    height:100%;
+    -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+    padding: 0px;
+    width: 100%;
+    font-family: sserif, 'Raleway', sans-serif !important;
+    height: 100%;
 }
 a{
     text-decoration:none;

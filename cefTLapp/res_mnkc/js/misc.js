@@ -4,9 +4,10 @@
 
 jQuery(window).resize(function () {
     setHeight();
-    $("#main_section").css("background-position-x", $("#main_section .container .row")[0].getBoundingClientRect().left + "px");
-    
 
+    offset = $("#main_section .container")[0].getBoundingClientRect().left >= 42 ? -42 : 0;
+    $("#main_section").css("background-position-x", $("#main_section .container .row")[0].getBoundingClientRect().left + offset + "px");
+    $("#main_title_wrapper").css("margin-left", offset + 16 + "px");
 });
 
 function setHeight() {

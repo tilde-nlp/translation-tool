@@ -1,8 +1,8 @@
 ﻿
 var app = angular.module("myTranslatorApp", ['ngRoute', 'angular.filter', 'pascalprecht.translate'])
     .run(function ($rootScope) {
-        $rootScope.language = 'en';
-        $rootScope.languages = ['en', 'de'];
+        $rootScope.language = 'lv';
+        $rootScope.languages = ['lv', 'en'];
         $rootScope.workshopURLs = {
             'en': 'https://www.tilde.lv/presidency-translator-workshop-registration',
             'de': 'https://www.tilde.lv/presidency-translator-workshop-registration-de'

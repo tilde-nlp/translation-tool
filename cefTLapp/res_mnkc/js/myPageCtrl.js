@@ -430,7 +430,7 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
     var newLang = getCookie('lang');
 
     if (newLang == null) {
-        newLang = "en";
+        newLang = "lv";
     }
 
     var languageFound = false;
@@ -442,7 +442,7 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
     }
 
     if (!languageFound) {
-        newLang = "en";
+        newLang = "lv";
     }
 
     $rootScope.language = newLang;

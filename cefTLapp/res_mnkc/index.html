@@ -81,26 +81,6 @@
                             <h1 id="main_title"><a ng-click="routeMe('/text')" title="https://www.translate2018.eu/">Meža nozares<br/>mašīntulkošanas platforma</span></a></h1>
                         </div>
                     </div>
-                    <div class="col-sm-3 col-xs-5 no_padding_left no_padding_right" id="main_menu">
-                        <div class="menu_wrapper">
-                            <div class="dropdown">
-                                <button id="dropdown_button" class="btn btn-primary btn-block dropdown-toggle menu_text" type="button" data-toggle="dropdown">
-                                    <span id="dropdown_open" translate="{{ 'MENU' | translate }}"></span>
-                                    <span id="dropdown_close" translate="{{ 'MENU_CLOSE' | translate }}"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li class="dropdown-menu-first"><a id="menu_about" href="#/about" ng-click="routeMe('/about');" translate="{{ 'MENU_ABOUT' | translate }}" title="{{ 'MENU_ABOUT' | translate }}"></a></li>
-                                    <li class="dropdown-menu-last"><a id="menu_contactUs" href="#/contactUs" ng-click="routeMe('/contactUs');" translate="{{ 'MENU_CONTACT' | translate }}" title="{{ 'MENU_CONTACT' | translate }}"></a></li>
-                                    <li class="dropdown-menu-last"><a id="menu_plugin" href="#/plugin" ng-click="routeMe('/plugin');" translate="{{ 'MENU_PLUGIN' | translate }}" title="{{ 'MENU_PLUGIN' | translate }}"></a></li>
-                                    <!--<li class="dropdown-menu-last"><a id="menu_workshop" href="#/workshop" ng-click="routeMe('/workshop');" translate="{{ 'MENU_WORKSHOP' | translate }}" title="{{ 'MENU_WORKSHOP' | translate }}"></a></li>-->
-                                </ul>
-                            </div>
-                            <div id="language_selection">
-                                <button id="language_selection_en" class="btn lang_select menu_text" ng-class="{ active: language === languages[0] }" ng-model="language" ng-click="setLanguage(languages[0])">EN</button>
-                                <button id="language_selection_de" class="btn lang_select menu_text" ng-class="{ active: language === languages[1] }" ng-model="language" ng-click="setLanguage(languages[1])">DE</button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -108,7 +88,7 @@
         <div ng-show="(!isActive('website') && !isActive('www'))" class="section" id="translation_type_section" ng-class="{inIframe: isInIFrame()}">
             <div class="container">
                 <div class="row" id="transl_types">
-                    <div id="translation_types" class="col-sm-8 col-xs-12 no_padding_left no_padding_right">
+                    <div id="translation_types" class="col-sm-8 col-xs-7 no_padding_left no_padding_right">
                         <ul class="list-inline">
                             <li class="transl_text" ng-class="{ active: isActive('text') }">
                                 <a id="translation_type_text" href="/?random-for-reload=1#/text" ng-class="{ active: isActive('text') }" title="{{ 'TEXT' | translate }}" class="transl_type"><span class="transl_type_long">{{ 'TEXT' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'TEXT_SHORT' | translate }}</span></a>
@@ -117,9 +97,17 @@
                                 <a id="translation_type_doc" href="/?random-for-reload=2#/document" ng-class="{ active: isActive('document') }" title="{{ 'DOC' | translate }}" class="transl_type"><span class="transl_type_long">{{ 'DOC' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'DOC_SHORT' | translate }}</span></a>
                             </li>
                             <li class="transl_website" ng-class="{ active: isActive('website') || isActive('www')  }">
-                                <a id="translation_type_web" href="/?random-for-reload=3#/www"  ng-class="{ active: isActive('website') || isActive('www')  }" title="{{ 'WEB' | translate }}" class="transl_type"><span class="transl_type_long">{{ 'WEB' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'WEB_SHORT' | translate }}</span></a>
+                                <a id="translation_type_web" href="/?random-for-reload=3#/www" ng-class="{ active: isActive('website') || isActive('www')  }" title="{{ 'WEB' | translate }}" class="transl_type"><span class="transl_type_long">{{ 'WEB' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'WEB_SHORT' | translate }}</span></a>
                             </li>
                         </ul>
+                    </div>
+                    <div class="col-sm-4 col-xs-2 no_padding_left no_padding_right" id="main_menu">
+                        <div class="menu_wrapper">
+                            <div id="language_selection">
+                                <button id="language_selection_lv" class="btn lang_select menu_text" ng-class="{ active: language === languages[0] }" ng-model="language" ng-click="setLanguage(languages[0])">LV</button>
+                                <button id="language_selection_en" class="btn lang_select menu_text" ng-class="{ active: language === languages[1] }" ng-model="language" ng-click="setLanguage(languages[1])">EN</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

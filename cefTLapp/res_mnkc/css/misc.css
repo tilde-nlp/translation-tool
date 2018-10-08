@@ -2131,3 +2131,22 @@ textarea, input[type="text"] {
     color: #5A9174;
     font-weight: 600 !important;
 }
+
+
+.dictionaryTranslationTable a {
+    color: #053A29;
+    /*color: #5A9174;*/
+}
+
+.dictionaryTranslationProbabilityCell {
+    padding-top: 3px;
+}
+
+.dictionaryTranslationProbabilityContainer
+{
+box-sizing:content-box;
+}
+
+.dictionaryTranslationProbability {
+    background-color: #053A29;
+}

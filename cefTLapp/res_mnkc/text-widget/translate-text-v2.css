@@ -268,3 +268,99 @@ p.mt-translation {
 .translateTextSource:lang(yi), .backGroundSource:lang(yi), .translateTextResult:not(.translateTextTemp):lang(yi) {
     direction:rtl;
 }
+
+
+.dictionarySource {
+    font-size: 1.2em;
+}
+
+
+.dictionaryWordType, .dictionaryExamplesTitle {
+    color: #666666;
+    margin: 2em 0 0.5em 0;
+    font-style: italic;
+}
+
+.dictionaryTranslation {
+    margin: 0 0 0.5em 0;
+}
+
+.dictionaryTranslationTable td {
+    vertical-align: top;
+}
+
+
+.dictionaryTranslationTable {
+    width: 100%;
+}
+
+.dictionaryTranslationProbabilityCell {
+    width: 1%;
+    padding-right: 0.5em;
+}
+
+.dictionaryTranslationCell {
+    width: 1%;
+    padding-right: 1em;
+}
+
+.dictionaryTranslationReverseCell {
+    width: 98%;
+}
+
+.dictionaryTranslationReverse {
+    /*color: #808080;*/
+    font-size: 92%;
+    text-decoration: none;
+}
+
+    .dictionaryTranslationReverse:hover {
+        text-decoration: underline;
+    }
+
+.dictionaryExamplePair + .dictionaryExamplePair {
+    margin-top: 2em;
+}
+
+.dictionaryExample {
+    margin: 0 0 0.5em 0;
+}
+
+    .dictionaryExample strong {
+        color: #474747;
+    }
+
+
+.dictionaryTranslationTranslation + .dictionaryTranslationReverse {
+    margin-left: 0.5em;
+}
+
+.dictionaryTranslationTranslation {
+    /*min-width:6em;
+    display:inline-block;
+    */
+    text-decoration: none;
+}
+
+    .dictionaryTranslationTranslation:hover {
+        text-decoration: underline;
+    }
+
+.dictionaryTranslationProbabilityContainer {
+    width: 1em;
+    height: 0.5em;
+    margin-top: 0.25em;
+    display: block;
+    border: solid 1px #aeaeae;
+    border-radius: 0.2em;
+}
+
+.dictionaryTranslationProbability {
+    background-color: #666666;
+    height: 0.5em;
+    display: block;
+}
+
+.dictionaryTranslationCell {
+    white-space: nowrap;
+}

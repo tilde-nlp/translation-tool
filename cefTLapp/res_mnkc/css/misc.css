@@ -357,25 +357,6 @@ div.fancy-select div.trigger {
         right: 0.5em;
     }
 
-div.fancy-select ul.options {
-    border: 1px solid #7FAE96;
-    border-radius: 1px;
-    left: 0;
-}
-
-div.fancy-select ul.options {
-    min-width: 110px;
-}
-
-div.fancy-select ul.options li {
-    padding: 6px 12px;
-}
-
-div.fancy-select ul.options li.hover {
-    background-color: white;
-    color: #e5242e;
-}
-
 .popSourceLangs, .popTargetLangs {
     margin-left: 5px;
 }
@@ -607,29 +588,7 @@ div.fancy-select ul.options li.hover {
     min-width: 100px;
 }
 
-.file .progressImage > div{
-    width: 18px;
-    height: 18px;
-    background-color: #e5242e;
-    margin-left: 5px;
-    border-radius: 100%;
-    display: inline-block;
-    -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
-    animation: bouncedelay 1.4s infinite ease-in-out;
-    /* Prevent first frame from flickering when animation starts */
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-}
 
-.file .progressImage .bounce1 {
-    -webkit-animation-delay: -0.32s;
-    animation-delay: -0.32s;
-}
-
-.file .progressImage .bounce2 {
-    -webkit-animation-delay: -0.16s;
-    animation-delay: -0.16s;
-}
 
 #docSourcePreview, .translateResult {
     overflow-y: auto;
@@ -647,14 +606,13 @@ div.fancy-select ul.options li.hover {
 
 .file .translateResult a {
     text-decoration: none !important;
-    color: black;
+    color: #5A9174;
     font-size: 1rem;
     font-weight: normal;
     margin-top: 20%;
 }
 
     .file .translateResult a:active, .file .translateResult a:hover {
-        color: #e5242e !important;
         text-decoration: underline !important;
     }   
 
@@ -700,10 +658,10 @@ div.fancy-select ul.options li {
     padding: 6px 12px;
 }
 
-div.fancy-select ul.options li.hover {
-    background-color: white;
-    color: #e5242e;
-}
+    div.fancy-select ul.options li.hover {
+        background-color: #5A9174;
+        color: white;
+    }
 
 .popSourceLangs, .popTargetLangs {
     margin-left: 5px;
@@ -796,6 +754,7 @@ div.fancy-select ul.options li.hover {
         background: none;
         background-color: #053A29;
         text-decoration: none;
+        color:white;
     }
 
 #source_lang_div {
@@ -975,10 +934,10 @@ div.fancy-select ul.options li.hover {
     min-width: 100px;
 }
 
-.file .progressImage > div{
+.file .progressImage > div {
     width: 18px;
     height: 18px;
-    background-color: #e5242e;
+    background-color: #053A29;
     margin-left: 5px;
     border-radius: 100%;
     display: inline-block;

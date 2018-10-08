@@ -287,8 +287,10 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         eTranslation: true,
     };
 
+
+    // TODO: no fuicking idea why this is needed, it broke click event on transltion language selector
     // blur effect on option list
-    $('body').click(function (event) {
+    /*$('body').click(function (event) {
         var target = $(event.target);
         if (target.is(".trigger")) {
             $(".options.open").each(function () {
@@ -365,7 +367,7 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
 
             localizeLanguages($scope, $rootScope);
         }
-    });
+    });*/
 
     function getCurrentSourceLang() {
         return $(".popSourceLangs li.active").first().text();

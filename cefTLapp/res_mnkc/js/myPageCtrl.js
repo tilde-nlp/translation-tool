@@ -446,7 +446,7 @@ function initTextWidget($scope, $rootScope) {
         _swapLanguagesButtonSelector: ".swapLanguage,#webSwapLanguage",
         _getFilteredSystems: false,
         _useDictionary: true,
-        _dictionaryUrl: 'http://localhost:57581/GetDictionaryEntry',
+        _dictionaryUrl: 'https://letsmt.eu/api/dictionary/GetDictionaryEntry',
         _onWidgetLoaded: function () {
 
             if ($scope.isActive('www') || $scope.isActive('website')) {

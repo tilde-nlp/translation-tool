@@ -1,6 +1,5 @@
 ﻿var $versionNumber = '1.23';
 var $clientId = 'u-70fbfe41-e881-4d42-8d49-f60dd8d96b05'; //'u-3787e5c0-cbe7-4571-8f50-36791bd9ea79';
-var $customWidgetInit = true; //tells translation widget not to init stuff right away
 var $domain = "hugotest.tilde.lv";
 
 app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope) {
@@ -284,7 +283,7 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
     };
 
     $scope.sysType = {
-        eTranslation: true,
+        eTranslation: false
     };
 
 
@@ -388,30 +387,7 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         return arr; // for testing
     };
 
-    // check if the system is from eTranslation
-    $scope.isETranslationSystem = function (activeSys) {
-        var etr = false;
 
-        var systems = Array.from($widget.settings._systems);
-
-        for (var i = 0; i < systems.length; i += 1) {
-            if (systems[i].ID === activeSys) {
-                var systemMetadata = Array.from(systems[i].Metadata);
-                for (j = 0; j < systemMetadata.length; j += 1) {
-                    var currData = systemMetadata[j];
-                    if (currData.Key === 'decoder' && currData.Value === 'cefat-etranslation') {
-                        etr = true;
-                        break;
-                    }
-                }
-                break;
-            }
-        }
-
-        $scope.$apply(function () {
-            $scope.sysType.eTranslation = etr;
-        });
-    }
 
     function getParameterByName(name, url) {
         if (!url) url = window.location.href;
@@ -455,7 +431,6 @@ app.controller('TranslateCtrl', function ($scope, $routeParams, $rootScope) {
     $('#fileWidget').empty();
     $('#webWidget').empty();
 
-    $scope.sysType.eTranslation = false;
     initTextWidget($scope, $rootScope);
 });
 
@@ -496,7 +471,7 @@ function initTextWidget($scope, $rootScope) {
         _targetLanguageOrder: $scope.targetLanguageOrder,
         _replaceSourceWithBlock: 'false',
         _onSystemChanged: function () {
-            $scope.isETranslationSystem($widget.activeSystemId);
+            
               
         },
         _onWidgetTemplateLoaded: function () {
@@ -521,8 +496,6 @@ app.controller('DocumentCtrl', function ($scope, $routeParams, $rootScope) {
     $('#webWidget').empty();
 
     // if (typeof $widget !== 'undefined') { $widget.textPluginUnload() };
-
-    $scope.sysType.eTranslation = false;
 
     initFileWidget($scope, $rootScope);
 });
@@ -576,7 +549,7 @@ function initFileWidget($scope, $rootScope) {
         _replaceContainer: false,
         _useRecentLangSelector: true,
         _onSystemChanged: function () {
-            $scope.isETranslationSystem($widget.activeSystemId);
+            
         },
         _onWidgetTemplateLoaded: function () {
             $widget.pluginInitializers = [];
@@ -595,7 +568,6 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
     $('#textWidget').empty();
     $('#documentWidget').empty();
 
-    $scope.sysType.eTranslation = false;
     var webWidget = new Tilde.TranslatorWidget('#webWidget', {
         _language: $rootScope.language,
         _clientId: $clientId,
@@ -618,7 +590,7 @@ app.controller('websiteTranslatorCtrl', function ($scope, $routeParams, $rootSco
             localizeLanguages($scope, $rootScope);
         },
         _onSystemChanged: function () {
-            $scope.isETranslationSystem($widget.activeSystemId);
+            
         },
         _onWidgetTemplateLoaded: function () {
             $widget.pluginInitializers = [];
@@ -748,5 +720,4 @@ function loadTargetLangList(source, selTarget, putSystemId) {
     if ($('.w .translateTargetLang') !== null) {
         $('.w .translateTargetLang').trigger('update.fs');
     }
-
 }

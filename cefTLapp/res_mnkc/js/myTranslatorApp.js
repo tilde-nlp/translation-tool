@@ -26,23 +26,6 @@ app.config(['$routeProvider',
                 templateUrl: 'templates/translate-text.html',
                 controller: 'TranslateCtrl'
             })
-            .when('/contactUs', {
-                templateUrl: 'templates/contactUs.html',
-                controller: 'myPageCtrl'
-            })
-            .when('/plugin', {
-                templateUrl: 'templates/plugin.html',
-                controller: 'myPageCtrl'
-            })
-            .when('/workshop', {
-                templateUrl: 'templates/workshop.html',
-                controller: 'myPageCtrl'
-            })
-            .when('/registration-for-the-workshop', {
-                templateUrl: 'templates/registration-closed.html',
-                //templateUrl: 'templates/registration-for-the-workshop.html',
-                controller: 'myPageCtrl'
-            })
             .when('/text', {
                 templateUrl: 'templates/translate-text.html',
                 controller: 'TranslateCtrl'

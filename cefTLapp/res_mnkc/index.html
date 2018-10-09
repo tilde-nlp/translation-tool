@@ -34,6 +34,10 @@
     <!--text translation-->
     <!---->
     <link href="text-widget/translator.css?n=#{Build.BuildID}#" rel="stylesheet" />
+    <script type="text/javascript">
+        //tells translation widget not to init stuff right away
+        var $customWidgetInit = true;
+    </script>
     <script src="text-widget/translator.js?n=#{Build.BuildID}#"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">

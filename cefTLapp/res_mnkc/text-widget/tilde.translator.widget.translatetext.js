@@ -1226,19 +1226,36 @@ Tilde.TextTranslator.prototype = {
     appendPageToBrowsingHistory: function () {
         //inserts currently selected system and current source text into browsing history
         //if it differs from previous history entry
-        if (typeof (history) !== "undefined") {
+        //angular has it'sown idea about browser history, so don't bother
+        if (typeof (history) !== "undefined" && typeof (angular) == "undefined") {
             var text = $($widget.settings._textSource, $widget.settings.container).val();
             var system = $widget.activeSystemId;
             if (text && system) {
                 var translationLinkBase = document.location.href;
-                var questionIndex = translationLinkBase.indexOf("?");
-                if (questionIndex != -1) {
-                    translationLinkBase = translationLinkBase.substring(0, questionIndex);
+                var anchor = "";
+                var anchorIndex = translationLinkBase.indexOf("#");
+                if (anchorIndex != -1) {
+                    anchor = translationLinkBase.substring(anchorIndex);
                 }
+
+                // keep param "random-for-reload=1" which is needed to fool angular in translation tool
+                var questionIndex = translationLinkBase.indexOf("?random-for-reload=1");
+                if (questionIndex != -1) {
+                    translationLinkBase = translationLinkBase.substring(0, questionIndex + 20) + "&";
+                } else {
+                    questionIndex = translationLinkBase.indexOf("?");
+                    if (questionIndex != -1) {
+                        translationLinkBase = translationLinkBase.substring(0, questionIndex) + "?";
+                    }
+                    else {
+                        translationLinkBase += "?";
+                    }
+                }
+                var url = translationLinkBase + "text=" + encodeURIComponent(text) + "&systemId=" + system + anchor;
                 if (typeof (history.state) == "undefined" || history.state == null) {
-                    history.replaceState({ "text": text, "system": system }, "", translationLinkBase + "?text=" + encodeURIComponent(text) + "&systemId=" + system);
+                    history.replaceState({ "text": text, "system": system }, url, url);
                 } else if (history.state.text != text || history.state.system != system) {
-                    history.pushState({ "text": text, "system": system }, "", translationLinkBase + "?text=" + encodeURIComponent(text) + "&systemId=" + system);
+                    history.pushState({ "text": text, "system": system }, url, url);
                 }
             }
         }

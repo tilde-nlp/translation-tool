@@ -105,9 +105,16 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-sm-4 col-xs-2 no_padding_left no_padding_right" id="main_menu">
+                    <div class="col-sm-4 col-xs-5 no_padding_left no_padding_right" id="main_menu">
                         <div class="menu_wrapper">
-                            <div id="language_selection">
+                            <div class="nav pull-left">
+                                <a class="link"
+                                   href="#/about"
+                                   title="{{ 'MENU_ABOUT' | translate }}"
+                                   translate="{{ 'MENU_ABOUT' | translate }}"
+                                   ng-click="routeMe('/about');">About</a>
+                            </div>
+                            <div id="language_selection" class="pull-right">
                                 <button id="language_selection_lv" class="btn lang_select menu_text" ng-class="{ active: language === languages[0] }" ng-model="language" ng-click="setLanguage(languages[0])">LV</button>
                                 <button id="language_selection_en" class="btn lang_select menu_text" ng-class="{ active: language === languages[1] }" ng-model="language" ng-click="setLanguage(languages[1])">EN</button>
                             </div>
@@ -130,8 +137,7 @@
         <div class="container">
             <div class="row" id="footer_row">
                 <div class="col-sm-6 col-xs-6 no_padding_left">
-                    <p class="footer_text footer_etranslation" translate="{{ 'POWERED' | translate }}">
-                    </p>
+                    <p class="footer_text footer_etranslation" translate="{{ 'POWERED' | translate }}"></p>
                 </div>
                 <div class="col-sm-6 col-xs-6 no_padding_right">
                     <p class="footer_text footer_tilde" translate="{{ 'DEVELOPED' | translate }}"></p>

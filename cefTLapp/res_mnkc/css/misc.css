@@ -104,7 +104,8 @@ h1#main_title {
 }
 
 .menu_wrapper {
-    float: right;
+    margin-left: auto;
+    align-self: center;
 }
 
 .dropdown {
@@ -150,17 +151,12 @@ h1#main_title {
     background-color: transparent !important;
 }
 
-
-
 button.lang_select:focus {
     outline: none !important;
 }
 
 #language_selection {
     float: left;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    margin-top: 15px;
 }
 
 .lang_select {
@@ -198,6 +194,7 @@ div.fancy-select ul.options.open {
 }
 
 #transl_types{
+    display: flex;
     margin-left:-18px !important;
 }
 
@@ -1049,26 +1046,12 @@ iframe {
     background: #FFFFFF;
 }
 
-.web_container .translateSourceSystemLabel,
-.web_container .translateTargetSystemLabel,
-.web_container .popSourceLangs li,
-.web_container .popTargetLangs li {
-    color: white;
-}
-
     .web_container .popSourceLangs li:hover,
     .web_container .popTargetLangs li:hover,
     .web_container .popSourceLangs li.active,
     .web_container .popTargetLangs li.active {
         color: #e5242e;
     }
-
-#web_section {
-    background-image: url('../img/background_web.png?n=#{Build.BuildID}#');
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
 
 #web_menu {
     height: 98px;
@@ -1083,7 +1066,6 @@ iframe {
 }
 
 #web_main #url {
-    border-color: #fff;
     color: black;
     font-size: 12px;
     height: 31px;
@@ -1171,12 +1153,12 @@ iframe {
 }
 
     #web_transl_types li a {
-        color: #fff;
-        font-size: 14px;
-        padding: 4px 12px;
-        line-height: 1.5;
-        outline: none;
         width: 160px;
+        padding: 4px 12px;
+        outline: none;
+        color: #5A9174;
+        font-size: 14px;
+        line-height: 1.5;
         text-decoration: none !important;
     }
 
@@ -1647,10 +1629,6 @@ iframe {
         color: #5A9174;
         font-weight:600;
         padding-right: 25px !important;
-    }
-
-    #web_main .trigger {
-        color: #fff;
     }
 
     .popSourceLangs, .popTargetLangs {
@@ -2149,4 +2127,24 @@ box-sizing:content-box;
 
 .dictionaryTranslationProbability {
     background-color: #053A29;
+}
+
+.link,
+.link:hover,
+.link:visited,
+.link:focus,
+.link:active {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+}
+
+#main_menu {
+    display: flex;
+}
+
+.menu_wrapper .nav {
+    margin-right: 16px;
 }

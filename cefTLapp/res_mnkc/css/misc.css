@@ -17,7 +17,6 @@ body {
     background-image: url('../img/koku_fons_ar_egli.png?n=#{Build.BuildID}#');
     background-position: 100px 0;
     background-repeat: no-repeat;
-    padding-bottom: 71px;
 }
 
 #main {
@@ -264,7 +263,6 @@ div.fancy-select ul.options.open {
 }
 
 #translation_type_section {
-    margin-top: -71px;
     background-color: #053b29;
 }
 
@@ -2145,6 +2143,53 @@ box-sizing:content-box;
     display: flex;
 }
 
-.menu_wrapper .nav {
+/* Greeter Jumbotron */
+.greeter .jumbotron {
+    background-color: #fff;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+.greeter .jumbotron h1 {
+    font-size: 46px;
+    color: #568653;
+}
+
+.greeter .jumbotron p {
+    color: #053b29;
+    font-weight: 600;
+}
+
+.greeter .jumbotron .actions {
+    display: flex;
+}
+
+.greeter .jumbotron .btn {
+    width: 100%;
+    font-size: 20px;
+    font-weight: 600;
+    border-radius: 0;
+}
+
+.greeter .jumbotron .btn-success {
+    background-color: #568653;
+    border-color: #568653;
     margin-right: 16px;
+}
+
+.greeter .jumbotron .btn-default {
+    border-color: #cdd8d5;
+    background-color: #cdd8d5;
+    color: #568653;
+    margin-right: 16px;
+}
+
+@media (max-width: 768px) {
+    .greeter .jumbotron .btn-default {
+        margin-top: 5px;
+    }
+
+    .greeter .jumbotron .actions {
+        flex-wrap: wrap;
+    }
 }

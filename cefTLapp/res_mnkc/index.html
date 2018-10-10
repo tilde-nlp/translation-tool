@@ -72,6 +72,50 @@
 
         ga('create', 'UA-2818381-44', 'auto');
         ga('send', 'pageview');
+
+        $(function () {
+            var hasMetGreeter = getCookie("hasMetGreeterMNKC");
+            console.log(hasMetGreeter);
+
+            if (hasMetGreeter === null) {
+                $(".greeter").removeClass("hidden");
+
+                $(".jumbotron .btn").click(function () {
+                    setCookie("hasMetGreeterMNKC", true, 365);
+                    $(".greeter").addClass("hidden");
+                });
+            }
+
+            function getCookie(name) {
+                var dc = document.cookie;
+                var prefix = name + "=";
+                var begin = dc.indexOf("; " + prefix);
+                if (begin == -1) {
+                    begin = dc.indexOf(prefix);
+                    if (begin != 0) return null;
+                }
+                else {
+                    begin += 2;
+                    var end = document.cookie.indexOf(";", begin);
+                    if (end == -1) {
+                        end = dc.length;
+                    }
+                }
+                // because unescape has been deprecated, replaced with decodeURI
+                //return unescape(dc.substring(begin + prefix.length, end));
+                return decodeURI(dc.substring(begin + prefix.length, end));
+            }
+
+            function setCookie(name, value, days) {
+                var expires = "";
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + (value || "") + expires + "; path=/";
+            }
+        });
     </script>
 </head>
 <body ng-app="myTranslatorApp" ng-controller="myPageCtrl" ng-message id="my_translator_app">
@@ -83,6 +127,20 @@
                     <div class="col-sm-9 col-xs-7 no_padding_left no_padding_right" id="title_col">
                         <div id="main_title_wrapper">
                             <h1 id="main_title"><a ng-click="routeMe('/text')" title="https://www.translate2018.eu/">Meža nozares<br/>mašīntulkošanas platforma</span></a></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="greeter container-fluid hidden">
+            <div class="row">
+                <div class="col-xs-12 col-md-8 col-md-offset-2">
+                    <div class="jumbotron text-center">
+                        <h1><strong>Esi sveicināts</br>Meža nozares mašīntulkā!</strong></h1>
+                        <p>Skat! Esam ieviesuši jaunas funkcijas, kā runas atpazīšana un teksta izrunāšana. Uzzini kā jaunās iespējas vari izmantot ikdienā! kat! Esam ieviesuši jaunas funkcijas, kā runas atpazīšana un teksta izrunāšana. Uzzini kā jaunās iespējas vari izmantot ikdienā!</p>
+                        <div class="actions">
+                            <a href="#/about" class="btn btn-success" ng-click="routeMe('/about');">Kā Mašīntulks var palīdzēt tev?</a>
+                            <a class="btn btn-default">Es jau visu zinu</a>
                         </div>
                     </div>
                 </div>
@@ -113,10 +171,6 @@
                                    title="{{ 'MENU_ABOUT' | translate }}"
                                    translate="{{ 'MENU_ABOUT' | translate }}"
                                    ng-click="routeMe('/about');">About</a>
-                            </div>
-                            <div id="language_selection" class="pull-right">
-                                <button id="language_selection_lv" class="btn lang_select menu_text" ng-class="{ active: language === languages[0] }" ng-model="language" ng-click="setLanguage(languages[0])">LV</button>
-                                <button id="language_selection_en" class="btn lang_select menu_text" ng-class="{ active: language === languages[1] }" ng-model="language" ng-click="setLanguage(languages[1])">EN</button>
                             </div>
                         </div>
                     </div>

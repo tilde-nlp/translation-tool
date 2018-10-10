@@ -1,17 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="16px" height="16px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
-<g>
-	<rect x="0.281" y="0.387" fill="#E62832" width="3.726" height="3.727"/>
-	<rect x="0.281" y="6.138" fill="#E62832" width="3.726" height="3.724"/>
-	<rect x="0.281" y="11.885" fill="#E62832" width="3.726" height="3.729"/>
-	<rect x="6.139" y="0.387" fill="#96C1D7" width="3.726" height="3.727"/>
-	<rect x="6.139" y="6.138" fill="#96C1D7" width="3.726" height="3.724"/>
-	<rect x="6.139" y="11.885" fill="#E62832" width="3.726" height="3.729"/>
-	<rect x="11.991" y="0.387" fill="#96C1D7" width="3.728" height="3.727"/>
-	<rect x="11.991" y="6.138" fill="#96C1D7" width="3.728" height="3.724"/>
-	<rect x="11.991" y="11.885" fill="#E62832" width="3.728" height="3.729"/>
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="146.000000pt" height="146.000000pt" viewBox="0 0 146.000000 146.000000"
+ preserveAspectRatio="xMidYMid meet">
+<metadata>
+Created by potrace 1.11, written by Peter Selinger 2001-2013
+</metadata>
+<g transform="translate(0.000000,146.000000) scale(0.100000,-0.100000)"
+fill="#000000" stroke="none">
+<path d="M0 725 l0 -665 730 0 730 0 0 665 0 665 -730 0 -730 0 0 -665z m430
+310 c0 -18 -5 -25 -20 -25 -19 0 -20 -7 -20 -135 l0 -135 -35 0 -35 0 0 135
+c0 128 -1 135 -20 135 -15 0 -20 7 -20 25 0 24 2 25 75 25 73 0 75 -1 75 -25z
+m140 -135 l0 -160 -35 0 -35 0 0 160 0 160 35 0 35 0 0 -160z m160 26 l0 -135
+28 -3 c19 -2 28 -9 30 -25 3 -22 0 -23 -62 -23 l-66 0 0 160 0 160 35 0 35 0
+0 -134z m252 117 c16 -14 18 -33 18 -141 0 -154 -5 -162 -92 -162 l-58 0 0
+160 0 160 57 0 c38 0 62 -5 75 -17z m228 -8 c0 -20 -5 -25 -25 -25 -22 0 -25
+-4 -25 -35 0 -31 3 -35 25 -35 20 0 25 -5 25 -25 0 -20 -5 -25 -25 -25 -23 0
+-25 -3 -25 -50 0 -47 2 -50 25 -50 25 0 25 -1 25 -79 0 -108 -23 -174 -80
+-232 -57 -57 -111 -74 -218 -66 -82 6 -145 25 -282 85 -75 32 -95 37 -167 37
+-73 0 -84 -3 -107 -24 -15 -14 -31 -42 -38 -63 -9 -30 -16 -38 -35 -38 -19 0
+-23 5 -23 30 0 57 39 137 87 180 101 88 219 92 410 12 158 -67 188 -75 258
+-76 97 -1 145 46 145 144 0 39 -1 40 -35 40 l-35 0 0 160 0 160 60 0 c57 0 60
+-1 60 -25z"/>
+<path d="M924 900 c0 -63 1 -89 3 -57 2 31 2 83 0 115 -2 31 -3 5 -3 -58z"/>
 </g>
 </svg>

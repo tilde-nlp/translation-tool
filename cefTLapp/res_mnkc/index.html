@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="description" content="Meža nozares mašīntulkošanas platforma">
+    <meta name="keywords" content="Translate, Automated translation service">
+
+    <link rel="apple-touch-icon" sizes="144x144" href="/img/icons/apple-touch-icon.png?n=#{Build.BuildID}#">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/icons/favicon-32x32.png?n=#{Build.BuildID}#">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/icons/favicon-16x16.png?n=#{Build.BuildID}#">
+    <link rel="manifest" href="/img/icons/site.webmanifest">
+    <link rel="mask-icon" href="/img/icons/safari-pinned-tab.svg?n=#{Build.BuildID}#" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Meža nozares mašīntulkošanas platforma">
+    <meta property="og:url" content="https://mezi-mt.tilde.lv">
+    <meta property="og:image" content="https://mezi-mt.tilde.lv/img/logo.svg?n=#{Build.BuildID}#">
+    <meta property="og:site_name" content="Meža nozares mašīntulkošanas platforma">
+
+    <!-- Microsoft -->
+    <meta name="application-name" content="Meža nozares mašīntulkošanas platforma" />
+    <meta name="msapplication-tooltip" content="Meža nozares mašīntulkošanas platforma" />
+    <meta name="msapplication-starturl" content="https://mezi-mt.tilde.lv" />
+    <meta name="msapplication-navbutton-color" content="#058dbe" />
+    <meta name="msapplication-window" content="width=1024;height=768" />
+
+
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,600,700&amp;subset=latin-ext" rel="stylesheet">
+    <!--<link rel="stylesheet" type="text/css" href="css/index.css" />-->
+    <!--text translation-->
+    <!---->
+    <link href="text-widget/translator.css?n=#{Build.BuildID}#" rel="stylesheet" />
+    <script type="text/javascript">
+        //tells translation widget not to init stuff right away
+        var $customWidgetInit = true;
+    </script>
+    <script src="text-widget/translator.js?n=#{Build.BuildID}#"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/misc.css?n=#{Build.BuildID}#" />
+    <link rel="stylesheet" type="text/css" href="css/text-widget.css?n=#{Build.BuildID}#" />
+
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <script src="js/angular-filter.js"></script>
+    <script src="js/myTranslatorApp.js?n=#{Build.BuildID}#"></script>
+    <script src="js/myPageCtrl.js?n=#{Build.BuildID}#"></script>
+    <script src="js/misc.js?n=#{Build.BuildID}#"></script>
+    <script src="js/angular-translate.min.js"></script>
+
+    <title>Meža nozares mašīntulkošanas platforma</title>
+
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-2818381-44', 'auto');
+        ga('send', 'pageview');
+
+        $(function () {
+            var hasMetGreeter = getCookie("hasMetGreeterMNKC");
+            console.log(hasMetGreeter);
+
+            if (hasMetGreeter === null) {
+                $(".greeter").removeClass("hidden");
+
+                $(".jumbotron .btn").click(function () {
+                    setCookie("hasMetGreeterMNKC", true, 365);
+                    $(".greeter").addClass("hidden");
+                });
+            }
+
+            function getCookie(name) {
+                var dc = document.cookie;
+                var prefix = name + "=";
+                var begin = dc.indexOf("; " + prefix);
+                if (begin == -1) {
+                    begin = dc.indexOf(prefix);
+                    if (begin != 0) return null;
+                }
+                else {
+                    begin += 2;
+                    var end = document.cookie.indexOf(";", begin);
+                    if (end == -1) {
+                        end = dc.length;
+                    }
+                }
+                // because unescape has been deprecated, replaced with decodeURI
+                //return unescape(dc.substring(begin + prefix.length, end));
+                return decodeURI(dc.substring(begin + prefix.length, end));
+            }
+
+            function setCookie(name, value, days) {
+                var expires = "";
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + (value || "") + expires + "; path=/";
+            }
+        });
+    </script>
+</head>
+<body ng-app="myTranslatorApp" ng-controller="myPageCtrl" ng-message id="my_translator_app">
+    <div class="contain" ng-class="{inIframe: isInIFrame()}">
+        <!--MENU-->
+        <div id="main_section" ng-hide="isActive('website') || isActive('www') || isInIFrame()" class="section">
+            <div class="container">
+                <div class="row" id="main">
+                    <div class="col-sm-9 col-xs-7 no_padding_left no_padding_right" id="title_col">
+                        <div id="main_title_wrapper">
+                            <h1 id="main_title"><a ng-click="routeMe('/text')" title="https://mezi-mt.tilde.lv">Meža nozares<br/>mašīntulkošanas platforma</span></a></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="greeter container-fluid hidden">
+            <div class="row">
+                <div class="col-xs-12 col-md-8 col-md-offset-2">
+                    <div class="jumbotron text-center">
+                        <h1><strong>Esi sveicināts</br>Meža nozares mašīntulkā!</strong></h1>
+                        <p>Skat! Esam ieviesuši jaunas funkcijas, kā runas atpazīšana un teksta izrunāšana. Uzzini kā jaunās iespējas vari izmantot ikdienā! kat! Esam ieviesuši jaunas funkcijas, kā runas atpazīšana un teksta izrunāšana. Uzzini kā jaunās iespējas vari izmantot ikdienā!</p>
+                        <div class="actions">
+                            <a href="#/about" class="btn btn-success" ng-click="routeMe('/about');">Kā Mašīntulks var palīdzēt tev?</a>
+                            <a class="btn btn-default">Es jau visu zinu</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--TYPE-->
+        <div ng-show="(!isActive('website') && !isActive('www'))" class="section" id="translation_type_section" ng-class="{inIframe: isInIFrame()}">
+            <div class="container">
+                <div class="row" id="transl_types">
+                    <div id="translation_types" class="col-sm-8 col-xs-7 no_padding_left no_padding_right">
+                        <ul class="list-inline">
+                            <li class="transl_text" ng-class="{ active: isActive('text') }">
+                                <a id="translation_type_text" href="/?random-for-reload=1#/text" ng-class="{ active: isActive('text') }" title="{{ 'TEXT' | translate }}" class="transl_type"><span class="transl_type_long">{{ 'TEXT' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'TEXT_SHORT' | translate }}</span></a>
+                            </li>
+                            <li class="hidden-xs transl_document" ng-class="{ active: isActive('document') }">
+                                <a id="translation_type_doc" href="/?random-for-reload=2#/document" ng-class="{ active: isActive('document') }" title="{{ 'DOC' | translate }}" class="transl_type"><span class="transl_type_long">{{ 'DOC' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'DOC_SHORT' | translate }}</span></a>
+                            </li>
+                            <li class="transl_website" ng-class="{ active: isActive('website') || isActive('www')  }">
+                                <a id="translation_type_web" href="/?random-for-reload=3#/www" ng-class="{ active: isActive('website') || isActive('www')  }" title="{{ 'WEB' | translate }}" class="transl_type"><span class="transl_type_long">{{ 'WEB' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'WEB_SHORT' | translate }}</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-4 col-xs-5 no_padding_left no_padding_right" id="main_menu">
+                        <div class="menu_wrapper">
+                            <div class="nav pull-left">
+                                <a class="link"
+                                   href="#/about"
+                                   title="{{ 'MENU_ABOUT' | translate }}"
+                                   translate="{{ 'MENU_ABOUT' | translate }}"
+                                   ng-click="routeMe('/about');">About</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div ng-view></div>
+        <!--IS A eTRANSLATION SYSTEM-->
+        <div class="eTranslation" ng-class="{ active: sysType.eTranslation == true && (isActive('text') || isActive('document') || isActive('www')) }">
+            <p class="about" translate="{{ 'ETRANSLATION' | translate }}"></p>
+            <span id="eTranslation_close" class="glyphicon glyphicon-remove-circle" ng-click="sysType.eTranslation = false"></span>
+        </div>
+    </div>
+
+
+    <!--FOOTER-->
+    <div ng-show="(!isActive('website') && !isActive('www'))" class="section footer">
+        <div class="container">
+            <div class="row" id="footer_row">
+                <div class="col-sm-6 col-xs-6 no_padding_left">
+                    <p class="footer_text footer_etranslation" translate="{{ 'POWERED' | translate }}"></p>
+                </div>
+                <div class="col-sm-6 col-xs-6 no_padding_right">
+                    <p class="footer_text footer_tilde" translate="{{ 'DEVELOPED' | translate }}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

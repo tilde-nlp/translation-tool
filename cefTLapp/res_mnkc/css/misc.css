@@ -34,20 +34,20 @@ body {
 
 @media (min-width: 768px) {
     #main_section .container {
-        width: 750px;
+        width: 816px;
         background-image: linear-gradient(270deg, #568653, transparent 47px), url('../img/header-background.png?n=#{Build.BuildID}#');
     }
 }
 
 @media (min-width: 992px) {
     #main_section .container {
-        width: 1064px;
+        width: 1036px;
     }
 }
 
 @media (min-width: 1200px) {
     #main_section .container {
-        width: 1264px;
+        width: 1236px;
     }
 }
 
@@ -206,7 +206,6 @@ div.fancy-select ul.options.open {
 
 #transl_types{
     display: flex;
-    margin-left:-18px !important;
 }
 
 .transl_type {
@@ -292,11 +291,6 @@ div.fancy-select ul.options.open {
     background-color: white;
 }
 
-#transl_types {
-    margin-left: 0;
-    margin-right: 0;
-}
-
 .translateContainerLeft, .translateContainerRight {
     margin-left: auto !important;
     margin-right: auto !important;
@@ -377,6 +371,7 @@ div.fancy-select div.trigger {
     padding-top: 0;
     padding-right: 0.4em;
     padding-left: 0;
+    padding-bottom: 0 !important;
 }
 
 .list-inline {
@@ -402,6 +397,7 @@ div.fancy-select div.trigger {
     margin-right: auto;
     margin-left: auto;
     margin-top: 0;
+    margin-bottom: 0;
     width: 21px;
     height: 21px;
     display: block !important;
@@ -457,21 +453,21 @@ div.fancy-select div.trigger {
     margin: 0 auto;
 }
 
-.translate_column_height {
-    padding-top: 16px;
-    padding-bottom: 4px;
+.trigger {
+    padding-bottom: 0 !important;
+}
+
+.menu-row {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
 }
 
 #translate_button_div {
     text-align: right;
     padding-top: 0;
     padding-bottom: 0;
-    margin-top: 12px;
-}
-
-
-#translate_button_div .button {
-    line-height: 2;
 }
 
 .translateContainerLeft, .translateContainerRight {
@@ -731,16 +727,15 @@ div.fancy-select ul.options li {
     margin: 0 auto;
 }
 
-.translate_column_height {
-    padding-top: 16px;
-    padding-bottom: 4px;
-}
-
 #translate_button_div {
+    display: flex;
     text-align: right;
     padding-top: 0;
     padding-bottom: 0;
-    margin-top: 12px;
+}
+
+#text_translate_button {
+    margin: auto !important;
 }
 
 .button {
@@ -749,12 +744,11 @@ div.fancy-select ul.options li {
     color: #fff;
     border-radius: 3px;
     font-size: 14px;
-    padding: 5px 18px;
+    padding: 2px 18px;
     margin: 0;
     display: inline;
     float: none;
-    line-height: 1.5;
-    font-weight:600;
+    line-height: 1.2;
 }
 
     .button:hover,
@@ -769,26 +763,12 @@ div.fancy-select ul.options li {
         color:white;
     }
 
-#source_lang_div {
-    margin-right: 4.3%;
-}
-
-#target_lang_div {
-    margin-right: -4.3%;
-    z-index: 999;
-}
-
 #web_menu .button,
 #web_menu .button:hover,
 #web_menu .button:focus,
 #web_menu .button:active {
     background-color: #568653;
     border-color: #568653;
-}
-
-
-#translate_button_div .button {
-    line-height: 2;
 }
 
 .translateContainerLeft, .translateContainerRight {
@@ -1703,20 +1683,10 @@ iframe {
 
 
 @media (max-width: 844px) {
-    .row {
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-
     .row.menu-row {
         margin-left: 0;
         margin-right: 0;
     }
-
-        .row.menu-row #source_lang_div,
-        .row.menu-row #target_lang_div {
-            padding-left: 0;
-        }
 
     #fileWidget #widget_section .container {
         width: 100%;
@@ -1771,15 +1741,6 @@ iframe {
         margin-right: 0;
         vertical-align: bottom;
         /*padding-bottom: 6px;*/
-    }
-
-    .translate_column_height {
-        padding-left: 0px;
-        padding-right: 0px;
-    }
-
-    #translate_button_div {
-        margin-top: 11px;
     }
 
     .translateSourceSystemLabel, .translateTargetSystemLabel, .fancy-select {

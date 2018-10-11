@@ -123,7 +123,7 @@
         <div id="main_section" ng-hide="isActive('website') || isActive('www') || isInIFrame()" class="section">
             <div class="container">
                 <div class="row" id="main">
-                    <div class="col-sm-9 col-xs-7 no_padding_left no_padding_right" id="title_col">
+                    <div class="col-sm-9 col-xs-7" id="title_col">
                         <div id="main_title_wrapper">
                             <h1 id="main_title"><a ng-click="routeMe('/text')" title="https://mezi-mt.tilde.lv">Meža nozares<br />mašīntulks</span></a></h1>
                         </div>
@@ -149,7 +149,7 @@
         <div ng-show="(!isActive('website') && !isActive('www'))" class="section" id="translation_type_section" ng-class="{inIframe: isInIFrame()}">
             <div class="container">
                 <div class="row" id="transl_types">
-                    <div id="translation_types" class="col-sm-8 col-xs-7 no_padding_left no_padding_right">
+                    <div id="translation_types" class="col-sm-8 col-xs-8 no_padding_left no_padding_right">
                         <ul class="list-inline">
                             <li class="transl_text" ng-class="{ active: isActive('text') }">
                                 <a id="translation_type_text" href="/?random-for-reload=1#/text" ng-class="{ active: isActive('text') }" title="{{ 'TEXT' | translate }}" class="transl_type"><span class="transl_type_long">{{ 'TEXT' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'TEXT_SHORT' | translate }}</span></a>
@@ -162,7 +162,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-sm-4 col-xs-5 no_padding_left no_padding_right" id="main_menu">
+                    <div class="col-sm-4 col-xs-4 no_padding_left no_padding_right" id="main_menu">
                         <div class="menu_wrapper">
                             <div class="nav pull-left">
                                 <a class="link"

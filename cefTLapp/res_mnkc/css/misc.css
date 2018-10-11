@@ -221,7 +221,6 @@ div.fancy-select ul.options.open {
 #translation_types li {
     padding: 2px 16px;
     line-height: 1.5;
-    margin: 4px 8px 0 0;
 }
 
 #translation_types li:first-of-type {
@@ -1634,9 +1633,6 @@ iframe {
     #translation_types .transl_type_long {
         display: none;
     }
-    #translation_types li {
-        margin-right: 10px;
-    }
 
     #translation_types .transl_type_short {
         display: inline !important;
@@ -1707,10 +1703,6 @@ iframe {
 
     #web_logo {
         display: none;
-    }
-
-    #web_main {
-        padding-left: 0px;
     }
 
     #web_transl_types ul {

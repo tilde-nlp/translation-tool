@@ -2020,7 +2020,7 @@ iframe {
 @media (max-width: 464px) {
     .text .translateTextSourceContainer, .text .translateTextResult {
         min-height: 10px !important;
-        height: 180px;
+        height: 165px;
     }
 
     .text .translateContainerRight {

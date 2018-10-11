@@ -286,8 +286,6 @@ app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope
         eTranslation: false
     };
 
-
-    // TODO: no idea why this is needed, it broke click event on transltion language selector
     // blur effect on option list
     $('body').click(function (event) {
         var target = $(event.target);

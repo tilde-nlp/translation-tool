@@ -2172,3 +2172,7 @@ box-sizing:content-box;
 #web_section {
     border-bottom: 1px solid #ccc;
 }
+
+.page-link {
+    pointer-events: none;
+}

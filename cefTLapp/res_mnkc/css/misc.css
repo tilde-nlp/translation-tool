@@ -765,7 +765,8 @@ div.fancy-select ul.options li {
 #web_menu .button:hover,
 #web_menu .button:focus,
 #web_menu .button:active {
-    background-color: #e5242e;
+    background-color: #568653;
+    border-color: #568653;
 }
 
 
@@ -1117,7 +1118,8 @@ iframe {
     background-position: center center;
     background-size: 40% 40%;
     margin-right: 10px;
-    background-color: #e5242e;
+    background-color: #568653;
+    border-color: #568653;
     margin-top: -1px;
 }
 
@@ -2192,4 +2194,8 @@ box-sizing:content-box;
     .greeter .jumbotron .actions {
         flex-wrap: wrap;
     }
+}
+
+#web_section {
+    border-bottom: 1px solid #ccc;
 }

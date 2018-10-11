@@ -2141,17 +2141,21 @@ box-sizing:content-box;
 /* Greeter Jumbotron */
 .greeter .jumbotron {
     background-color: #fff;
-    padding-right: 20px;
-    padding-left: 20px;
+    padding: 0;
 }
 
 .greeter .jumbotron h1 {
-    font-size: 46px;
+    margin-bottom: 20px;
+    font-size: 32px;
+    line-height: 1;
     color: #568653;
 }
 
 .greeter .jumbotron p {
+    margin-bottom: 30px;
     color: #053b29;
+    font-size: 17px;
+    line-height: 1.2;
     font-weight: 600;
 }
 
@@ -2161,7 +2165,8 @@ box-sizing:content-box;
 
 .greeter .jumbotron .btn {
     width: 100%;
-    font-size: 20px;
+    font-size: 17px;
+    line-height: 1.2;
     font-weight: 600;
     border-radius: 0;
 }
@@ -2172,20 +2177,26 @@ box-sizing:content-box;
     margin-right: 16px;
 }
 
-.greeter .jumbotron .btn-default {
-    border-color: #cdd8d5;
-    background-color: #cdd8d5;
-    color: #568653;
-    margin-right: 16px;
-}
-
-@media (max-width: 768px) {
     .greeter .jumbotron .btn-default {
-        margin-top: 5px;
+        border-color: #cdd8d5;
+        background-color: #cdd8d5;
+        color: #053b29;
+        margin-right: 16px;
     }
 
+@media (max-width: 768px) {
     .greeter .jumbotron .actions {
         flex-wrap: wrap;
+    }
+
+    .greeter .jumbotron .btn {
+        margin-right: 0;
+        font-size: 15px;
+        width: 100%;
+    }
+
+    .greeter .jumbotron .btn-default {
+        margin-top: 5px;
     }
 }
 

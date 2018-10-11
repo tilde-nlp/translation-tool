@@ -2099,12 +2099,12 @@ textarea, input[type="text"] {
 }
 
 .popSourceLangs .page-item a, .popTargetLangs .page-item a {
-    color: #5A9174;
+    color: #053b29;
     font-weight: 400;
 }
 
 .popSourceLangs .page-item.active a, .popTargetLangs .page-item.active a {
-    color: #5A9174;
+    color: #053b29;
     font-weight: 600 !important;
 }
 

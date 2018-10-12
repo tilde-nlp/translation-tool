@@ -1,6 +1,6 @@
 ﻿var $versionNumber = '1.23';
-var $clientId = 'u-70fbfe41-e881-4d42-8d49-f60dd8d96b05'; //'u-3787e5c0-cbe7-4571-8f50-36791bd9ea79';
-var $domain = "hugotest.tilde.lv";
+var $clientId = 'u-3787e5c0-cbe7-4571-8f50-36791bd9ea79';
+var $domain = "www.letsmt.eu";
 
 app.controller("myPageCtrl", function ($scope, $location, $translate, $rootScope) {
     // debug

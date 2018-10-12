@@ -384,8 +384,7 @@ div.fancy-select div.trigger {
 }
 
 .translateLanguageContainer {
-   /* background-color: #e8eaec;
-    float: none;*/
+    padding: 16px 0;
     font-size: 14px !important;
 }
 
@@ -688,12 +687,6 @@ div.fancy-select ul.options li {
     padding: 0;
     float: none;
     width: 100%;
-}
-
-.translateLanguageContainer {
-   /* background-color: #e8eaec;
-    float: none;*/
-    font-size: 14px !important;
 }
 
 .translateTextSource, .text .translateTextTempSourceContainer {
@@ -1138,10 +1131,6 @@ iframe {
     background-image: url(../img/dropdown.png?n=#{Build.BuildID}#);
 }
 
-.web_transl_types {
-    padding-top: 16px;
-}
-
 #web_transl_types li {
     list-style-type: none;
     margin-bottom: 8px;
@@ -1574,21 +1563,6 @@ iframe {
 .translateButton:hover, .translateButton:active, .translateButton:focus {
     color: #fff;
 }
-
-#web_main a.translateButton {
-    font-size: 14px;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding-right: 8px !important;
-    padding-left: 8px !important;
-}
-
-    #web_main a.translateButton,
-    #web_main a.cancelButton,
-    #web_main a.restoreButton {
-        float: right;
-        margin-top: -5px !important;
-    }
 
 /* CUSTOM SCROLLBAR */
 ::-webkit-scrollbar {

@@ -1,4 +1,15 @@
-/// <binding BeforeBuild='clean, min' />
+/*
+ * !!!
+ * 
+ * Tasks do not run automatically on project load – if you need something like .scss compiling,
+ * you must launch "Task Runner Explorer" manually.
+ * Also does not work on new files. If you create a new file, run watcher tasks again.
+ * 
+ * !!!
+ * 
+ */
+
+/// <binding BeforeBuild='clean, min' ProjectOpened='sass:watch' />
 "use strict";
 
 var gulp = require("gulp"),
@@ -8,7 +19,8 @@ var gulp = require("gulp"),
     uglify = require("gulp-uglify"),
     merge = require("merge-stream"),
     del = require("del"),
-    bundleconfig = require("./bundleconfig.json");
+    bundleconfig = require("./bundleconfig.json"),
+    sass = require("gulp-sass");
 
 var regex = {
     css: /\.css$/,
@@ -69,6 +81,16 @@ gulp.task("watch", function () {
     getBundles(regex.html).forEach(function (bundle) {
         gulp.watch(bundle.inputFiles, ["min:html"]);
     });
+});
+
+gulp.task("sass", function () {
+    return gulp.src("./css/scss/*.scss")
+        .pipe(sass().on("error", sass.logError))
+        .pipe(gulp.dest("./css/scss"));
+});
+
+gulp.task("sass:watch", function () {
+    gulp.watch("./css/scss/*.scss", ["sass"]);
 });
 
 function getBundles(regexPattern) {

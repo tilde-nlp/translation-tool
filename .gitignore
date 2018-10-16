@@ -315,3 +315,6 @@ OpenCover/
 /cefTLapp/res_pr2017/package-lock.json
 #needed for local builds only
 /cefTLapp/res_pr2017/bundleconfig.json.bindings
+
+# SCSS
+cefTLapp/res_mnkc/css/scss/*.css

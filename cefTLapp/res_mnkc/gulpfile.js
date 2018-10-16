@@ -1,15 +1,4 @@
-/*
- * !!!
- * 
- * Tasks do not run automatically on project load – if you need something like .scss compiling,
- * you must launch "Task Runner Explorer" manually.
- * Also does not work on new files. If you create a new file, run watcher tasks again.
- * 
- * !!!
- * 
- */
-
-/// <binding BeforeBuild='clean, min' ProjectOpened='sass:watch' />
+/// <binding BeforeBuild='clean, min' ProjectOpened='sass, sass:watch' />
 "use strict";
 
 var gulp = require("gulp"),

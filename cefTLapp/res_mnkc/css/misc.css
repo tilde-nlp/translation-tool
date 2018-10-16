@@ -354,7 +354,7 @@ div.fancy-select div.trigger {
         position: absolute;
         width: 0.7em;
         height: 0.7em;
-        background-image: url('../img/dropdown.png?n=#{Build.BuildID}#');
+        background-image: url('../img/dropdown-green.png?n=#{Build.BuildID}#');
         background-size: 11px;
         background-repeat: no-repeat;
         background-position: 85% top;
@@ -384,20 +384,19 @@ div.fancy-select div.trigger {
 }
 
 .translateLanguageContainer {
-    padding: 16px 0;
     font-size: 14px !important;
 }
 
 .swapLanguage {
-    background-image: url('../img/swap.png?n=#{Build.BuildID}#');
-    background-size: 19px 18px;
+    background-image: url('../img/swap-green.png?n=#{Build.BuildID}#');
+    background-size: 15px 14px;
     float: none;
     margin-right: auto;
     margin-left: auto;
     margin-top: 0;
     margin-bottom: 0;
-    width: 21px;
-    height: 21px;
+    width: 15px;
+    height: 14px;
     display: block !important;
 }
 
@@ -1081,56 +1080,6 @@ iframe {
     padding-left: 10px;
 }
 
-.web_button {
-    background-color: #e5242e;
-    height: 31px;
-    box-shadow: none;
-    border: 1px solid #7FAE96;
-    border-radius: 0px !important;
-    color: white;
-    font-size: 1.1875rem;
-    padding: 2px 12px;
-    outline: none !important;
-}
-
-    .web_button:focus, .web_button:hover {
-        box-shadow: none;
-        border: 1px solid #fff !important;
-    }
-
-#web_refresh_button {
-    background-image: url(../img/web_back.svg?n=#{Build.BuildID}#);
-    width: 32px;
-    height: 33px;
-    display: block;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 40% 40%;
-    margin-right: 10px;
-    background-color: #568653;
-    border-color: #568653;
-    margin-top: -1px;
-}
-
-#web_translateButton {
-    background-image: url(../img/web_search.svg?n=#{Build.BuildID}#);
-    width: 32px;
-    height: 33px;
-    display: block;
-    background-repeat: no-repeat;
-    background-position: 7px 7px;
-    margin-top: -1px;
-}
-
-#web_main .swapLanguage {
-    margin: 0 auto;
-    background-image: url(../img/swap.png?n=#{Build.BuildID}#);
-}
-
-#web_main div.trigger:after {
-    background-image: url(../img/dropdown.png?n=#{Build.BuildID}#);
-}
-
 #web_transl_types li {
     list-style-type: none;
     margin-bottom: 8px;
@@ -1596,7 +1545,6 @@ iframe {
 		display: none;
 	}
     .trigger {
-        color: #5A9174;
         font-weight:600;
         padding-right: 25px !important;
     }
@@ -1625,10 +1573,6 @@ iframe {
     }
 
     #web_main .translateSourceSystemLabel {
-        margin-left: 15px;
-    }
-
-    #web_source_lang_div .trigger {
         margin-left: 15px;
     }
 }
@@ -1851,52 +1795,6 @@ iframe {
           overflow: hidden;
           width: 10px;
     }
-}
-
-@media (min-width: 768px) {
-    /*.translateSourceSystemLabel, .translateTargetSystemLabel {
-        margin-right: 0.2rem;
-    }*/
-
-    /*div.fancy-select ul.options {
-        visibility: visible;
-        opacity: 1;
-        -o-transition: none;
-        -moz-transition: none;
-        -webkit-transition: none;
-        transition: none;
-        list-style-type: none;
-        position: absolute;
-        top: auto;
-        left: auto;
-        overflow: hidden;
-        background: transparent;
-        border: none;
-        border-radius: 0;
-        box-shadow: none;
-        min-width: 50px;
-    }
-
-        div.fancy-select ul.options li {
-            display: inline;
-            padding-left: 0.8rem;
-            padding-right: 0.8rem;
-            margin-right: 0.4rem;
-            margin-left: 0.4rem;
-        }
-
-            div.fancy-select ul.options li:active, div.fancy-select ul.options li:hover, div.fancy-select ul.options li:focus {
-                background: none;
-            }
-
-            div.fancy-select ul.options li.selected {
-                color: #e5242e;
-            }
-
-    div.fancy-select div.trigger {
-        display: none;
-        background: none;
-    }*/
 }
 
 @media (min-height: 400px) {
@@ -2149,4 +2047,13 @@ box-sizing:content-box;
 
 .page-link {
     pointer-events: none;
+}
+
+.translator-website .swapLanguage {
+    margin: 0 auto;
+    background-image: url(../img/swap-white.png?n=#{Build.BuildID}#);
+}
+
+.translator-website .translateLanguageContainer div.trigger:after {
+    background-image: url(../img/dropdown-white.png?n=#{Build.BuildID}#);
 }

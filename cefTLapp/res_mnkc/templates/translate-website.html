@@ -1,8 +1,59 @@
-﻿<div style="height:100%;">
-    <div style="height:100%; margin: 0;">
-        <div style="height: 100%;  width: 100%;" id="webWidget">
+﻿<div style="height:100%">
+    <div style="height:100%; margin: 0">
+        <div id="webWidget" class="translator-website" style="height: 100%;  width: 100%">
+            <div class="ui">
+                <div class="container">
+                    <div class="row">
+                        <div class="col col-xs-12">
+                            <div class="ui-wrapper">
+                                <div class="main-wrapper">
+                                    <div class="main">
+                                        <button id="web_refresh_button" class="btn btn-green icon icon-home web_button" type="button" title="{{ websiteHasBeenInitiated() ? ('WEB_REFRESH' | translate) : ('WEB_RETURN' | translate)}}"></button>
+                                        <input id="url" class="url form-control" type="text" placeholder="{{ 'WEB_PLACEHOLDER' | translate }}" autofocus ng-model="website.url">
+                                        <button id="web_translateButton" class="btn btn-green icon icon-search web_button loadButton" type="button" data-title="loadButton"></button>
+                                        <a href="javascript:;" class="btn btn-green-dark translateButton hide" data-text="translateButton" data-title="translateButton"></a>
+                                        <a href="javascript:;" class="btn btn-green-dark cancelButton hide" data-text="cancelButton" data-title="cancelButton"></a>
+                                        <a href="javascript:;" class="btn btn-green-dark restoreButton hide" data-text="restoreButton" data-title="restoreButton"></a>
+                                    </div>
+                                    <div class="widget">
+                                        <div class="translateContainerHeader hide">
+                                            <div class="LanguageSelect">
+                                                <div class="translateLanguageContainer">
+                                                    <div id="web_source_lang_div" class="translate_column_height web_transl_types">
+                                                        <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
+                                                        <ul class="popSourceLangs"></ul>
+                                                        <select id="web_source_lang" class="translateSourceLang hide"></select>
+                                                    </div>
+                                                    <div id="web_swap_language_div" class="translate_column_height web_transl_types">
+                                                        <a data-title="swapLanguage" id="webSwapLanguage" class="swapLanguage hide"></a>
+                                                    </div>
+                                                    <div id="web_target_lang_div" class="translate_column_height web_transl_types">
+                                                        <div data-text="targetSystem" class="translateTargetSystemLabel"></div>
+                                                        <ul class="popTargetLangs"></ul>
+                                                        <select id="web_target_lang" class="translateTargetLang hide"></select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="nav">
+                                    <a class="item" href="/?random-for-reload=1#/text">
+                                        <span class="shortened">{{ 'TEXT_SHORT' | translate }}</span>
+                                        <span class="full-length">{{ 'TEXT' | translate }}</span>
+                                    </a>
+                                    <a class="item" href="/?random-for-reload=2#/document">
+                                        <span class="shortened">{{ 'DOC_SHORT' | translate }}</span>
+                                        <span class="full-length">{{ 'DOC' | translate }}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <div class="section" id="web_section">
+            <!--<div class="section" id="web_section">
                 <div class="web_container">
                     <div class="row" id="web_menu">
                         <div id="web_main" class="col-sm-9 col-xs-12">
@@ -20,47 +71,22 @@
                                     <button id="web_translateButton" class="btn btn-default web_button loadButton button" data-title="loadButton"></button>
                                 </span>
                             </div>
-                            <div class="translateContainerHeader hide">
-                                <div class="LanguageSelect">
-                                    <div class="translateLanguageContainer row">
-                                        <div id="web_source_lang_div" class="col-sm-5 translate_column_height col-xs-4 web_transl_types">
-                                            <div data-text="sourceSystem" class="translateSourceSystemLabel"></div>
-                                            <ul class="popSourceLangs"></ul>
-                                            <select id="web_source_lang" class="translateSourceLang hide"></select>
-                                            <!--<select class="translateSystem"></select>-->
-                                        </div>
-                                        <div id="web_swap_language_div" class="col-sm-1 translate_column_height col-xs-1 web_transl_types">
-                                            <a data-title="swapLanguage" id="webSwapLanguage" class="swapLanguage hide"></a>
-                                        </div>
-                                        <div id="web_target_lang_div" class="col-sm-4 translate_column_height col-xs-4 web_transl_types">
-                                            <div data-text="targetSystem" class="translateTargetSystemLabel"></div>
-                                            <ul class="popTargetLangs"></ul>
-                                            <select id="web_target_lang" class="translateTargetLang hide"></select>
-                                        </div>
-                                        <div id="web_buttons_column" class="col-sm-2 col-xs-3 translate_column_height">
-                                            <a href="javascript:;" class="translateButton button hide" data-text="translateButton" data-title="translateButton"></a>
-                                            <a href="javascript:;" class="cancelButton button hide" data-text="cancelButton" data-title="cancelButton"></a>
-                                            <a href="javascript:;" class="restoreButton button hide" data-text="restoreButton" data-title="restoreButton"></a>
-                                            <div class="translateProgress hide"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
 
                         </div>
                         <div id="web_transl_types" class="col-sm-2 hidden-xs no_padding_left no_padding_right">
                             <ul class="no_padding_left">
                                 <li>
-                                    <a id="web_translation_type_text" href="/?random-for-reload=1#/text" ng-class="{ active: isActive('text') }" title="{{ 'TEXT' | translate }}" class="transl_text"><span class="transl_type_long">{{ 'TEXT' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'TEXT_SHORT' | translate }}</span></a>
+                                    <a id="web_translation_type_text" href="/?random-for-reload=1#/text" ng-class="{ active: isActive('text') }" title="{{ 'TEXT' | translate }}" class="transl_text"></a>
                                 </li>
                                 <li>
-                                    <a href="/?random-for-reload=2#/document" ng-class="{ active: isActive('text') }" title="{{ 'DOC' | translate }}" class="transl_document"><span class="transl_type_long">{{ 'DOC' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'DOC_SHORT' | translate }}</span></a>
+                                    <a href="/?random-for-reload=2#/document" ng-class="{ active: isActive('text') }" title="{{ 'DOC' | translate }}" class="transl_document"></a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <!--<div class="systemsLoading"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>-->
             <div id="websiteFrameContainer">
                 <iframe id="websiteFrame" name="websiteFrame" src="about:blank" frameborder="0"></iframe>

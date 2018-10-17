@@ -1390,20 +1390,13 @@ iframe {
 /*/EU Presidency Translator workshop*/
     .footer {
         padding-top: 10px;
-        padding-left: 15px;
-        padding-right: 15px;
         background-color: white;
         z-index: 800;
     }
 
-    .footer .container {
-        padding-left: 0;
-        padding-right: 0;
+    .footer p {
+        color: black;
     }
-
-        .footer p {
-            color: black;
-        }
 
 .footer_text {
     font-size: 0.7rem;
@@ -1420,10 +1413,6 @@ iframe {
 .footer_link {
     text-decoration: none;
     color: #e5242e;
-}
-#footer_row {
-    margin-left: 0;
-    margin-right: 0;
 }
 
 .article p {

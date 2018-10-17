@@ -13,15 +13,8 @@
     display: block;
 }
 
-    .footer, .contain:after {
-        height: 38px;
-        /*height: 18px;*/
-    }
-
-.footer {
-    color: #6f8193;
-    width: 140px;
-    padding-left: 15px;
+.footer, .contain:after {
+    height: 38px;
 }
 
 

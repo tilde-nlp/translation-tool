@@ -382,6 +382,14 @@ $.extend(Tilde.TranslatorWidget.prototype, {
             headers: $widget.getAuthHeaders(),
             data: data,
             success: function (response) {
+                var docId;
+
+                if (typeof response !== "string") {
+                    docId = response.docid;
+                } else {
+                    docId = response;
+                }
+
                 if ($widget.settings._warnWhenRunningAway) {
                     // IE10 somehow manages to rise unload event when starting
                     // this ajax request, so, must wait until it gets response before listening to "unload"
@@ -393,14 +401,14 @@ $.extend(Tilde.TranslatorWidget.prototype, {
                     $('.docTranslateContent').after($('<input>', {
                         type: 'hidden',
                         id: 'hidUploadTempId',
-                        value: response
+                        value: docId
                     }));
                 }
                 else {
                     $('#hidUploadTempId').val(response);
                 }
 
-                $widget.filePluginTranslateProgress(response);
+                $widget.filePluginTranslateProgress(docId);
 
                 if (typeof ($widget.checkSystemStatus) !== "undefined") {
                     $widget.checkSystemStatus();

@@ -336,7 +336,7 @@ div.fancy-select ul.options.open {
 }
 
 div.fancy-select div.trigger {
-    margin-top: -1px;
+    padding-top: 0;
     padding-right: 1.5em;
     padding-left: 0.3em;
      -webkit-touch-callout: none; /* iOS Safari */

@@ -314,7 +314,6 @@ div.fancy-select ul.options.open {
 }
 
 .translateSourceSystemLabel, .translateTargetSystemLabel {
-    font-size: 0.875rem;
     color: black;
     padding: 0;
     margin: 0;
@@ -337,7 +336,7 @@ div.fancy-select ul.options.open {
 }
 
 div.fancy-select div.trigger {
-    margin-top: -1px;
+    padding-top: 0;
     padding-right: 1.5em;
     padding-left: 0.3em;
      -webkit-touch-callout: none; /* iOS Safari */
@@ -1390,20 +1389,13 @@ iframe {
 /*/EU Presidency Translator workshop*/
     .footer {
         padding-top: 10px;
-        padding-left: 15px;
-        padding-right: 15px;
         background-color: white;
         z-index: 800;
     }
 
-    .footer .container {
-        padding-left: 0;
-        padding-right: 0;
+    .footer p {
+        color: black;
     }
-
-        .footer p {
-            color: black;
-        }
 
 .footer_text {
     font-size: 0.7rem;
@@ -1420,10 +1412,6 @@ iframe {
 .footer_link {
     text-decoration: none;
     color: #e5242e;
-}
-#footer_row {
-    margin-left: 0;
-    margin-right: 0;
 }
 
 .article p {

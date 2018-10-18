@@ -151,29 +151,29 @@
         <div ng-show="(!isActive('website') && !isActive('www'))" class="section" id="translation_type_section" ng-class="{inIframe: isInIFrame()}">
             <div class="container">
                 <div class="row" id="transl_types">
-                    <div id="translation_types" class="col-xs-10 col-sm-8">
+                    <div id="translation_types" class="col-xs-12">
                         <ul class="list-inline">
-                            <li class="transl_text" ng-class="{ active: isActive('text') }">
+                            <li class="transl_text no_padding_left" ng-class="{ active: isActive('text') }">
                                 <a id="translation_type_text" href="/?random-for-reload=1#/text" ng-class="{ active: isActive('text') }" title="{{ 'TEXT' | translate }}" class="transl_type"><span class="transl_type_long">{{ 'TEXT' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'TEXT_SHORT' | translate }}</span></a>
                             </li>
                             <li class="hidden-xs transl_document" ng-class="{ active: isActive('document') }">
                                 <a id="translation_type_doc" href="/?random-for-reload=2#/document" ng-class="{ active: isActive('document') }" title="{{ 'DOC' | translate }}" class="transl_type"><span class="transl_type_long">{{ 'DOC' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'DOC_SHORT' | translate }}</span></a>
                             </li>
-                            <li class="transl_website" ng-class="{ active: isActive('website') || isActive('www')  }">
+                            <li class="transl_website" ng-class="{ active: isActive('website') }">
                                 <a id="translation_type_web" href="/?random-for-reload=3#/www" ng-class="{ active: isActive('website') || isActive('www')  }" title="{{ 'WEB' | translate }}" class="transl_type"><span class="transl_type_long">{{ 'WEB' | translate }}</span><span style="display:none" class="transl_type_short">{{ 'WEB_SHORT' | translate }}</span></a>
                             </li>
-                        </ul>
-                    </div>
-                    <div class="col-xs-2 col-sm-4" id="main_menu">
-                        <div class="menu_wrapper">
-                            <div class="nav pull-left">
+                            <div class="nav pull-right">
                                 <a class="link"
-                                   href="#/about"
-                                   title="{{ 'MENU_ABOUT' | translate }}"
-                                   translate="{{ 'MENU_ABOUT' | translate }}"
-                                   ng-click="routeMe('/about');">About</a>
+                                    href="#/about"
+                                    title="{{ 'MENU_ABOUT' | translate }}"
+                                    translate="{{ 'MENU_ABOUT' | translate }}"
+                                    ng-click="routeMe('/about');">Par rīku</a>
+                                <a class="link"
+                                    href="#/feedback"
+                                    title="Par projektu"
+                                    ng-click="routeMe('/feedback');">Atsauksmes</a>
                             </div>
-                        </div>
+                        </ul>
                     </div>
                 </div>
             </div>

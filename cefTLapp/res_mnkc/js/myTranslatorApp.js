@@ -22,6 +22,10 @@ app.config(['$routeProvider',
                 templateUrl: 'templates/about.html',
                 controller: 'myPageCtrl'
             })
+            .when('/feedback', {
+                templateUrl: 'templates/feedback.html',
+                controller: 'myPageCtrl'
+            })
             .when('/home', {
                 templateUrl: 'templates/translate-text.html',
                 controller: 'TranslateCtrl'

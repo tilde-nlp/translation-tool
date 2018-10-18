@@ -18,11 +18,14 @@
                                 <ul class="popTargetLangs"></ul>
                                 <select id="text_target_lang" class="translateTargetLang hide"></select>
                             </div>
-                            <div id="translate_button_div" class="col-sm-2 translate_column_height col-xs-3">
-                                <a id="text_translate_button" data-text="translateButton" class="translateButton button"></a>
+                            <div class="col-xs-3 col-sm-2 ">
+                                <div style="display: flex;">
+                                    <div id="translate_button_div" class="translate_column_height button">
+                                        <div class="translateProgress icon-loading mr-2 hide"></div>
+                                        <span id="text_translate_button" data-text="translateButton" data-title="translateButton" class="translateButton"></span>
+                                    </div>
+                                </div>
                             </div>
-
-
                     </div>
                 </div>
             </div>

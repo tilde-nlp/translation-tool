@@ -1427,14 +1427,24 @@ iframe {
 }
 
 .info_images {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-bottom: 25px;
     margin: 25px 0;
 }
 
-    .info_images img {
-        max-width: 100%;
-        height: auto;
-        padding-bottom: 25px;
+.info_images img {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .info_images .nap-eu {
+        height: 100%;
+        width: 100%;
     }
+}
 
 .no_padding_left {
     padding-left: 0;

@@ -2043,6 +2043,7 @@ box-sizing:content-box;
 }
 
 .page-link {
+    display: block;
     pointer-events: none;
 }
 

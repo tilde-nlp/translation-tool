@@ -1533,19 +1533,20 @@ iframe {
     background: rgba(232, 234, 236, 0.4);
 }
 
+.popSourceLangs {
+    display: none;
+}
+
+.popTargetLangs {
+    display: none;
+}
+
+.trigger {
+    font-weight: 600;
+}
+
 /* /CUSTOM SCROLLBAR */
 @media (max-width: 1200px) {
-    .popSourceLangs {
-        display: none;
-    }
-    .popTargetLangs {
-		display: none;
-	}
-    .trigger {
-        font-weight:600;
-        padding-right: 25px !important;
-    }
-
     .popSourceLangs, .popTargetLangs {
         margin-right: 0;
     }
@@ -1782,15 +1783,6 @@ iframe {
 
     .popSourceLangs li {
         content: attr(data-value);
-    }
-}
-
-@media (min-width: 1201px) {
-    .trigger {
-          text-indent: -9999px;
-          white-space: nowrap;
-          overflow: hidden;
-          width: 10px;
     }
 }
 

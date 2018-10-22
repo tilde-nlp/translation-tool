@@ -478,6 +478,20 @@ function initTextWidget($scope, $rootScope) {
             $widget.pluginInitializers.push(Tilde.TranslatorWidget.prototype.recentlangsPluginInit);
             $widget.pluginInitializers.push(Tilde.TranslatorWidget.prototype.textPluginInit);
         },
+        _onScrollBarWidthChanged: function (scrollbarWidth) {
+            if (scrollbarWidth > 0) {
+                $(".backGroundSource").css("margin-right", scrollbarWidth + "px");
+                $(".translateResultClear").css("margin-right", scrollbarWidth + "px");
+                $(".sourceSpeak").css("margin-right", scrollbarWidth + "px");
+                $(".targetSpeak").css("margin-right", scrollbarWidth + "px");
+            }
+            else {
+                $('.backGroundSource').css("margin-right", "0");
+                $(".translateResultClear").css("margin-right", "0");
+                $(".sourceSpeak").css("margin-right", "0");
+                $(".targetSpeak").css("margin-right", "0");
+            }
+        },
     });
 }
 

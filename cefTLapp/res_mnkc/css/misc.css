@@ -515,7 +515,6 @@ div.fancy-select div.trigger {
 
 
 .backGroundSource {
-    text-align: justify !important;
     font-style: italic;
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -684,7 +683,6 @@ div.fancy-select ul.options li {
 
 .text .translateTextResult, .text .translateTextSource {
     overflow: auto;
-    min-width: 350px;
 }
 
 .text .translateTextTempSourceContainer, .translateTextSource, .translateTextResult {
@@ -816,7 +814,6 @@ div.fancy-select ul.options li {
 }
 
 .backGroundSource {
-    text-align: justify !important;
     font-style: italic;
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -1697,10 +1694,6 @@ iframe {
 }
 
 @media (max-width: 320px) {
-    .text .translateTextResult, .text .translateTextSource {
-        min-width: 200px !important;
-    }
-
     #target_lang_div {
         margin-left: 0 !important;
     }

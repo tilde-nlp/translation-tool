@@ -28,6 +28,7 @@ body {
 }
 
 #main_section .container {
+    width: 100%;
     padding: 0 47px;
     background-image: url('../img/header-background.png?n=#{Build.BuildID}#');
 }
@@ -299,11 +300,6 @@ div.fancy-select ul.options.open {
     background-color: white;
 }
 
-.translateContainerLeft, .translateContainerRight {
-    margin-left: auto !important;
-    margin-right: auto !important;
-}
-
 #translation_types ul {
     align-self: center;
     padding-top: 12px;
@@ -417,20 +413,11 @@ div.fancy-select div.trigger {
     color: #c9e2ff;
 }
 
-
 .text .translateTextSourceContainer {
-    height: 300px;
     overflow: hidden;
 }
 
-.translateTextSource, .text .translateTextTempSourceContainer {
-    padding-left: 0px !important;
-}
-
-
-
 .text .translateTextResult, .text .translateTextSource {
-    text-align: justify;
     overflow: auto;
     min-width: 150px;
 }
@@ -441,7 +428,7 @@ div.fancy-select div.trigger {
     font-style: italic;
 }
 .text .translateTextResult.translateTextTemp, .text .translateTextTempSourceContainer.translateTextTemp {
-    padding: 15px;
+    padding: 15px 15px 15px 0;
 }
 
 #sourceText {
@@ -529,7 +516,6 @@ div.fancy-select div.trigger {
 
 .backGroundSource {
     text-align: justify !important;
-    padding-right: 2em !important;
     font-style: italic;
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -537,8 +523,6 @@ div.fancy-select div.trigger {
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
-    padding-left: 0;
-    padding-right: 35px
 }
 
 /*/text widget*/
@@ -546,11 +530,6 @@ div.fancy-select div.trigger {
 
 #hidTranslRealFilename {
     display: none !important;
-}
-
-.file .mainContent  {
-    min-height: 450px !important;
-    height: 450px;
 }
 
 .file .qq-upload-button-text {
@@ -573,8 +552,21 @@ div.fancy-select div.trigger {
     background-color: transparent;
 }
 
-.file .translateContainerLeft, .file .translateContainerRight {
+.file .translateContainerLeft {
     height: 100%;
+    border-bottom: 1px solid #053b29;
+    padding-bottom: 15px;
+}
+
+.file .translateContainerRight {
+    border-bottom: 1px solid transparent;
+}
+
+@media (min-width: 768px) {
+    .file .translateContainerLeft, .file .translateContainerRight {
+        border: none;
+        padding: 0;
+    }
 }
 
 .translate_doc_wrapper {
@@ -690,12 +682,7 @@ div.fancy-select ul.options li {
     width: 100%;
 }
 
-.translateTextSource, .text .translateTextTempSourceContainer {
-    padding-left: 0px !important;
-}
-
 .text .translateTextResult, .text .translateTextSource {
-    text-align: justify;
     overflow: auto;
     min-width: 350px;
 }
@@ -778,7 +765,7 @@ div.fancy-select ul.options li {
     cursor: pointer;
     margin: 0;
     position: absolute;
-    right: 20px;
+    right: 28px;
     top: 10px;
 }
 
@@ -828,14 +815,8 @@ div.fancy-select ul.options li {
     height: calc(100% + 2em);
 }
 
-.backGroundSource .classMTsource, .translateTextResult .mt-translation {
-    padding-left: 0px !important;
-}
-
-
 .backGroundSource {
     text-align: justify !important;
-    padding-right: 2em !important;
     font-style: italic;
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -843,8 +824,6 @@ div.fancy-select ul.options li {
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
-    padding-left: 0;
-    padding-right: 35px
 }
 
 /*/text widget*/
@@ -852,11 +831,6 @@ div.fancy-select ul.options li {
 
 #hidTranslRealFilename {
     display: none !important;
-}
-
-.file .mainContent  {
-    min-height: 450px !important;
-    height: 450px;
 }
 
 .file .qq-upload-button-text {
@@ -1455,7 +1429,7 @@ iframe {
 
 .translateResultClear {
     position: absolute;
-    right: 20px;
+    right: 28px;
     top: 10px;
     z-index: 10;
 }
@@ -1595,11 +1569,6 @@ iframe {
 
 
 @media (max-width: 844px) {
-    .row.menu-row {
-        margin-left: 0;
-        margin-right: 0;
-    }
-
     #fileWidget #widget_section .container {
         width: 100%;
         margin-left: 0px;
@@ -1706,9 +1675,6 @@ iframe {
 
 
 @media (max-width: 464px) {
-    .translateTextTemp {
-        padding-left: 0 !important;
-    }
     #title_new_line {
         display: inline !important;
     }
@@ -1765,11 +1731,6 @@ iframe {
         margin-right: 16px;
     }
 
-    #options_section .container {
-        padding-right: 0;
-        padding-left: 0;
-    }
-
     .button {
         padding-left: 4px !important;
         padding-right: 4px !important;
@@ -1786,130 +1747,22 @@ iframe {
     }
 }
 
-@media (min-height: 400px) {
-    .text .translateTextSourceContainer, .translateTextResult {
-        min-height: 150px !important;
-        height: 150px;
-    }
-}
-
-@media (min-height: 500px) {
-    .text .translateTextSourceContainer, .translateTextResult {
-        min-height: 250px !important;
-        height: 250px;
-    }
-}
-
-@media (min-height: 600px) {
-    .text .translateTextSourceContainer, .translateTextResult {
-        min-height: 350px !important;
-        height: 350px;
-    }
-    
-}
-
-@media (min-height: 700px) {
-    .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
-        min-height: 450px !important;
-        height: 450px;
-    }
-}
-
-@media (min-height: 800px) {
-    .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
-        min-height: 550px !important;
-        height: 550px;
-    }
-}
-
-@media (min-height: 900px) {
-    .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
-        min-height: 600px !important;
-        height: 650px;
-    }
-}
-
-@media (min-height: 1000px) {
-    .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
-        min-height: 700px !important;
-        height: 800px;
-    }
-}
-
-@media (min-height: 1100px) {
-    .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
-        min-height: 800px !important;
-        height: 800px;
-    }
-}
-
-@media (min-height: 1200px) {
-    .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
-        min-height: 900px !important;
-        height: 900px;
-    }
-}
-
-@media (min-height: 1300px) {
-    .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
-        min-height: 1000px !important;
-        height: 1000px;
-    }
-}
-
-@media (min-height: 1400px) {
-    .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
-        min-height: 1100px !important;
-        height: 1100px;
-    }
-}
-
-@media (min-height: 1500px) {
-    .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
-        min-height: 1200px !important;
-        height: 1200px;
-    }
-}
-
-@media (min-height: 2000px) {
-    .text .translateTextSourceContainer, .translateTextResult, .file .mainContent {
-        min-height: 1700px !important;
-        height: 1700px;
-    }
-}
-
-@media (max-width: 464px) {
+@media (max-width: 767px) {
     .text .translateTextSourceContainer, .text .translateTextResult {
         min-height: 10px !important;
         height: 165px;
-    }
-
-    .text .translateContainerRight {
-        padding-left: 0 !important;
     }
 
     .text .translateContainerLeft {
         border-bottom: solid 1px #7FAE96;
     }
 
-    .text .translateTextResult {
-        padding: 0;
-    }
-
-    .text .translateContainerLeft, .text .translateContainerRight,
-    .file .translateContainerLeft, .file .translateContainerRight {
-        height: 190px !important;
-    }
-
     .file .translateResult a {
         margin-top: 0;
     }
+
     .contain:after {
         height: 0 !important;
-    }
-
-    .file .docTempTarget, .file .qq-upload-button {
-        top: 30% !important;
     }
 
     .infoMessageBox {
@@ -2096,4 +1949,86 @@ box-sizing:content-box;
     .translateButton {
         display: inline !important;
     }
+}
+
+.translateContainerBody {
+    padding-bottom: 0 !important;
+}
+
+.translateContainerLeft, .translateContainerRight {
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+}
+
+@media (min-width: 768px) {
+    .translateContainerLeft, .translateContainerRight {
+        width: 50% !important;
+    }
+}
+
+.d-flex {
+    display: flex;
+}
+
+.flex-fill {
+    flex: 1 1 auto;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-shrink-0 {
+    flex-shrink: 0 !important;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.translateTextSourceContainer {
+    height: auto !important;
+}
+
+.translateTextSource, .translateTextTempSourceContainer {
+    padding-left: 0;
+}
+
+.mainContent {
+    flex-direction: column;
+}
+
+@media (min-width: 768px) {
+    .mainContent {
+        flex-direction: row;
+    }
+}
+
+.backGroundSource {
+    padding-left: 0 !important;
+}
+
+.translateTextResult {
+    padding: 15px 35px 15px 0;
+}
+
+.translateContainerRight {
+    border-bottom: 1px solid transparent;
+}
+
+@media (min-width: 768px) {
+    .translateContainerRight {
+        border: none;
+    }
+}
+
+#docUploadFile, .qq-upload-drop-area, .qq-uploader, .qq-upload-button {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+.qq-upload-button {
+    top: 0;
 }

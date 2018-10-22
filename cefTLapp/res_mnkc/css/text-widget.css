@@ -19,24 +19,20 @@
 
 
 .verticalLine {
-    border-left: 1px solid #7FAE96;
+    display: none;
     position: absolute;
     top: 63px;
     bottom: 0px;
     left: 50%;
+    border-left: 1px solid #7FAE96
+}
+
+@media (min-width: 768px) {
+    .verticalLine {
+        display: block;
+    }
 }
 
 .inIframe .verticalLine {
     top: 94px;
-}
-
-@media (max-width: 525px) {
-    .verticalLine.inIframe {
-        top: 64px;
-    }
-}
-@media (max-width: 464px) {
-    .verticalLine {
-        display: none;
-    }
 }

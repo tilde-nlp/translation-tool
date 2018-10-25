@@ -1,54 +1,54 @@
-﻿<div class="d-flex flex-column flex-fill">
-    <div class="position-relative d-flex flex-column flex-fill">
-        <div id="textWidget" class="d-flex flex-column flex-fill">
-            <div class="section white_section" id="options_section">
-                <div class="container">
-                    <div class="row menu-row">
-                        <div id="source_lang_div" class="col-sm-5 translate_column_height col-xs-4">
-                            <div data-text="sourceSystem" class="translateSourceSystemLabel hidden-xs"></div>
-                            <select id="text_source_lang" class="translateSourceLang hide"></select>
-                        </div>
-                        <div id="swap_language_div" class="col-sm-1 translate_column_height col-xs-1">
-                            <a data-title="swapLanguage" class="swapLanguage hide"></a>
-                        </div>
-                        <div id="target_lang_div" class="col-sm-4 translate_column_height col-xs-4">
-                            <div data-text="targetSystem" class="translateTargetSystemLabel hidden-xs"></div>
-                            <select id="text_target_lang" class="translateTargetLang hide"></select>
-                        </div>
-                        <div class="col-xs-3 col-sm-2 ">
-                            <div style="display: flex;">
-                                <div id="translate_button_div" class="translate_column_height button">
-                                    <div class="translateProgress icon-loading mr-2 hide"></div>
-                                    <span id="text_translate_button" data-text="translateButton" data-title="translateButton" class="translateButton"></span>
-                                </div>
-                            </div>
-                        </div>
+﻿<div class="position-relative d-flex flex-column flex-fill">
+    <div id="textWidget" class="d-flex flex-column flex-fill">
+        <div id="options_section" class="section white_section flex-shrink-0">
+            <div class="container">
+                <div class="row menu-row">
+                    <div id="source_lang_div" class="col-sm-5 translate_column_height col-xs-4">
+                        <div data-text="sourceSystem" class="translateSourceSystemLabel hidden-xs"></div>
+                        <select id="text_source_lang" class="translateSourceLang hide"></select>
                     </div>
-                </div>
-            </div>
-            <div id="widget_section" class="d-flex flex-column flex-fill">
-                <div class="container d-flex flex-column flex-fill">
-                    <div class="row text d-flex flex-column flex-fill">
-                        <div class="translateContainerBody mainContent col-sm-12 col-xs-12 d-flex flex-fill no_padding_left no_padding_right">
-                            <div class="translateContainerLeft borderBoxSizing col-sm-6 d-flex flex-column flex-fill">
-                                <div class="translateResultClear hide">
-                                    <div data-text="clearTranslation" class="clearText"></div>
-                                    <div class="clearLink"></div>
-                                </div>
-                                <div class="translateTextSourceContainer borderBoxSizing d-flex flex-column flex-fill">
-                                    <div class="backGroundSource borderBoxSizing"></div>
-                                    <textarea rows="10" cols="2" maxlength="10000" id="sourceText" class="translateTextSource d-flex flex-column flex-fill borderBoxSizing"></textarea>
-                                    <div data-text="sourceTextTooltip" class="translateTextTempSourceContainer translateTextTemp d-flex flex-column flex-fill borderBoxSizing"></div>
-                                </div>
-                            </div>
-                            <div class="translateContainerRight borderBoxSizing col-sm-6 d-flex flex-column flex-fill">
-                                <div data-text="targetTextTooltip" class="translateTextResult d-flex flex-column flex-fill borderBoxSizing"></div>
+                    <div id="swap_language_div" class="col-sm-1 translate_column_height col-xs-1">
+                        <a data-title="swapLanguage" class="swapLanguage hide"></a>
+                    </div>
+                    <div id="target_lang_div" class="col-sm-4 translate_column_height col-xs-4">
+                        <div data-text="targetSystem" class="translateTargetSystemLabel hidden-xs"></div>
+                        <select id="text_target_lang" class="translateTargetLang hide"></select>
+                    </div>
+                    <div class="col-xs-3 col-sm-2 ">
+                        <div style="display: flex;">
+                            <div id="translate_button_div" class="translate_column_height button">
+                                <div class="translateProgress icon-loading mr-2 hide"></div>
+                                <span id="text_translate_button" data-text="translateButton" data-title="translateButton" class="translateButton"></span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="verticalLine"></div>
+        <div id="widget_section" class="d-flex flex-column flex-fill">
+            <div class="container d-flex flex-column flex-fill">
+                <div class="row text d-flex flex-column flex-fill">
+                    <div class="translateContainerBody mainContent col-sm-12 col-xs-12 d-flex flex-fill">
+                        <div class="mainContent row d-flex flex-fill">
+                            <div class="translateContainerLeft borderBoxSizing col-xs-12 col-sm-6 d-flex flex-column flex-fill">
+                                <div class="translateResultClear hide">
+                                    <div data-text="clearTranslation" class="clearText"></div>
+                                    <div class="clearLink"></div>
+                                </div>
+                                <div class="translateTextSourceContainer borderBoxSizing d-flex flex-column flex-fill">
+                                    <div class="backGroundSource borderBoxSizing"></div>
+                                    <textarea rows="10" cols="2" maxlength="10000" id="sourceText" class="translateTextSource d-flex flex-fill borderBoxSizing"></textarea>
+                                    <div data-text="sourceTextTooltip" class="translateTextTempSourceContainer translateTextTemp d-flex flex-column flex-fill borderBoxSizing"></div>
+                                </div>
+                            </div>
+                            <div class="translateContainerRight borderBoxSizing col-xs-12 col-sm-6 d-flex flex-column flex-fill">
+                                <div data-text="targetTextTooltip" class="translateTextResult d-flex flex-fill flex-column borderBoxSizing"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="verticalLine"></div>
 </div>

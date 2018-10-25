@@ -1829,6 +1829,7 @@ box-sizing:content-box;
 #text_translate_button {
     float: none;
     margin: auto !important;
+    padding: 0 !important;
     color: #fff;
 }
 

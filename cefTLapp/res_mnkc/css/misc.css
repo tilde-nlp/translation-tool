@@ -300,8 +300,10 @@ div.fancy-select ul.options.open {
     background-color: white;
 }
 
-#widget_section .container {
-    width: 100%;
+@media (max-width: 768px) {
+    #widget_section .container {
+        width: 100%;
+    }
 }
 
 #translation_types ul {

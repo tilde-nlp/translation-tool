@@ -1,4 +1,4 @@
-﻿html,body {
+﻿html, body {
     font-family: 'Raleway', sans-serif !important;
     font-size: 16px;
     height: 100%;
@@ -300,6 +300,12 @@ div.fancy-select ul.options.open {
     background-color: white;
 }
 
+@media (max-width: 768px) {
+    #widget_section .container {
+        width: 100%;
+    }
+}
+
 #translation_types ul {
     align-self: center;
     padding-top: 12px;
@@ -310,12 +316,6 @@ div.fancy-select ul.options.open {
 
 .translateTargetLang .fancified {
     margin-right: 2rem;
-}
-
-.text .translateContainerRight {
-    float: right;
-    background-color: #ffffff;
-    /* overflow: auto; */
 }
 
 .translateSourceSystemLabel, .translateTargetSystemLabel {
@@ -417,22 +417,8 @@ div.fancy-select div.trigger {
     overflow: hidden;
 }
 
-.text .translateTextResult, .text .translateTextSource {
-    overflow: auto;
-    min-width: 150px;
-}
-
-.text .translateTextTempSourceContainer, .translateTextSource, .translateTextResult {
-    font-size: 1em;
-    position: relative;
-    font-style: italic;
-}
 .text .translateTextResult.translateTextTemp, .text .translateTextTempSourceContainer.translateTextTemp {
-    padding: 15px 15px 15px 0;
-}
-
-#sourceText {
-    position: absolute;
+    padding: 15px 0 15px 0;
 }
 
 #translate_section {
@@ -457,7 +443,7 @@ div.fancy-select div.trigger {
 }
 
 .translateContainerLeft, .translateContainerRight {
-    overflow: hidden;
+    overflow: auto;
     border: none;
 }
 
@@ -681,13 +667,8 @@ div.fancy-select ul.options li {
     width: 100%;
 }
 
-.text .translateTextResult, .text .translateTextSource {
-    overflow: auto;
-}
-
 .text .translateTextTempSourceContainer, .translateTextSource, .translateTextResult {
     font-size: 1em;
-    position: relative;
     font-style: italic;
 }
 
@@ -743,11 +724,6 @@ div.fancy-select ul.options li {
 #web_menu .button:active {
     background-color: #568653;
     border-color: #568653;
-}
-
-.translateContainerLeft, .translateContainerRight {
-    overflow: hidden;
-    border: none;
 }
 
 .buttonCancelDoc, .docUploadNewDoc, .translateResultClear, .translateResultClear > div > div {
@@ -1356,32 +1332,10 @@ iframe {
     overflow: hidden;
 }
 
-/*/EU Presidency Translator workshop*/
-    .footer {
-        padding-top: 10px;
-        background-color: white;
-        z-index: 800;
-    }
-
-    .footer p {
-        color: black;
-    }
-
 .footer_text {
-    font-size: 0.7rem;
-    text-align: left;
-    margin-top: auto;
-    margin-bottom: auto;
-    /*padding-bottom: 1.2rem;*/
-}
-
-.footer_tilde {
-    text-align: right;
-}
-
-.footer_link {
-    text-decoration: none;
-    color: #e5242e;
+    font-size: 12px;
+    line-height: 1.2;
+    margin: 6px 0;
 }
 
 .article p {
@@ -1566,14 +1520,6 @@ iframe {
 
 
 @media (max-width: 844px) {
-    #fileWidget #widget_section .container {
-        width: 100%;
-        margin-left: 0px;
-        margin-right: 0px;
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-
     .sample_second_section {
         width: 120px;
     }
@@ -1606,15 +1552,6 @@ iframe {
         margin-right: 0 !important;
         padding-right: 8px !important;
         padding-left: 8px !important;
-    }
-
-    .footer_text {
-        font-size: 0.6rem;
-        margin-left: 0;
-        padding-right: 0;
-        margin-right: 0;
-        vertical-align: bottom;
-        /*padding-bottom: 6px;*/
     }
 
     .translateSourceSystemLabel, .translateTargetSystemLabel, .fancy-select {
@@ -1741,11 +1678,6 @@ iframe {
 }
 
 @media (max-width: 767px) {
-    .text .translateTextSourceContainer, .text .translateTextResult {
-        min-height: 10px !important;
-        height: 165px;
-    }
-
     .text .translateContainerLeft {
         border-bottom: solid 1px #7FAE96;
     }
@@ -1897,6 +1829,7 @@ box-sizing:content-box;
 #text_translate_button {
     float: none;
     margin: auto !important;
+    padding: 0 !important;
     color: #fff;
 }
 
@@ -2003,7 +1936,13 @@ box-sizing:content-box;
 }
 
 .translateTextResult {
-    padding: 15px 35px 15px 0;
+    width: auto;
+    padding: 15px 25px 15px 0;
+    margin-right: 15px;
+}
+
+.text .translateTextResult, .text .translateTextSource {
+    overflow: auto;
 }
 
 .translateContainerRight {
@@ -2024,4 +1963,8 @@ box-sizing:content-box;
 
 .qq-upload-button {
     top: 0;
+}
+
+.translateContainerLeft, .translateContainerRight {
+    min-height: 100px;
 }
